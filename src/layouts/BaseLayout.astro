@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 import JsonLd from "@/components/seo/JsonLd.astro";
+import LockScreen from "@/components/common/LockScreen.astro";
 import { buildMeta, organizationJsonLd, SITE_NAME } from "@/lib/seo";
 
 interface Props {
@@ -41,8 +42,18 @@ const siteUrl = Astro.site?.href ?? Astro.url.origin;
     <meta name="twitter:image" content={new URL(meta.ogImage, siteUrl).href} />
 
     <JsonLd data={organizationJsonLd(siteUrl)} />
+
+    <script is:inline>
+      (function () {
+        var unlocked = localStorage.getItem("traqqr_unlocked") === "1";
+        if (!unlocked) {
+          document.documentElement.setAttribute("data-locked", "true");
+        }
+      })();
+    </script>
   </head>
   <body>
+    <LockScreen />
     <slot />
   </body>
 </html>

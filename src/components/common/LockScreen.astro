@@ -1,0 +1,54 @@
+---
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+---
+
+<div
+  id="lock-screen"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-background px-7"
+>
+  <form
+    id="lock-form"
+    class="flex w-full max-w-sm flex-col gap-4 rounded-xl border border-border bg-card p-8"
+  >
+    <h1 class="font-heading text-xl font-medium text-foreground">Protected preview</h1>
+    <p class="text-sm text-muted-foreground">Enter the password to continue.</p>
+    <input
+      id="lock-password"
+      type="password"
+      autocomplete="off"
+      placeholder="Password"
+      class="h-10 rounded-lg border border-border bg-background px-3 text-sm text-foreground outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+    />
+    <p id="lock-error" class="hidden text-sm text-destructive">Incorrect password.</p>
+    <button type="submit" class={cn(buttonVariants({ variant: "default", size: "lg" }), "h-10 w-full")}>
+      Unlock
+    </button>
+  </form>
+</div>
+
+<script>
+  const PASSWORD = "$up3rL0g1n";
+  const STORAGE_KEY = "traqqr_unlocked";
+
+  const form = document.getElementById("lock-form") as HTMLFormElement | null;
+  const input = document.getElementById("lock-password") as HTMLInputElement | null;
+  const error = document.getElementById("lock-error");
+
+  input?.focus();
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (input?.value === PASSWORD) {
+      localStorage.setItem(STORAGE_KEY, "1");
+      document.documentElement.removeAttribute("data-locked");
+      error?.classList.add("hidden");
+    } else {
+      error?.classList.remove("hidden");
+      if (input) {
+        input.value = "";
+        input.focus();
+      }
+    }
+  });
+</script>
