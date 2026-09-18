@@ -41,8 +41,11 @@ import { buttonVariants } from "@/components/ui/button";
     e.preventDefault();
     if (input?.value === PASSWORD) {
       localStorage.setItem(STORAGE_KEY, "1");
-      document.documentElement.removeAttribute("data-locked");
-      error?.classList.add("hidden");
+      // Full reload rather than an in-place DOM reveal: unhiding the entire
+      // page's worth of content in one JS-driven reflow can leave mobile
+      // browsers stuck at the wrong zoom/layout until the user pinch-zooms.
+      // A real navigation gives the browser a clean initial paint instead.
+      location.reload();
     } else {
       error?.classList.remove("hidden");
       if (input) {
