@@ -28,3 +28,5 @@ pnpm-debug.log*
 
 # local test artifacts
 .playwright-mcp/
+.vercel
+.env*

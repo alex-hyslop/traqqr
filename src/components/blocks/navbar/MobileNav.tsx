@@ -23,7 +23,7 @@ export default function MobileNav({ navLinks }: MobileNavProps) {
     <Sheet>
       <SheetTrigger
         aria-label="Open menu"
-        className="flex size-9 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-[0_1px_1px_rgba(0,0,0,0.05)] md:hidden"
+        className="flex size-9 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-[0_1px_1px_rgba(0,0,0,0.05)] lg:hidden"
       >
         <Menu size={16} />
       </SheetTrigger>

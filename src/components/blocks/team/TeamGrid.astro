@@ -1,9 +1,8 @@
 ---
 // Figma: "Teams 02" node 6288:5367 — the design shows each member's default
 // and hover state as separate mocked-up columns; here that's one card per
-// member with a CSS-only hover treatment (amber duotone + pointer cue).
+// member: amber duotone by default, revealing the full-color photo on hover.
 import { Image } from "astro:assets";
-import { MousePointer } from "lucide-react";
 import mario from "@/assets/images/people/mario-wolosz.jpg";
 import kathrin from "@/assets/images/people/kathrin-reiss.jpg";
 
@@ -29,18 +28,11 @@ const team = [
         team.map(({ photo, name, role }) => (
           <div class="flex flex-col gap-4">
             <div class="group relative h-[220px] overflow-hidden rounded-xl sm:h-[280px] md:h-[324px]">
-              <Image
-                src={photo}
-                alt={name}
-                class="size-full object-cover transition-[filter] duration-300 group-hover:brightness-90 group-hover:sepia group-hover:saturate-200 group-hover:hue-rotate-[-10deg]"
-              />
+              <Image src={photo} alt={name} class="size-full object-cover" />
               <div
-                class="absolute inset-0 bg-primary opacity-0 mix-blend-color transition-opacity duration-300 group-hover:opacity-70"
+                class="absolute inset-0 bg-primary opacity-70 mix-blend-color transition-opacity duration-300 group-hover:opacity-0"
                 aria-hidden="true"
               />
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <MousePointer size={22} className="text-background" fill="black" />
-              </div>
             </div>
             <div class="flex flex-col gap-1">
               <p class="text-xl font-medium text-foreground">{name}</p>
