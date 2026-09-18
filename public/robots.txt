@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://traqqr.vercel.app/sitemap-index.xml
+Sitemap: https://traqqr-git-main-alexhyslop-7992.vercel.app/sitemap-index.xml
