@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/blocks/navbar/Navbar.astro";
+import Hero from "@/components/blocks/hero/Hero.astro";
+import FeatureAttribution from "@/components/blocks/features/FeatureAttribution.astro";
+import Pricing from "@/components/blocks/pricing/Pricing.astro";
+import CtaBanner from "@/components/blocks/cta/CtaBanner.astro";
+import TeamGrid from "@/components/blocks/team/TeamGrid.astro";
+---
+
+<BaseLayout
+  title="Traqqr"
+  description="Real-time event delivery monitoring, conversion API reconciliation, and deterministic marketing attribution."
+>
+  <Navbar />
+  <Hero />
+  <FeatureAttribution />
+  <Pricing />
+  <CtaBanner />
+  <TeamGrid />
+</BaseLayout>

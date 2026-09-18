@@ -1,0 +1,87 @@
+---
+// Figma: "Feature 6" node 6288:5884
+import { Image } from "astro:assets";
+import {
+  ChartColumnIncreasing,
+  ShieldCheck,
+  Fingerprint,
+  Maximize,
+  Server,
+  Plug2,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import bgTexture from "@/assets/images/features/attribution-bg.png";
+import avatar from "@/assets/images/people/tim-gelhausen.png";
+
+const items = [
+  { icon: ChartColumnIncreasing, label: "Event Delivery Monitoring", highlight: true },
+  { icon: ShieldCheck, label: "Field Matching & Validation" },
+  { icon: Fingerprint, label: "Fingerprint Coverage" },
+  { icon: Maximize, label: "Browser Reconciliation" },
+  { icon: Server, label: "Real-time Deduplication" },
+  { icon: Plug2, label: "Integration Hub" },
+];
+---
+
+<section id="attribution" class="w-full px-4 py-12 md:px-20 md:py-20">
+  <div class="mx-auto flex w-full max-w-[1280px] flex-col gap-8 md:gap-12 md:px-16">
+    <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+      <div class="flex flex-col gap-3">
+        <h2 class="font-heading text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          Engineered for Perfect Attribution
+        </h2>
+        <p class="max-w-[564px] text-base leading-7 text-muted-foreground md:text-lg">
+          Track browser events, server-side payload performance, and precision attribution
+          parameters inside our unified analytics grid.
+        </p>
+      </div>
+      <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "h-10 shrink-0 rounded-full px-5")}>
+        Learn more
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-6 md:flex-row md:items-stretch">
+      <div class="relative flex min-h-[420px] w-full shrink-0 items-center overflow-hidden rounded-xl p-8 md:w-[564px] md:p-16">
+        <Image
+          src={bgTexture}
+          alt=""
+          class="absolute inset-0 -z-20 size-full object-cover opacity-25"
+        />
+        <div class="absolute inset-0 -z-10 bg-[rgba(251,146,60,0.14)]" aria-hidden="true" />
+        <div class="flex w-full flex-1 flex-col justify-between gap-8 rounded-lg bg-background px-6 py-8 md:px-8 md:py-10">
+          <div class="flex flex-col gap-6">
+            <Image
+              src={avatar}
+              alt=""
+              class="size-12 shrink-0 rounded"
+              width={48}
+              height={48}
+            />
+            <p class="font-heading text-xl font-medium leading-8 tracking-tight text-foreground md:text-2xl">
+              &ldquo;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.&rdquo;
+            </p>
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm uppercase tracking-wide text-foreground">Tim Gelhausen</p>
+            <p class="text-xs text-muted-foreground">TiGeCo GmbH</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-full flex-col gap-4 md:w-[564px]">
+        {
+          items.map(({ icon: Icon, label, highlight }) => (
+            <div class="flex flex-1 items-center gap-4 rounded-xl bg-muted p-6 md:p-8">
+              <Icon size={24} className={highlight ? "text-primary" : "text-foreground"} />
+              <p class={cn("text-base", highlight ? "text-primary" : "text-foreground")}>
+                {label}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

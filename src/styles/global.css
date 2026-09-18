@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@import "@fontsource-variable/manrope";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-full: var(--radius-pill);
+
+  --font-heading: "Manrope Variable", "Manrope", sans-serif;
+  --font-sans: "Space Mono", monospace;
+}
+
+:root {
+  /* Pulled live from Figma variables (Hero Section 02 node) — not guessed */
+  --background: #030712;
+  --foreground: #f9fafb;
+
+  /* Elevated surface — not in the Figma token pull, verify per-block; kept
+     one step lighter than --background to match the card look in the design */
+  --card: #0b1220;
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+
+  --primary: #ffab40;
+  --primary-foreground: #030712;
+
+  /* Single-accent design — accent reuses primary unless Figma splits them later */
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+
+  --secondary: #111827;
+  --secondary-foreground: var(--foreground);
+
+  --muted: #111827;
+  --muted-foreground: #d1d5db;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #f9fafb;
+
+  --border: #1f2937;
+  --input: var(--border);
+  --ring: var(--primary);
+
+  --radius: 8px;
+  --radius-pill: 999px;
+}
+
+/* Dark by design, not a toggleable dark mode — the whole site uses these values */
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}

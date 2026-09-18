@@ -1,0 +1,56 @@
+---
+// Figma: "Navbar" node 6298:870 (desktop), I6272:4042;2683:4949 (mobile)
+import { Image } from "astro:assets";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import MobileNav from "./MobileNav.tsx";
+import logoWhite from "@/assets/images/logo/traqqr-logo-white.svg";
+
+const navLinks = [
+  { label: "Platform", href: "#" },
+  { label: "Integrations", href: "#" },
+  { label: "Attribution", href: "#attribution" },
+  { label: "Pricing", href: "#pricing" },
+];
+---
+
+<header class="relative z-10 w-full">
+  <div class="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 py-4 md:px-20 md:py-5">
+    <a href="/" class="shrink-0">
+      <Image src={logoWhite} alt="Traqqr" class="h-8 w-auto md:h-10" width={147} height={40} />
+    </a>
+
+    <nav
+      aria-label="Primary"
+      class="hidden items-center gap-0.5 rounded-full p-0.5 md:flex"
+      style="background-image: linear-gradient(247deg, rgba(56,189,248,0.032) 26.5%, rgba(255,171,64,0.134) 49.235%, rgba(3,7,18,0.32) 81.487%);"
+    >
+      {
+        navLinks.map((link, i) => (
+          <a
+            href={link.href}
+            class={cn(
+              "rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap",
+              i === 0
+                ? "border border-[rgba(251,146,60,0.2)] bg-background text-foreground shadow-[0_1px_1px_rgba(0,0,0,0.05)]"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a href="#" class={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-4")}>
+        Console login
+      </a>
+      <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
+        Sign up
+      </a>
+    </div>
+
+    <MobileNav client:visible navLinks={navLinks} />
+  </div>
+</header>
