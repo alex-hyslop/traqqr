@@ -15,7 +15,7 @@ const team = [
 <section class="w-full px-4 py-16 md:px-20 md:py-20">
   <div class="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-10 md:gap-16 md:px-16">
     <div class="flex flex-col items-center gap-3 text-center">
-      <h2 class="font-heading text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
+      <h2 class="font-heading text-3xl font-semibold tracking-tight text-foreground md:text-5xl md:tracking-[-1px]">
         The core team
       </h2>
       <p class="text-base text-muted-foreground">
@@ -23,11 +23,11 @@ const team = [
       </p>
     </div>
 
-    <div class="grid w-full max-w-[600px] grid-cols-2 gap-6 md:gap-8">
+    <div class="grid w-full max-w-[600px] grid-cols-2 gap-6">
       {
         team.map(({ photo, name, role }) => (
-          <div class="flex flex-col gap-4">
-            <div class="group relative h-[220px] overflow-hidden rounded-xl sm:h-[280px] md:h-[324px]">
+          <div class="flex flex-col gap-6">
+            <div class="group relative isolate h-[220px] overflow-hidden rounded-xl sm:h-[280px] md:h-[324px]">
               <Image src={photo} alt={name} class="size-full object-cover" />
               <div
                 class="absolute inset-0 bg-primary opacity-70 mix-blend-color transition-opacity duration-300 group-hover:opacity-0"
@@ -35,7 +35,7 @@ const team = [
               />
             </div>
             <div class="flex flex-col gap-1">
-              <p class="text-xl font-medium text-foreground">{name}</p>
+              <p class="font-heading text-xl font-medium leading-[30px] text-foreground">{name}</p>
               <p class="text-base text-muted-foreground">{role}</p>
             </div>
           </div>

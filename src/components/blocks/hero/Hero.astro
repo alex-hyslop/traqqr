@@ -13,33 +13,37 @@ import mark from "@/assets/images/logo/traqqr-mark.svg";
     aria-hidden="true"
   />
 
-  <div class="flex w-full max-w-[760px] flex-col items-center gap-6 text-center md:gap-8">
+  <div class="flex w-full max-w-[760px] flex-col items-center gap-6 text-center md:gap-[24px]">
     <Image src={mark} alt="" class="size-[56px] md:size-[70px]" width={70} height={70} />
 
-    <div class="flex flex-col items-center gap-3 md:gap-3.5">
-      <p class="text-sm uppercase tracking-[6px] text-foreground md:text-base md:tracking-[10px]">
-        Track Every Event
-      </p>
-      <h1 class="font-heading text-4xl leading-[1.1] tracking-tight text-foreground md:text-6xl md:leading-[60px] md:tracking-[-1.5px]">
-        Trust Every Conversion
-      </h1>
-    </div>
+    <div class="flex flex-col items-center gap-5 md:gap-[22px]">
+      <div class="flex flex-col items-center gap-3 md:gap-[14px]">
+        <p class="text-sm uppercase tracking-[6px] text-foreground md:text-base md:tracking-[10px]">
+          Track Every Event
+        </p>
+        <h1 class="font-heading text-4xl leading-[1.1] tracking-tight text-foreground md:text-6xl md:leading-[60px] md:tracking-[-1.5px]">
+          Trust Every Conversion
+        </h1>
+      </div>
 
-    <p class="max-w-[760px] text-base leading-6 text-muted-foreground">
-      Real-time event delivery monitoring, conversion API reconciliation, and deterministic
-      marketing attribution. Stop leaving performance to chance.
-    </p>
+      <div class="flex flex-col items-center gap-6 md:gap-[32px]">
+        <p class="max-w-[760px] text-base leading-6 text-muted-foreground">
+          Real-time event delivery monitoring, conversion API reconciliation, and deterministic
+          marketing attribution. Stop leaving performance to chance.
+        </p>
 
-    <div class="flex flex-wrap items-center justify-center gap-3">
-      <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
-        Start Free Trial
-      </a>
-      <a
-        href="#"
-        class={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-10 px-5")}
-      >
-        See Live Demo
-      </a>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
+            Start Free Trial
+          </a>
+          <a
+            href="#"
+            class={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-10 px-5")}
+          >
+            See Live Demo
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
