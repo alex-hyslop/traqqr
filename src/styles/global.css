@@ -130,18 +130,3 @@
     font-family: var(--font-heading);
   }
 }
-
-/* Password gate: hidden until data-locked is present on <html> (set by an
-   inline script in BaseLayout before first paint, removed by LockScreen on
-   successful unlock) */
-#lock-screen {
-  display: none;
-}
-
-html[data-locked] body > *:not(#lock-screen) {
-  display: none;
-}
-
-html[data-locked] #lock-screen {
-  display: flex;
-}
