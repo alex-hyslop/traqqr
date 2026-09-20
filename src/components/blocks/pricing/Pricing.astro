@@ -8,6 +8,7 @@ interface Tier {
   name: string;
   description: string;
   price: string;
+  href: string;
   featured?: boolean;
   features: string[];
 }
@@ -17,6 +18,7 @@ const tiers: Tier[] = [
     name: "Free",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
     price: "€0",
+    href: "/signup",
     features: [
       "Access to all core Shadcn UI blocks",
       "Copy-paste ready React Tailwind code",
@@ -29,6 +31,7 @@ const tiers: Tier[] = [
     name: "Pro",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
     price: "€1100",
+    href: "/signup",
     featured: true,
     features: [
       "Everything in Pro",
@@ -42,6 +45,7 @@ const tiers: Tier[] = [
     name: "Custom Enterprise",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
     price: "",
+    href: "/contact",
     features: [
       "Everything in Pro Plus",
       "Unlimited team seats",
@@ -108,7 +112,7 @@ const tiers: Tier[] = [
             </ul>
 
             <a
-              href="#"
+              href={tier.href}
               class={cn(
                 buttonVariants({ variant: tier.featured ? "default" : "outline", size: "lg" }),
                 "h-12 w-full"

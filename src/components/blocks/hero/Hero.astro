@@ -14,7 +14,7 @@ import mark from "@/assets/images/logo/traqqr-mark.svg";
   />
 
   <div class="flex w-full max-w-[760px] flex-col items-center gap-6 text-center md:gap-[24px]">
-    <Image src={mark} alt="" class="size-[56px] md:size-[70px]" width={70} height={70} />
+    <Image src={mark} alt="" class="size-[56px] md:size-[70px]" width={70} height={70} loading="eager" />
 
     <div class="flex flex-col items-center gap-5 md:gap-[22px]">
       <div class="flex flex-col items-center gap-3 md:gap-[14px]">
@@ -33,11 +33,11 @@ import mark from "@/assets/images/logo/traqqr-mark.svg";
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-3">
-          <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
+          <a href="/signup" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
             Start Free Trial
           </a>
           <a
-            href="#"
+            href="/demo"
             class={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-10 px-5")}
           >
             See Live Demo

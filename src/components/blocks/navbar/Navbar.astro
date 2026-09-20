@@ -7,8 +7,8 @@ import MobileNav from "./MobileNav.tsx";
 import logoWhite from "@/assets/images/logo/traqqr-logo-white.svg";
 
 const navLinks = [
-  { label: "Platform", href: "#" },
-  { label: "Integrations", href: "#" },
+  { label: "Platform", href: "/platform" },
+  { label: "Integrations", href: "/integrations" },
   { label: "Attribution", href: "#attribution" },
   { label: "Pricing", href: "#pricing" },
 ];
@@ -17,7 +17,7 @@ const navLinks = [
 <header class="relative z-10 w-full px-7 py-4 md:px-20 md:py-5">
   <div class="mx-auto flex w-full max-w-[1280px] items-center justify-between 2xl:px-16">
     <a href="/" class="shrink-0">
-      <Image src={logoWhite} alt="Traqqr" class="h-8 w-auto md:h-10" width={147} height={40} />
+      <Image src={logoWhite} alt="Traqqr" class="h-8 w-auto md:h-10" width={147} height={40} loading="eager" />
     </a>
 
     <nav
@@ -43,10 +43,10 @@ const navLinks = [
     </nav>
 
     <div class="hidden items-center gap-3 lg:flex">
-      <a href="#" class={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-4")}>
+      <a href="/login" class={cn(buttonVariants({ variant: "ghost", size: "lg" }), "px-4")}>
         Console login
       </a>
-      <a href="#" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
+      <a href="/signup" class={cn(buttonVariants({ variant: "default", size: "lg" }), "px-4")}>
         Sign up
       </a>
     </div>

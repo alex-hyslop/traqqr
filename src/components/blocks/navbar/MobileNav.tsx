@@ -43,10 +43,10 @@ export default function MobileNav({ navLinks }: MobileNavProps) {
           ))}
         </nav>
         <div className="mt-auto flex flex-col gap-2 p-4">
-          <a href="#" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
+          <a href="/login" className={cn(buttonVariants({ variant: "ghost", size: "lg" }))}>
             Console login
           </a>
-          <a href="#" className={cn(buttonVariants({ variant: "default", size: "lg" }))}>
+          <a href="/signup" className={cn(buttonVariants({ variant: "default", size: "lg" }))}>
             Sign up
           </a>
         </div>
