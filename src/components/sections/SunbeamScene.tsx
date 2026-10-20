@@ -6,7 +6,8 @@ import './sunbeam-scene.css';
 // with its markup in React and the scripts unchanged; the overlay script adds its own elements, so
 // this renders once (memo, no props) and initialises once. Media in public/media (needs range
 // requests; Vercel serves them). Mobile (< 760px): the card sits in a band above a cropped video.
-// Needs hydrating (client:visible) so the scripts run.
+// Needs hydrating so the scripts run: client:idle, so its height (set by the script) is final soon
+// after load and anchors further down the page land in the right place.
 export const SunbeamScene = memo(function SunbeamScene() {
   const ref = useRef<HTMLElement>(null);
 
