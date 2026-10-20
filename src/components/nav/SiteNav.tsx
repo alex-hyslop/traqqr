@@ -57,7 +57,7 @@ const resourceIcons: Record<(typeof resourceLinks)[number]['icon'], LucideIcon> 
 
 // Figma triggers: h-9 px-3 rounded-md, Space Mono 400, hover bg-accent, open bg-accent/50.
 const triggerClass =
-  'rounded-md px-3 font-mono font-normal text-foreground hover:bg-accent focus:bg-accent data-open:bg-accent/50 data-open:hover:bg-accent data-open:focus:bg-accent';
+  'rounded-md px-3 font-mono font-normal text-foreground hover:bg-accent focus:bg-accent data-open:bg-accent/50 data-open:hover:bg-accent data-open:focus:bg-accent [&>svg]:transition-none';
 
 // Panels sit 8px under the floating nav (24px under the trigger), Figma: bg-popover border rounded-md shadow-md p-2.
 const panelClass =
@@ -190,7 +190,7 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
         <g.icon className={rowIcon} strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
         <span className="flex-1 text-left">{g.label}</span>
         <ChevronDown
-          className="size-4 shrink-0 transition-transform group-data-[state=open]/row:rotate-180"
+          className="size-4 shrink-0 group-data-[state=open]/row:rotate-180"
           strokeWidth={1}
           absoluteStrokeWidth
           aria-hidden="true"
@@ -268,7 +268,7 @@ export function SiteNav({ integrations }: { integrations: NavIntegration[] }) {
     <header
       data-site-header
       data-scrolled={scrolled || undefined}
-      className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3 lg:top-4 lg:px-4"
+      className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3 lg:px-4"
     >
       <nav
         aria-label="Main"
