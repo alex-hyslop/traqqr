@@ -1,0 +1,90 @@
+---
+// Floating site nav (Figma: Site header / Floating, 5004:1680). Links hide below lg until the mobile menu is designed.
+import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import { ChevronDown } from 'lucide-react';
+import TraqqrLogo from '@/components/brand/TraqqrLogo.astro';
+
+const links = [
+  { label: 'Product', href: '/#product', menu: true },
+  { label: 'Integrations', href: '/#integrations', menu: true },
+  { label: 'Resources', href: '/#resources', menu: true },
+  { label: 'Pricing', href: '/#pricing', menu: false },
+];
+---
+
+<header data-site-header class="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+  <nav
+    aria-label="Main"
+    class="site-nav pointer-events-auto flex h-[68px] items-center gap-6 rounded-xl border border-accent-line py-4 pr-5 pl-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-md"
+  >
+    <a href="/" aria-label="Traqqr home" class="rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+      <TraqqrLogo />
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="flex h-9 items-center gap-1 rounded-md px-3 font-mono text-sm leading-5 text-foreground transition-colors outline-none hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              {link.label}
+              {link.menu && <ChevronDown className="size-3" aria-hidden="true" />}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a href="/signup" class={cn(buttonVariants({ size: 'lg' }), 'ml-auto')}>Start free trial</a>
+  </nav>
+</header>
+
+<style>
+  .site-nav {
+    background-color: var(--card-glass);
+    transition: background-color 0.5s ease;
+  }
+  [data-site-header][data-scrolled] .site-nav {
+    background-color: rgb(28 25 23 / 0.75);
+  }
+
+  /* Scrolled: the wordmark folds away and only the 32px mark stays. The mark itself never moves. */
+  .site-nav :global([data-wordmark]) {
+    max-width: 88.4px;
+    transition:
+      max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease,
+      filter 0.4s ease;
+  }
+  [data-site-header][data-scrolled] .site-nav :global([data-wordmark]) {
+    max-width: 0;
+    opacity: 0;
+    filter: blur(4px);
+  }
+
+  /* Very narrow phones: keep the logo and button on one line by showing the mark only. */
+  @media (max-width: 359px) {
+    .site-nav :global([data-wordmark]) {
+      max-width: 0;
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .site-nav :global([data-wordmark]) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  if (header) {
+    const update = () => header.toggleAttribute('data-scrolled', window.scrollY > 80);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>

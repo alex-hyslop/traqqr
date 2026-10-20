@@ -1,17 +1,15 @@
 ---
-import { Badge, Button } from '@klicktipp/traqqr-components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { SourcePicker } from '@/components/SourcePicker';
+import SiteHeader from '@/components/sections/SiteHeader.astro';
+import Hero from '@/components/sections/Hero.astro';
 ---
 
-<BaseLayout title="Traqqr">
-  <main class="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-24">
-    <Badge variant="success" className="self-start">New</Badge>
-    <h1 class="text-4xl font-bold tracking-tight">Traqqr</h1>
-    <p class="text-muted-foreground">Starting fresh on @klicktipp/traqqr-components.</p>
-    <div class="flex flex-wrap items-center gap-3">
-      <Button size="lg">Start</Button>
-      <SourcePicker client:load />
-    </div>
+<BaseLayout
+  title="Traqqr · Server-side tracking for Meta Ads"
+  description="Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser."
+>
+  <SiteHeader />
+  <main>
+    <Hero />
   </main>
 </BaseLayout>
