@@ -1,23 +1,17 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import Navbar from "@/components/blocks/navbar/Navbar.astro";
-import Hero from "@/components/blocks/hero/Hero.astro";
-import FeatureAttribution from "@/components/blocks/features/FeatureAttribution.astro";
-import Pricing from "@/components/blocks/pricing/Pricing.astro";
-import CtaBanner from "@/components/blocks/cta/CtaBanner.astro";
-import TeamGrid from "@/components/blocks/team/TeamGrid.astro";
+import { Badge, Button } from '@klicktipp/traqqr-components';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SourcePicker } from '@/components/SourcePicker';
 ---
 
-<BaseLayout
-  title="Traqqr"
-  description="Real-time event delivery monitoring, conversion API reconciliation, and deterministic marketing attribution."
->
-  <Navbar />
-  <main>
-    <Hero />
-    <FeatureAttribution />
-    <Pricing />
-    <CtaBanner />
-    <TeamGrid />
+<BaseLayout title="Traqqr">
+  <main class="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-24">
+    <Badge variant="success" className="self-start">New</Badge>
+    <h1 class="text-4xl font-bold tracking-tight">Traqqr</h1>
+    <p class="text-muted-foreground">Starting fresh on @klicktipp/traqqr-components.</p>
+    <div class="flex flex-wrap items-center gap-3">
+      <Button size="lg">Start</Button>
+      <SourcePicker client:load />
+    </div>
   </main>
 </BaseLayout>

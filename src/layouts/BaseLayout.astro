@@ -1,56 +1,25 @@
 ---
-import "@/styles/global.css";
-import JsonLd from "@/components/seo/JsonLd.astro";
-import { buildMeta, organizationJsonLd, SITE_NAME } from "@/lib/seo";
-
-// Preloaded so the browser fetches these in parallel with global.css instead
-// of only discovering them after downloading + parsing the CSS's @font-face
-// rules (was a 3-hop critical request chain: HTML -> CSS -> fonts).
-import manropeWoff2 from "@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url";
-import spaceMonoWoff2 from "@fontsource/space-mono/files/space-mono-latin-400-normal.woff2?url";
+import '@/styles/global.css';
 
 interface Props {
   title: string;
-  description: string;
-  ogImage?: string;
+  description?: string;
 }
 
-const { title, description, ogImage } = Astro.props;
-const meta = buildMeta({ title, description, url: Astro.url.href, ogImage });
-const siteUrl = Astro.site?.href ?? Astro.url.origin;
+const { title, description = 'Traqqr' } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <link rel="preload" as="font" type="font/woff2" href={manropeWoff2} crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href={spaceMonoWoff2} crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="theme-color" content="#030712" />
-    <meta name="generator" content={Astro.generator} />
-
-    <title>{meta.title}</title>
-    <meta name="description" content={meta.description} />
-    <link rel="canonical" href={meta.canonical} />
-
-    <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:title" content={meta.title} />
-    <meta property="og:description" content={meta.description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={meta.canonical} />
-    <meta property="og:image" content={new URL(meta.ogImage, siteUrl).href} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={meta.title} />
-    <meta name="twitter:description" content={meta.description} />
-    <meta name="twitter:image" content={new URL(meta.ogImage, siteUrl).href} />
-
-    <JsonLd data={organizationJsonLd(siteUrl)} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
   </head>
-  <body>
+  <body class="min-h-screen bg-background font-sans text-foreground antialiased">
     <slot />
   </body>
 </html>

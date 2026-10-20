@@ -1,41 +1,37 @@
 # Traqqr
 
-Marketing website for Traqqr, built with [Astro](https://astro.build), [shadcn/ui](https://ui.shadcn.com), and Tailwind CSS v4. Design source: Figma file "Traqqr Shadcn UI Kit".
+Marketing website for Traqqr, built with [Astro](https://astro.build) on the shared Traqqr component library, [`@klicktipp/traqqr-components`](https://github.com/klicktipp/traqqr-component-library).
 
 ## Stack
 
-- **Astro** (static output) — zero-JS by default, islands only where interactive
-- **shadcn/ui + React** — interactive components (e.g. mobile nav) hydrate as islands (`client:visible`); static pieces render as plain `.astro` markup using the same design tokens
-- **Tailwind CSS v4** — CSS-first theme in `src/styles/global.css`, dark-first (single palette, no light/dark toggle)
-- **Astro Content Layer API** — scaffolded collections (`blog`, `changelog`, `case-studies`) in `src/content.config.ts` for future structured content
-- **pnpm** — package manager
+- **Astro** (static output). It ships zero JS by default and adds islands only where a page needs interactivity.
+- **@klicktipp/traqqr-components**: the React component library shared with the app. Its version is pinned, so bump it on purpose. It provides the tokens, fonts and base styles through `styles.css`.
+- **Tailwind CSS v4**: configured in `src/styles/global.css`, with no config file.
+- **Storybook 10** (react-vite): only for the site's own React compositions. Library components are documented in the library's own Storybook.
+- **pnpm**: package manager.
 
-## Project structure
+## Setup
 
-```
-src/
-├── components/
-│   ├── ui/        shadcn primitives (owned by the shadcn CLI)
-│   ├── blocks/     one folder per homepage section, canonical home for that section's markup/copy
-│   ├── common/     shared pieces used by 2+ blocks (not shadcn primitives)
-│   └── seo/        MetaTags, JsonLd
-├── content.config.ts + content/   Markdown/MDX collections (empty in v1)
-├── layouts/BaseLayout.astro       sole owner of <head>, meta/OG/JSON-LD, global CSS import
-├── lib/            cn() helper, SEO helpers
-└── pages/index.astro              assembles blocks only — no section markup lives here
+The library is a private package on GitHub Packages. `.npmrc` reads `GITHUB_TOKEN`, which needs the `read:packages` scope:
+
+```sh
+export GITHUB_TOKEN=$(gh auth token)
+pnpm install
 ```
 
-See `src/components/blocks/FIGMA_MAP.md` for the Figma layer → component mapping.
+## Using the library in Astro
+
+- Library components render to static HTML unless you add `client:load`, `client:visible` or `client:idle`. Astro ignores `"use client"`.
+- Interactive compound components (Select, Tooltip, Sheet, Tabs and similar) need their parts to share React context. Assemble each one in its own `.tsx` file under `src/components/` and hydrate that file as a whole. Don't assemble the parts in `.astro`, because context doesn't cross island boundaries. `src/components/SourcePicker.tsx` is an example.
+- You can't pass event handlers from `.astro` files. Keep them inside the `.tsx`.
+- For dark mode, add `class="dark"` to `<html>` or another ancestor.
 
 ## Commands
 
-| Command | Action |
-| --- | --- |
-| `pnpm dev` | Start local dev server at `localhost:4321` |
-| `pnpm build` | Build production site to `./dist/` |
-| `pnpm preview` | Preview the build locally |
-| `pnpm exec astro check` | Type-check + validate content schemas |
-
-## Deployment
-
-Deploys to Vercel with static output — no adapter needed. Set the real production domain in `astro.config.mjs` (`site` field, currently a placeholder) before launch.
+| Command                | Action                                   |
+| :--------------------- | :--------------------------------------- |
+| `pnpm dev`             | Start the dev server at `localhost:4321` |
+| `pnpm build`           | Build the production site to `./dist/`   |
+| `pnpm check`           | Type-check with `astro check`            |
+| `pnpm storybook`       | Start Storybook at `localhost:6007`      |
+| `pnpm build-storybook` | Build static Storybook                   |
