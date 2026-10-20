@@ -42,12 +42,8 @@ import {
   resourceLinks,
   signupHref,
   type NavLink,
-} from './links';
-
-export interface NavIntegration {
-  name: string;
-  logo: string;
-}
+} from '@/data/links';
+import { integrations as allIntegrations, type Integration } from '@/data/integrations';
 
 const resourceIcons: Record<(typeof resourceLinks)[number]['icon'], LucideIcon> = {
   docs: BookOpen,
@@ -85,7 +81,7 @@ function IconBox({ children }: { children: React.ReactNode }) {
   return <span className="flex size-5 shrink-0 items-center justify-center">{children}</span>;
 }
 
-function DesktopMenu({ integrations }: { integrations: NavIntegration[] }) {
+function DesktopMenu({ integrations }: { integrations: Integration[] }) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
@@ -114,7 +110,7 @@ function DesktopMenu({ integrations }: { integrations: NavIntegration[] }) {
               {integrations.map((integration) => (
                 <PanelLink key={integration.name} link={{ title: integration.name, href: integrationsHref }}>
                   <IconBox>
-                    <img src={integration.logo} alt="" width={16} height={16} className="size-4" />
+                    <img src={integration.mono} alt="" width={16} height={16} className="size-4" />
                   </IconBox>
                 </PanelLink>
               ))}
@@ -261,16 +257,24 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
 // Desktop: floating glass bar with logo, NavigationMenu dropdowns and "Start free trial"; past 80px of
 // scroll the wordmark folds away. Below lg: the dashboard's top bar (full logo + its menu toggle) at the
 // top of the page, turning into the floating glass bar past 80px. Bar states live in global.css (.site-nav).
-export function SiteNav({ integrations }: { integrations: NavIntegration[] }) {
-  const [scrolled, setScrolled] = useState(false);
+export interface SiteNavProps {
+  integrations?: Integration[];
+  /** Pin the scrolled state (Storybook); by default it follows window scroll past 80px. */
+  scrolled?: boolean;
+}
+
+export function SiteNav({ integrations = allIntegrations, scrolled: scrolledOverride }: SiteNavProps) {
+  const [scrolledByPage, setScrolledByPage] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const scrolled = scrolledOverride ?? scrolledByPage;
 
   useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 80);
+    if (scrolledOverride !== undefined) return;
+    const update = () => setScrolledByPage(window.scrollY > 80);
     update();
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
-  }, []);
+  }, [scrolledOverride]);
 
   return (
     <>

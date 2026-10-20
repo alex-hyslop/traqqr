@@ -1,0 +1,26 @@
+/* Globe above the footer: Kev's drop-in (traqqr-homepage-astro, 20 Oct), ported from the prototype.
+   Scoped under .globe-sec so its generic class names (.sig, .ok, .dome) can't clash with the rest of
+   the site; the selectors and values are otherwise his. Pairs with src/scripts/motion/globe.js. */
+.globe-sec{position:relative;z-index:1;width:100%;aspect-ratio:1600/860;max-height:900px;min-height:420px;overflow:hidden;margin-top:24px}
+.globe-sec .dome{position:absolute;border-radius:50%;background:#141210;pointer-events:none}
+.globe-sec canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.globe-sec .sig{position:absolute;left:0;top:0;z-index:2;pointer-events:none;will-change:transform}
+.globe-sec .sig .stem{position:absolute;left:0;top:0;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,.9),rgba(255,255,255,.12));transform-origin:50% 100%;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.globe-sec .sig .tick{position:absolute;left:-2px;top:-2px;width:5px;height:5px;border-radius:50%;background:#fff;opacity:0;transition:opacity .3s .55s}
+.globe-sec .sig .ro{position:absolute;top:-4px;display:grid;gap:4px;padding:10px 12px;border:1px solid rgba(255,255,255,.14);border-radius:4px;background:rgba(12,10,9,.72);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);white-space:nowrap;opacity:0;transform:translateY(12px);transition:opacity .5s .5s, transform .6s .5s cubic-bezier(.2,.7,.2,1), border-color .6s;transform-origin:left top}
+.globe-sec .sig .ro{scale:var(--sc,1)}
+.globe-sec .sig.right .ro{left:10px;transform-origin:left top}
+.globe-sec .sig.left .ro{right:10px;transform-origin:right top}
+.globe-sec .sig .k{font:400 11px/1.3 var(--font-mono, "Space Mono", ui-monospace, monospace);color:rgba(255,255,255,.55);letter-spacing:.04em}
+.globe-sec .sig b{font:400 13px/1.3 var(--font-mono, "Space Mono", ui-monospace, monospace);color:var(--foreground, #fafaf9)}
+.globe-sec .sig .s{font:400 11px/1.3 var(--font-mono, "Space Mono", ui-monospace, monospace);color:rgba(255,255,255,.55)}
+.globe-sec .sig .s em{font-style:normal;color:var(--success, #4ade80);margin-left:6px}
+.globe-sec .sig.on .stem{transform:scaleY(1)}
+.globe-sec .sig.on .tick{opacity:1}
+.globe-sec .sig.on .ro{opacity:1;transform:none}
+.globe-sec .sig.ping .ro{border-color:rgba(255,183,77,.75)}
+.globe-sec .sig.swap .ro b,.globe-sec .sig.swap .ro .s{animation:globe-swapin .5s ease}
+@keyframes globe-swapin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.globe-sec .ok{display:inline-block;width:1.1em;height:1.1em;vertical-align:-.2em}
+@media (max-width: 980px){ .globe-sec .sig.minor{display:none} }

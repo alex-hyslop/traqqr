@@ -1,29 +1,36 @@
 ---
+// Homepage (Figma: Homepage · traqqr.ai 5004:62488; mobile 5063:15558). Sections are React
+// components rendered to static HTML; only the ones with behaviour are hydrated.
+import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SiteHeader from '@/components/sections/SiteHeader.astro';
-import Hero from '@/components/sections/Hero.astro';
-import IntegrationsStrip from '@/components/sections/IntegrationsStrip.astro';
-import ComparisonTable from '@/components/sections/ComparisonTable.astro';
-import TextMedia from '@/components/sections/TextMedia.astro';
-import HowItWorks from '@/components/sections/HowItWorks.astro';
-import Testimonial from '@/components/sections/Testimonial.astro';
-import Faq from '@/components/sections/Faq.astro';
-import Cta from '@/components/sections/Cta.astro';
-import SiteFooter from '@/components/sections/SiteFooter.astro';
-import SunbeamScene from '@/components/motion/SunbeamScene.astro';
-import Globe from '@/components/motion/Globe.astro';
+import photo from '@/assets/testimonials/dawid-przybylski.jpg';
+import { SiteNav } from '@/components/sections/SiteNav';
+import { Hero } from '@/components/sections/Hero';
+import { IntegrationsStrip } from '@/components/sections/IntegrationsStrip';
+import { ComparisonTable } from '@/components/sections/ComparisonTable';
+import { SunbeamScene } from '@/components/sections/SunbeamScene';
+import { TextMedia } from '@/components/sections/TextMedia';
+import { HowItWorks } from '@/components/sections/HowItWorks';
+import { Testimonial } from '@/components/sections/Testimonial';
+import { Faq } from '@/components/sections/Faq';
+import { Cta } from '@/components/sections/Cta';
+import { Globe } from '@/components/sections/Globe';
+import { SiteFooter } from '@/components/sections/SiteFooter';
+
+const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
+const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
 ---
 
 <BaseLayout
   title="Traqqr · Server-side tracking for Meta Ads"
   description="Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser."
 >
-  <SiteHeader />
+  <SiteNav client:load />
   <main>
     <Hero />
-    <IntegrationsStrip />
+    <IntegrationsStrip client:visible />
     <ComparisonTable />
-    <SunbeamScene />
+    <SunbeamScene client:visible={{ rootMargin: '600px' }} />
     <TextMedia
       id="product"
       badge="Live Feed"
@@ -54,10 +61,20 @@ import Globe from '@/components/motion/Globe.astro';
       borderTop
     />
     <HowItWorks />
-    <Testimonial />
-    <Faq />
+    <Testimonial
+      quote={[
+        '“Since we started using traqqr.ai, our processes',
+        'run far more reliably. Errors are caught early and our team',
+        'always knows exactly what to do.”',
+      ]}
+      name="Dawid Przybylski"
+      role="Founder & Managing Director, Visual Facilitators GmbH"
+      photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
+      avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
+    />
+    <Faq client:visible />
     <Cta />
-    <Globe />
+    <Globe client:visible />
   </main>
   <SiteFooter />
 </BaseLayout>

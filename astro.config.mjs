@@ -11,5 +11,18 @@ export default defineConfig({
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    // Pre-bundle what the islands import, so the dev server doesn't discover them on the first page
+    // load and fail with "504 Outdated Optimize Dep" until a reload.
+    optimizeDeps: {
+      include: [
+        '@klicktipp/traqqr-components',
+        '@klicktipp/traqqr-components/utils',
+        'lucide-react',
+        'radix-ui',
+        'class-variance-authority',
+        'gsap',
+        'gsap/CustomEase',
+      ],
+    },
   },
 });

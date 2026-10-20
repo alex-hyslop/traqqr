@@ -121,6 +121,34 @@
 }
 
 /*
+ * Section backgrounds that need more than utilities.
+ */
+@layer components {
+  /* Hero top glow: half radial brand glow from the top edge, behind the HUD and cards. */
+  .hero-glow {
+    background: radial-gradient(
+      847px 846px at 50% 0,
+      var(--hero-glow-core) 0%,
+      var(--hero-glow-mid) 50%,
+      rgb(255 153 51 / 0) 100%
+    );
+  }
+
+  /* Logo tile fill (Figma 5058:1680): the card-media gradient. */
+  .logo-tile {
+    background-image: linear-gradient(-57.65deg, var(--card-media-from) 20.1%, var(--card-media-to) 85.78%);
+  }
+
+  /* CTA card: the dashboard's app background (Figma Style=Gradient 4211:139) at the card's 200px blur. */
+  .cta-glow {
+    background:
+      linear-gradient(rgb(0 0 0 / 0.44), rgb(0 0 0 / 0.44)),
+      linear-gradient(224.84deg, #1c2c3e 30.35%, rgb(255 171 64 / 0.42) 41.83%, #17212c 57.17%);
+    filter: blur(200px);
+  }
+}
+
+/*
  * Chamfered shape (Card / Landing, HUD frame): top-right and bottom-left cut at 45°,
  * the other two corners rounded. Built once here and used through Chamfered.astro.
  * --chamfer-cut, --chamfer-radius and --chamfer-accent are set per instance.
