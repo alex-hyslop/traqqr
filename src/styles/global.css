@@ -52,6 +52,14 @@
     backdrop-filter: blur(12px);
   }
 
+  /* Fill=Off (HUD frame toggle on landing blocks): outline only, no glass. */
+  .chamfer[data-fill="none"] > .chamfer-surface {
+    background: none;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   /* The border along each 45° cut, kept on the inside like Figma's inner stroke. */
   .chamfer-edge {
     position: absolute;
