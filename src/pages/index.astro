@@ -30,5 +30,20 @@ import TextMedia from '@/components/sections/TextMedia.astro';
       ]}
       grid
     />
+    <TextMedia
+      id="reverse-proxy"
+      badge="First-party reverse proxy"
+      title={['Your domain. Your data.', 'Fewer blocked events.']}
+      body="Route tracking through your own subdomain with Cloudflare, so ad blockers treat it like the rest of your site."
+      items={[
+        'Runs on your own domain',
+        'Set up with Cloudflare',
+        'Up to 4 proxy domains per site',
+        'Falls back safely if you switch it off',
+      ]}
+      mediaSide="left"
+      grid
+      borderTop
+    />
   </main>
 </BaseLayout>

@@ -9,7 +9,8 @@ import { ArrowRight, Check, Image } from 'lucide-react';
 interface Props {
   id?: string;
   badge: string;
-  title: string;
+  /** Pass lines to keep Figma's manual line break on desktop; it's dropped below lg (handover §3b). */
+  title: string | string[];
   body: string;
   items: string[];
   mediaSide?: 'left' | 'right';
@@ -19,6 +20,7 @@ interface Props {
 
 const { id, badge, title, body, items, mediaSide = 'right', grid = false, borderTop = false } = Astro.props;
 const headingId = id ? `${id}-heading` : undefined;
+const titleLines = Array.isArray(title) ? title : [title];
 ---
 
 <section
@@ -35,7 +37,9 @@ const headingId = id ? `${id}-heading` : undefined;
     <div class="flex min-w-0 flex-1 flex-col gap-6">
       <div class="flex flex-col items-start gap-3">
         <Badge variant="outline">{badge}</Badge>
-        <h2 id={headingId} class="text-3xl leading-9 font-light text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+        <h2 id={headingId} class="text-3xl leading-9 font-light text-foreground lg:text-4xl lg:leading-10">
+          {titleLines.map((line, i) => (i === 0 ? line : <Fragment> <br class="hidden lg:inline" />{line}</Fragment>))}
+        </h2>
         <p class="text-base leading-6 text-muted-foreground">{body}</p>
       </div>
 
