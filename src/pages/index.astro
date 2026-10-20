@@ -4,6 +4,7 @@ import SiteHeader from '@/components/sections/SiteHeader.astro';
 import Hero from '@/components/sections/Hero.astro';
 import IntegrationsStrip from '@/components/sections/IntegrationsStrip.astro';
 import ComparisonTable from '@/components/sections/ComparisonTable.astro';
+import TextMedia from '@/components/sections/TextMedia.astro';
 ---
 
 <BaseLayout
@@ -15,5 +16,19 @@ import ComparisonTable from '@/components/sections/ComparisonTable.astro';
     <Hero />
     <IntegrationsStrip />
     <ComparisonTable />
+    <TextMedia
+      id="product"
+      badge="Live Feed"
+      title="See every event the moment it happens."
+      body="Watch visits, leads and sales arrive in real time, and check exactly what reached Meta from the browser and from your server."
+      items={[
+        'Live feed of every event',
+        'Browser vs. server delivery',
+        'Deduplication at a glance',
+        'Fingerprint coverage per site',
+        'Event Inspector for debugging',
+      ]}
+      grid
+    />
   </main>
 </BaseLayout>

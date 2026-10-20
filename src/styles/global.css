@@ -6,6 +6,7 @@
   --card-glass: #1c19178c;
   --accent-line: #535151;
   --landing-placeholder: #292524;
+  --grid-line: #ffffff09;
   --hero-glow-core: rgb(255 176 69 / 0.5);
   --hero-glow-mid: rgb(255 163 56 / 0.2);
 }
@@ -14,6 +15,34 @@
   --color-card-glass: var(--card-glass);
   --color-accent-line: var(--accent-line);
   --color-landing-placeholder: var(--landing-placeholder);
+}
+
+/*
+ * Background / Grid (Figma 4779:5838): 64px lines at the grid-line token, fading to the
+ * page background towards the edges. Used on the Text + media sections.
+ */
+@layer components {
+  .grid-bg {
+    position: relative;
+    isolation: isolate;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .grid-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 66.67% 58.82% at 50% 50%,
+      transparent 20%,
+      rgb(12 10 9 / 0.35) 50%,
+      var(--background) 100%
+    );
+  }
 }
 
 /*
