@@ -10,6 +10,8 @@ import Testimonial from '@/components/sections/Testimonial.astro';
 import Faq from '@/components/sections/Faq.astro';
 import Cta from '@/components/sections/Cta.astro';
 import SiteFooter from '@/components/sections/SiteFooter.astro';
+import SunbeamScene from '@/components/motion/SunbeamScene.astro';
+import Globe from '@/components/motion/Globe.astro';
 ---
 
 <BaseLayout
@@ -21,6 +23,7 @@ import SiteFooter from '@/components/sections/SiteFooter.astro';
     <Hero />
     <IntegrationsStrip />
     <ComparisonTable />
+    <SunbeamScene />
     <TextMedia
       id="product"
       badge="Live Feed"
@@ -54,6 +57,7 @@ import SiteFooter from '@/components/sections/SiteFooter.astro';
     <Testimonial />
     <Faq />
     <Cta />
+    <Globe />
   </main>
   <SiteFooter />
 </BaseLayout>

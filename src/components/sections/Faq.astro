@@ -1,18 +1,17 @@
 ---
 // FAQ (Figma: Block / FAQ 4689:40326, homepage 5004:62531; mobile 5063:15663).
-// Only "Does Traqqr replace my Meta Pixel?" has an answer from Kev; the others are drafts
-// written from the homepage copy and need his review before launch.
+// Answers and their styling from Kev (Slack, 20 Oct 11:41): muted, text-base answers.
 import { FaqAccordion } from '@/components/FaqAccordion';
 
 const faqs = [
   {
     question: 'What is server-side tracking?',
     answer:
-      'Your server sends each visit, lead and sale to Meta directly, as well as the browser. Ad blockers and cookie banners can stop the browser, but not your server.',
+      "Your server sends each visit, lead and sale to Meta directly, instead of relying only on the pixel in the visitor's browser. Ad blockers and browser limits can't stop that copy.",
   },
   {
     question: 'Do I need a developer to set it up?',
-    answer: "No. You paste one snippet into your site's <head> and connect your tools. Most sites are live within minutes.",
+    answer: "No. You paste one snippet into your site's <head> and connect Meta from the dashboard.",
   },
   {
     question: 'Which tools does Traqqr work with?',
@@ -27,15 +26,16 @@ const faqs = [
   {
     question: 'Will ad blockers still block my tracking?',
     answer:
-      'Events sent from your server reach Meta even when the browser is blocked. With the reverse proxy, browser tracking also runs through your own subdomain.',
+      "Server-side events aren't affected. With the first-party reverse proxy on your own subdomain, browser events are blocked far less often too.",
   },
   {
     question: 'Can I see what is sent to Meta?',
-    answer: 'Yes. Live Feed shows every event as it arrives, and whether it reached Meta from the browser, your server or both.',
+    answer:
+      'Yes. Live Feed shows every event as it arrives, and Event Inspector shows exactly what each one contained.',
   },
   {
     question: 'Can I try Traqqr for free?',
-    answer: 'Yes, you can start with a free trial.',
+    answer: 'Start a free trial from any "Start free trial" button on this page.',
   },
 ];
 ---

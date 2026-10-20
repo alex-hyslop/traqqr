@@ -13,7 +13,7 @@ export function FaqAccordion({ items, defaultOpen }: { items: FaqItem[]; default
       {items.map((item, i) => (
         <AccordionItem key={item.question} value={`item-${i}`} className="border-b">
           <AccordionTrigger className="border-0 font-normal text-foreground hover:no-underline">{item.question}</AccordionTrigger>
-          <AccordionContent className="text-foreground">
+          <AccordionContent className="pt-1 pb-4 text-base leading-6 text-muted-foreground">
             <p>{item.answer}</p>
           </AccordionContent>
         </AccordionItem>
