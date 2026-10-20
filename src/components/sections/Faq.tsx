@@ -14,7 +14,8 @@ export interface FaqProps {
   defaultOpen?: number;
 }
 
-// Answers and their styling from Kev (Slack, 20 Oct 11:41).
+// Answers from Kev (Slack, 20 Oct 11:41), in muted text. Size and spacing as in Figma: 14/20 with pb-2.5,
+// the same size as the questions (Kev, 16:45).
 const defaultItems: FaqItem[] = [
   {
     question: 'What is server-side tracking?',
@@ -68,7 +69,7 @@ export function Faq({ title = 'Frequently asked questions', items = defaultItems
               <AccordionTrigger className="border-0 font-normal text-foreground hover:no-underline">
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className="pt-1 pb-4 text-base leading-6 text-muted-foreground">
+              <AccordionContent className="pb-2.5 text-sm leading-5 text-muted-foreground">
                 <p>{item.answer}</p>
               </AccordionContent>
             </AccordionItem>
