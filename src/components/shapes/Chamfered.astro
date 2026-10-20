@@ -11,8 +11,8 @@ interface Props extends Omit<HTMLAttributes<'div'>, 'style'> {
   radius?: number;
   /** Length of the straight part of the accent lines in px, or 0 for none. */
   accent?: number;
-  /** 'glass' for cards and the hero; 'none' for the outline-only HUD frame around a section. */
-  fill?: 'glass' | 'none';
+  /** 'glass' over glows (hero), 'solid' on flat bands (How it works), 'none' for the outline-only HUD frame. */
+  fill?: 'glass' | 'solid' | 'none';
   class?: string;
 }
 

@@ -1,0 +1,50 @@
+---
+// How it works (Figma: Block / How it works 5058:1650, homepage 5058:63858; mobile 5063:15647).
+// bg-card band with border-y, centred section heading and three plain (not clickable) chamfered cards.
+import { Badge } from '@klicktipp/traqqr-components';
+import Chamfered from '@/components/shapes/Chamfered.astro';
+
+const steps = [
+  {
+    eyebrow: '01 / ADD YOUR SITE',
+    title: 'Paste one snippet.',
+    body: "Add the Traqqr snippet to your site's <head>. That's the only code you need.",
+  },
+  {
+    eyebrow: '02 / CONNECT',
+    title: 'Link Meta and your tools.',
+    body: 'Connect your Meta pixel, then tools like KlickTipp, Digistore24 or EverWebinar.',
+  },
+  {
+    eyebrow: '03 / WATCH',
+    title: 'See every event arrive.',
+    body: 'Live Feed shows what reached Meta, from the browser and from your server.',
+  },
+];
+---
+
+<section id="how-it-works" aria-labelledby="how-it-works-heading" class="scroll-mt-24 border-y bg-card">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-7 px-6 py-14 lg:gap-12 lg:py-20">
+    <div class="flex max-w-[680px] flex-col items-center gap-4 text-center">
+      <Badge variant="outline">How it works</Badge>
+      <h2 id="how-it-works-heading" class="text-3xl leading-9 font-light text-foreground lg:text-4xl lg:leading-10">
+        Live in three steps.
+      </h2>
+      <p class="text-base leading-6 text-muted-foreground">
+        No tag manager, no developer. Most sites send their first server-side event within minutes.
+      </p>
+    </div>
+
+    <ol class="grid w-full grid-cols-1 gap-3 md:grid-cols-3 lg:gap-6">
+      {
+        steps.map((step) => (
+          <Chamfered as="li" fill="solid" class="flex flex-col gap-2 p-6">
+            <p class="pb-2 font-mono text-xs leading-4 text-muted-foreground">{step.eyebrow}</p>
+            <h3 class="text-lg leading-7 font-normal text-card-foreground">{step.title}</h3>
+            <p class="text-sm leading-5 text-muted-foreground">{step.body}</p>
+          </Chamfered>
+        ))
+      }
+    </ol>
+  </div>
+</section>

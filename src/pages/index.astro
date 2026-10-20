@@ -5,6 +5,11 @@ import Hero from '@/components/sections/Hero.astro';
 import IntegrationsStrip from '@/components/sections/IntegrationsStrip.astro';
 import ComparisonTable from '@/components/sections/ComparisonTable.astro';
 import TextMedia from '@/components/sections/TextMedia.astro';
+import HowItWorks from '@/components/sections/HowItWorks.astro';
+import Testimonial from '@/components/sections/Testimonial.astro';
+import Faq from '@/components/sections/Faq.astro';
+import Cta from '@/components/sections/Cta.astro';
+import SiteFooter from '@/components/sections/SiteFooter.astro';
 ---
 
 <BaseLayout
@@ -45,5 +50,10 @@ import TextMedia from '@/components/sections/TextMedia.astro';
       grid
       borderTop
     />
+    <HowItWorks />
+    <Testimonial />
+    <Faq />
+    <Cta />
   </main>
+  <SiteFooter />
 </BaseLayout>

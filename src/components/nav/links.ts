@@ -1,5 +1,6 @@
 // Landing nav content (Kev's 20 Oct nav update, Figma 5073:16323). Labels and descriptions are
-// placeholders, and every href is "#" until the pages exist (Kev, 20 Oct: MVP homepage).
+// placeholders, and every href is "#" until the pages exist (Kev, 20 Oct: MVP homepage),
+// except "Start free trial" and "Log in", which go to the app login.
 // Desktop dropdowns and the mobile menu share them.
 
 export interface NavLink {
@@ -22,5 +23,5 @@ export const resourceLinks: (NavLink & { icon: 'docs' | 'help' | 'blog' })[] = [
 
 export const integrationsHref = '#';
 export const pricingHref = '#';
-export const loginHref = '#';
-export const signupHref = '#';
+export const signupHref = 'https://traqqr.ai/app/login';
+export const loginHref = signupHref;

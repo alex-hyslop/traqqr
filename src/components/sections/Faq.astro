@@ -1,0 +1,52 @@
+---
+// FAQ (Figma: Block / FAQ 4689:40326, homepage 5004:62531; mobile 5063:15663).
+// Only "Does Traqqr replace my Meta Pixel?" has an answer from Kev; the others are drafts
+// written from the homepage copy and need his review before launch.
+import { FaqAccordion } from '@/components/FaqAccordion';
+
+const faqs = [
+  {
+    question: 'What is server-side tracking?',
+    answer:
+      'Your server sends each visit, lead and sale to Meta directly, as well as the browser. Ad blockers and cookie banners can stop the browser, but not your server.',
+  },
+  {
+    question: 'Do I need a developer to set it up?',
+    answer: "No. You paste one snippet into your site's <head> and connect your tools. Most sites are live within minutes.",
+  },
+  {
+    question: 'Which tools does Traqqr work with?',
+    answer:
+      'Meta Ads and Facebook, plus Cloudflare, KlickTipp, Digistore24, Ablefy, EverWebinar, Webinaris and HubSpot.',
+  },
+  {
+    question: 'Does Traqqr replace my Meta Pixel?',
+    answer:
+      'No. Traqqr works alongside your pixel. Meta gets each event from the browser and from your server, and counts it once thanks to deduplication.',
+  },
+  {
+    question: 'Will ad blockers still block my tracking?',
+    answer:
+      'Events sent from your server reach Meta even when the browser is blocked. With the reverse proxy, browser tracking also runs through your own subdomain.',
+  },
+  {
+    question: 'Can I see what is sent to Meta?',
+    answer: 'Yes. Live Feed shows every event as it arrives, and whether it reached Meta from the browser, your server or both.',
+  },
+  {
+    question: 'Can I try Traqqr for free?',
+    answer: 'Yes, you can start with a free trial.',
+  },
+];
+---
+
+<section id="faq" aria-labelledby="faq-heading" class="scroll-mt-24">
+  <div class="mx-auto flex max-w-[728px] flex-col items-center gap-6 px-6 py-14 lg:gap-8 lg:py-20">
+    <h2 id="faq-heading" class="w-full text-3xl leading-9 font-light text-foreground lg:text-4xl lg:leading-10">
+      Frequently asked questions
+    </h2>
+    <div class="w-full rounded-xl border bg-card p-4">
+      <FaqAccordion client:visible items={faqs} defaultOpen={3} />
+    </div>
+  </div>
+</section>

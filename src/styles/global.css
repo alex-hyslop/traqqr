@@ -125,6 +125,14 @@
     backdrop-filter: none;
   }
 
+  /* Surface=Default (How it works cards on the bg-card band): solid card fill, no glass. */
+  .chamfer[data-fill="solid"] > .chamfer-surface {
+    background: var(--card);
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
   /* The border along each 45° cut, kept on the inside like Figma's inner stroke. */
   .chamfer-edge {
     position: absolute;

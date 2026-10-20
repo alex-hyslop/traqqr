@@ -239,7 +239,7 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
         {/* The X sits above the overlay, in the hamburger's spot in the nav. */}
         <Button
           variant="ghost"
-          className="fixed top-[28.2px] right-7 h-9 w-12"
+          className="fixed top-[28.2px] right-7 h-9 w-12 cursor-pointer hover:bg-accent active:bg-accent/70"
           onClick={close}
           aria-label="Close menu"
         >
@@ -287,7 +287,7 @@ export function SiteNav({ integrations }: { integrations: NavIntegration[] }) {
 
         <Button
           variant="ghost"
-          className="h-9 w-12 lg:hidden"
+          className="h-9 w-12 cursor-pointer hover:bg-accent active:bg-accent/70 lg:hidden"
           onClick={() => setMenuOpen(true)}
           aria-label="Open menu"
           aria-expanded={menuOpen}

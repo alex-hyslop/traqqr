@@ -1,0 +1,62 @@
+---
+// Footer (Figma: Block / Footer 5058:1677, homepage 5058:63908; mobile 5063:15675).
+// Links are plain <a>: "#" placeholders until the pages exist, except "Log in" (the app login).
+import { Separator } from '@klicktipp/traqqr-components';
+import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
+import { loginHref } from '@/components/nav/links';
+
+const columns = [
+  { heading: 'Product', links: ['Features', 'Integrations', 'Pricing', 'Live Feed'] },
+  { heading: 'Resources', links: ['Docs', 'Help center', 'Blog'] },
+  { heading: 'Company', links: ['About', 'Contact', 'Log in'] },
+];
+const legal = ['Privacy', 'Terms', 'Imprint'];
+---
+
+<footer class="border-t">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 pt-12 pb-8 lg:gap-10 lg:pt-16 lg:pb-10">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div class="flex flex-col gap-3">
+        <a href="/" aria-label="Traqqr home" class="flex self-start">
+          <TraqqrLogo height={40.826} />
+        </a>
+        <p class="text-sm leading-5 text-muted-foreground">Server-side tracking for Meta Ads.</p>
+      </div>
+
+      <nav aria-label="Footer" class="flex flex-wrap gap-10 lg:gap-20">
+        {
+          columns.map((column) => (
+            <div class="flex flex-col gap-3">
+              <h2 class="font-mono text-xs leading-4 text-foreground uppercase">{column.heading}</h2>
+              <ul class="flex flex-col gap-3">
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link === 'Log in' ? loginHref : '#'} class="block text-sm leading-5 whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </div>
+
+    <Separator />
+
+    <div class="flex flex-col gap-2 font-mono text-xs leading-4 text-muted-foreground lg:flex-row lg:justify-between">
+      <p>© 2026 Traqqr. All rights reserved.</p>
+      <p class="flex gap-2">
+        {
+          legal.map((item, i) => (
+            <Fragment>
+              {i > 0 && <span aria-hidden="true">·</span>}
+              <a href="#" class="transition-colors hover:text-foreground">{item}</a>
+            </Fragment>
+          ))
+        }
+      </p>
+    </div>
+  </div>
+</footer>

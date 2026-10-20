@@ -4,6 +4,7 @@
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import { ArrowRight, Play } from 'lucide-react';
 import Chamfered from '@/components/shapes/Chamfered.astro';
+import { signupHref } from '@/components/nav/links';
 
 const features = [
   { eyebrow: '01 / TRACK', title: 'Track every signal.', body: 'Every visit, lead and sale, captured server-side.' },
@@ -30,7 +31,7 @@ const features = [
             cookie banners stop costing you conversions.
           </p>
           <div class="flex flex-col gap-3 md:flex-row">
-            <a href="#" class={cn(buttonVariants({ size: 'lg' }), 'w-full md:w-auto')}>
+            <a href={signupHref} class={cn(buttonVariants({ size: 'lg' }), 'w-full md:w-auto')}>
               Start free trial
               <ArrowRight strokeWidth={1.5} aria-hidden="true" />
             </a>
