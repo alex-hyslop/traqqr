@@ -3,6 +3,7 @@
 // components rendered to static HTML; only the ones with behaviour are hydrated.
 import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Reveal from '@/components/Reveal.astro';
 import photo from '@/assets/testimonials/dawid-przybylski.jpg';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { Hero } from '@/components/sections/Hero';
@@ -25,55 +26,71 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
   title="Traqqr · Server-side tracking for Meta Ads"
   description="Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser."
 >
-  <SiteNav client:load />
+  <SiteNav client:load currentPath={Astro.url.pathname} />
   <main>
     <Hero />
-    <IntegrationsStrip client:visible />
-    <ComparisonTable />
+    <Reveal>
+      <IntegrationsStrip client:visible />
+    </Reveal>
+    <Reveal>
+      <ComparisonTable />
+    </Reveal>
     <SunbeamScene client:idle />
-    <TextMedia
-      id="product"
-      badge="Live Feed"
-      title="See every event the moment it happens."
-      body="Watch visits, leads and sales arrive in real time, and check exactly what reached Meta from the browser and from your server."
-      items={[
-        'Live feed of every event',
-        'Browser vs. server delivery',
-        'Deduplication at a glance',
-        'Fingerprint coverage per site',
-        'Event Inspector for debugging',
-      ]}
-      grid
-    />
-    <TextMedia
-      id="reverse-proxy"
-      badge="First-party reverse proxy"
-      title={['Your domain. Your data.', 'Fewer blocked events.']}
-      body="Route tracking through your own subdomain with Cloudflare, so ad blockers treat it like the rest of your site."
-      items={[
-        'Runs on your own domain',
-        'Set up with Cloudflare',
-        'Up to 4 proxy domains per site',
-        'Falls back safely if you switch it off',
-      ]}
-      mediaSide="left"
-      grid
-      borderTop
-    />
-    <HowItWorks />
-    <Testimonial
-      quote={[
-        '“Since we started using traqqr.ai, our processes',
-        'run far more reliably. Errors are caught early and our team',
-        'always knows exactly what to do.”',
-      ]}
-      name="Dawid Przybylski"
-      role="Founder & Managing Director, Visual Facilitators GmbH"
-      photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
-      avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
-    />
-    <Faq client:visible />
-    <Cta />
+    <Reveal>
+      <TextMedia
+        id="product"
+        badge="Live Feed"
+        title="See every event the moment it happens."
+        body="Watch visits, leads and sales arrive in real time, and check exactly what reached Meta from the browser and from your server."
+        items={[
+          'Live feed of every event',
+          'Browser vs. server delivery',
+          'Deduplication at a glance',
+          'Fingerprint coverage per site',
+          'Event Inspector for debugging',
+        ]}
+        grid
+      />
+    </Reveal>
+    <Reveal>
+      <TextMedia
+        id="reverse-proxy"
+        badge="First-party reverse proxy"
+        title={['Your domain. Your data.', 'Fewer blocked events.']}
+        body="Route tracking through your own subdomain with Cloudflare, so ad blockers treat it like the rest of your site."
+        items={[
+          'Runs on your own domain',
+          'Set up with Cloudflare',
+          'Up to 4 proxy domains per site',
+          'Falls back safely if you switch it off',
+        ]}
+        mediaSide="left"
+        grid
+        borderTop
+      />
+    </Reveal>
+    <Reveal>
+      <HowItWorks />
+    </Reveal>
+    <Reveal>
+      <Testimonial
+        quote={[
+          '“Since we started using traqqr.ai, our processes',
+          'run far more reliably. Errors are caught early and our team',
+          'always knows exactly what to do.”',
+        ]}
+        name="Dawid Przybylski"
+        role="Founder & Managing Director, Visual Facilitators GmbH"
+        photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
+        avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
+      />
+    </Reveal>
+    <Reveal>
+      <Faq client:visible />
+    </Reveal>
+    <Reveal>
+      <Cta />
+    </Reveal>
     <Globe client:visible />
   </main>
   <SiteFooter />

@@ -179,40 +179,61 @@ function WideMenuIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-// Mobile menu rows (Figma: Mobile nav item 5072:351 / sub-link 5072:356), styled like the app Sidenavbar.
-const rowClass =
-  'group/row flex h-10 w-full items-center gap-3 rounded-lg px-3 text-lg leading-7 text-muted-foreground transition-colors outline-none hover:bg-accent focus-visible:ring-3 focus-visible:ring-ring/50 data-[state=open]:text-foreground';
-const rowIcon = 'size-4.5 shrink-0 text-sidebar-icon';
+// Mobile menu rows (Figma: Mobile nav item 5072:351 / sub-link 5072:356) use the dashboard's own
+// SidebarMenuButton styles, including its active state: white/8 fill with the top-lit gradient,
+// white/14 top edge, foreground label, brand icon (Kev, 20 Oct). Copied from the library's
+// sidebarMenuButtonVariants (traqqr-components 0.16.2, src/components/ui/sidebar.tsx), which isn't
+// exported; SidebarMenuButton itself needs the dashboard's SidebarProvider. Keep in step with it.
+const sidebarMenuButtonClass =
+  'flex w-full items-center gap-3 overflow-hidden rounded-lg border-t border-transparent px-3 py-1.5 h-10 text-left font-heading text-lg font-normal text-muted-foreground ring-sidebar-ring outline-hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:border-foreground/14 data-active:bg-foreground/8 data-active:bg-linear-to-b data-active:from-foreground/10 data-active:via-foreground/3 data-active:to-transparent data-active:text-foreground [&_svg]:size-4.5 [&_svg]:shrink-0 [&_svg]:text-sidebar-icon data-active:[&_svg]:text-brand';
+const rowClass = cn(sidebarMenuButtonClass, 'cursor-pointer data-[state=open]:text-foreground');
+// Sub-links take the same active state as the rows (Kev's nav doc §3, Mobile nav sub-link State=Active).
 const subLinkClass =
-  'flex h-9 items-center rounded-md px-3 text-base leading-6 text-muted-foreground transition-colors outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50';
+  'flex h-9 items-center rounded-md border-t border-transparent px-3 text-base leading-6 text-muted-foreground transition-colors outline-none hover:bg-accent hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 data-active:border-foreground/14 data-active:bg-foreground/8 data-active:bg-linear-to-b data-active:from-foreground/10 data-active:via-foreground/3 data-active:to-transparent data-active:text-foreground';
 
-function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
-  // One group open at a time.
-  const [group, setGroup] = useState<'product' | 'resources' | null>(null);
+const normalisePath = (path: string) => (path === '/' ? path : path.replace(/\/+/g, '/').replace(/\/$/, ''));
+// Placeholder "#" links are never active.
+const isCurrent = (href: string, currentPath?: string) =>
+  !!currentPath && href !== '#' && normalisePath(href) === normalisePath(currentPath);
+const activeProps = (active: boolean) =>
+  active ? ({ 'data-active': true, 'aria-current': 'page' } as const) : {};
+
+interface MobileMenuProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  currentPath?: string;
+  product: NavLink[];
+  resources: (typeof resourceLinks)[number][];
+}
+
+function MobileMenu({ open, onOpenChange, currentPath, product, resources }: MobileMenuProps) {
   const close = () => onOpenChange(false);
-
   const groups = [
-    { key: 'product' as const, label: 'Product', icon: Activity, links: productLinks },
-    { key: 'resources' as const, label: 'Resources', icon: BookOpen, links: resourceLinks },
+    { key: 'product' as const, label: 'Product', icon: Activity, links: product },
+    { key: 'resources' as const, label: 'Resources', icon: BookOpen, links: resources },
   ];
+  // One group open at a time; the group holding the current page starts open.
+  const [group, setGroup] = useState<'product' | 'resources' | null>(
+    () => groups.find((g) => g.links.some((link) => isCurrent(link.href, currentPath)))?.key ?? null
+  );
 
   const renderGroup = (g: (typeof groups)[number]) => (
     <Collapsible key={g.key} open={group === g.key} onOpenChange={(isOpen) => setGroup(isOpen ? g.key : null)}>
-      <CollapsibleTrigger className={rowClass}>
-        <g.icon className={rowIcon} strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
+      <CollapsibleTrigger className={cn(rowClass, 'group/row')}>
+        <g.icon strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
         <span className="flex-1 text-left">{g.label}</span>
         <ChevronDown
-          className="size-4 shrink-0 group-data-[state=open]/row:rotate-180"
+          className="size-4! group-data-[state=open]/row:rotate-180"
           strokeWidth={1}
           absoluteStrokeWidth
           aria-hidden="true"
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="pl-[21px]">
-        <ul className="flex flex-col gap-0.5 border-l py-0.5 pl-2">
+        <ul className="flex flex-col gap-0.5 border-l border-sidebar-border py-0.5 pl-2">
           {g.links.map((link) => (
             <li key={link.title}>
-              <a href={link.href} className={subLinkClass} onClick={close}>
+              <a href={link.href} className={subLinkClass} onClick={close} {...activeProps(isCurrent(link.href, currentPath))}>
                 {link.title}
               </a>
             </li>
@@ -223,17 +244,23 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
   );
 
   const plainRow = (label: string, href: string, Icon: LucideIcon) => (
-    <a href={href} className={rowClass} onClick={close}>
-      <Icon className={rowIcon} strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
+    <a href={href} className={rowClass} onClick={close} {...activeProps(isCurrent(href, currentPath))}>
+      <Icon strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
       {label}
     </a>
   );
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" showCloseButton={false} className="w-[320px] gap-0 shadow-none" aria-describedby={undefined}>
+      {/* The dashboard's mobile menu colours: bg-sidebar with sidebar-border lines (Kev, 20 Oct). */}
+      <SheetContent
+        side="left"
+        showCloseButton={false}
+        className="w-[320px] gap-0 border-sidebar-border bg-sidebar shadow-none"
+        aria-describedby={undefined}
+      >
         <SheetTitle className="sr-only">Menu</SheetTitle>
-        <div className="flex h-20 shrink-0 items-center border-b px-6">
+        <div className="flex h-20 shrink-0 items-center border-b border-sidebar-border px-6">
           <TraqqrLogo height={40} />
         </div>
         <nav aria-label="Mobile" className="flex flex-col gap-0.5 px-3 py-4">
@@ -241,7 +268,7 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
           {plainRow('Integrations', integrationsHref, Puzzle)}
           {renderGroup(groups[1])}
           {plainRow('Pricing', pricingHref, Tag)}
-          <div className="mt-2 border-t pt-2">{plainRow('Log in', loginHref, LogIn)}</div>
+          <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow('Log in', loginHref, LogIn)}</div>
         </nav>
         <SheetFooter className="p-4">
           <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
@@ -258,14 +285,28 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
 // scroll the wordmark folds away. Below lg: the dashboard's top bar (full logo + its menu toggle) at the
 // top of the page, turning into the floating glass bar past 80px. Bar states live in global.css (.site-nav).
 export interface SiteNavProps {
+  /** The page's path (Astro.url.pathname), for the mobile menu's active row. */
+  currentPath?: string;
   integrations?: Integration[];
+  /** Mobile menu link lists; the defaults are Kev's placeholders in src/data/links.ts. */
+  product?: NavLink[];
+  resources?: (typeof resourceLinks)[number][];
   /** Pin the scrolled state (Storybook); by default it follows window scroll past 80px. */
   scrolled?: boolean;
+  /** Open the mobile menu on load (Storybook). */
+  defaultMenuOpen?: boolean;
 }
 
-export function SiteNav({ integrations = allIntegrations, scrolled: scrolledOverride }: SiteNavProps) {
+export function SiteNav({
+  currentPath,
+  integrations = allIntegrations,
+  product = productLinks,
+  resources = resourceLinks,
+  scrolled: scrolledOverride,
+  defaultMenuOpen = false,
+}: SiteNavProps) {
   const [scrolledByPage, setScrolledByPage] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(defaultMenuOpen);
   const scrolled = scrolledOverride ?? scrolledByPage;
 
   useEffect(() => {
@@ -311,7 +352,13 @@ export function SiteNav({ integrations = allIntegrations, scrolled: scrolledOver
           </Button>
         </nav>
 
-        <MobileMenu open={menuOpen} onOpenChange={setMenuOpen} />
+        <MobileMenu
+          open={menuOpen}
+          onOpenChange={setMenuOpen}
+          currentPath={currentPath}
+          product={product}
+          resources={resources}
+        />
       </header>
 
       {/* The dashboard's close button: outside the header so it sits above the Sheet overlay (z-60),

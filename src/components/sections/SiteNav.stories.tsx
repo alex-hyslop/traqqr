@@ -22,3 +22,21 @@ type Story = StoryObj<typeof meta>
 
 export const Top: Story = {}
 export const Scrolled: Story = { args: { scrolled: true } }
+
+/**
+ * Mobile menu (narrow the canvas below 1024px) with the current page active, as in Kev's showcase:
+ * the Product group starts open and "Reverse proxy" has the app's active style. Real pages don't
+ * exist yet, so this story gives Reverse proxy a path.
+ */
+export const MenuOpenActivePage: Story = {
+  args: {
+    defaultMenuOpen: true,
+    currentPath: "/reverse-proxy",
+    product: [
+      { title: "Live Feed", description: "Watch every event arrive as it happens.", href: "#" },
+      { title: "Reverse proxy", description: "Track through your own subdomain.", href: "/reverse-proxy" },
+      { title: "Event Inspector", description: "See exactly what reached Meta.", href: "#" },
+    ],
+  },
+  globals: { viewport: { value: "mobile1" } },
+}

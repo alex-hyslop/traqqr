@@ -36,6 +36,10 @@ const imageUrl = new URL(image, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
+    <div class="ambient" aria-hidden="true"><div class="cursor-light"></div></div>
     <slot />
+    <script>
+      import '@/scripts/ambient';
+    </script>
   </body>
 </html>

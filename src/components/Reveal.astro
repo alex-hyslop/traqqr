@@ -1,0 +1,7 @@
+---
+// Wraps a section so it fades up from dark as it scrolls into view (src/scripts/ambient.ts). A plain
+// wrapper rather than an attribute on the section, because hydrated React sections would drop the
+// class the script adds before hydration.
+---
+
+<div data-reveal><slot /></div>
