@@ -18,6 +18,42 @@
 }
 
 /*
+ * Floating nav glass and scroll state (SiteNav.tsx sets data-scrolled past 80px).
+ * Desktop only: the wordmark folds away and the mark stays; the glass gets a little denser.
+ */
+@layer components {
+  .site-nav {
+    background-color: var(--card-glass);
+    transition: background-color 0.5s ease;
+  }
+  [data-site-header][data-scrolled] .site-nav {
+    background-color: rgb(28 25 23 / 0.75);
+  }
+
+  @media (min-width: 64rem) {
+    .site-nav [data-wordmark] {
+      max-width: 88.4px;
+      transition:
+        max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s ease,
+        filter 0.4s ease;
+    }
+    [data-site-header][data-scrolled] .site-nav [data-wordmark] {
+      max-width: 0;
+      opacity: 0;
+      filter: blur(4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .site-nav [data-wordmark] {
+      transition: none;
+    }
+  }
+}
+
+/*
  * Background / Grid (Figma 4779:5838): 64px lines at the grid-line token, fading to the
  * page background towards the edges. Used on the Text + media sections.
  */
