@@ -158,11 +158,27 @@ function DesktopMenu({ integrations }: { integrations: NavIntegration[] }) {
   );
 }
 
-// The app's wide menu icon: three 32px lines, 14px tall overall.
-function MenuWide() {
+// The dashboard's menu icon, copied as it is from saas-frontend
+// apps/traqqr/src/components/nav-icons.tsx (WideMenuIcon) so the website toggle matches the app
+// exactly (Kev, 20 Oct). Keep it in step with that file; don't redraw it.
+function WideMenuIcon(props: React.ComponentProps<'svg'>) {
   return (
-    <svg width="32" height="14" viewBox="0 0 32 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-      <path d="M0 1h32M0 7h32M0 13h32" />
+    <svg
+      width="26.667"
+      height="16"
+      viewBox="0 0 40 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M4 5h32" />
+      <path d="M4 12h32" />
+      <path d="M4 19h32" />
     </svg>
   );
 }
@@ -236,23 +252,15 @@ function MobileMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (open
             Start free trial
           </a>
         </SheetFooter>
-        {/* The X sits above the overlay, in the hamburger's spot in the nav. */}
-        <Button
-          variant="ghost"
-          className="fixed top-[28.2px] right-7 h-9 w-12 cursor-pointer hover:bg-accent active:bg-accent/70"
-          onClick={close}
-          aria-label="Close menu"
-        >
-          <X className="size-6" strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
-        </Button>
       </SheetContent>
     </Sheet>
   );
 }
 
-// Floating site nav (Figma: Site header / Floating 5004:1680, mobile states 5072:426 / 5072:443).
-// Desktop: logo, NavigationMenu dropdowns, "Start free trial". Below lg: full logo + wide hamburger
-// opening the app-style Sheet. Past 80px of scroll the desktop wordmark folds away.
+// Site nav (Figma: Site header / Floating 5004:1680; mobile states 5072:426 / 5082:575 / 5072:443).
+// Desktop: floating glass bar with logo, NavigationMenu dropdowns and "Start free trial"; past 80px of
+// scroll the wordmark folds away. Below lg: the dashboard's top bar (full logo + its menu toggle) at the
+// top of the page, turning into the floating glass bar past 80px. Bar states live in global.css (.site-nav).
 export function SiteNav({ integrations }: { integrations: NavIntegration[] }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -265,38 +273,59 @@ export function SiteNav({ integrations }: { integrations: NavIntegration[] }) {
   }, []);
 
   return (
-    <header
-      data-site-header
-      data-scrolled={scrolled || undefined}
-      className="pointer-events-none fixed inset-x-0 top-3 z-50 flex justify-center px-3 lg:px-4"
-    >
-      <nav
-        aria-label="Main"
-        className="site-nav pointer-events-auto flex w-full items-center justify-between gap-6 rounded-xl border border-accent-line p-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] backdrop-blur-md h-[68.4px] lg:h-[68px] lg:w-auto lg:justify-start lg:pr-5"
+    <>
+      <header
+        data-site-header
+        data-scrolled={scrolled || undefined}
+        className="pointer-events-none fixed inset-x-0 z-50 flex justify-center lg:top-3 lg:px-4"
       >
-        <a href="/" aria-label="Traqqr home" className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-          <TraqqrLogo height={36.4} className="lg:hidden" />
-          <TraqqrLogo className="hidden lg:inline-flex" />
-        </a>
+        <nav
+          aria-label="Main"
+          className="site-nav pointer-events-auto flex w-full items-center justify-between gap-6 lg:h-[68px] lg:w-auto lg:justify-start lg:rounded-[12px] lg:border lg:border-accent-line lg:p-4 lg:pr-5 lg:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] lg:backdrop-blur-md"
+        >
+          <a href="/" aria-label="Traqqr home" className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+            <TraqqrLogo height={36.4} className="lg:hidden" />
+            <TraqqrLogo className="hidden lg:inline-flex" />
+          </a>
 
-        <DesktopMenu integrations={integrations} />
+          <DesktopMenu integrations={integrations} />
 
-        <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
-          Start free trial
-        </a>
+          <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
+            Start free trial
+          </a>
 
+          {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="cursor-pointer lg:hidden"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+          >
+            <WideMenuIcon className="size-auto h-4" />
+          </Button>
+        </nav>
+
+        <MobileMenu open={menuOpen} onOpenChange={setMenuOpen} />
+      </header>
+
+      {/* The dashboard's close button: outside the header so it sits above the Sheet overlay (z-60),
+          centred on the hamburger's spot, which depends on whether the bar has turned floating. */}
+      {menuOpen && (
         <Button
           variant="ghost"
-          className="h-9 w-12 cursor-pointer hover:bg-accent active:bg-accent/70 lg:hidden"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
+          size="icon-lg"
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+          className={cn(
+            'pointer-events-auto fixed z-60 cursor-pointer text-white hover:bg-white/10 hover:text-white lg:hidden',
+            scrolled ? 'top-[28.2px] right-[27px]' : 'top-2.5 right-3.5'
+          )}
         >
-          <MenuWide />
+          <X className="size-6" strokeWidth={4 / 3} />
         </Button>
-      </nav>
-
-      <MobileMenu open={menuOpen} onOpenChange={setMenuOpen} />
-    </header>
+      )}
+    </>
   );
 }

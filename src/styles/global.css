@@ -18,8 +18,10 @@
 }
 
 /*
- * Floating nav glass and scroll state (SiteNav.tsx sets data-scrolled past 80px).
- * Desktop only: the wordmark folds away and the mark stays; the glass gets a little denser.
+ * Site nav bar states (SiteNav.tsx sets data-scrolled past 80px).
+ * Desktop: the floating glass bar; scrolled, the wordmark folds away and the glass gets denser.
+ * Below lg (Kev, 20 Oct): the dashboard's top bar (h-14 px-4 bg-background border-b) at the top of
+ * the page, turning into the floating glass bar once scrolled, over 0.3s with the house ease.
  */
 @layer components {
   .site-nav {
@@ -28,6 +30,42 @@
   }
   [data-site-header][data-scrolled] .site-nav {
     background-color: rgb(28 25 23 / 0.75);
+  }
+
+  @media (max-width: 63.999rem) {
+    [data-site-header] {
+      top: 0;
+      padding-inline: 0;
+    }
+    [data-site-header] .site-nav {
+      height: 56px;
+      padding: 0 16px;
+      border: 0 solid var(--border);
+      border-bottom-width: 1px;
+      border-radius: 0;
+      background-color: var(--background);
+    }
+    [data-site-header][data-scrolled] {
+      top: 12px;
+      padding-inline: 12px;
+    }
+    [data-site-header][data-scrolled] .site-nav {
+      height: 68.4px;
+      padding: 16px;
+      border-width: 1px;
+      border-color: var(--accent-line);
+      border-radius: 12px;
+      background-color: var(--card-glass);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+    [data-site-header],
+    [data-site-header] .site-nav {
+      transition-property: top, padding, height, border-radius, border-color, background-color;
+      transition-duration: 0.3s;
+      transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
   }
 
   @media (min-width: 64rem) {
@@ -46,6 +84,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    [data-site-header],
     .site-nav,
     .site-nav [data-wordmark] {
       transition: none;
