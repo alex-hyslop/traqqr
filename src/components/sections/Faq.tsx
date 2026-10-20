@@ -1,6 +1,5 @@
+import { Section, SectionHeading } from '@klicktipp/traqqr-components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Section } from '@/components/website/Section';
-import { SectionHeading } from '@/components/website/SectionHeading';
 
 export interface FaqItem {
   question: string;

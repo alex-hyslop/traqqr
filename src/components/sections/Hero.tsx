@@ -1,7 +1,5 @@
-import { Chamfered } from '@/components/website/Chamfered';
-import { CtaButtons } from '@/components/website/CtaButtons';
-import { LandingCard } from '@/components/website/LandingCard';
-import { VideoPlaceholder, type VideoPoster } from '@/components/website/Placeholders';
+import { Chamfered, CtaButtons, LandingCard, VideoPlaceholder, type VideoPoster } from '@klicktipp/traqqr-components';
+import { demoHref, signupHref } from '@/data/links';
 
 export interface HeroFeature {
   eyebrow: string;
@@ -43,11 +41,14 @@ export function Hero({
             <div className="flex flex-col gap-6 lg:max-w-[560px] lg:gap-7 xl:w-[560px] xl:shrink">
               <h1 className="text-4xl leading-10 font-extralight text-foreground lg:text-5xl lg:leading-12">{title}</h1>
               <p className="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">{lead}</p>
-              <CtaButtons secondary={{ label: 'Watch demo · 2 min', play: true }} />
+              <CtaButtons
+                primary={{ label: 'Start free trial', href: signupHref }}
+                secondary={{ label: 'Watch demo · 2 min', href: demoHref, play: true }}
+              />
             </div>
 
             <div className="min-w-0 xl:flex-[1_1_45%]">
-              <VideoPlaceholder poster={poster} />
+              <VideoPlaceholder label="Play the 2-minute demo" href={demoHref} poster={poster} />
             </div>
           </div>
         </Chamfered>

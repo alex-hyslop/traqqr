@@ -2,4 +2,4 @@ allowBuilds:
   esbuild: true
   sharp: true
 minimumReleaseAgeExclude:
-  - '@klicktipp/traqqr-components@0.16.2'
+  - '@klicktipp/traqqr-components@0.16.2 || 0.17.0'

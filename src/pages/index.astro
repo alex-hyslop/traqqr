@@ -6,23 +6,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Reveal from '@/components/Reveal.astro';
 import photo from '@/assets/testimonials/dawid-przybylski.jpg';
 import heroPoster from '@/assets/hero/hero-video-poster.jpg';
+import { ComparisonTable, Cta, HowItWorks, Testimonial, TextMedia } from '@klicktipp/traqqr-components';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { Hero } from '@/components/sections/Hero';
 import { IntegrationsStrip } from '@/components/sections/IntegrationsStrip';
-import { ComparisonTable } from '@/components/sections/ComparisonTable';
 import { SunbeamScene } from '@/components/sections/SunbeamScene';
-import { TextMedia } from '@/components/sections/TextMedia';
-import { HowItWorks } from '@/components/sections/HowItWorks';
-import { Testimonial } from '@/components/sections/Testimonial';
 import { Faq } from '@/components/sections/Faq';
-import { Cta } from '@/components/sections/Cta';
 import { Globe } from '@/components/sections/Globe';
 import { SiteFooter } from '@/components/sections/SiteFooter';
+import { demoHref, signupHref } from '@/data/links';
 
 // Kev's hero thumbnail, exported as 1280×720 WebP (handover §9.8), with smaller sizes for phones.
 const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [640, 960, 1280] });
 const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
 const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
+
+// Copy for the library's website sections (Kev, 20 Oct).
+const trial = { label: 'Start free trial', href: signupHref };
+const demo = { label: 'Watch demo', href: demoHref };
+const screenshot = (name: string) => ({ type: 'image' as const, placeholderLabel: `${name} screenshot coming soon` });
 ---
 
 <BaseLayout
@@ -42,7 +44,20 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
       <IntegrationsStrip client:visible />
     </Reveal>
     <Reveal>
-      <ComparisonTable />
+      <ComparisonTable
+        id="problem"
+        badge="The problem"
+        title="Your pixel misses sales. Traqqr doesn't."
+        lead="Ad blockers, cookie banners and browser limits stop the Meta Pixel from reporting every sale. Traqqr sends the same events from your server too."
+        columns={{ bad: 'Meta Pixel only', good: 'Pixel + Traqqr' }}
+        rows={[
+          { label: 'Ad blockers', bad: 'Events get blocked', good: 'Sent from your server' },
+          { label: 'What Meta receives', bad: 'Gaps and missing sales', good: 'Every visit, lead and sale' },
+          { label: 'Duplicates', bad: 'Counted twice or not at all', good: 'Deduplicated automatically' },
+          { label: 'Matching people', bad: 'Weak match quality', good: 'Fingerprint helps Meta match' },
+          { label: 'Setup', bad: 'Developer and tag manager', good: 'Minutes, no developer' },
+        ]}
+      />
     </Reveal>
     <SunbeamScene client:idle />
     <Reveal>
@@ -58,6 +73,9 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
           'Fingerprint coverage per site',
           'Event Inspector for debugging',
         ]}
+        primaryAction={trial}
+        secondaryAction={demo}
+        media={screenshot('Live Feed')}
         grid
       />
     </Reveal>
@@ -73,16 +91,44 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
           'Up to 4 proxy domains per site',
           'Falls back safely if you switch it off',
         ]}
+        primaryAction={trial}
+        secondaryAction={demo}
+        media={screenshot('First-party reverse proxy')}
         mediaSide="left"
         grid
         borderTop
       />
     </Reveal>
     <Reveal>
-      <HowItWorks />
+      <HowItWorks
+        id="how-it-works"
+        badge="How it works"
+        title="Live in three steps."
+        lead="No tag manager, no developer. Most sites send their first server-side event within minutes."
+        steps={[
+          {
+            eyebrow: '01 / ADD YOUR SITE',
+            title: 'Paste one snippet.',
+            body: "Add the Traqqr snippet to your site's <head>. That's the only code you need.",
+          },
+          {
+            eyebrow: '02 / CONNECT',
+            title: 'Link Meta and your tools.',
+            body: 'Connect your Meta pixel, then tools like KlickTipp, Digistore24 or EverWebinar.',
+          },
+          {
+            eyebrow: '03 / WATCH',
+            title: 'See every event arrive.',
+            body: 'Live Feed shows what reached Meta, from the browser and from your server.',
+          },
+        ]}
+      />
     </Reveal>
     <Reveal>
       <Testimonial
+        id="testimonial"
+        badge="Customers"
+        title="Teams that track with Traqqr"
         quote={[
           '“Since we started using traqqr.ai, our processes',
           'run far more reliably. Errors are caught early and our team',
@@ -98,7 +144,13 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
       <Faq client:visible />
     </Reveal>
     <Reveal>
-      <Cta />
+      <Cta
+        id="cta"
+        title="Stop losing conversions you paid for."
+        lead="Set up Traqqr in minutes and send every visit, lead and sale to Meta."
+        primaryAction={trial}
+        secondaryAction={demo}
+      />
     </Reveal>
     <Globe client:visible />
   </main>

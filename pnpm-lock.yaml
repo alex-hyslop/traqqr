@@ -15,8 +15,8 @@ importers:
         specifier: ^3.7.4
         version: 3.7.4
       '@klicktipp/traqqr-components':
-        specifier: 0.16.2
-        version: 0.16.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(lucide-react@1.59.0(@types/react@19.3.0)(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(recharts@3.10.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@17.0.2)(react@19.3.1)(redux@5.0.1))(tailwindcss@4.3.3)
+        specifier: 0.17.0
+        version: 0.17.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(lucide-react@1.59.0(@types/react@19.3.0)(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(recharts@3.10.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@17.0.2)(react@19.3.1)(redux@5.0.1))(tailwindcss@4.3.3)
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
@@ -846,8 +846,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@klicktipp/traqqr-components@0.16.2':
-    resolution: {integrity: sha512-t7SpjLI96EqzZbwjZYLYfypBfOmPr4rc+/hgeICT6wrqPKiCl1qXNTVHPSFWE5lhRZifa/CWaHGZRsustWpTPQ==, tarball: https://npm.pkg.github.com/download/@klicktipp/traqqr-components/0.16.2/ffe1246d2685c882ad89cf5d472c41bcf3ec5242}
+  '@klicktipp/traqqr-components@0.17.0':
+    resolution: {integrity: sha512-ZztFjrJUFFpFPSuFC4CVON1qLPBFVOrc3JjIf3o2xIgKgdsNL4c8b9JWbw2Ys8FImrZPEXBnyLxpZbtLhOLWLA==, tarball: https://npm.pkg.github.com/download/@klicktipp/traqqr-components/0.17.0/31322121f815f4f53d7e17981e73f9d26d3ddc5e}
     peerDependencies:
       lucide-react: ^1.48.0
       react: ^19
@@ -5511,7 +5511,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@klicktipp/traqqr-components@0.16.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(lucide-react@1.59.0(@types/react@19.3.0)(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(recharts@3.10.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@17.0.2)(react@19.3.1)(redux@5.0.1))(tailwindcss@4.3.3)':
+  '@klicktipp/traqqr-components@0.17.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(lucide-react@1.59.0(@types/react@19.3.0)(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(recharts@3.10.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react-is@17.0.2)(react@19.3.1)(redux@5.0.1))(tailwindcss@4.3.3)':
     dependencies:
       '@fontsource-variable/manrope': 5.3.0
       '@fontsource/space-mono': 5.3.0

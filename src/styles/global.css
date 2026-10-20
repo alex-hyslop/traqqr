@@ -1,20 +1,10 @@
 @import "tailwindcss";
 @import "@klicktipp/traqqr-components/styles.css";
 
-/* Landing-only tokens from the Figma homepage (dark values). Site-specific, so they live here, not in the library. */
+/* Hero glow colours (Figma homepage). The landing tokens (--card-glass, --accent-line, …) come from the library. */
 :root {
-  --card-glass: #1c19178c;
-  --accent-line: #535151;
-  --landing-placeholder: #292524;
-  --grid-line: #ffffff09;
   --hero-glow-core: rgb(255 176 69 / 0.5);
   --hero-glow-mid: rgb(255 163 56 / 0.2);
-}
-
-@theme inline {
-  --color-card-glass: var(--card-glass);
-  --color-accent-line: var(--accent-line);
-  --color-landing-placeholder: var(--landing-placeholder);
 }
 
 /*
@@ -93,34 +83,6 @@
 }
 
 /*
- * Background / Grid (Figma 4779:5838): 64px lines at the grid-line token, fading to the
- * page background towards the edges. Used on the Text + media sections.
- */
-@layer components {
-  .grid-bg {
-    position: relative;
-    isolation: isolate;
-    background-image:
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .grid-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 66.67% 58.82% at 50% 50%,
-      transparent 20%,
-      rgb(12 10 9 / 0.35) 50%,
-      var(--background) 100%
-    );
-  }
-}
-
-/*
  * Ambient effects (src/scripts/ambient.ts), ported from Kev's motion prototype.
  */
 @layer components {
@@ -154,7 +116,7 @@
     z-index: 1;
   }
 
-  /* Grid reveal: warm grid lines light up around the cursor on .grid-bg sections. */
+  /* Grid reveal: warm grid lines light up around the cursor on the library's .grid-bg sections (its ::after is left free for this). */
   .grid-bg::after {
     content: "";
     position: absolute;
@@ -218,107 +180,5 @@
   .logo-tile {
     background-image: linear-gradient(-57.65deg, var(--card-media-from) 20.1%, var(--card-media-to) 85.78%);
   }
-
-  /* CTA card: the dashboard's app background (Figma Style=Gradient 4211:139) at the card's 200px blur. */
-  .cta-glow {
-    background:
-      linear-gradient(rgb(0 0 0 / 0.44), rgb(0 0 0 / 0.44)),
-      linear-gradient(224.84deg, #1c2c3e 30.35%, rgb(255 171 64 / 0.42) 41.83%, #17212c 57.17%);
-    filter: blur(200px);
-  }
 }
 
-/*
- * Chamfered shape (Card / Landing, HUD frame): top-right and bottom-left cut at 45°,
- * the other two corners rounded. Built once here and used through Chamfered.astro.
- * --chamfer-cut, --chamfer-radius and --chamfer-accent are set per instance.
- */
-@layer components {
-  .chamfer {
-    --chamfer-cut: 24px;
-    --chamfer-radius: 12px;
-    --chamfer-accent: 96px;
-    --chamfer-clip: polygon(
-      0 0,
-      calc(100% - var(--chamfer-cut)) 0,
-      100% var(--chamfer-cut),
-      100% 100%,
-      var(--chamfer-cut) 100%,
-      0 calc(100% - var(--chamfer-cut))
-    );
-    position: relative;
-    isolation: isolate;
-  }
-
-  /* Glass fill, 1px border and inner top highlight. Border-radius rounds the two uncut corners. */
-  .chamfer-surface {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border: 1px solid var(--border);
-    border-radius: var(--chamfer-radius);
-    background: var(--card-glass);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
-    clip-path: var(--chamfer-clip);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-  }
-
-  /* Fill=Off (HUD frame toggle on landing blocks): outline only, no glass. */
-  .chamfer[data-fill="none"] > .chamfer-surface {
-    background: none;
-    box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-
-  /* Surface=Default (How it works cards on the bg-card band): solid card fill, no glass. */
-  .chamfer[data-fill="solid"] > .chamfer-surface {
-    background: var(--card);
-    box-shadow: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-
-  /* The border along each 45° cut, kept on the inside like Figma's inner stroke. */
-  .chamfer-edge {
-    position: absolute;
-    z-index: -1;
-    width: var(--chamfer-cut);
-    height: var(--chamfer-cut);
-    pointer-events: none;
-  }
-  .chamfer-edge[data-corner="tr"] {
-    top: 0;
-    right: 0;
-    background: linear-gradient(to top right, transparent calc(50% - 1px), var(--border) calc(50% - 1px) 50%, transparent 50%);
-  }
-  .chamfer-edge[data-corner="bl"] {
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(to bottom left, transparent calc(50% - 1px), var(--border) calc(50% - 1px) 50%, transparent 50%);
-  }
-
-  /* Accent lines: a stronger 1px line over the last stretch of the edge and around the cut. */
-  .chamfer-accent {
-    position: absolute;
-    z-index: -1;
-    width: calc(var(--chamfer-accent) + var(--chamfer-cut));
-    height: var(--chamfer-cut);
-    pointer-events: none;
-  }
-  .chamfer-accent[data-corner="tr"] {
-    top: 0;
-    right: 0;
-    background:
-      linear-gradient(var(--accent-line), var(--accent-line)) left top / var(--chamfer-accent) 1px no-repeat,
-      linear-gradient(to top right, transparent calc(50% - 1px), var(--accent-line) calc(50% - 1px) 50%, transparent 50%) right top / var(--chamfer-cut) var(--chamfer-cut) no-repeat;
-  }
-  .chamfer-accent[data-corner="bl"] {
-    bottom: 0;
-    left: 0;
-    background:
-      linear-gradient(var(--accent-line), var(--accent-line)) right bottom / var(--chamfer-accent) 1px no-repeat,
-      linear-gradient(to bottom left, transparent calc(50% - 1px), var(--accent-line) calc(50% - 1px) 50%, transparent 50%) left bottom / var(--chamfer-cut) var(--chamfer-cut) no-repeat;
-  }
-}

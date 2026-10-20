@@ -1,6 +1,6 @@
-import { integrations as allIntegrations, type Integration } from '@/data/integrations';
+import { Section } from '@klicktipp/traqqr-components';
 import { LogoTiles } from '@/components/website/LogoTiles';
-import { Section } from '@/components/website/Section';
+import { integrations as allIntegrations, type Integration } from '@/data/integrations';
 
 export interface IntegrationsStripProps {
   title?: string;

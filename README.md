@@ -30,8 +30,9 @@ pnpm install
 
 Pages are lists of sections. Sections and their building blocks are React components, so they can be shown in Storybook. Astro renders them to static HTML and only hydrates the ones that need behaviour (`client:*` in `src/pages/index.astro`).
 
-- `src/components/sections/`: full-width homepage blocks (nav, hero, integrations strip, comparison table, Text + media, How it works, testimonial, FAQ, CTA, footer, plus Kev's scroll video and globe). Each takes its copy as props, with the homepage copy as the default. Storybook: **Website Sections**.
-- `src/components/website/`: the blocks they share: `Section`, `SectionHeading`, `LandingCard`, `Chamfered`, `CtaButtons`, `LogoTiles`, the video/image placeholders. Storybook: **Website Components**.
+- From the library: the shared website sections (`ComparisonTable`, `TextMedia`, `HowItWorks`, `Testimonial`, `Cta`) and their building blocks (`Section`, `SectionHeading`, `LandingCard`, `Chamfered`, `CtaButtons`, the video/image placeholders), with the landing tokens, grid and chamfer CSS. They take all their copy as props, which `src/pages/index.astro` passes. Changes to them go through the library.
+- `src/components/sections/`: the site's own homepage blocks (nav, hero, integrations strip, FAQ, footer, plus Kev's scroll video and globe). Each takes its copy as props, with the homepage copy as the default. Storybook: **Website Sections**.
+- `src/components/website/`: site-only building blocks (`LogoTiles`). Storybook: **Website Components**.
 - `src/components/ui/`: stock shadcn components the library doesn't ship (NavigationMenu, Accordion). Don't edit them; style them from the component that uses them.
 - `src/data/`: shared content (`integrations.ts`, `links.ts`).
 - `src/scripts/motion/`: Kev's scroll video and globe scripts. Keep them as they are; they hold the timing.

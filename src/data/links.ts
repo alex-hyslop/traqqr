@@ -25,3 +25,5 @@ export const integrationsHref = '#';
 export const pricingHref = '#';
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;
+/** The 2-minute demo video, once it exists. */
+export const demoHref = '#';
