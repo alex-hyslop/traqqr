@@ -1,7 +1,7 @@
 import { Chamfered } from '@/components/website/Chamfered';
 import { CtaButtons } from '@/components/website/CtaButtons';
 import { LandingCard } from '@/components/website/LandingCard';
-import { VideoPlaceholder } from '@/components/website/Placeholders';
+import { VideoPlaceholder, type VideoPoster } from '@/components/website/Placeholders';
 
 export interface HeroFeature {
   eyebrow: string;
@@ -13,6 +13,8 @@ export interface HeroProps {
   title?: string;
   lead?: string;
   features?: HeroFeature[];
+  /** Thumbnail for the demo video (Kev's "A Tracking Revolution" placeholder, 20 Oct). */
+  poster?: VideoPoster;
 }
 
 const defaultFeatures: HeroFeature[] = [
@@ -29,6 +31,7 @@ export function Hero({
   title = 'Real-time tracking & attribution for Meta Ads.',
   lead = 'Traqqr sends every visit, lead and sale to Meta from your server as well as the browser, so ad blockers and cookie banners stop costing you conversions.',
   features = defaultFeatures,
+  poster,
 }: HeroProps) {
   return (
     <section className="relative overflow-hidden">
@@ -36,7 +39,7 @@ export function Hero({
 
       <div className="relative mx-auto flex max-w-[1440px] flex-col gap-3 px-3 pt-[68px] lg:gap-[29px] lg:px-6 lg:pt-6 lg:pb-6">
         <Chamfered cut={32} radius={16} accent={220}>
-          <div className="flex flex-col gap-6 px-6 pt-9 pb-6 lg:gap-14 lg:px-[68px] lg:pt-[164px] lg:pb-20 xl:flex-row xl:items-center">
+          <div className="flex flex-col gap-6 px-6 pt-9 pb-9 lg:gap-14 lg:px-[68px] lg:pt-[164px] lg:pb-20 xl:flex-row xl:items-center">
             <div className="flex flex-col gap-6 lg:max-w-[560px] lg:gap-7 xl:w-[560px] xl:shrink">
               <h1 className="text-4xl leading-10 font-extralight text-foreground lg:text-5xl lg:leading-12">{title}</h1>
               <p className="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">{lead}</p>
@@ -44,7 +47,7 @@ export function Hero({
             </div>
 
             <div className="min-w-0 xl:flex-[1_1_45%]">
-              <VideoPlaceholder />
+              <VideoPlaceholder poster={poster} />
             </div>
           </div>
         </Chamfered>

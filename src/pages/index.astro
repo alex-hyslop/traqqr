@@ -5,6 +5,7 @@ import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Reveal from '@/components/Reveal.astro';
 import photo from '@/assets/testimonials/dawid-przybylski.jpg';
+import heroPoster from '@/assets/hero/hero-video-poster.jpg';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { Hero } from '@/components/sections/Hero';
 import { IntegrationsStrip } from '@/components/sections/IntegrationsStrip';
@@ -18,6 +19,8 @@ import { Cta } from '@/components/sections/Cta';
 import { Globe } from '@/components/sections/Globe';
 import { SiteFooter } from '@/components/sections/SiteFooter';
 
+// Kev's hero thumbnail, exported as 1280×720 WebP (handover §9.8), with smaller sizes for phones.
+const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [640, 960, 1280] });
 const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
 const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
 ---
@@ -28,7 +31,13 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
 >
   <SiteNav client:load currentPath={Astro.url.pathname} />
   <main>
-    <Hero />
+    <Hero
+      poster={{
+        src: poster.src,
+        srcSet: poster.srcSet.attribute,
+        sizes: '(min-width: 1280px) 640px, (min-width: 1024px) 840px, 100vw',
+      }}
+    />
     <Reveal>
       <IntegrationsStrip client:visible />
     </Reveal>
