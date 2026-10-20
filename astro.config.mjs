@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://traqqr-git-main-alexhyslop-7992.vercel.app', // Vercel git-main deployment URL — swap to the custom production domain when one is set up
+  site: 'https://traqqr.vercel.app', // Production URL until the homepage moves to the real domain at launch
   output: 'static',
   integrations: [react(), sitemap()],
   vite: {

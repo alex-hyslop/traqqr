@@ -4,9 +4,14 @@ import '@/styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Link-preview image, relative to the site root. */
+  image?: string;
 }
 
-const { title, description = 'Traqqr' } = Astro.props;
+const { title, description = 'Traqqr', image = '/og.png' } = Astro.props;
+// Absolute URLs from `site` in astro.config.mjs, so previews and the canonical link follow the domain.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -16,8 +21,19 @@ const { title, description = 'Traqqr' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <meta name="description" content={description} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Traqqr" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
     <slot />
