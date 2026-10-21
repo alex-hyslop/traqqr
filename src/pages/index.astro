@@ -6,6 +6,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Reveal from '@/components/Reveal.astro';
 import photo from '@/assets/testimonials/dawid-przybylski.jpg';
 import heroPoster from '@/assets/hero/hero-video-poster.jpg';
+import scenePoster from '@/assets/scene/poster.jpg';
 import { ComparisonTable, Cta, HowItWorks, Testimonial, TextMedia } from '@klicktipp/traqqr-components';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { Hero } from '@/components/sections/Hero';
@@ -14,10 +15,14 @@ import { SunbeamScene } from '@/components/sections/SunbeamScene';
 import { Faq } from '@/components/sections/Faq';
 import { Globe } from '@/components/sections/Globe';
 import { SiteFooter } from '@/components/sections/SiteFooter';
+import { faqItems } from '@/data/faq';
+import { integrations } from '@/data/integrations';
 import { demoHref, signupHref } from '@/data/links';
 
 // Kev's hero thumbnail, exported as 1280×720 WebP (handover §9.8), with smaller sizes for phones.
-const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [640, 960, 1280] });
+const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [480, 640, 960, 1280] });
+// First frame of the scroll video, shown until the video loads.
+const sceneFrame = await getImage({ src: scenePoster, width: 1920, format: 'webp', widths: [800, 1280, 1920] });
 const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
 const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
 
@@ -25,19 +30,64 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
 const trial = { label: 'Start free trial', href: signupHref };
 const demo = { label: 'Watch demo', href: demoHref };
 const screenshot = (name: string) => ({ type: 'image' as const, placeholderLabel: `${name} screenshot coming soon` });
+
+const title = 'Traqqr · Server-side tracking for Meta Ads';
+const description =
+  'Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser.';
+
+// Structured data for search and AI answers: who makes it, what it is, and the FAQ (from the same copy
+// the page shows). No price or rating, because none is published yet.
+const site = new URL('/', Astro.site).href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}#organization`,
+      name: 'Traqqr',
+      url: site,
+      logo: new URL('/logo.png', site).href,
+    },
+    { '@type': 'WebSite', '@id': `${site}#website`, name: 'Traqqr', url: site, publisher: { '@id': `${site}#organization` } },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Traqqr',
+      url: site,
+      description,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      publisher: { '@id': `${site}#organization` },
+      featureList: [
+        'Server-side tracking for Meta Ads',
+        'Live Feed of every event',
+        'Browser and server event deduplication',
+        'First-party reverse proxy on your own subdomain',
+        'Event Inspector',
+        `Integrations: ${integrations.map((i) => i.name).join(', ')}`,
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    },
+  ],
+};
 ---
 
-<BaseLayout
-  title="Traqqr · Server-side tracking for Meta Ads"
-  description="Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser."
->
+<BaseLayout title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
   <SiteNav client:load currentPath={Astro.url.pathname} />
   <main>
     <Hero
       poster={{
         src: poster.src,
         srcSet: poster.srcSet.attribute,
-        sizes: '(min-width: 1280px) 640px, (min-width: 1024px) 840px, 100vw',
+        // Rendered width: 640px from xl; below that the HUD's padding (184px from lg, 72px under it).
+        sizes: '(min-width: 1280px) 640px, (min-width: 1024px) calc(100vw - 184px), calc(100vw - 72px)',
       }}
     />
     <Reveal>
@@ -59,7 +109,7 @@ const screenshot = (name: string) => ({ type: 'image' as const, placeholderLabel
         ]}
       />
     </Reveal>
-    <SunbeamScene client:idle />
+    <SunbeamScene client:idle poster={{ src: sceneFrame.src, srcSet: sceneFrame.srcSet.attribute }} />
     <Reveal>
       <TextMedia
         id="product"

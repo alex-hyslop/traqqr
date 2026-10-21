@@ -1,10 +1,6 @@
 import { Section, SectionHeading } from '@klicktipp/traqqr-components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
+import { faqItems, type FaqItem } from '@/data/faq';
 
 export interface FaqProps {
   title?: string;
@@ -13,46 +9,11 @@ export interface FaqProps {
   defaultOpen?: number;
 }
 
-// Answers from Kev (Slack, 20 Oct 11:41), in muted text. Size and spacing as in Figma: 14/20 with pb-2.5,
-// the same size as the questions (Kev, 16:45).
-const defaultItems: FaqItem[] = [
-  {
-    question: 'What is server-side tracking?',
-    answer:
-      "Your server sends each visit, lead and sale to Meta directly, instead of relying only on the pixel in the visitor's browser. Ad blockers and browser limits can't stop that copy.",
-  },
-  {
-    question: 'Do I need a developer to set it up?',
-    answer: "No. You paste one snippet into your site's <head> and connect Meta from the dashboard.",
-  },
-  {
-    question: 'Which tools does Traqqr work with?',
-    answer: 'Meta Ads and Facebook, plus Cloudflare, KlickTipp, Digistore24, Ablefy, EverWebinar, Webinaris and HubSpot.',
-  },
-  {
-    question: 'Does Traqqr replace my Meta Pixel?',
-    answer:
-      'No. Traqqr works alongside your pixel. Meta gets each event from the browser and from your server, and counts it once thanks to deduplication.',
-  },
-  {
-    question: 'Will ad blockers still block my tracking?',
-    answer:
-      "Server-side events aren't affected. With the first-party reverse proxy on your own subdomain, browser events are blocked far less often too.",
-  },
-  {
-    question: 'Can I see what is sent to Meta?',
-    answer: 'Yes. Live Feed shows every event as it arrives, and Event Inspector shows exactly what each one contained.',
-  },
-  {
-    question: 'Can I try Traqqr for free?',
-    answer: 'Start a free trial from any "Start free trial" button on this page.',
-  },
-];
-
 // FAQ (Figma: Block / FAQ 4689:40326, homepage 5004:62531; mobile 5063:15663). Stock shadcn Accordion,
 // one item open at a time, a divider under every item. Brand rule: no Medium weight, so the stock
-// trigger's font-medium is dropped (Kev confirmed Regular). Needs hydrating (client:visible).
-export function Faq({ title = 'Frequently asked questions', items = defaultItems, defaultOpen = 3 }: FaqProps) {
+// trigger's font-medium is dropped (Kev confirmed Regular). Answers are muted, 14/20 with pb-2.5 as in
+// Figma, the same size as the questions (Kev, 20 Oct 16:45). Needs hydrating (client:visible).
+export function Faq({ title = 'Frequently asked questions', items = faqItems, defaultOpen = 3 }: FaqProps) {
   return (
     <Section
       id="faq"

@@ -99,7 +99,7 @@ export function initGlobe(sec, { reduce = matchMedia('(prefers-reduced-motion: r
     const g = sigs[Math.floor(Math.random()*sigs.length)]; if (getComputedStyle(g.el).display==='none') return;
     const pool = POOL[g.city], cur = g.el.querySelector('b').textContent; let pick = pool[Math.floor(Math.random()*pool.length)];
     if (pick[0]===cur) pick = pool[(pool.indexOf(pick)+1)%pool.length];
-    g.el.querySelector('b').textContent = pick[0]; g.el.querySelector('.s').innerHTML = pick[1] + '<em aria-label="confirmed">'+TICK+'</em>';
+    g.el.querySelector('b').textContent = pick[0]; g.el.querySelector('.s').innerHTML = pick[1] + '<em role="img" aria-label="confirmed">'+TICK+'</em>';
     g.el.classList.remove('swap'); void g.el.offsetWidth; g.el.classList.add('swap','ping');
     setTimeout(()=>g.el.classList.remove('ping'), 900);
     bursts.push({city:g.city,t0:performance.now()});

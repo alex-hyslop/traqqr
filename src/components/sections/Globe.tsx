@@ -46,7 +46,7 @@ export const Globe = memo(function Globe() {
             <b>{s.event}</b>
             <span className="s">
               {s.source}
-              <em aria-label="confirmed">
+              <em role="img" aria-label="confirmed">
                 <Tick />
               </em>
             </span>

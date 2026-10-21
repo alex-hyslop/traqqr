@@ -9,6 +9,8 @@ export default defineConfig({
   site: 'https://traqqr.vercel.app', // Production URL until the homepage moves to the real domain at launch
   output: 'static',
   integrations: [react(), sitemap()],
+  // One page, so inline the CSS (~6 KB gzipped) instead of a render-blocking request (Lighthouse, 21 Oct).
+  build: { inlineStylesheets: 'always' },
   vite: {
     plugins: [tailwindcss()],
     // Pre-bundle what the islands import, so the dev server doesn't discover them on the first page

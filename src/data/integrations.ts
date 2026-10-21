@@ -17,7 +17,7 @@ import facebook from '@/assets/integrations/facebook.svg';
 import hubspot from '@/assets/integrations/hubspot.svg';
 import klicktipp from '@/assets/integrations/klicktipp.svg';
 // Meta Ads is a 2x PNG: its symbol is a raster gradient, and the SVG export was 338 KB.
-import metaAds from '@/assets/integrations/meta-ads.png';
+import metaAds from '@/assets/integrations/meta-ads.webp';
 import webinaris from '@/assets/integrations/webinaris.svg';
 import { assetUrl } from '@/lib/asset-url';
 
