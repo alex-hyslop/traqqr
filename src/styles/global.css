@@ -10,8 +10,9 @@
 /*
  * Site nav bar states (SiteNav.tsx sets data-scrolled past 80px).
  * Desktop: the floating glass bar; scrolled, the wordmark folds away and the glass gets denser.
- * Below lg (Kev, 20 Oct): the dashboard's top bar (h-14 px-4 bg-background border-b) at the top of
- * the page, turning into the floating glass bar once scrolled, over 0.3s with the house ease.
+ * Below lg (Kev, 20 Oct): the dashboard's top bar (h-14 px-4 border-b) at the top of the page, turning
+ * into the floating glass bar once scrolled, over 0.3s with the house ease. Its fill is the mobile
+ * menu's bg-sidebar rather than the page background (Kev, 21 Oct).
  */
 @layer components {
   .site-nav {
@@ -33,7 +34,7 @@
       border: 0 solid var(--border);
       border-bottom-width: 1px;
       border-radius: 0;
-      background-color: var(--background);
+      background-color: var(--sidebar);
     }
     [data-site-header][data-scrolled] {
       top: 12px;

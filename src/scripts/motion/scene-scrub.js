@@ -10,7 +10,7 @@ export function initSunbeamScene(scope = document) {
   const track = scope.querySelector('.scene-track'), pin = scope.querySelector('.scene-pin');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const [poster, video] = root.querySelectorAll('.media');
-  const topfade = root.querySelector('.topfade'), bar = root.querySelector('.scrub-bar i');
+  const bar = root.querySelector('.scrub-bar i');
   const VW = 1920, VH = 1080, DUR = SunbeamOverlay.DURATION, SCRUB = 1.5, MOBILE_BP = 760, FOCUS_M = .55, MARGIN = 16;
   const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
   let overlay = null, shownT = 0, failed = false;
@@ -19,13 +19,14 @@ export function initSunbeamScene(scope = document) {
     if (!overlay) return;
     const w = root.clientWidth, mobile = w < MOBILE_BP;
     if (mobile){
-      // first pass sizes the card, second places everything around its real height
-      let { cardHeight } = overlay.layout({ cardTop: MARGIN, scale: 1.15, focusX: FOCUS_M });
-      const vt = Math.round(cardHeight + MARGIN*2), vh = Math.round(w*.9);
+      // first pass sizes the card, second places everything around its real height. The video is its own
+      // box starting halfway down the card, so the card sits over the box's top edge (Kev, 21 Oct).
+      let { cardHeight } = overlay.layout({ cardTop: 0, scale: 1.15, focusX: FOCUS_M });
+      const vt = Math.round(cardHeight / 2), vh = Math.round(w*.9);
       root.style.height = (vt + vh) + 'px';
+      root.style.setProperty('--media-top', vt + 'px');
       for (const m of [poster, video]) Object.assign(m.style, { top: vt+'px', height: vh+'px', objectPosition: `${FOCUS_M*100}% 50%` });
-      Object.assign(topfade.style, { top: (vt-1)+'px', height: (vh*.22)+'px' });
-      overlay.layout({ mediaTop: vt, mediaHeight: vh, focusX: FOCUS_M, cardTop: MARGIN, scale: 1.15 });
+      overlay.layout({ mediaTop: vt, mediaHeight: vh, focusX: FOCUS_M, cardTop: 0, scale: 1.15 });
     } else {
       root.style.height = '';
       for (const m of [poster, video]) Object.assign(m.style, { top:'0', height:'100%', objectPosition:'50% 50%' });

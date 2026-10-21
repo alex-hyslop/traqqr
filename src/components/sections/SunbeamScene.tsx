@@ -5,7 +5,8 @@ import './sunbeam-scene.css';
 // video scrubs with scroll and Julian's tracker card (GSAP) follows the video time. Kev's drop-in,
 // with its markup in React and the scripts unchanged; the overlay script adds its own elements, so
 // this renders once (memo, no props) and initialises once. Media in public/media (needs range
-// requests; Vercel serves them). Mobile (< 760px): the card sits in a band above a cropped video.
+// requests; Vercel serves them). Mobile (< 760px): the cropped video is its own rounded box and the
+// card sits over its top edge (Kev, 21 Oct).
 // Needs hydrating so the scripts run: client:idle, so its height (set by the script) is final soon
 // after load and anchors further down the page land in the right place.
 export const SunbeamScene = memo(function SunbeamScene() {
@@ -40,7 +41,6 @@ export const SunbeamScene = memo(function SunbeamScene() {
               <source src="/media/scrub-1080.mp4" type="video/mp4" />
               <source src="/media/scrub-1080.webm" type="video/webm" />
             </video>
-            <div className="topfade" aria-hidden="true" />
             <div className="hint" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 5v14" />
