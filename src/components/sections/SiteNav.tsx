@@ -51,9 +51,10 @@ const resourceIcons: Record<(typeof resourceLinks)[number]['icon'], LucideIcon> 
   blog: Newspaper,
 };
 
-// Figma triggers: h-9 px-3 rounded-md, Space Mono 400, hover bg-accent, open bg-accent/50.
+// Figma triggers: h-9 px-3 rounded-md, Space Mono 400, hover bg-accent, open bg-accent/50. The dropdown
+// triggers are buttons, which Tailwind v4 leaves on the default cursor, so set the pointer like the links.
 const triggerClass =
-  'rounded-md px-3 font-mono font-normal text-foreground hover:bg-accent focus:bg-accent data-open:bg-accent/50 data-open:hover:bg-accent data-open:focus:bg-accent [&>svg]:transition-none';
+  'cursor-pointer rounded-md px-3 font-mono font-normal text-foreground hover:bg-accent focus:bg-accent data-open:bg-accent/50 data-open:hover:bg-accent data-open:focus:bg-accent [&>svg]:transition-none';
 
 // Panels sit 8px under the floating nav (24px under the trigger), Figma: bg-popover border rounded-md shadow-md p-2.
 const panelClass =
