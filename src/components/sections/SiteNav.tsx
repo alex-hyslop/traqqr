@@ -38,10 +38,10 @@ import {
   pricingHref,
   productLinks,
   resourceLinks,
-  signupHref,
   type NavLink,
 } from '@/data/links';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
+import { siteContent } from '@/data/site';
 
 const resourceIcons: Record<(typeof resourceLinks)[number]['icon'], LucideIcon> = {
   docs: BookOpen,
@@ -273,8 +273,8 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
           <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow('Log in', loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
         </nav>
         <SheetFooter className="p-4">
-          <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
-            Start free trial
+          <a href={siteContent.cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
+            {siteContent.cta.trial.label}
           </a>
         </SheetFooter>
         {/* The dashboard's close button, centred on the hamburger's spot at the right of the screen. It
@@ -351,8 +351,8 @@ export function SiteNav({
 
         <DesktopMenu integrations={integrations} />
 
-        <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
-          Start free trial
+        <a href={siteContent.cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
+          {siteContent.cta.trial.label}
         </a>
 
         {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
