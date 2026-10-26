@@ -1,17 +1,31 @@
 ---
 import '@/styles/global.css';
 
-interface Props {
-  title: string;
-  description?: string;
-  /** Link-preview image, relative to the site root. */
-  image?: string;
+/** Link-preview image. `src` is a path on this site. The size and alt must match the file. */
+interface OgImage {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
 }
 
-const { title, description = 'Traqqr', image = '/og.png' } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  image?: OgImage;
+}
+
+const defaultImage: OgImage = {
+  src: '/og.png',
+  width: 1200,
+  height: 630,
+  alt: 'Traqqr: server-side tracking for Meta Ads',
+};
+
+const { title, description, image = defaultImage } = Astro.props;
 // Absolute URLs from `site` in astro.config.mjs, so previews and the canonical link follow the domain.
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const imageUrl = new URL(image, Astro.site);
+const imageUrl = new URL(image.src, Astro.site);
 const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
 ---
 
@@ -36,9 +50,9 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Traqqr: server-side tracking for Meta Ads" />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt} />
     <meta property="og:locale" content="en_GB" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Traqqr for AI assistants" />
