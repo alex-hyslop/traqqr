@@ -1,0 +1,13 @@
+---
+import Reveal from '@/components/Reveal.astro';
+import { IntegrationsStrip } from '@/components/sections/IntegrationsStrip';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'integrations' }>;
+}
+---
+
+<Reveal>
+  <IntegrationsStrip client:visible />
+</Reveal>

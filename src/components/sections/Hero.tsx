@@ -22,6 +22,10 @@ const defaultFeatures: HeroFeature[] = [
   { eyebrow: '04 / SCALE', title: 'A brighter pipeline.', body: 'More signal, less noise, better ROAS.' },
 ];
 
+// The poster's rendered width: 640px from xl; below that the HUD's padding (184px from lg, 72px under it).
+export const heroPosterSizes =
+  '(min-width: 1280px) 640px, (min-width: 1024px) calc(100vw - 184px), calc(100vw - 72px)';
+
 // Hero (Figma: Block / Hero HUD 4780:882, glass option on the homepage 5004:62490; mobile 5063:15561).
 // The HUD's built-in header is hidden in Figma; its 64px slot stays on desktop so the floating nav
 // sits over it. On mobile the HUD starts 12px under the 56px top bar. Copy and video: Kev, 20 Oct.

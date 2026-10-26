@@ -1,0 +1,10 @@
+---
+import { Globe } from '@/components/sections/Globe';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'globe' }>;
+}
+---
+
+<Globe client:visible />
