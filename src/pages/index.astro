@@ -14,8 +14,8 @@ import { SunbeamScene } from '@/components/sections/SunbeamScene';
 import { Faq } from '@/components/sections/Faq';
 import { Globe } from '@/components/sections/Globe';
 import { faqItems } from '@/data/faq';
-import { integrations } from '@/data/integrations';
 import { demoHref, signupHref } from '@/data/links';
+import { homePage } from '@/data/pages/home';
 
 // Kev's hero thumbnail, exported as 1280×720 WebP (handover §9.8), with smaller sizes for phones.
 const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [480, 640, 960, 1280] });
@@ -28,10 +28,6 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
 const trial = { label: 'Start free trial', href: signupHref };
 const demo = { label: 'Watch demo', href: demoHref };
 const screenshot = (name: string) => ({ type: 'image' as const, placeholderLabel: `${name} screenshot coming soon` });
-
-const title = 'Traqqr · Server-side tracking for Meta Ads';
-const description =
-  'Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser.';
 
 // Structured data for search and AI answers: who makes it, what it is, and the FAQ (from the same copy
 // the page shows). No price or rating, because none is published yet.
@@ -51,18 +47,11 @@ const structuredData = {
       '@type': 'SoftwareApplication',
       name: 'Traqqr',
       url: site,
-      description,
+      description: homePage.description,
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       publisher: { '@id': `${site}#organization` },
-      featureList: [
-        'Server-side tracking for Meta Ads',
-        'Live Feed of every event',
-        'Browser and server event deduplication',
-        'First-party reverse proxy on your own subdomain',
-        'Event Inspector',
-        `Integrations: ${integrations.map((i) => i.name).join(', ')}`,
-      ],
+      featureList: homePage.features,
     },
     {
       '@type': 'FAQPage',
@@ -76,7 +65,7 @@ const structuredData = {
 };
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={homePage.title} description={homePage.description}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
   <Hero
     poster={{
