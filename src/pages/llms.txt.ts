@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { faqItems } from '@/data/faq';
 import { integrations } from '@/data/integrations';
-import { signupHref } from '@/data/links';
+import { siteContent } from '@/data/site';
 
 // /llms.txt (llmstxt.org): a plain-text summary for AI assistants and answer engines, built from the
 // same copy as the homepage so it can't drift. Add a line per page as pages are added.
@@ -30,7 +30,7 @@ ${faqItems.map((i) => `### ${i.question}\n\n${i.answer}`).join('\n\n')}
 ## Links
 
 - [Homepage](${home})
-- [Start a free trial](${signupHref})
+- [Start a free trial](${siteContent.cta.trial.href})
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

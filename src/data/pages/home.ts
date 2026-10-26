@@ -1,7 +1,6 @@
-import type { CtaAction } from '@klicktipp/traqqr-components';
 import { integrations } from '@/data/integrations';
-import { demoHref, signupHref } from '@/data/links';
 import type { Section } from '@/data/sections';
+import { siteContent } from '@/data/site';
 
 export interface HomePage {
   title: string;
@@ -10,8 +9,7 @@ export interface HomePage {
   sections: Section[];
 }
 
-const trial: CtaAction = { label: 'Start free trial', href: signupHref };
-const demo: CtaAction = { label: 'Watch demo', href: demoHref };
+const { trial, demo } = siteContent.cta;
 
 export const homePage: HomePage = {
   title: 'Traqqr · Server-side tracking for Meta Ads',
