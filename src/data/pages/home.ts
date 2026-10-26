@@ -1,31 +1,13 @@
-import type {
-  ComparisonTableProps,
-  CtaAction,
-  CtaProps,
-  HowItWorksProps,
-  TestimonialProps,
-  TextMediaProps,
-} from '@klicktipp/traqqr-components';
+import type { CtaAction } from '@klicktipp/traqqr-components';
 import { integrations } from '@/data/integrations';
 import { demoHref, signupHref } from '@/data/links';
-
-export type HomeSection =
-  | { kind: 'hero' }
-  | { kind: 'integrations' }
-  | { kind: 'problem'; props: ComparisonTableProps }
-  | { kind: 'scene' }
-  | { kind: 'liveFeed' | 'reverseProxy'; props: TextMediaProps }
-  | { kind: 'howItWorks'; props: HowItWorksProps }
-  | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> }
-  | { kind: 'faq' }
-  | { kind: 'cta'; props: CtaProps }
-  | { kind: 'globe' };
+import type { Section } from '@/data/sections';
 
 export interface HomePage {
   title: string;
   description: string;
   features: string[];
-  sections: HomeSection[];
+  sections: Section[];
 }
 
 const trial: CtaAction = { label: 'Start free trial', href: signupHref };

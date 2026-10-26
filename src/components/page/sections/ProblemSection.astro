@@ -1,0 +1,14 @@
+---
+import { ComparisonTable } from '@klicktipp/traqqr-components';
+import Reveal from '@/components/Reveal.astro';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'problem' }>;
+}
+const { section } = Astro.props;
+---
+
+<Reveal>
+  <ComparisonTable {...section.props} />
+</Reveal>

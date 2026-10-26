@@ -1,7 +1,7 @@
 ---
 // Homepage (Figma: Homepage · traqqr.ai 5004:62488; mobile 5063:15558).
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import HomeSections from '@/components/page/HomeSections.astro';
+import PageSections from '@/components/page/PageSections.astro';
 import { faqItems } from '@/data/faq';
 import { homePage } from '@/data/pages/home';
 
@@ -43,5 +43,5 @@ const structuredData = {
 
 <BaseLayout title={homePage.title} description={homePage.description}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
-  <HomeSections sections={homePage.sections} />
+  <PageSections sections={homePage.sections} />
 </BaseLayout>

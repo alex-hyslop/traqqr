@@ -1,0 +1,23 @@
+---
+import { getImage } from 'astro:assets';
+import { Testimonial } from '@klicktipp/traqqr-components';
+import photo from '@/assets/testimonials/dawid-przybylski.jpg';
+import Reveal from '@/components/Reveal.astro';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'testimonial' }>;
+}
+const { section } = Astro.props;
+
+const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
+const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
+---
+
+<Reveal>
+  <Testimonial
+    {...section.props}
+    photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
+    avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
+  />
+</Reveal>

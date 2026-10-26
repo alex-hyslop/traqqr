@@ -1,0 +1,15 @@
+---
+import { getImage } from 'astro:assets';
+import scenePoster from '@/assets/scene/poster.jpg';
+import { SunbeamScene } from '@/components/sections/SunbeamScene';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'scene' }>;
+}
+
+// First frame of the scroll video, shown until the video loads.
+const sceneFrame = await getImage({ src: scenePoster, width: 1920, format: 'webp', widths: [800, 1280, 1920] });
+---
+
+<SunbeamScene client:idle poster={{ src: sceneFrame.src, srcSet: sceneFrame.srcSet.attribute }} />

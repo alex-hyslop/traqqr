@@ -1,0 +1,13 @@
+---
+import Reveal from '@/components/Reveal.astro';
+import { Faq } from '@/components/sections/Faq';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'faq' }>;
+}
+---
+
+<Reveal>
+  <Faq client:visible />
+</Reveal>

@@ -1,0 +1,20 @@
+---
+import { getImage } from 'astro:assets';
+import heroPoster from '@/assets/hero/hero-video-poster.jpg';
+import { Hero, heroPosterSizes } from '@/components/sections/Hero';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'hero' }>;
+}
+
+const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [480, 640, 960, 1280] });
+---
+
+<Hero
+  poster={{
+    src: poster.src,
+    srcSet: poster.srcSet.attribute,
+    sizes: heroPosterSizes,
+  }}
+/>

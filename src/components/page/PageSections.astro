@@ -1,0 +1,16 @@
+---
+import type { Section } from '@/data/sections';
+import { sectionComponents } from './sections';
+
+interface Props {
+  sections: Section[];
+}
+const { sections } = Astro.props;
+---
+
+{
+  sections.map((section) => {
+    const SectionComponent = sectionComponents[section.kind];
+    return <SectionComponent section={section} />;
+  })
+}
