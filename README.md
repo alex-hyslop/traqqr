@@ -18,7 +18,7 @@ The library is a private package on GitHub Packages, and `.npmrc` maps the `@kli
 env "npm_config_//npm.pkg.github.com/:_authToken=$(gh auth token)" pnpm install
 ```
 
-Once installed, `pnpm dev` and `pnpm build` need no registry access. In CI, set the same variable in the job environment.
+Once installed, `pnpm dev` and `pnpm build` need no registry access. In CI, write the token to `$HOME/.npmrc` before install.
 
 ## Using the library in Astro
 
