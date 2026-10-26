@@ -12,19 +12,17 @@ import {
 } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import {
-  Activity,
   ArrowRight,
   BookOpen,
   ChevronDown,
   LifeBuoy,
   LogIn,
   Newspaper,
-  Puzzle,
-  Tag,
   X,
   type LucideIcon,
 } from 'lucide-react';
 import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
+import { NavIntegrationsIcon, NavPricingIcon, NavProductIcon, NavResourcesIcon } from '@/components/sections/nav-icons';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -185,6 +183,7 @@ function WideMenuIcon(props: React.ComponentProps<'svg'>) {
 // white/14 top edge, foreground label, brand icon (Kev, 20 Oct). Copied from the library's
 // sidebarMenuButtonVariants (traqqr-components 0.16.2, src/components/ui/sidebar.tsx), which isn't
 // exported; SidebarMenuButton itself needs the dashboard's SidebarProvider. Keep in step with it.
+// Its [&_svg] rules size and colour the row icons: Kev's duotone icons (nav-icons.tsx) and lucide LogIn.
 const sidebarMenuButtonClass =
   'flex w-full items-center gap-3 overflow-hidden rounded-lg border-t border-transparent px-3 py-1.5 h-10 text-left font-heading text-lg font-normal text-muted-foreground ring-sidebar-ring outline-hidden hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:border-foreground/14 data-active:bg-foreground/8 data-active:bg-linear-to-b data-active:from-foreground/10 data-active:via-foreground/3 data-active:to-transparent data-active:text-foreground [&_svg]:size-4.5 [&_svg]:shrink-0 [&_svg]:text-sidebar-icon data-active:[&_svg]:text-brand';
 const rowClass = cn(sidebarMenuButtonClass, 'cursor-pointer data-[state=open]:text-foreground');
@@ -212,8 +211,8 @@ interface MobileMenuProps {
 function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrolled }: MobileMenuProps) {
   const close = () => onOpenChange(false);
   const groups = [
-    { key: 'product' as const, label: 'Product', icon: Activity, links: product },
-    { key: 'resources' as const, label: 'Resources', icon: BookOpen, links: resources },
+    { key: 'product' as const, label: 'Product', icon: <NavProductIcon />, links: product },
+    { key: 'resources' as const, label: 'Resources', icon: <NavResourcesIcon />, links: resources },
   ];
   // One group open at a time; the group holding the current page starts open.
   const [group, setGroup] = useState<'product' | 'resources' | null>(
@@ -223,7 +222,7 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
   const renderGroup = (g: (typeof groups)[number]) => (
     <Collapsible key={g.key} open={group === g.key} onOpenChange={(isOpen) => setGroup(isOpen ? g.key : null)}>
       <CollapsibleTrigger className={cn(rowClass, 'group/row')}>
-        <g.icon strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
+        {g.icon}
         <span className="flex-1 text-left">{g.label}</span>
         <ChevronDown
           className="size-4! group-data-[state=open]/row:rotate-180"
@@ -246,9 +245,9 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
     </Collapsible>
   );
 
-  const plainRow = (label: string, href: string, Icon: LucideIcon) => (
+  const plainRow = (label: string, href: string, icon: React.ReactNode) => (
     <a href={href} className={rowClass} onClick={close} {...activeProps(isCurrent(href, currentPath))}>
-      <Icon strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
+      {icon}
       {label}
     </a>
   );
@@ -268,10 +267,10 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
         </div>
         <nav aria-label="Mobile" className="flex flex-col gap-0.5 px-3 py-4">
           {renderGroup(groups[0])}
-          {plainRow('Integrations', integrationsHref, Puzzle)}
+          {plainRow('Integrations', integrationsHref, <NavIntegrationsIcon />)}
           {renderGroup(groups[1])}
-          {plainRow('Pricing', pricingHref, Tag)}
-          <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow('Log in', loginHref, LogIn)}</div>
+          {plainRow('Pricing', pricingHref, <NavPricingIcon />)}
+          <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow('Log in', loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
         </nav>
         <SheetFooter className="p-4">
           <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
