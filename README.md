@@ -53,6 +53,5 @@ The design source is the Figma file `AuTDmsP70q09vix9pojWv0` (homepage `5004:624
 
 The site runs on traqqr.vercel.app until launch. `BaseLayout.astro` writes `<meta name="robots" content="noindex">` whenever `site` in `astro.config.mjs` is a `*.vercel.app` host. The tag follows the build config, not the request host, so a proxy in front of the deployment cannot block the real domain. Move the domain before you change `site`. Until the domain serves this site, the preview host has no guard and its canonical points at the app's redirect. When the domain goes live:
 
-- Set `site:` in `astro.config.mjs` to the real domain (canonical, Open Graph, sitemap, structured data and `/llms.txt` all follow it).
-- Update the `Sitemap:` line in `public/robots.txt`.
+- Set `site:` in `astro.config.mjs` to the real domain (canonical, Open Graph, sitemap, structured data, `/llms.txt` and `/robots.txt` all follow it).
 - Check the domain answers without `X-Robots-Tag: noindex` and its HTML has no `<meta name="robots" content="noindex">`, then submit the sitemap in Google Search Console.
