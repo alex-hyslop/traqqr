@@ -11,4 +11,3 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Homepage: Story = {}
-export const FirstOpen: Story = { args: { defaultOpen: 0 } }

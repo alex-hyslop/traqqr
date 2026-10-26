@@ -12,8 +12,9 @@ export interface FaqProps {
 // FAQ (Figma: Block / FAQ 4689:40326, homepage 5004:62531; mobile 5063:15663). Stock shadcn Accordion,
 // one item open at a time, a divider under every item. Brand rule: no Medium weight, so the stock
 // trigger's font-medium is dropped (Kev confirmed Regular). Answers are muted, 14/20 with pb-2.5 as in
-// Figma, the same size as the questions (Kev, 20 Oct 16:45). Needs hydrating (client:visible).
-export function Faq({ title = 'Frequently asked questions', items = faqItems, defaultOpen = 3 }: FaqProps) {
+// Figma, the same size as the questions (Kev, 20 Oct 16:45). The first question starts open (Alex, 26 Oct;
+// Figma shows the 4th open). Needs hydrating (client:visible).
+export function Faq({ title = 'Frequently asked questions', items = faqItems, defaultOpen = 0 }: FaqProps) {
   return (
     <Section
       id="faq"
