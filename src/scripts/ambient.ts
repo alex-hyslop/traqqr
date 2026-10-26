@@ -12,6 +12,8 @@ const root = document.documentElement;
 
 if (fine) {
   root.classList.add('has-cursor');
+  // The grid sections are static HTML, so they're all in the page by the time this runs.
+  const grids = document.querySelectorAll<HTMLElement>('.grid-bg');
   let raf = 0;
   let x = 0;
   let y = 0;
@@ -25,7 +27,7 @@ if (fine) {
         raf = 0;
         root.style.setProperty('--cx', `${x}px`);
         root.style.setProperty('--cy', `${y}px`);
-        document.querySelectorAll<HTMLElement>('.grid-bg').forEach((section) => {
+        grids.forEach((section) => {
           const r = section.getBoundingClientRect();
           if (y < r.top - 250 || y > r.bottom + 250) return;
           section.style.setProperty('--mx', `${x - r.left}px`);

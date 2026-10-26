@@ -14,6 +14,14 @@ export function initSunbeamScene(scope = document) {
   const VW = 1920, VH = 1080, DUR = SunbeamOverlay.DURATION, SCRUB = 1.5, MOBILE_BP = 760, FOCUS_M = .55, MARGIN = 16;
   const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
   let overlay = null, shownT = 0, failed = false;
+  // Viewport height for the scrub length and pin position. Phones change innerHeight as the address
+  // bar shows and hides mid-scroll; following that would resize the track under the reader, so only
+  // take a new height when the width changes or the height jumps by more than a toolbar.
+  let vw = 0, vh = 0;
+  const viewportHeight = () => {
+    if (innerWidth !== vw || Math.abs(innerHeight - vh) > 150) { vw = innerWidth; vh = innerHeight; }
+    return vh;
+  };
 
   function layout(){
     if (!overlay) return;
@@ -32,10 +40,10 @@ export function initSunbeamScene(scope = document) {
       for (const m of [poster, video]) Object.assign(m.style, { top:'0', height:'100%', objectPosition:'50% 50%' });
       overlay.layout();
     }
-    const sh = pin.offsetHeight;
+    const sh = pin.offsetHeight, h = viewportHeight();
     track.style.setProperty('--scene-h', sh + 'px');
-    track.style.setProperty('--scrub', (innerHeight*SCRUB) + 'px');
-    track.style.setProperty('--pin-top', Math.max(80, (innerHeight - sh)/2) + 'px');
+    track.style.setProperty('--scrub', (h*SCRUB) + 'px');
+    track.style.setProperty('--pin-top', Math.max(80, (h - sh)/2) + 'px');
     render(shownT);
   }
 
@@ -70,8 +78,11 @@ export function initSunbeamScene(scope = document) {
 
   const start = () => {
     overlay = SunbeamOverlay(root, { autoLayout: false });
-    new ResizeObserver(layout).observe(root);
-    addEventListener('resize', layout);
+    // A window resize fires both of these; lay out once per frame.
+    let pending = 0;
+    const relayout = () => { if (!pending) pending = requestAnimationFrame(() => { pending = 0; layout(); }); };
+    new ResizeObserver(relayout).observe(root);
+    addEventListener('resize', relayout);
     layout();
     if (reduce){
       root.classList.add('static','played');

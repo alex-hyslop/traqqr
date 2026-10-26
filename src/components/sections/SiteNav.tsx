@@ -205,9 +205,11 @@ interface MobileMenuProps {
   currentPath?: string;
   product: NavLink[];
   resources: (typeof resourceLinks)[number][];
+  /** Whether the top bar has turned floating, which moves the hamburger the close button covers. */
+  scrolled: boolean;
 }
 
-function MobileMenu({ open, onOpenChange, currentPath, product, resources }: MobileMenuProps) {
+function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrolled }: MobileMenuProps) {
   const close = () => onOpenChange(false);
   const groups = [
     { key: 'product' as const, label: 'Product', icon: Activity, links: product },
@@ -276,6 +278,21 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources }: Mob
             Start free trial
           </a>
         </SheetFooter>
+        {/* The dashboard's close button, centred on the hamburger's spot at the right of the screen. It
+            lives inside the panel (placed past its right edge) so it stays in the dialog's focus trap
+            and isn't hidden from screen readers with the rest of the page. */}
+        <Button
+          variant="ghost"
+          size="icon-lg"
+          aria-label="Close menu"
+          onClick={close}
+          className={cn(
+            'absolute cursor-pointer text-white hover:bg-white/10 hover:text-white',
+            scrolled ? 'top-[28.2px] left-[calc(100vw-63px)]' : 'top-2.5 left-[calc(100vw-50px)]'
+          )}
+        >
+          <X className="size-6" strokeWidth={4 / 3} />
+        </Button>
       </SheetContent>
     </Sheet>
   );
@@ -319,65 +336,47 @@ export function SiteNav({
   }, [scrolledOverride]);
 
   return (
-    <>
-      <header
-        data-site-header
-        data-scrolled={scrolled || undefined}
-        className="pointer-events-none fixed inset-x-0 z-50 flex justify-center lg:top-3 lg:px-4"
+    <header
+      data-site-header
+      data-scrolled={scrolled || undefined}
+      className="pointer-events-none fixed inset-x-0 z-50 flex justify-center lg:top-3 lg:px-4"
+    >
+      <nav
+        aria-label="Main"
+        className="site-nav pointer-events-auto flex w-full items-center justify-between gap-6 lg:h-[68px] lg:w-auto lg:justify-start lg:rounded-[12px] lg:border lg:border-accent-line lg:p-4 lg:pr-5 lg:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] lg:backdrop-blur-md"
       >
-        <nav
-          aria-label="Main"
-          className="site-nav pointer-events-auto flex w-full items-center justify-between gap-6 lg:h-[68px] lg:w-auto lg:justify-start lg:rounded-[12px] lg:border lg:border-accent-line lg:p-4 lg:pr-5 lg:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] lg:backdrop-blur-md"
-        >
-          <a href="/" aria-label="Traqqr home" className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
-            <TraqqrLogo height={36.4} className="lg:hidden" />
-            <TraqqrLogo className="hidden lg:inline-flex" />
-          </a>
+        <a href="/" aria-label="Traqqr home" className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+          <TraqqrLogo height={36.4} className="lg:hidden" />
+          <TraqqrLogo className="hidden lg:inline-flex" />
+        </a>
 
-          <DesktopMenu integrations={integrations} />
+        <DesktopMenu integrations={integrations} />
 
-          <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
-            Start free trial
-          </a>
+        <a href={signupHref} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
+          Start free trial
+        </a>
 
-          {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="cursor-pointer lg:hidden"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-          >
-            <WideMenuIcon className="size-auto h-4" />
-          </Button>
-        </nav>
-
-        <MobileMenu
-          open={menuOpen}
-          onOpenChange={setMenuOpen}
-          currentPath={currentPath}
-          product={product}
-          resources={resources}
-        />
-      </header>
-
-      {/* The dashboard's close button: outside the header so it sits above the Sheet overlay (z-60),
-          centred on the hamburger's spot, which depends on whether the bar has turned floating. */}
-      {menuOpen && (
+        {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
         <Button
           variant="ghost"
-          size="icon-lg"
-          aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
-          className={cn(
-            'pointer-events-auto fixed z-60 cursor-pointer text-white hover:bg-white/10 hover:text-white lg:hidden',
-            scrolled ? 'top-[28.2px] right-[27px]' : 'top-2.5 right-3.5'
-          )}
+          size="icon"
+          className="cursor-pointer lg:hidden"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
         >
-          <X className="size-6" strokeWidth={4 / 3} />
+          <WideMenuIcon className="size-auto h-4" />
         </Button>
-      )}
-    </>
+      </nav>
+
+      <MobileMenu
+        open={menuOpen}
+        onOpenChange={setMenuOpen}
+        currentPath={currentPath}
+        product={product}
+        resources={resources}
+        scrolled={scrolled}
+      />
+    </header>
   );
 }

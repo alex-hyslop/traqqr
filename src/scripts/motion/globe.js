@@ -22,7 +22,9 @@ export function initGlobe(sec, { reduce = matchMedia('(prefers-reduced-motion: r
     return [ox + (CX + r*cfl*Math.sin(l))*s, (CY - r*(cosP*sfl - sinP*cfl*cl) - DY0)*s, c];
   }
   function size(){
-    const r = sec.getBoundingClientRect(); W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio||1);
+    const r = sec.getBoundingClientRect();
+    if (r.width === W && r.height === H) return; // e.g. a phone's address bar: resizing the canvas would blank it
+    W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio||1);
     cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
     s = H/DH; if (DW*s < W*0.98) { s = Math.max(s, W/DW*0.9); } ox = (W - DW*s)/2;
     const d = 2*R*s;
