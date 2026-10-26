@@ -12,12 +12,14 @@ Marketing website for Traqqr, built with [Astro](https://astro.build) on the sha
 
 ## Setup
 
-The library is a private package on GitHub Packages. `.npmrc` reads `GITHUB_TOKEN`, which needs the `read:packages` scope:
+The library is a private package on GitHub Packages, and `.npmrc` maps the `@klicktipp` scope to that registry. The token needs the `read:packages` scope. pnpm 10 ignores `${...}` placeholders in a committed `.npmrc` for credentials, so keep the token in your user-level config:
 
 ```sh
-export GITHUB_TOKEN=$(gh auth token)
+pnpm config set "//npm.pkg.github.com/:_authToken" "$(gh auth token)"
 pnpm install
 ```
+
+In CI, set the same value as `npm_config_//npm.pkg.github.com/:_authToken`. Pass it through `env`, because the name is not a valid shell identifier.
 
 ## Using the library in Astro
 
