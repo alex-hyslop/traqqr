@@ -28,7 +28,7 @@ pnpm install
 
 ## Project structure
 
-Pages are lists of sections. Sections and their building blocks are React components, so they can be shown in Storybook. Astro renders them to static HTML and only hydrates the ones that need behaviour (`client:*` in `src/pages/index.astro`).
+Pages are lists of sections. Sections and their building blocks are React components, so they can be shown in Storybook. `src/layouts/BaseLayout.astro` adds the nav, the `<main>` wrapper and the footer around every page. Astro renders the sections to static HTML and only hydrates the ones that need behaviour (`client:*`).
 
 - From the library: the shared website sections (`ComparisonTable`, `TextMedia`, `HowItWorks`, `Testimonial`, `Cta`) and their building blocks (`Section`, `SectionHeading`, `LandingCard`, `Chamfered`, `CtaButtons`, the video/image placeholders), with the landing tokens, grid and chamfer CSS. They take all their copy as props, which `src/pages/index.astro` passes. Changes to them go through the library.
 - `src/components/sections/`: the site's own homepage blocks (nav, hero, integrations strip, FAQ, footer, plus Kev's scroll video and globe). Each takes its copy as props, with the homepage copy as the default. Storybook: **Website Sections**.

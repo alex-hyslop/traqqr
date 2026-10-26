@@ -1,5 +1,7 @@
 ---
 import '@/styles/global.css';
+import { SiteNav } from '@/components/sections/SiteNav';
+import { SiteFooter } from '@/components/sections/SiteFooter';
 
 /** Link-preview image. `src` is a path on this site. The size and alt must match the file. */
 interface OgImage {
@@ -60,7 +62,11 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
     <div class="ambient" aria-hidden="true"><div class="cursor-light"></div></div>
-    <slot />
+    <SiteNav client:load currentPath={Astro.url.pathname} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
     <script>
       import '@/scripts/ambient';
     </script>
