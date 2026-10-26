@@ -25,5 +25,5 @@ export const integrationsHref = '#';
 export const pricingHref = '#';
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;
-/** The 2-minute demo video. Until it exists, "How it works" on the homepage (Alex, 26 Oct). */
-export const demoHref = '#how-it-works';
+/** The 2-minute demo video. Until it exists, "How it works" on the homepage (Alex, 26 Oct). It is absolute so other pages can link to it. */
+export const demoHref = '/#how-it-works';
