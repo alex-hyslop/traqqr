@@ -38,9 +38,11 @@ export const SunbeamScene = memo(function SunbeamScene({ poster, label, caption 
 
     const video = el.querySelector('video');
     if (!video) return;
+    // Only if nothing has started it yet: a #scene jump makes scene-snap.js call play() first, and load()
+    // would reset the element and cancel that playback (seen in iPhone WebKit).
     const load = () => {
       video.preload = 'auto';
-      video.load();
+      if (video.networkState === HTMLMediaElement.NETWORK_EMPTY) video.load();
     };
     if (!('IntersectionObserver' in window)) return load();
     const io = new IntersectionObserver(
