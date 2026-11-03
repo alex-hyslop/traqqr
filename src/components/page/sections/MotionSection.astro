@@ -2,14 +2,16 @@
 // A motion piece in its own section, optionally under a centred heading: a mono eyebrow and a 36px
 // ExtraLight title (Figma e.g. /live-feed/ §3 5225:165: 120px padding, 56px from heading to piece).
 // `width` is the piece's width in the Figma frame; it scales down with the column. A bare piece (no
-// heading, e.g. the Live Feed marquee) gets `bare` padding: just enough to centre it in its band.
+// heading, e.g. the Live Feed marquee) gets just enough padding to centre it in its band. `align: "left"`
+// puts the heading at the column's left edge (Figma /fingerprint-tracking/ §2).
 import MotionPiece from '@/components/motion/MotionPiece.astro';
 import type { Section } from '@/data/sections';
 
 interface Props {
   section: Extract<Section, { kind: 'motion' }>;
 }
-const { id, eyebrow, title, motion } = Astro.props.section.props;
+const { id, eyebrow, title, align = 'center', motion } = Astro.props.section.props;
+const left = align === 'left';
 const headingId = title ? `${id}-heading` : undefined;
 ---
 
@@ -20,7 +22,7 @@ const headingId = title ? `${id}-heading` : undefined;
 >
   {
     title && (
-      <div class="flex flex-col items-center gap-3 text-center">
+      <div class:list={['flex flex-col gap-3', left ? 'self-start' : 'items-center text-center']}>
         {eyebrow && <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>}
         <h2 id={headingId} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">
           {title}

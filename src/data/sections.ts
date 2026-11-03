@@ -58,6 +58,7 @@ export interface MotionSectionProps {
   id: string;
   eyebrow?: string;
   title?: string;
+  align?: 'center' | 'left';
   motion: MotionSlot & { width: number };
 }
 
@@ -78,6 +79,12 @@ export interface StepsDropzoneProps {
   steps: { number: string; title: string; body: string }[];
   /** The app's upload panel, as an illustration. */
   dropzone: { title: string; hint: string; action: string };
+}
+
+export interface StatementProps {
+  id: string;
+  title: string;
+  facts: { label: string; value: string }[];
 }
 
 export interface FeatureTableProps {
@@ -109,6 +116,7 @@ export type Section =
   | { kind: 'answers'; props: AnswersProps }
   | { kind: 'featureTable'; props: FeatureTableProps }
   | { kind: 'stepsDropzone'; props: StepsDropzoneProps }
+  | { kind: 'statement'; props: StatementProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

@@ -19,6 +19,7 @@ export const routes = {
   liveFeed: { de: '/live-feed/', en: '/en/live-feed/' },
   reverseProxy: { de: '/reverse-proxy/', en: '/en/reverse-proxy/' },
   eventInspector: { de: '/event-inspector/', en: '/en/event-inspector/' },
+  fingerprintTracking: { de: '/fingerprint-tracking/', en: '/en/fingerprint-tracking/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

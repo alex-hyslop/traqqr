@@ -1,0 +1,28 @@
+---
+// A statement on the charcoal band (Figma: /fingerprint-tracking/ §3 5228:153): a centred 48/60 ExtraLight
+// line over three 320px facts, 24px apart, each under a white/16 top border with a mono label and a 24px
+// Light value. 560px tall in Figma: 174px over the statement, 56px to the facts. Stacks below md.
+import CharcoalBand from '@/components/page/CharcoalBand.astro';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'statement' }>;
+}
+const { id, title, facts } = Astro.props.section.props;
+---
+
+<CharcoalBand id={id} labelledBy={`${id}-heading`}>
+  <div class="mx-auto flex max-w-312 flex-col items-center gap-10 px-6 pt-20 pb-20 lg:gap-14 lg:pt-[174px] lg:pb-[161px]">
+    <h2 id={`${id}-heading`} class="text-center text-4xl leading-10 font-extralight text-foreground lg:text-5xl lg:leading-15">{title}</h2>
+    <dl class="grid w-full gap-6 md:w-auto md:grid-cols-[repeat(3,320px)]">
+      {
+        facts.map((fact) => (
+          <div class="flex flex-col gap-2 border-t border-white/16 pt-5">
+            <dt class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{fact.label}</dt>
+            <dd class="text-2xl leading-8 font-light text-foreground">{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</CharcoalBand>

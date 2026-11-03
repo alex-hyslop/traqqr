@@ -7,6 +7,7 @@ import StepsSection from './StepsSection.astro';
 import AnswersSection from './AnswersSection.astro';
 import FeatureTableSection from './FeatureTableSection.astro';
 import StepsDropzoneSection from './StepsDropzoneSection.astro';
+import StatementSection from './StatementSection.astro';
 import TrustSection from './TrustSection.astro';
 import StatsSection from './StatsSection.astro';
 import CardsSection from './CardsSection.astro';
@@ -29,6 +30,7 @@ export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   answers: AnswersSection,
   featureTable: FeatureTableSection,
   stepsDropzone: StepsDropzoneSection,
+  statement: StatementSection,
   trust: TrustSection,
   stats: StatsSection,
   cards: CardsSection,
