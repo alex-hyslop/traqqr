@@ -4,7 +4,9 @@
 // top glow layered above it (so the grid's fade never shows as a dark box). "split" puts the motion
 // piece on the right of the 560px copy, both centred on one line (Figma: y≈428); "centred" puts
 // the copy in the middle (900px, 20px apart) and the piece under it. Without a secondary action there are
-// no buttons (Event Inspector). Below md the hero is copy and buttons only (§6.5).
+// no buttons (Event Inspector). The Lösungen pages use the explainer video in place of a piece (split) or a
+// row of four glass cards under a centred hero, as on the homepage. Below md the hero is copy and buttons
+// only (§6.5).
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,6 +16,8 @@ import {
   BreadcrumbSeparator,
   CtaButtons,
   DesktopLines,
+  LandingCard,
+  VideoPlaceholder,
 } from '@klicktipp/traqqr-components';
 import { cn } from '@klicktipp/traqqr-components/utils';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
@@ -25,12 +29,14 @@ import { toLocale } from '@/i18n';
 interface Props {
   section: Extract<Section, { kind: 'pageHero' }>;
 }
-const { layout, breadcrumb, title, lead, secondaryAction, motion, motionGap = 8 } = Astro.props.section.props;
+const { layout, breadcrumb, title, lead, secondaryAction, motion, video, cards, motionGap = 8 } = Astro.props.section.props;
 const { trial } = siteContent[toLocale(Astro.currentLocale)].cta;
 const centred = layout === 'centred';
-// Split heroes centre the visual on y≈428, as every Figma frame does, whatever the piece's height.
+// Split heroes centre the visual on y≈428, as every Figma frame does, whatever the piece's height. With the
+// video the copy is the taller side, so it sits at Figma's y 196 instead.
 const visualHeight = motion ? ((motion.width ?? 620) * motionPieces[motion.id].size[1]) / motionPieces[motion.id].size[0] : 455;
-const splitTop = `${Math.round(428 - visualHeight / 2)}px`;
+const splitTop = video ? '196px' : `${Math.round(428 - visualHeight / 2)}px`;
+const splitBottom = video ? '96px' : '105px';
 ---
 
 <section class="relative isolate overflow-hidden">
@@ -39,10 +45,14 @@ const splitTop = `${Math.round(428 - visualHeight / 2)}px`;
 
   <div
     class:list={[
-      'mx-auto flex max-w-312 flex-col gap-10 px-6 pt-24 pb-16',
-      centred ? 'items-center text-center lg:gap-(--motion-gap) lg:pt-[176px] lg:pb-12' : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-[105px]',
+      'mx-auto flex flex-col gap-10 px-6 pt-24 pb-16',
+      // The video hero sits on the 1152px content column (Figma: copy at x 144, video ending at 1296).
+      video ? 'max-w-300' : 'max-w-312',
+      centred
+        ? ['items-center text-center lg:gap-(--motion-gap)', cards ? 'lg:pt-[170px] lg:pb-24' : 'lg:pt-[176px] lg:pb-12']
+        : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-(--split-bottom)',
     ]}
-    style={centred ? `--motion-gap: ${motionGap}px` : `--split-top: ${splitTop}`}
+    style={centred ? `--motion-gap: ${motionGap}px` : `--split-top: ${splitTop}; --split-bottom: ${splitBottom}`}
   >
     <div class:list={['flex flex-col', centred ? 'max-w-225 items-center gap-5' : 'gap-6 lg:w-[560px] lg:shrink-0']}>
       <Breadcrumb>
@@ -73,5 +83,21 @@ const splitTop = `${Math.round(428 - visualHeight / 2)}px`;
         </div>
       )
     }
+    {
+      video && (
+        <div class="hidden w-full md:block lg:ml-auto lg:max-w-[560px] lg:min-w-0 lg:flex-1">
+          <VideoPlaceholder label={video.label} href={video.href} />
+        </div>
+      )
+    }
   </div>
+  {
+    cards && (
+      <ul class="relative mx-auto grid max-w-[1440px] grid-cols-1 gap-3 px-3 md:grid-cols-2 lg:grid-cols-4 lg:gap-4 lg:px-6">
+        {cards.map((card) => (
+          <LandingCard {...card} fill="glass" titleAs="h2" />
+        ))}
+      </ul>
+    )
+  }
 </section>

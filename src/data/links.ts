@@ -33,8 +33,8 @@ export const navLinks: Record<Locale, NavLinks> = {
         description: 'Tracking für lange Funnels: vom ersten Anzeigenklick bis zum Kauf Wochen später.',
       },
       links: [
-        { title: 'Serverseitiges Tracking', description: 'Meta CAPI vom Server, für lange Funnels.', href: '#' },
-        { title: 'Webinar-Funnel-Tracking', description: 'Webinare, Calls und High-Ticket-Verkäufe.', href: '#' },
+        { title: 'Serverseitiges Tracking', description: 'Meta CAPI vom Server, für lange Funnels.', href: pathFor('serverSideTracking', 'de') },
+        { title: 'Webinar-Funnel-Tracking', description: 'Webinare, Calls und High-Ticket-Verkäufe.', href: pathFor('webinarFunnelTracking', 'de') },
         { title: 'Fingerprint Tracking', description: 'Ein Kunde über Geräte und Wochen hinweg.', href: pathFor('fingerprintTracking', 'de') },
         { title: 'KlickTipp Tracking', description: 'Quelle, Kampagne und Anzeige als KlickTipp-Tags.', href: pathFor('klicktippTracking', 'de') },
       ],
@@ -57,8 +57,8 @@ export const navLinks: Record<Locale, NavLinks> = {
         description: 'Tracking for long funnels: from the first ad click to the sale weeks later.',
       },
       links: [
-        { title: 'Server-side tracking', description: 'Meta CAPI from the server, for long funnels.', href: '#' },
-        { title: 'Webinar funnel tracking', description: 'Webinars, calls and high-ticket sales.', href: '#' },
+        { title: 'Server-side tracking', description: 'Meta CAPI from the server, for long funnels.', href: pathFor('serverSideTracking', 'en') },
+        { title: 'Webinar funnel tracking', description: 'Webinars, calls and high-ticket sales.', href: pathFor('webinarFunnelTracking', 'en') },
         { title: 'Fingerprint tracking', description: 'One customer across devices and weeks.', href: pathFor('fingerprintTracking', 'en') },
         { title: 'KlickTipp tracking', description: 'Source, campaign and ad as KlickTipp tags.', href: pathFor('klicktippTracking', 'en') },
       ],

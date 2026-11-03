@@ -8,7 +8,7 @@ import type {
 } from '@klicktipp/traqqr-components';
 import type { FaqProps } from '@/components/sections/Faq';
 import type { FeatureCardsProps } from '@/components/sections/FeatureCards';
-import type { HeroCopy } from '@/components/sections/Hero';
+import type { HeroCopy, HeroFeature } from '@/components/sections/Hero';
 import type { IntegrationsGridProps } from '@/components/sections/IntegrationsGrid';
 import type { IntegrationsStripProps } from '@/components/sections/IntegrationsStrip';
 import type { StatsProps } from '@/components/sections/Stats';
@@ -53,6 +53,10 @@ export interface PageHeroProps {
   /** The outline button next to the shared trial CTA. Without it, the hero has no buttons. */
   secondaryAction?: CtaAction;
   motion?: MotionSlot;
+  /** Split heroes: the explainer video (a placeholder until it exists) instead of a motion piece. */
+  video?: { label: string; href: string };
+  /** Centred heroes: chamfered glass cards under the copy (Figma /webinar-funnel-tracking/ §1). */
+  cards?: HeroFeature[];
   /** Centred heroes: px between the copy and the piece (default 8, Event Inspector's stage has its own space). */
   motionGap?: number;
 }

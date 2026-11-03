@@ -22,6 +22,8 @@ export const routes = {
   fingerprintTracking: { de: '/fingerprint-tracking/', en: '/en/fingerprint-tracking/' },
   klicktippTracking: { de: '/klicktipp-tracking/', en: '/en/klicktipp-tracking/' },
   integrations: { de: '/integrationen/', en: '/en/integrations/' },
+  serverSideTracking: { de: '/server-side-conversion-tracking/', en: '/en/server-side-conversion-tracking/' },
+  webinarFunnelTracking: { de: '/webinar-funnel-tracking/', en: '/en/webinar-funnel-tracking/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

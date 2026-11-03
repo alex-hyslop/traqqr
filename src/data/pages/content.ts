@@ -6,6 +6,8 @@ import { fingerprintTracking } from './fingerprint-tracking';
 import { integrationsPage } from './integrations';
 import { klicktippTracking } from './klicktipp-tracking';
 import { reverseProxy } from './reverse-proxy';
+import { serverSideTracking } from './server-side-tracking';
+import { webinarFunnelTracking } from './webinar-funnel-tracking';
 
 // The internal pages (Kev's 3 Nov handover §5), each in both languages. src/pages/[slug].astro and
 // src/pages/en/[slug].astro build one page per entry, at its path in src/i18n.
@@ -22,4 +24,6 @@ export const contentPages: Partial<Record<RouteKey, Record<Locale, ContentPage>>
   fingerprintTracking,
   klicktippTracking,
   integrations: integrationsPage,
+  serverSideTracking,
+  webinarFunnelTracking,
 };
