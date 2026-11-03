@@ -1,12 +1,13 @@
 import type { APIRoute } from 'astro';
-import { faqItems } from '@/data/faq';
 import { integrations } from '@/data/integrations';
+import { homePages } from '@/data/pages/home';
 import { siteContent } from '@/data/site';
+import { pathFor } from '@/i18n';
 
 // /llms.txt (llmstxt.org): a plain-text summary for AI assistants and answer engines, built from the
-// same copy as the homepage so it can't drift. Add a line per page as pages are added.
+// same copy as the English homepage so it can't drift. Add a line per page as pages are added.
 export const GET: APIRoute = ({ site }) => {
-  const home = new URL('/', site).href;
+  const faqItems = homePages.en.sections.flatMap((section) => (section.kind === 'faq' ? section.props.items : []));
   const body = `# Traqqr
 
 > Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser, so ad blockers and cookie banners stop costing you conversions.
@@ -29,8 +30,9 @@ ${faqItems.map((i) => `### ${i.question}\n\n${i.answer}`).join('\n\n')}
 
 ## Links
 
-- [Homepage](${home})
-- [Start a free trial](${siteContent.cta.trial.href})
+- [Homepage (English)](${new URL(pathFor('home', 'en'), site).href})
+- [Homepage (German)](${new URL(pathFor('home', 'de'), site).href})
+- [Start a free trial](${siteContent.en.cta.trial.href})
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

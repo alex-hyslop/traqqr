@@ -3,15 +3,19 @@ import { getImage } from 'astro:assets';
 import heroPoster from '@/assets/hero/hero-video-poster.jpg';
 import { Hero, heroPosterSizes } from '@/components/sections/Hero';
 import type { Section } from '@/data/sections';
+import { toLocale } from '@/i18n';
 
 interface Props {
   section: Extract<Section, { kind: 'hero' }>;
 }
+const { section } = Astro.props;
 
 const poster = await getImage({ src: heroPoster, width: 1280, height: 720, format: 'webp', widths: [480, 640, 960, 1280] });
 ---
 
 <Hero
+  {...section.props}
+  locale={toLocale(Astro.currentLocale)}
   poster={{
     src: poster.src,
     srcSet: poster.srcSet.attribute,

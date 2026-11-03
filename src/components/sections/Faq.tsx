@@ -1,10 +1,15 @@
 import { Section, SectionHeading } from '@klicktipp/traqqr-components';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { faqItems, type FaqItem } from '@/data/faq';
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
 
 export interface FaqProps {
-  title?: string;
-  items?: FaqItem[];
+  title: string;
+  /** Also the page's FAQPage structured data and /llms.txt, so all three say the same thing. */
+  items: FaqItem[];
   /** Index of the item open on load. */
   defaultOpen?: number;
 }
@@ -14,7 +19,7 @@ export interface FaqProps {
 // trigger's font-medium is dropped (Kev confirmed Regular). Answers are muted, 14/20 with pb-2.5 as in
 // Figma, the same size as the questions (Kev, 20 Oct 16:45). The first question starts open (Alex, 26 Oct;
 // Figma shows the 4th open). Needs hydrating (client:visible).
-export function Faq({ title = 'Frequently asked questions', items = faqItems, defaultOpen = 0 }: FaqProps) {
+export function Faq({ title, items, defaultOpen = 0 }: FaqProps) {
   return (
     <Section
       id="faq"

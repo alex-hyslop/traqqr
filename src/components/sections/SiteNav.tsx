@@ -32,18 +32,14 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import {
-  integrationsHref,
-  loginHref,
-  pricingHref,
-  productLinks,
-  resourceLinks,
-  type NavLink,
-} from '@/data/links';
+import { integrationsHref, loginHref, navLinks, pricingHref, type NavLink, type ResourceLink } from '@/data/links';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
-import { siteContent } from '@/data/site';
+import { siteContent, type SiteContent } from '@/data/site';
+import { defaultLocale, pathFor, type Locale } from '@/i18n';
 
-const resourceIcons: Record<(typeof resourceLinks)[number]['icon'], LucideIcon> = {
+type NavLabels = SiteContent['nav'];
+
+const resourceIcons: Record<ResourceLink['icon'], LucideIcon> = {
   docs: BookOpen,
   help: LifeBuoy,
   blog: Newspaper,
@@ -80,15 +76,22 @@ function IconBox({ children }: { children: React.ReactNode }) {
   return <span className="flex size-5 shrink-0 items-center justify-center">{children}</span>;
 }
 
-function DesktopMenu({ integrations }: { integrations: Integration[] }) {
+interface DesktopMenuProps {
+  labels: NavLabels;
+  integrations: Integration[];
+  product: NavLink[];
+  resources: ResourceLink[];
+}
+
+function DesktopMenu({ labels, integrations, product, resources }: DesktopMenuProps) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={triggerClass}>Product</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={triggerClass}>{labels.product}</NavigationMenuTrigger>
           <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
             <ul className="flex flex-col">
-              {productLinks.map((link) => (
+              {product.map((link) => (
                 <li key={link.title}>
                   <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
                     <a href={link.href}>
@@ -103,7 +106,7 @@ function DesktopMenu({ integrations }: { integrations: Integration[] }) {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={triggerClass}>Integrations</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={triggerClass}>{labels.integrations}</NavigationMenuTrigger>
           <NavigationMenuContent className={cn(panelClass, 'md:w-[600px]')}>
             <ul className="grid grid-cols-3 gap-1">
               {integrations.map((integration) => (
@@ -116,7 +119,7 @@ function DesktopMenu({ integrations }: { integrations: Integration[] }) {
             </ul>
             <Separator className="my-2" />
             <ul>
-              <PanelLink link={{ title: 'All integrations', href: integrationsHref }}>
+              <PanelLink link={{ title: labels.allIntegrations, href: integrationsHref }}>
                 <IconBox>
                   <ArrowRight className="size-4" strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
                 </IconBox>
@@ -126,10 +129,10 @@ function DesktopMenu({ integrations }: { integrations: Integration[] }) {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={triggerClass}>Resources</NavigationMenuTrigger>
+          <NavigationMenuTrigger className={triggerClass}>{labels.resources}</NavigationMenuTrigger>
           <NavigationMenuContent className={cn(panelClass, 'md:w-[320px]')}>
             <ul className="flex flex-col gap-1">
-              {resourceLinks.map((link) => {
+              {resources.map((link) => {
                 const Icon = resourceIcons[link.icon];
                 return (
                   <PanelLink key={link.title} link={link}>
@@ -145,7 +148,7 @@ function DesktopMenu({ integrations }: { integrations: Integration[] }) {
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), triggerClass)}>
-            <a href={pricingHref}>Pricing</a>
+            <a href={pricingHref}>{labels.pricing}</a>
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
@@ -199,20 +202,22 @@ const activeProps = (active: boolean) =>
   active ? ({ 'data-active': true, 'aria-current': 'page' } as const) : {};
 
 interface MobileMenuProps {
+  labels: NavLabels;
+  trial: SiteContent['cta']['trial'];
   open: boolean;
   onOpenChange: (open: boolean) => void;
   currentPath?: string;
   product: NavLink[];
-  resources: (typeof resourceLinks)[number][];
+  resources: ResourceLink[];
   /** Whether the top bar has turned floating, which moves the hamburger the close button covers. */
   scrolled: boolean;
 }
 
-function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrolled }: MobileMenuProps) {
+function MobileMenu({ labels, trial, open, onOpenChange, currentPath, product, resources, scrolled }: MobileMenuProps) {
   const close = () => onOpenChange(false);
   const groups = [
-    { key: 'product' as const, label: 'Product', icon: <NavProductIcon />, links: product },
-    { key: 'resources' as const, label: 'Resources', icon: <NavResourcesIcon />, links: resources },
+    { key: 'product' as const, label: labels.product, icon: <NavProductIcon />, links: product },
+    { key: 'resources' as const, label: labels.resources, icon: <NavResourcesIcon />, links: resources },
   ];
   // One group open at a time; the group holding the current page starts open.
   const [group, setGroup] = useState<'product' | 'resources' | null>(
@@ -261,20 +266,20 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
         className="w-[320px] gap-0 border-sidebar-border bg-sidebar shadow-none"
         aria-describedby={undefined}
       >
-        <SheetTitle className="sr-only">Menu</SheetTitle>
+        <SheetTitle className="sr-only">{labels.menu}</SheetTitle>
         <div className="flex h-20 shrink-0 items-center border-b border-sidebar-border px-6">
           <TraqqrLogo height={40} />
         </div>
         <nav aria-label="Mobile" className="flex flex-col gap-0.5 px-3 py-4">
           {renderGroup(groups[0])}
-          {plainRow('Integrations', integrationsHref, <NavIntegrationsIcon />)}
+          {plainRow(labels.integrations, integrationsHref, <NavIntegrationsIcon />)}
           {renderGroup(groups[1])}
-          {plainRow('Pricing', pricingHref, <NavPricingIcon />)}
-          <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow('Log in', loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
+          {plainRow(labels.pricing, pricingHref, <NavPricingIcon />)}
+          <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow(labels.login, loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
         </nav>
         <SheetFooter className="p-4">
-          <a href={siteContent.cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
-            {siteContent.cta.trial.label}
+          <a href={trial.href} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
+            {trial.label}
           </a>
         </SheetFooter>
         {/* The dashboard's close button, centred on the hamburger's spot at the right of the screen. It
@@ -283,7 +288,7 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
         <Button
           variant="ghost"
           size="icon-lg"
-          aria-label="Close menu"
+          aria-label={labels.closeMenu}
           onClick={close}
           className={cn(
             'absolute cursor-pointer text-white hover:bg-white/10 hover:text-white',
@@ -302,12 +307,13 @@ function MobileMenu({ open, onOpenChange, currentPath, product, resources, scrol
 // scroll the wordmark folds away. Below lg: the dashboard's top bar (full logo + its menu toggle) at the
 // top of the page, turning into the floating glass bar past 80px. Bar states live in global.css (.site-nav).
 export interface SiteNavProps {
+  locale?: Locale;
   /** The page's path (Astro.url.pathname), for the mobile menu's active row. */
   currentPath?: string;
   integrations?: Integration[];
-  /** Mobile menu link lists; the defaults are Kev's placeholders in src/data/links.ts. */
+  /** Dropdown and mobile menu link lists; the defaults are the language's lists in src/data/links.ts. */
   product?: NavLink[];
-  resources?: (typeof resourceLinks)[number][];
+  resources?: ResourceLink[];
   /** Pin the scrolled state (Storybook); by default it follows window scroll past 80px. */
   scrolled?: boolean;
   /** Open the mobile menu on load (Storybook). */
@@ -315,13 +321,15 @@ export interface SiteNavProps {
 }
 
 export function SiteNav({
+  locale = defaultLocale,
   currentPath,
   integrations = allIntegrations,
-  product = productLinks,
-  resources = resourceLinks,
+  product = navLinks[locale].product,
+  resources = navLinks[locale].resources,
   scrolled: scrolledOverride,
   defaultMenuOpen = false,
 }: SiteNavProps) {
+  const { nav: labels, cta } = siteContent[locale];
   const [scrolledByPage, setScrolledByPage] = useState(false);
   const [menuOpen, setMenuOpen] = useState(defaultMenuOpen);
   const scrolled = scrolledOverride ?? scrolledByPage;
@@ -344,15 +352,15 @@ export function SiteNav({
         aria-label="Main"
         className="site-nav pointer-events-auto flex w-full items-center justify-between gap-6 lg:h-[68px] lg:w-auto lg:justify-start lg:rounded-[12px] lg:border lg:border-accent-line lg:p-4 lg:pr-5 lg:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)] lg:backdrop-blur-md"
       >
-        <a href="/" aria-label="Traqqr home" className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
+        <a href={pathFor('home', locale)} aria-label={labels.home} className="flex rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50">
           <TraqqrLogo height={36.4} className="lg:hidden" />
           <TraqqrLogo className="hidden lg:inline-flex" />
         </a>
 
-        <DesktopMenu integrations={integrations} />
+        <DesktopMenu labels={labels} integrations={integrations} product={product} resources={resources} />
 
-        <a href={siteContent.cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
-          {siteContent.cta.trial.label}
+        <a href={cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
+          {cta.trial.label}
         </a>
 
         {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
@@ -361,7 +369,7 @@ export function SiteNav({
           size="icon"
           className="cursor-pointer lg:hidden"
           onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
+          aria-label={labels.openMenu}
           aria-expanded={menuOpen}
         >
           <WideMenuIcon className="size-auto h-4" />
@@ -369,6 +377,8 @@ export function SiteNav({
       </nav>
 
       <MobileMenu
+        labels={labels}
+        trial={cta.trial}
         open={menuOpen}
         onOpenChange={setMenuOpen}
         currentPath={currentPath}

@@ -1,42 +1,23 @@
 import { Fragment } from 'react';
 import { Separator } from '@klicktipp/traqqr-components';
 import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
-import { loginHref } from '@/data/links';
-
-export interface FooterColumn {
-  heading: string;
-  links: { label: string; href: string }[];
-}
+import { siteContent } from '@/data/site';
+import { defaultLocale, pathFor, type Locale } from '@/i18n';
 
 export interface SiteFooterProps {
-  tagline?: string;
-  columns?: FooterColumn[];
-  legal?: { label: string; href: string }[];
+  locale?: Locale;
 }
 
-const link = (label: string, href = '#') => ({ label, href });
-
-// "#" placeholders until the pages exist, except "Log in" (the app login).
-const defaultColumns: FooterColumn[] = [
-  { heading: 'Product', links: [link('Features'), link('Integrations'), link('Pricing'), link('Live Feed')] },
-  { heading: 'Resources', links: [link('Docs'), link('Help center'), link('Blog')] },
-  { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', loginHref)] },
-];
-const defaultLegal = [link('Privacy'), link('Terms'), link('Imprint')];
-
-// Footer (Figma: Block / Footer 5058:1677, homepage 5058:63908; mobile 5063:15675). Brand + tagline,
-// link columns (plain <a>, not Button), Separator, legal row. On mobile the columns sit in one row.
-export function SiteFooter({
-  tagline = 'Server-side tracking for Meta Ads.',
-  columns = defaultColumns,
-  legal = defaultLegal,
-}: SiteFooterProps) {
+// Footer (Figma: Block / Footer 5058:1677, Homepage v2 5212:17406 DE / 5212:18041 EN; mobile 5063:15675).
+// Brand + tagline, link columns (plain <a>, not Button), Separator, legal row. On mobile the columns sit in one row.
+export function SiteFooter({ locale = defaultLocale }: SiteFooterProps) {
+  const { tagline, columns, legal, copyright } = siteContent[locale].footer;
   return (
     <footer className="border-t">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 pt-12 pb-8 lg:gap-10 lg:pt-16 lg:pb-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-col gap-3">
-            <a href="/" aria-label="Traqqr home" className="flex self-start">
+            <a href={pathFor('home', locale)} aria-label={siteContent[locale].nav.home} className="flex self-start">
               <TraqqrLogo height={40.826} />
             </a>
             <p className="text-sm leading-5 text-muted-foreground">{tagline}</p>
@@ -66,7 +47,7 @@ export function SiteFooter({
         <Separator />
 
         <div className="flex flex-col gap-2 font-mono text-xs leading-4 text-muted-foreground lg:flex-row lg:justify-between">
-          <p>© 2026 Traqqr. All rights reserved.</p>
+          <p>{copyright}</p>
           <p className="flex gap-2">
             {legal.map((item, i) => (
               <Fragment key={item.label}>

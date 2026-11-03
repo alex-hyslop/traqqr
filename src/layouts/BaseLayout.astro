@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { SiteFooter } from '@/components/sections/SiteFooter';
+import { defaultLocale, localeInfo, locales, pathFor, toLocale, type RouteKey } from '@/i18n';
 
 /** Link-preview image. `src` is a path on this site. The size and alt must match the file. */
 interface OgImage {
@@ -12,6 +13,8 @@ interface OgImage {
 }
 
 interface Props {
+  /** The page's key in src/i18n, for its canonical URL and the links to its other language. */
+  route: RouteKey;
   title: string;
   description: string;
   image?: OgImage;
@@ -24,15 +27,21 @@ const defaultImage: OgImage = {
   alt: 'Traqqr: server-side tracking for Meta Ads',
 };
 
-const { title, description, image = defaultImage } = Astro.props;
+const { route, title, description, image = defaultImage } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
 // Absolute URLs from `site` in astro.config.mjs, so previews and the canonical link follow the domain.
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const canonical = new URL(pathFor(route, locale), Astro.site);
+// Every language's version of this page, plus x-default (the German default) for everyone else.
+const alternates = [
+  ...locales.map((l) => ({ hreflang: l, href: new URL(pathFor(route, l), Astro.site) })),
+  { hreflang: 'x-default', href: new URL(pathFor(route, defaultLocale), Astro.site) },
+];
 const imageUrl = new URL(image.src, Astro.site);
 const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={locale} class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,6 +53,7 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
     {isPreviewHost && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
@@ -55,18 +65,19 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <meta property="og:image:width" content={String(image.width)} />
     <meta property="og:image:height" content={String(image.height)} />
     <meta property="og:image:alt" content={image.alt} />
-    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale" content={localeInfo[locale].ogLocale} />
+    {locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={localeInfo[l].ogLocale} />)}
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Traqqr for AI assistants" />
     <slot name="head" />
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
     <div class="ambient" aria-hidden="true"><div class="cursor-light"></div></div>
-    <SiteNav client:load currentPath={Astro.url.pathname} />
+    <SiteNav client:load locale={locale} currentPath={Astro.url.pathname} />
     <main>
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter locale={locale} />
     <script>
       import '@/scripts/ambient';
     </script>

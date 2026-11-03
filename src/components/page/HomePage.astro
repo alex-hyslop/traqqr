@@ -1,0 +1,55 @@
+---
+// The homepage in either language, rendered by src/pages/index.astro (DE) and src/pages/en/index.astro (EN).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageSections from '@/components/page/PageSections.astro';
+import { homePages } from '@/data/pages/home';
+import { pathFor, toLocale } from '@/i18n';
+
+const locale = toLocale(Astro.currentLocale);
+const homePage = homePages[locale];
+const faqItems = homePage.sections.flatMap((section) => (section.kind === 'faq' ? section.props.items : []));
+
+// Structured data for search and AI answers: who makes it, what it is, and the FAQ (from the same copy
+// the page shows), in the page's language. No price or rating, because none is published yet.
+// The organisation and website are one entity for both languages, so their @ids sit on the root.
+const site = new URL('/', Astro.site).href;
+const page = new URL(pathFor('home', locale), Astro.site).href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${site}#organization`,
+      name: 'Traqqr',
+      url: site,
+      logo: new URL('/logo.png', site).href,
+    },
+    { '@type': 'WebSite', '@id': `${site}#website`, name: 'Traqqr', url: site, publisher: { '@id': `${site}#organization` } },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Traqqr',
+      url: page,
+      inLanguage: locale,
+      description: homePage.description,
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      publisher: { '@id': `${site}#organization` },
+      featureList: homePage.features,
+    },
+    {
+      '@type': 'FAQPage',
+      inLanguage: locale,
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout route="home" title={homePage.title} description={homePage.description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
+  <PageSections sections={homePage.sections} />
+</BaseLayout>

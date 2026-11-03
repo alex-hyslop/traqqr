@@ -8,8 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://traqqr.vercel.app', // Production URL until the homepage moves to the real domain at launch
   output: 'static',
-  integrations: [react(), sitemap()],
-  // One page, so inline the CSS (~6 KB gzipped) instead of a render-blocking request (Lighthouse, 21 Oct).
+  // German at /, English under /en/ (Kev's 3 Nov handover §2). Keep in step with src/i18n.
+  i18n: { defaultLocale: 'de', locales: ['de', 'en'], routing: { prefixDefaultLocale: false } },
+  integrations: [react(), sitemap({ i18n: { defaultLocale: 'de', locales: { de: 'de', en: 'en' } } })],
+  // Few pages, so inline the CSS (~6 KB gzipped) instead of a render-blocking request (Lighthouse, 21 Oct).
   build: { inlineStylesheets: 'always' },
   vite: {
     plugins: [tailwindcss()],
