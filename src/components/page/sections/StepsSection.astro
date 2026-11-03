@@ -5,8 +5,9 @@
 // · "card": a bg-card band with border-y, 400px steps (120px padding, 56px from title to steps);
 // · "charcoal": on the angled charcoal band, with a logo tile and mono eyebrow before the title and 376px
 //   steps 40px apart, their lines 14px apart (Figma /reverse-proxy/ §3 5226:263).
-// Below md the steps stack (the vertical rail of §6.5 comes with the mobile pass).
+// Below md the steps become the small vertical rail (Kev's mobile rules; Figma 5294:917).
 import CharcoalBand from '@/components/page/CharcoalBand.astro';
+import MobileRail from '@/components/page/MobileRail.astro';
 import { integrations } from '@/data/integrations';
 import type { Section } from '@/data/sections';
 
@@ -35,7 +36,8 @@ const Band = charcoal ? CharcoalBand : 'section';
         <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
       </div>
     </div>
-    <ol class:list={['grid gap-8 md:grid-cols-3', charcoal ? 'md:gap-10' : 'md:gap-0']}>
+    <MobileRail class="md:hidden" items={steps.map((step) => ({ label: step.number, title: step.title, body: step.body }))} />
+    <ol class:list={['hidden md:grid md:grid-cols-3', charcoal ? 'md:gap-10' : 'md:gap-0']}>
       {
         steps.map((step, i) => (
           <li class:list={['flex flex-col border-t pt-6', charcoal ? 'gap-3.5' : 'gap-4', i === last ? 'border-brand' : 'border-white/16']}>

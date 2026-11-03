@@ -3,7 +3,9 @@
 // then a 960px bg-card table, radius 14 and white/10 border. A white/3 head with mono labels; 480px
 // feature column, two 240px columns, the second (the one this page is about) tinted brand/6 with green
 // checks; the other column's checks are muted and a missing feature is a muted dash. Rows 56px apart,
-// white/8 lines. Below md the columns get narrower (the stacked rows of §6.5 come with the mobile pass).
+// white/8 lines. Below md it's stacked rows (Figma mobile 5294:645): the two column names on top, then per
+// row the label centred and the two cells side by side, a missing feature tinted destructive and the
+// highlighted column success.
 import { cn } from '@klicktipp/traqqr-components/utils';
 import { Check } from 'lucide-react';
 import type { Section } from '@/data/sections';
@@ -20,7 +22,37 @@ const headCell = 'px-3 py-3.5 text-center font-mono text-xs leading-4 font-norma
     <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>
     <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
   </div>
-  <div class="w-full max-w-240 overflow-hidden rounded-[14px] border border-white/10 bg-card">
+  <div class="w-full rounded-[14px] border border-white/10 bg-card p-3 md:hidden">
+    <p class="grid grid-cols-2 gap-2 py-2 text-center font-mono text-xs leading-4 tracking-[0.04em] uppercase" aria-hidden="true">
+      <span class="text-destructive">{columns.standard}</span>
+      <span class="text-success">{columns.highlight}</span>
+    </p>
+    <dl class="flex flex-col gap-4">
+      {
+        rows.map((row) => (
+          <div class="flex flex-col gap-2">
+            <dt class="text-center text-sm leading-5 text-foreground">{row.label}</dt>
+            <dd class="grid grid-cols-2 gap-2 text-center text-sm leading-5">
+              {[row.standard, row.highlight].map((has, col) => (
+                <span
+                  class:list={[
+                    'flex h-9 items-center justify-center rounded-lg',
+                    col === 1 ? 'bg-success/15' : !has && 'bg-destructive/15',
+                  ]}
+                >
+                  <span aria-hidden="true">{has ? '✓' : '–'}</span>
+                  <span class="sr-only">
+                    {columns[col === 1 ? 'highlight' : 'standard']}: {has ? answers.yes : answers.no}
+                  </span>
+                </span>
+              ))}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+  <div class="hidden w-full max-w-240 overflow-hidden rounded-[14px] border border-white/10 bg-card md:block">
     <table class="w-full border-collapse text-sm leading-5">
       <thead class="border-b border-white/8 bg-white/3">
         <tr>

@@ -39,6 +39,17 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
             label: 'Eine Journey über drei Wochen: Ad-Klick und Opt-in am Handy, Webinar am Tablet, Call und Kauf am Laptop.',
             width: 1200,
           },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: 'Tag 1 · Handy', title: 'Ad-Klick', body: 'Instagram-Anzeige auf dem Handy.' },
+              { label: 'Tag 1 · Handy', title: 'Opt-in', body: 'Anmeldung zur Webinar-Liste.' },
+              { label: 'Tag 6 · Tablet', title: 'Webinar', body: 'Teilnahme auf dem Tablet.' },
+              { label: 'Tag 14 · Laptop', title: 'Call', body: 'Termin gebucht am Laptop.' },
+              { label: 'Tag 21 · Laptop', title: 'Kauf', body: 'Kauf am Laptop – zugeordnet zur Anzeige von Tag 1.' },
+            ],
+            note: 'BEISPIEL',
+          },
         },
       },
       {
@@ -121,6 +132,17 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
             id: 'fingerprint-journey',
             label: 'A journey over three weeks: ad click and opt-in on the phone, webinar on the tablet, call and purchase on the laptop.',
             width: 1200,
+          },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: 'Day 1 · Phone', title: 'Ad click', body: 'Instagram ad on the phone.' },
+              { label: 'Day 1 · Phone', title: 'Opt-in', body: 'Signed up to the webinar list.' },
+              { label: 'Day 6 · Tablet', title: 'Webinar', body: 'Attended on the tablet.' },
+              { label: 'Day 14 · Laptop', title: 'Call', body: 'Booked a call on the laptop.' },
+              { label: 'Day 21 · Laptop', title: 'Purchase', body: 'Purchase on the laptop – attributed to the ad from day 1.' },
+            ],
+            note: 'EXAMPLE',
           },
         },
       },

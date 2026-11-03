@@ -35,6 +35,14 @@ export const liveFeed: Record<Locale, ContentPage> = {
           eyebrow: 'Zwei Wege, ein Bild',
           title: 'Browser und Server, nebeneinander.',
           motion: { id: 'live-feed-split', label: 'Ein Kauf kommt aus dem Browser und vom Server an und wird zu einem Event dedupliziert.', width: 1000 },
+          fallback: {
+            kind: 'panels',
+            panels: [
+              { icon: 'globe', title: 'Browser', badge: 'Browser', items: ['Meta Pixel auf Deiner Seite', 'Sofort sichtbar im Feed', 'Kann von Adblockern gestoppt werden'] },
+              { icon: 'server', title: 'Server', badge: 'Server', items: ['Conversions API vom Server', 'Unabhängig vom Browser', 'Mit Daten aus Digistore24, KlickTipp und Co.'] },
+            ],
+            link: { badge: 'Dedupliziert', note: '1 Kauf = 1 Event' },
+          },
         },
       },
       {
@@ -109,6 +117,14 @@ export const liveFeed: Record<Locale, ContentPage> = {
           eyebrow: 'Two paths, one picture',
           title: 'Browser and server, side by side.',
           motion: { id: 'live-feed-split', label: 'A purchase arrives from the browser and from the server and is deduplicated into one event.', width: 1000 },
+          fallback: {
+            kind: 'panels',
+            panels: [
+              { icon: 'globe', title: 'Browser', badge: 'Browser', items: ['Meta Pixel on your site', 'Visible in the feed instantly', 'Can be stopped by ad blockers'] },
+              { icon: 'server', title: 'Server', badge: 'Server', items: ['Conversions API from the server', 'Independent of the browser', 'With data from Digistore24, KlickTipp and more'] },
+            ],
+            link: { badge: 'Deduplicated', note: '1 purchase = 1 event' },
+          },
         },
       },
       {

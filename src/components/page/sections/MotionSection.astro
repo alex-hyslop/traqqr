@@ -5,13 +5,18 @@
 // heading, e.g. the Live Feed marquee) gets just enough padding to centre it in its band. `align: "left"`
 // puts the heading at the column's left edge (Figma /fingerprint-tracking/ §2); `band` puts the section on
 // a bg-card band, and `titleSize: "lg"` makes the title 48/60, 64px above the piece (/klicktipp-tracking/ §3).
+// Below md, where only the marquee mounts, `fallback` shows the piece's content as static HTML: the small
+// vertical rail, or the two Browser / Server panels.
+import { Badge } from '@klicktipp/traqqr-components';
+import { Check, Globe, Server } from 'lucide-react';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
+import MobileRail from '@/components/page/MobileRail.astro';
 import type { Section } from '@/data/sections';
 
 interface Props {
   section: Extract<Section, { kind: 'motion' }>;
 }
-const { id, eyebrow, title, align = 'center', titleSize = 'md', band = false, motion } = Astro.props.section.props;
+const { id, eyebrow, title, align = 'center', titleSize = 'md', band = false, motion, fallback } = Astro.props.section.props;
 const left = align === 'left';
 const headingId = title ? `${id}-heading` : undefined;
 ---
@@ -39,5 +44,50 @@ const headingId = title ? `${id}-heading` : undefined;
     <div class="w-full" style={`max-width: ${motion.width}px`}>
       <MotionPiece id={motion.id} label={motion.label} />
     </div>
+    {
+      fallback?.kind === 'rail' && (
+        <div class="flex w-full flex-col gap-6 md:hidden">
+          <MobileRail items={fallback.items} />
+          {fallback.note && <p class="font-mono text-xs leading-4 text-muted-foreground">{fallback.note}</p>}
+        </div>
+      )
+    }
+    {
+      fallback?.kind === 'panels' && (
+        <div class="flex w-full flex-col items-center gap-4 md:hidden">
+          {fallback.panels.map((panel, i) => (
+            <>
+              {i > 0 && (
+                <div class="flex flex-col items-center gap-2">
+                  <Badge className="bg-success/15 text-success">{fallback.link.badge}</Badge>
+                  <span class="font-mono text-xs leading-4 text-muted-foreground">{fallback.link.note}</span>
+                </div>
+              )}
+              <div class="flex w-full flex-col gap-4 rounded-2xl border border-white/10 bg-card p-6">
+                <p class="flex items-center gap-3 text-2xl leading-8 font-light text-foreground">
+                  {panel.icon === 'globe' ? (
+                    <Globe className="size-6" strokeWidth={1.25} aria-hidden="true" />
+                  ) : (
+                    <Server className="size-6" strokeWidth={1.25} aria-hidden="true" />
+                  )}
+                  {panel.title}
+                </p>
+                <Badge variant="secondary" className="self-start">
+                  {panel.badge}
+                </Badge>
+                <ul class="flex flex-col gap-3 text-sm leading-5 text-foreground">
+                  {panel.items.map((item) => (
+                    <li class="flex items-center gap-2.5">
+                      <Check className="size-4 shrink-0 text-muted-foreground" strokeWidth={1.5} aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ))}
+        </div>
+      )
+    }
   </div>
 </section>

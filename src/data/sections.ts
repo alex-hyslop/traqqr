@@ -61,6 +61,16 @@ export interface PageHeroProps {
   motionGap?: number;
 }
 
+/** What a section shows below md in place of a desktop-only motion piece (Kev's mobile rules, 3 Nov). */
+export type MotionFallback =
+  | { kind: 'rail'; items: { label: string; title: string; body: string }[]; note?: string }
+  | {
+      kind: 'panels';
+      panels: { icon: 'globe' | 'server'; title: string; badge: string; items: string[] }[];
+      /** Between the panels: the dedupe badge and its line. */
+      link: { badge: string; note: string };
+    };
+
 export interface MotionSectionProps {
   id: string;
   eyebrow?: string;
@@ -70,6 +80,8 @@ export interface MotionSectionProps {
   titleSize?: 'md' | 'lg';
   /** On a bg-card band with border-y. */
   band?: boolean;
+  /** Below md, for a piece that doesn't mount there. */
+  fallback?: MotionFallback;
   motion: MotionSlot & { width: number };
 }
 

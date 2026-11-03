@@ -35,6 +35,16 @@ export const eventInspector: Record<Locale, ContentPage> = {
             label: 'Eine Purchase-Payload mit Hinweisen zu event_name, event_id, value und currency.',
             width: 1100,
           },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: '01 · event_name', title: 'Richtig benannt?', body: 'Lead, Purchase, Registration – so, wie Meta es erwartet.' },
+              { label: '02 · event_id', title: 'Bereit zur Deduplizierung?', body: 'Gleiche ID im Pixel und am Server, damit nichts doppelt zählt.' },
+              { label: '03 · value', title: 'Betrag dabei?', body: 'Ohne Wert kann Meta nicht auf Umsatz optimieren.' },
+              { label: '04 · currency', title: 'Währung gesetzt?', body: 'EUR, CHF oder USD – passend zum Wert.' },
+            ],
+            note: 'BEISPIELDATEN',
+          },
         },
       },
       {
@@ -111,6 +121,16 @@ export const eventInspector: Record<Locale, ContentPage> = {
             id: 'inspector-payload',
             label: 'A Purchase payload with notes on event_name, event_id, value and currency.',
             width: 1100,
+          },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: '01 · event_name', title: 'Named correctly?', body: 'Lead, Purchase, Registration – the way Meta expects it.' },
+              { label: '02 · event_id', title: 'Ready for deduplication?', body: 'The same ID in the pixel and on the server, so nothing counts twice.' },
+              { label: '03 · value', title: 'Value included?', body: "Without a value, Meta can't optimise for revenue." },
+              { label: '04 · currency', title: 'Currency set?', body: 'EUR, CHF or USD – matching the value.' },
+            ],
+            note: 'EXAMPLE DATA',
           },
         },
       },

@@ -93,6 +93,16 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
             label: 'Fünf Schritte: Anzeige, Opt-in, Tag in KlickTipp, Follow-up-E-Mail und der Kauf, der Anzeige zugeordnet.',
             width: 1100,
           },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: '01', title: 'Anzeige', body: 'Meta Ads' },
+              { label: '02', title: 'Opt-in', body: 'Formular' },
+              { label: '03', title: 'Tag', body: 'KlickTipp' },
+              { label: '04', title: 'Follow-up', body: 'E-Mail-Kampagne' },
+              { label: '05', title: 'Kauf', body: 'Zur Anzeige zugeordnet' },
+            ],
+          },
         },
       },
       {
@@ -216,6 +226,16 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
             id: 'klicktipp-flow',
             label: 'Five steps: ad, opt-in, tag in KlickTipp, follow-up email and the purchase, attributed to the ad.',
             width: 1100,
+          },
+          fallback: {
+            kind: 'rail',
+            items: [
+              { label: '01', title: 'Ad', body: 'Meta Ads' },
+              { label: '02', title: 'Opt-in', body: 'Form' },
+              { label: '03', title: 'Tag', body: 'KlickTipp' },
+              { label: '04', title: 'Follow-up', body: 'Email campaign' },
+              { label: '05', title: 'Purchase', body: 'Attributed to the ad' },
+            ],
           },
         },
       },

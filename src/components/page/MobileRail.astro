@@ -1,0 +1,44 @@
+---
+// The small vertical rail that horizontal layouts become below md (Kev's mobile rules, 3 Nov; Figma e.g.
+// /fingerprint-tracking/ §2 mobile 5294:1058): a 1px line on the left, a dot per stop, then a mono label,
+// a 24px Light title and one muted line. The last stop is the amber one.
+export interface RailItem {
+  label: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  items: RailItem[];
+  class?: string;
+}
+const { items, class: cls } = Astro.props;
+const last = items.length - 1;
+---
+
+<ol class:list={['relative flex flex-col gap-8 pl-7', cls]}>
+  {
+    items.map((item, i) => (
+      <li
+        class:list={[
+          'relative flex flex-col gap-1',
+          // The line: from this dot down to the next one (the list's gap is 2rem).
+          i < last && 'after:absolute after:top-2 after:-left-[24.5px] after:h-[calc(100%+2rem)] after:w-px after:bg-white/20',
+        ]}
+      >
+        <span
+          class:list={[
+            'absolute top-1 -left-7 size-2 rounded-full',
+            i === last ? 'bg-brand shadow-[0_0_12px_3px_rgb(255_183_77/0.45)]' : 'bg-foreground',
+          ]}
+          aria-hidden="true"
+        />
+        <span class:list={['font-mono text-xs leading-4 tracking-[0.08em] uppercase', i === last ? 'text-brand' : 'text-muted-foreground']}>
+          {item.label}
+        </span>
+        <h3 class="text-2xl leading-8 font-light text-foreground">{item.title}</h3>
+        <p class="text-sm leading-5 text-muted-foreground">{item.body}</p>
+      </li>
+    ))
+  }
+</ol>

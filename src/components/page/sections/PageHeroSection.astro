@@ -14,6 +14,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  Chamfered,
   CtaButtons,
   DesktopLines,
   LandingCard,
@@ -22,6 +23,7 @@ import {
 import { cn } from '@klicktipp/traqqr-components/utils';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
 import { motionPieces } from '@/components/motion/pieces';
+import { integrations } from '@/data/integrations';
 import type { Section } from '@/data/sections';
 import { siteContent } from '@/data/site';
 import { toLocale } from '@/i18n';
@@ -37,6 +39,9 @@ const centred = layout === 'centred';
 const visualHeight = motion ? ((motion.width ?? 620) * motionPieces[motion.id].size[1]) / motionPieces[motion.id].size[0] : 455;
 const splitTop = video ? '196px' : `${Math.round(428 - visualHeight / 2)}px`;
 const splitBottom = video ? '96px' : '105px';
+// Below lg the copy sits in the glass HUD box, 12px from the screen edges (Figma mobile 5294:597); from lg
+// the box's surface, edges and accents are hidden and the copy stands on the grid.
+const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden lg:[&>.chamfer-surface]:hidden';
 ---
 
 <section class="relative isolate overflow-hidden">
@@ -45,16 +50,25 @@ const splitBottom = video ? '96px' : '105px';
 
   <div
     class:list={[
-      'mx-auto flex flex-col gap-10 px-6 pt-24 pb-16',
+      'mx-auto flex flex-col gap-10 px-3 pt-[68px] pb-6 lg:px-6',
       // The video hero sits on the 1152px content column (Figma: copy at x 144, video ending at 1296).
       video ? 'max-w-300' : 'max-w-312',
       centred
-        ? ['items-center text-center lg:gap-(--motion-gap)', cards ? 'lg:pt-[170px] lg:pb-24' : 'lg:pt-[176px] lg:pb-12']
+        ? ['lg:items-center lg:gap-(--motion-gap) lg:text-center', cards ? 'lg:pt-[170px] lg:pb-24' : 'lg:pt-[176px] lg:pb-12']
         : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-(--split-bottom)',
     ]}
     style={centred ? `--motion-gap: ${motionGap}px` : `--split-top: ${splitTop}; --split-bottom: ${splitBottom}`}
   >
-    <div class:list={['flex flex-col', centred ? 'max-w-225 items-center gap-5' : 'gap-6 lg:w-[560px] lg:shrink-0']}>
+    <Chamfered
+      cut={32}
+      radius={16}
+      accent={220}
+      className={cn(
+        'flex flex-col gap-6 px-6 py-9',
+        hudOff,
+        centred ? 'lg:max-w-225 lg:items-center lg:gap-5' : 'lg:w-[560px] lg:shrink-0'
+      )}
+    >
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -72,9 +86,19 @@ const splitBottom = video ? '96px' : '105px';
       <p class:list={['text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7', centred ? 'max-w-[640px]' : 'lg:max-w-[520px]']}>
         {lead}
       </p>
-      {secondaryAction && <CtaButtons primary={trial} arrow secondary={secondaryAction} stackOnMobile className={cn(centred && 'justify-center')} />}
-    </div>
-    {
+      {secondaryAction && <CtaButtons primary={trial} arrow secondary={secondaryAction} stackOnMobile className={cn(centred && 'lg:justify-center')} />}
+      {
+        motion?.id === 'integrations-hub' && (
+          <ul class="flex flex-wrap gap-3 md:hidden" aria-hidden="true">
+            {integrations.map((integration) => (
+              <li class="logo-tile flex size-[58px] items-center justify-center rounded-xl border border-(--card-media-border) p-1">
+                <img src={integration.logo} alt="" width={48} height={48} class="size-12" />
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </Chamfered>    {
       motion && (
         <div class:list={['w-full', !centred && 'lg:min-w-0 lg:flex-1']}>
           <div class="mx-auto w-full" style={motion.width ? `max-width: ${motion.width}px` : undefined}>
