@@ -15,6 +15,7 @@ import {
   ArrowRight,
   BookOpen,
   ChevronDown,
+  Layers,
   LifeBuoy,
   LogIn,
   Newspaper,
@@ -32,7 +33,15 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { integrationsHref, loginHref, navLinks, pricingHref, type NavLink, type ResourceLink } from '@/data/links';
+import {
+  integrationsHref,
+  loginHref,
+  navLinks,
+  pricingHref,
+  type NavLink,
+  type NavLinks,
+  type ResourceLink,
+} from '@/data/links';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
 import { siteContent, type SiteContent } from '@/data/site';
 import { defaultLocale, pathFor, type Locale } from '@/i18n';
@@ -80,10 +89,11 @@ interface DesktopMenuProps {
   labels: NavLabels;
   integrations: Integration[];
   product: NavLink[];
+  solutions: NavLinks['solutions'];
   resources: ResourceLink[];
 }
 
-function DesktopMenu({ labels, integrations, product, resources }: DesktopMenuProps) {
+function DesktopMenu({ labels, integrations, product, solutions, resources }: DesktopMenuProps) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
@@ -102,6 +112,33 @@ function DesktopMenu({ labels, integrations, product, resources }: DesktopMenuPr
                 </li>
               ))}
             </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        {/* Built like the Product panel, plus a featured Traqqr card (Figma 5273:36): a 200px bg-muted
+            rounded-md p-6 card with its content at the bottom, gap-2, then the links. */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className={triggerClass}>{labels.solutions}</NavigationMenuTrigger>
+          <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
+            <div className="grid grid-cols-[200px_1fr] gap-2">
+              <div className="flex flex-col justify-end gap-2 rounded-md bg-muted p-6">
+                <TraqqrLogo className="mb-1 [&_[data-wordmark]]:hidden" />
+                <span className="text-lg leading-7 text-foreground">{solutions.featured.title}</span>
+                <span className="text-sm leading-5 text-muted-foreground">{solutions.featured.description}</span>
+              </div>
+              <ul className="flex flex-col">
+                {solutions.links.map((link) => (
+                  <li key={link.title}>
+                    <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
+                      <a href={link.href}>
+                        <span className="font-mono text-sm leading-5 text-foreground">{link.title}</span>
+                        <span className="text-sm leading-5 text-muted-foreground">{link.description}</span>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
@@ -208,19 +245,33 @@ interface MobileMenuProps {
   onOpenChange: (open: boolean) => void;
   currentPath?: string;
   product: NavLink[];
+  solutions: NavLink[];
   resources: ResourceLink[];
   /** Whether the top bar has turned floating, which moves the hamburger the close button covers. */
   scrolled: boolean;
 }
 
-function MobileMenu({ labels, trial, open, onOpenChange, currentPath, product, resources, scrolled }: MobileMenuProps) {
+function MobileMenu({
+  labels,
+  trial,
+  open,
+  onOpenChange,
+  currentPath,
+  product,
+  solutions,
+  resources,
+  scrolled,
+}: MobileMenuProps) {
   const close = () => onOpenChange(false);
   const groups = [
     { key: 'product' as const, label: labels.product, icon: <NavProductIcon />, links: product },
+    // Placeholder icon: Kev's duotone set (nav-icons.tsx) has no Solutions icon yet.
+    { key: 'solutions' as const, label: labels.solutions, icon: <Layers strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />, links: solutions },
     { key: 'resources' as const, label: labels.resources, icon: <NavResourcesIcon />, links: resources },
   ];
+  type GroupKey = (typeof groups)[number]['key'];
   // One group open at a time; the group holding the current page starts open.
-  const [group, setGroup] = useState<'product' | 'resources' | null>(
+  const [group, setGroup] = useState<GroupKey | null>(
     () => groups.find((g) => g.links.some((link) => isCurrent(link.href, currentPath)))?.key ?? null
   );
 
@@ -272,8 +323,9 @@ function MobileMenu({ labels, trial, open, onOpenChange, currentPath, product, r
         </div>
         <nav aria-label="Mobile" className="flex flex-col gap-0.5 px-3 py-4">
           {renderGroup(groups[0])}
-          {plainRow(labels.integrations, integrationsHref, <NavIntegrationsIcon />)}
           {renderGroup(groups[1])}
+          {plainRow(labels.integrations, integrationsHref, <NavIntegrationsIcon />)}
+          {renderGroup(groups[2])}
           {plainRow(labels.pricing, pricingHref, <NavPricingIcon />)}
           <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow(labels.login, loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
         </nav>
@@ -357,7 +409,13 @@ export function SiteNav({
           <TraqqrLogo className="hidden lg:inline-flex" />
         </a>
 
-        <DesktopMenu labels={labels} integrations={integrations} product={product} resources={resources} />
+        <DesktopMenu
+          labels={labels}
+          integrations={integrations}
+          product={product}
+          solutions={navLinks[locale].solutions}
+          resources={resources}
+        />
 
         <a href={cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
           {cta.trial.label}
@@ -383,6 +441,7 @@ export function SiteNav({
         onOpenChange={setMenuOpen}
         currentPath={currentPath}
         product={product}
+        solutions={navLinks[locale].solutions.links}
         resources={resources}
         scrolled={scrolled}
       />

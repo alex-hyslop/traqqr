@@ -20,6 +20,7 @@ export interface SiteContent {
   nav: {
     home: string;
     product: string;
+    solutions: string;
     integrations: string;
     allIntegrations: string;
     resources: string;
@@ -48,6 +49,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     nav: {
       home: 'Traqqr Startseite',
       product: 'Produkt',
+      solutions: 'Lösungen',
       integrations: 'Integrationen',
       allIntegrations: 'Alle Integrationen',
       resources: 'Ressourcen',
@@ -76,6 +78,7 @@ export const siteContent: Record<Locale, SiteContent> = {
     nav: {
       home: 'Traqqr home',
       product: 'Product',
+      solutions: 'Solutions',
       integrations: 'Integrations',
       allIntegrations: 'All integrations',
       resources: 'Resources',
