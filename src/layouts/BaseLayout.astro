@@ -2,7 +2,7 @@
 import '@/styles/global.css';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { SiteFooter } from '@/components/sections/SiteFooter';
-import { defaultLocale, localeInfo, locales, pathFor, toLocale, type RouteKey } from '@/i18n';
+import { defaultLocale, localeInfo, locales, pathFor, toLocale, type Locale, type RouteKey } from '@/i18n';
 
 /** Link-preview image. `src` is a path on this site. The size and alt must match the file. */
 interface OgImage {
@@ -73,7 +73,12 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
     <div class="ambient" aria-hidden="true"><div class="cursor-light"></div></div>
-    <SiteNav client:load locale={locale} currentPath={Astro.url.pathname} />
+    <SiteNav
+      client:load
+      locale={locale}
+      languagePaths={Object.fromEntries(locales.map((l) => [l, pathFor(route, l)])) as Record<Locale, string>}
+      currentPath={Astro.url.pathname}
+    />
     <main>
       <slot />
     </main>

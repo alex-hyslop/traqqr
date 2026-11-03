@@ -23,6 +23,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
+import { LanguageRowContent, LanguageSwitcher, languageRowClass } from '@/components/sections/LanguageSwitcher';
 import { NavIntegrationsIcon, NavPricingIcon, NavProductIcon, NavResourcesIcon } from '@/components/sections/nav-icons';
 import {
   NavigationMenu,
@@ -44,7 +45,7 @@ import {
 } from '@/data/links';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
 import { siteContent, type SiteContent } from '@/data/site';
-import { defaultLocale, pathFor, type Locale } from '@/i18n';
+import { defaultLocale, locales, pathFor, type Locale } from '@/i18n';
 
 type NavLabels = SiteContent['nav'];
 
@@ -239,6 +240,8 @@ const activeProps = (active: boolean) =>
   active ? ({ 'data-active': true, 'aria-current': 'page' } as const) : {};
 
 interface MobileMenuProps {
+  locale: Locale;
+  languagePaths: Record<Locale, string>;
   labels: NavLabels;
   trial: SiteContent['cta']['trial'];
   open: boolean;
@@ -252,6 +255,8 @@ interface MobileMenuProps {
 }
 
 function MobileMenu({
+  locale,
+  languagePaths,
   labels,
   trial,
   open,
@@ -328,6 +333,24 @@ function MobileMenu({
           {renderGroup(groups[2])}
           {plainRow(labels.pricing, pricingHref, <NavPricingIcon />)}
           <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow(labels.login, loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
+          {/* The language switcher isn't designed for mobile yet: two Language item rows at the
+              bottom of the menu (Kev's 3 Nov handover §3.3). */}
+          <ul aria-label={labels.language} className="mt-2 flex flex-col gap-0.5 border-t border-sidebar-border pt-2">
+            {locales.map((l) => (
+              <li key={l}>
+                <a
+                  href={languagePaths[l]}
+                  hrefLang={l}
+                  lang={l}
+                  className={languageRowClass(l === locale)}
+                  aria-current={l === locale ? 'page' : undefined}
+                  onClick={close}
+                >
+                  <LanguageRowContent locale={l} selected={l === locale} />
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
         <SheetFooter className="p-4">
           <a href={trial.href} className={cn(buttonVariants({ size: 'lg' }), 'w-full')} onClick={close}>
@@ -360,6 +383,8 @@ function MobileMenu({
 // top of the page, turning into the floating glass bar past 80px. Bar states live in global.css (.site-nav).
 export interface SiteNavProps {
   locale?: Locale;
+  /** This page's path in each language, for the language switcher. Defaults to the homepages. */
+  languagePaths?: Record<Locale, string>;
   /** The page's path (Astro.url.pathname), for the mobile menu's active row. */
   currentPath?: string;
   integrations?: Integration[];
@@ -374,6 +399,7 @@ export interface SiteNavProps {
 
 export function SiteNav({
   locale = defaultLocale,
+  languagePaths = { de: pathFor('home', 'de'), en: pathFor('home', 'en') },
   currentPath,
   integrations = allIntegrations,
   product = navLinks[locale].product,
@@ -417,9 +443,13 @@ export function SiteNav({
           resources={resources}
         />
 
-        <a href={cta.trial.href} className={cn(buttonVariants({ size: 'lg' }), 'hidden lg:inline-flex')}>
-          {cta.trial.label}
-        </a>
+        {/* The CTA, then the language switcher (Kev, 3 Nov). */}
+        <div className="hidden items-center gap-2 lg:flex">
+          <a href={cta.trial.href} className={buttonVariants({ size: 'lg' })}>
+            {cta.trial.label}
+          </a>
+          <LanguageSwitcher locale={locale} paths={languagePaths} label={labels.language} />
+        </div>
 
         {/* The dashboard MobileTopBar toggle: ghost icon Button, WideMenuIcon at 16px tall. */}
         <Button
@@ -435,6 +465,8 @@ export function SiteNav({
       </nav>
 
       <MobileMenu
+        locale={locale}
+        languagePaths={languagePaths}
         labels={labels}
         trial={cta.trial}
         open={menuOpen}

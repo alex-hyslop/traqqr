@@ -29,6 +29,8 @@ export interface SiteContent {
     menu: string;
     openMenu: string;
     closeMenu: string;
+    /** The language switcher's menu label, and the start of its trigger's accessible name. */
+    language: string;
   };
   footer: {
     tagline: string;
@@ -58,6 +60,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       menu: 'Menü',
       openMenu: 'Menü öffnen',
       closeMenu: 'Menü schließen',
+      language: 'Sprache',
     },
     footer: {
       tagline: 'Ad-, Conversion- und Fingerprint-Tracking für lange Funnel.',
@@ -87,6 +90,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       menu: 'Menu',
       openMenu: 'Open menu',
       closeMenu: 'Close menu',
+      language: 'Language',
     },
     footer: {
       tagline: 'Ad, conversion and fingerprint tracking for long funnels.',
