@@ -17,6 +17,7 @@ export const localeInfo: Record<Locale, { name: string; code: string; flag: Flag
 export const routes = {
   home: { de: '/', en: '/en/' },
   liveFeed: { de: '/live-feed/', en: '/en/live-feed/' },
+  reverseProxy: { de: '/reverse-proxy/', en: '/en/reverse-proxy/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

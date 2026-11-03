@@ -1,24 +1,44 @@
 ---
-// Numbered steps on a bg-card band (Figma e.g. /live-feed/ §4 5225:223): a 36px ExtraLight title, then
-// three 400px steps, each under a top border with a mono number, a 24px Light title and one line. The
-// last step is the active one: brand border and number. 120px padding, 56px from title to steps.
+// Numbered steps (Figma e.g. /live-feed/ §4 5225:223): a 36px ExtraLight title, then three steps, each
+// under a top border with a mono number, a 24px Light title and one line. The last step is the active
+// one: brand border and number. Two looks:
+// · "card": a bg-card band with border-y, 400px steps (120px padding, 56px from title to steps);
+// · "charcoal": on the angled charcoal band, with a logo tile and mono eyebrow before the title and 376px
+//   steps 40px apart, their lines 14px apart (Figma /reverse-proxy/ §3 5226:263).
 // Below md the steps stack (the vertical rail of §6.5 comes with the mobile pass).
+import CharcoalBand from '@/components/page/CharcoalBand.astro';
+import { integrations } from '@/data/integrations';
 import type { Section } from '@/data/sections';
 
 interface Props {
   section: Extract<Section, { kind: 'steps' }>;
 }
-const { id, title, steps } = Astro.props.section.props;
+const { id, band = 'card', logo, eyebrow, title, steps } = Astro.props.section.props;
 const last = steps.length - 1;
+const tile = logo ? integrations.find((i) => i.name === logo) : undefined;
+const charcoal = band === 'charcoal';
+const Band = charcoal ? CharcoalBand : 'section';
 ---
 
-<section id={id} aria-labelledby={`${id}-heading`} class="border-y border-white/10 bg-card">
-  <div class="mx-auto flex max-w-312 flex-col gap-10 px-6 py-14 lg:gap-14 lg:py-30">
-    <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
-    <ol class="grid gap-8 md:grid-cols-3 md:gap-0">
+<Band id={id} aria-labelledby={charcoal ? undefined : `${id}-heading`} labelledBy={charcoal ? `${id}-heading` : undefined} class:list={[!charcoal && 'border-y border-white/10 bg-card']}>
+  <div class:list={['mx-auto flex max-w-312 flex-col px-6 py-14', charcoal ? 'gap-12 lg:gap-[118px] lg:pt-36 lg:pb-[179px]' : 'gap-10 lg:gap-14 lg:py-30']}>
+    <div class="flex items-center gap-5">
+      {
+        tile && (
+          <span class="logo-tile flex size-14 shrink-0 items-center justify-center rounded-xl border border-(--card-media-border) p-1" aria-hidden="true">
+            <img src={tile.logo} alt="" width={44} height={44} class="size-11" />
+          </span>
+        )
+      }
+      <div class="flex flex-col gap-1.5">
+        {eyebrow && <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>}
+        <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+      </div>
+    </div>
+    <ol class:list={['grid gap-8 md:grid-cols-3', charcoal ? 'md:gap-10' : 'md:gap-0']}>
       {
         steps.map((step, i) => (
-          <li class:list={['flex flex-col gap-4 border-t pt-6', i === last ? 'border-brand' : 'border-white/16']}>
+          <li class:list={['flex flex-col border-t pt-6', charcoal ? 'gap-3.5' : 'gap-4', i === last ? 'border-brand' : 'border-white/16']}>
             <span class:list={['font-mono text-2xl leading-8', i === last ? 'text-brand' : 'text-muted-foreground']}>{step.number}</span>
             <h3 class="text-2xl leading-8 font-light text-foreground">{step.title}</h3>
             <p class="max-w-[340px] text-sm leading-5 text-muted-foreground">{step.body}</p>
@@ -27,4 +47,4 @@ const last = steps.length - 1;
       }
     </ol>
   </div>
-</section>
+</Band>

@@ -5,6 +5,7 @@ import PageHeroSection from './PageHeroSection.astro';
 import MotionSection from './MotionSection.astro';
 import StepsSection from './StepsSection.astro';
 import AnswersSection from './AnswersSection.astro';
+import FeatureTableSection from './FeatureTableSection.astro';
 import TrustSection from './TrustSection.astro';
 import StatsSection from './StatsSection.astro';
 import CardsSection from './CardsSection.astro';
@@ -25,6 +26,7 @@ export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   motion: MotionSection,
   steps: StepsSection,
   answers: AnswersSection,
+  featureTable: FeatureTableSection,
   trust: TrustSection,
   stats: StatsSection,
   cards: CardsSection,

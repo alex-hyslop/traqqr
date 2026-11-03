@@ -1,0 +1,59 @@
+---
+// The charcoal band (Kev's 3 Nov handover §3.1; Figma e.g. Homepage v2 §4 5217:728, /reverse-proxy/ §3
+// 5226:264): bg-card, the top edge stepping up on the left and the bottom edge stepping down on the right
+// (chamfer v2), with a 1px accent line on each step. 32px steps below lg, 64px from lg. The top step is
+// the bottom one mirrored through the centre, so it ends at 38.9% (the README's clip-path puts it 64px
+// further right than Figma draws it).
+interface Props {
+  id?: string;
+  labelledBy?: string;
+  class?: string;
+  [attr: `data-${string}`]: unknown;
+}
+const { id, labelledBy, class: cls, ...data } = Astro.props;
+---
+
+<section id={id} aria-labelledby={labelledBy} class:list={['charcoal-band relative bg-card', cls]} {...data}>
+  <svg class="charcoal-accent charcoal-accent-top text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke"></path>
+  </svg>
+  <svg class="charcoal-accent charcoal-accent-bottom text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke"></path>
+  </svg>
+  <slot />
+</section>
+
+<style>
+  .charcoal-band {
+    --step: 32px;
+    clip-path: polygon(
+      0 var(--step),
+      calc(38.9% - var(--step)) var(--step),
+      38.9% 0,
+      100% 0,
+      100% calc(100% - var(--step)),
+      calc(61.1% + var(--step)) calc(100% - var(--step)),
+      61.1% 100%,
+      0 100%
+    );
+  }
+  .charcoal-accent {
+    position: absolute;
+    width: var(--step);
+    height: var(--step);
+    overflow: visible;
+  }
+  .charcoal-accent-top {
+    top: 0;
+    left: calc(38.9% - var(--step));
+  }
+  .charcoal-accent-bottom {
+    bottom: 0;
+    left: 61.1%;
+  }
+  @media (min-width: 64rem) {
+    .charcoal-band {
+      --step: 64px;
+    }
+  }
+</style>

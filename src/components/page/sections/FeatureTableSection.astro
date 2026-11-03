@@ -1,0 +1,56 @@
+---
+// Feature comparison table (Figma: /reverse-proxy/ §2 5226:184): a centred mono eyebrow and 36px title,
+// then a 960px bg-card table, radius 14 and white/10 border. A white/3 head with mono labels; 480px
+// feature column, two 240px columns, the second (the one this page is about) tinted brand/6 with green
+// checks; the other column's checks are muted and a missing feature is a muted dash. Rows 56px apart,
+// white/8 lines. Below md the columns get narrower (the stacked rows of §6.5 come with the mobile pass).
+import { Check } from 'lucide-react';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'featureTable' }>;
+}
+const { id, eyebrow, title, columns, rows, answers } = Astro.props.section.props;
+const headCell = 'px-3 py-3.5 text-center font-mono text-xs leading-4 font-normal tracking-[0.04em] uppercase md:px-0';
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="mx-auto flex max-w-312 flex-col items-center gap-12 px-6 pb-14 lg:pb-30">
+  <div class="flex flex-col items-center gap-3 text-center">
+    <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>
+    <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+  </div>
+  <div class="w-full max-w-240 overflow-hidden rounded-[14px] border border-white/10 bg-card">
+    <table class="w-full border-collapse text-sm leading-5">
+      <thead class="border-b border-white/8 bg-white/3">
+        <tr>
+          <th scope="col" class={`${headCell} text-left text-muted-foreground md:w-1/2 md:px-6`}>{columns.feature}</th>
+          <th scope="col" class={`${headCell} text-muted-foreground md:w-1/4`}>{columns.standard}</th>
+          <th scope="col" class={`${headCell} bg-brand/6 text-foreground md:w-1/4`}>{columns.highlight}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr class="border-b border-white/8 last:border-b-0">
+              <th scope="row" class="px-3 py-[18px] text-left font-normal text-foreground md:px-6">
+                {row.label}
+              </th>
+              {[row.standard, row.highlight].map((has, col) => (
+                <td class:list={['py-[18px] text-center', col === 1 && 'bg-brand/6']}>
+                  {has ? (
+                    <Check class:list={['mx-auto block size-[18px]', col === 1 ? 'text-success' : 'text-muted-foreground']} strokeWidth={1.5} aria-hidden="true" />
+                  ) : (
+                    <span class="text-muted-foreground" aria-hidden="true">
+                      —
+                    </span>
+                  )}
+                  <span class="sr-only">{has ? answers.yes : answers.no}</span>
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

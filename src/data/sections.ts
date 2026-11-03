@@ -63,8 +63,24 @@ export interface MotionSectionProps {
 
 export interface StepsProps {
   id: string;
+  /** "card" (default): a bg-card band. "charcoal": the angled charcoal band. */
+  band?: 'card' | 'charcoal';
+  /** An integration's logo tile before the title, by name (charcoal band). */
+  logo?: string;
+  eyebrow?: string;
   title: string;
   steps: { number: string; title: string; body: string }[];
+}
+
+export interface FeatureTableProps {
+  id: string;
+  eyebrow: string;
+  title: string;
+  columns: { feature: string; standard: string; highlight: string };
+  /** Whether each column has the feature. */
+  rows: { label: string; standard: boolean; highlight: boolean }[];
+  /** Screen-reader words for a check and a dash. */
+  answers: { yes: string; no: string };
 }
 
 export interface AnswersProps {
@@ -83,6 +99,7 @@ export type Section =
   | { kind: 'motion'; props: MotionSectionProps }
   | { kind: 'steps'; props: StepsProps }
   | { kind: 'answers'; props: AnswersProps }
+  | { kind: 'featureTable'; props: FeatureTableProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

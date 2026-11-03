@@ -1,17 +1,17 @@
 ---
-// Long funnel, the charcoal band (Figma: Homepage v2 §4, 5217:727 DE / 5217:1414 EN). A bg-card band whose
-// top edge steps up on the left and bottom edge steps down on the right (chamfer v2), a 1px accent line
-// on each step. Inside, six steps alternate either side of a vertical line; Kev's funnel-line.js draws
-// the line with the scroll, a white light riding its tip, and lands it amber on the last step (Kauf).
+// Long funnel, on the charcoal band (Figma: Homepage v2 §4, 5217:727 DE / 5217:1414 EN). Six steps
+// alternate either side of a vertical line; Kev's funnel-line.js draws the line with the scroll, a
+// white light riding its tip, and lands it amber on the last step (Kauf).
 // Static markup, no hydration: the script only sets transforms, opacity and data-on / data-lit.
 //
 // Desktop geometry from Figma (1440 frame): a 960px rail (callout 360 · gap 240 · callout 360), the line
 // at its centre, a step every 110px, each callout's label 8px below its row top with a 9px node on the
 // line and a 1px connector 6px short of the callout. Below lg the line runs down the left (Kev's mobile
-// rules, 3 Nov) and the band's steps are 32px.
+// rules, 3 Nov).
 import { SectionHeading } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import { ArrowRight } from 'lucide-react';
+import CharcoalBand from '@/components/page/CharcoalBand.astro';
 import type { Section } from '@/data/sections';
 
 interface Props {
@@ -21,14 +21,7 @@ const { id, badge, title, lead, steps, action } = Astro.props.section.props;
 const last = steps.length - 1;
 ---
 
-<section id={id} aria-labelledby={`${id}-heading`} class="funnel-band relative bg-card" data-tq-funnel>
-  <svg class="funnel-accent funnel-accent-top text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
-    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke" />
-  </svg>
-  <svg class="funnel-accent funnel-accent-bottom text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
-    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke" />
-  </svg>
-
+<CharcoalBand id={id} labelledBy={`${id}-heading`} data-tq-funnel>
   <div class="mx-auto flex max-w-240 flex-col gap-12 px-6 pt-24 pb-20 lg:gap-[94px] lg:px-0 lg:pt-40 lg:pb-[106px]">
     {/* Figma's Section heading (5058:2057) is gap 16; the library's is gap-3. */}
     <SectionHeading id={`${id}-heading`} badge={badge} title={title} lead={lead} className="mx-auto gap-4" />
@@ -75,44 +68,9 @@ const last = steps.length - 1;
       </a>
     </div>
   </div>
-</section>
+</CharcoalBand>
 
 <style>
-  /* The band's outline: chamfer v2 steps, 32px below lg and 64px from lg (Figma 5217:728). The top step is
-     the bottom one mirrored through the centre, so it ends at 38.9%. */
-  .funnel-band {
-    --step: 32px;
-    clip-path: polygon(
-      0 var(--step),
-      calc(38.9% - var(--step)) var(--step),
-      38.9% 0,
-      100% 0,
-      100% calc(100% - var(--step)),
-      calc(61.1% + var(--step)) calc(100% - var(--step)),
-      61.1% 100%,
-      0 100%
-    );
-  }
-  .funnel-accent {
-    position: absolute;
-    width: var(--step);
-    height: var(--step);
-    overflow: visible;
-  }
-  .funnel-accent-top {
-    top: 0;
-    left: calc(38.9% - var(--step));
-  }
-  .funnel-accent-bottom {
-    bottom: 0;
-    left: 61.1%;
-  }
-  @media (min-width: 64rem) {
-    .funnel-band {
-      --step: 64px;
-    }
-  }
-
   /* The line and its tip sit at the rail's centre from lg, 4px in from the left below it. funnel-line.js
      injects their looks (FUNNEL_CSS); this only places them. */
   .funnel-rail :global([data-tq-funnel-line]),
