@@ -7,8 +7,8 @@ import type { Locale } from '@/i18n';
 // the FAQ shows only answer 1, as the handover says (answers 2–5 aren't written yet). Two Text + media
 // blocks in a row get 40px on the sides they share, so there's 80px between them.
 
-const touchingBelow = 'lg:[&>div]:pt-16 lg:[&>div]:pb-10';
-const touchingAbove = 'lg:[&>div]:pt-10 lg:[&>div]:pb-20';
+const touchingBelow = 'lg:pt-16 lg:pb-10';
+const touchingAbove = 'lg:pt-10 lg:pb-20';
 
 export const serverSideTracking: Record<Locale, ContentPage> = {
   de: {
@@ -45,7 +45,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           media: { type: 'image', placeholderLabel: 'Bild folgt' },
           mediaSide: 'left',
           grid: true,
-          className: touchingBelow,
+          containerClassName: touchingBelow,
         },
       },
       {
@@ -65,7 +65,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           primaryAction: siteContent.de.cta.trial,
           secondaryAction: siteContent.de.cta.demo,
           media: { type: 'image', placeholderLabel: 'Bild folgt' },
-          className: touchingAbove,
+          containerClassName: touchingAbove,
         },
       },
       { kind: 'integrations', props: { title: 'Integrationen', lead: 'Nativ verbunden mit Deinem DACH-Funnel-Stack.' } },
@@ -128,7 +128,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           media: { type: 'image', placeholderLabel: 'Image coming soon' },
           mediaSide: 'left',
           grid: true,
-          className: touchingBelow,
+          containerClassName: touchingBelow,
         },
       },
       {
@@ -148,7 +148,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           primaryAction: siteContent.en.cta.trial,
           secondaryAction: siteContent.en.cta.demo,
           media: { type: 'image', placeholderLabel: 'Image coming soon' },
-          className: touchingAbove,
+          containerClassName: touchingAbove,
         },
       },
       { kind: 'integrations', props: { title: 'Integrations', lead: 'Natively connected to your DACH funnel stack.' } },

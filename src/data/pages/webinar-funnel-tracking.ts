@@ -8,8 +8,8 @@ import type { Locale } from '@/i18n';
 // heading: the band reuses the homepage's EN copy, and the cards and heading are our translations. The
 // Text + media images stay placeholders on staging; the FAQ shows only answer 1, as the handover says.
 
-const touchingBelow = 'lg:[&>div]:pt-20 lg:[&>div]:pb-10';
-const touchingAbove = 'lg:[&>div]:pt-10 lg:[&>div]:pb-20';
+const touchingBelow = 'lg:pt-20 lg:pb-10';
+const touchingAbove = 'lg:pt-10 lg:pb-20';
 
 export const webinarFunnelTracking: Record<Locale, ContentPage> = {
   de: {
@@ -51,7 +51,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           primaryAction: siteContent.de.cta.trial,
           media: { type: 'image', placeholderLabel: 'Bild folgt' },
           grid: true,
-          className: touchingBelow,
+          containerClassName: touchingBelow,
         },
       },
       {
@@ -71,7 +71,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           secondaryAction: siteContent.de.cta.demo,
           media: { type: 'image', placeholderLabel: 'Bild folgt' },
           mediaSide: 'left',
-          className: touchingAbove,
+          containerClassName: touchingAbove,
         },
       },
       { kind: 'integrations', props: { title: 'Integrationen', lead: 'Nativ verbunden mit Deinem DACH-Funnel-Stack.' } },
@@ -147,7 +147,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           primaryAction: siteContent.en.cta.trial,
           media: { type: 'image', placeholderLabel: 'Image coming soon' },
           grid: true,
-          className: touchingBelow,
+          containerClassName: touchingBelow,
         },
       },
       {
@@ -167,7 +167,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           secondaryAction: siteContent.en.cta.demo,
           media: { type: 'image', placeholderLabel: 'Image coming soon' },
           mediaSide: 'left',
-          className: touchingAbove,
+          containerClassName: touchingAbove,
         },
       },
       { kind: 'integrations', props: { title: 'Integrations', lead: 'Natively connected to your DACH funnel stack.' } },
