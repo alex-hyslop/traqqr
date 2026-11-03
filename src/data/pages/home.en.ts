@@ -22,7 +22,7 @@ export const homeEn: HomePage = {
     {
       kind: 'hero',
       props: {
-        title: 'Which ad really brought you that customer?',
+        title: ['Which ad really brought', 'you that customer?'],
         lead: 'Traqqr shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers – natively connected to KlickTipp, Digistore24, HubSpot and Webinaris.',
         features: [
           { eyebrow: '01 / AD TRACKING', title: 'First click identified.', body: 'Which campaign, ad or creative brought the first click.' },

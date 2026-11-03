@@ -1,4 +1,4 @@
-import { Chamfered, CtaButtons, LandingCard, VideoPlaceholder, type VideoPoster } from '@klicktipp/traqqr-components';
+import { Chamfered, CtaButtons, DesktopLines, LandingCard, VideoPlaceholder, type VideoPoster } from '@klicktipp/traqqr-components';
 import { siteContent } from '@/data/site';
 import { defaultLocale, type Locale } from '@/i18n';
 
@@ -10,7 +10,8 @@ export interface HeroFeature {
 
 /** The hero's copy, from the page's content file. */
 export interface HeroCopy {
-  title: string;
+  /** Pass an array of lines to keep Figma's manual desktop line breaks. */
+  title: string | string[];
   lead: string;
   features: HeroFeature[];
   /** The demo button's label, which adds the video length to the shared "Watch demo". */
@@ -42,7 +43,9 @@ export function Hero({ locale = defaultLocale, title, lead, features, demoLabel,
         <Chamfered cut={32} radius={16} accent={220}>
           <div className="flex flex-col gap-6 px-6 pt-9 pb-9 lg:gap-14 lg:px-[68px] lg:pt-[164px] lg:pb-20 xl:flex-row xl:items-center">
             <div className="flex flex-col gap-6 lg:max-w-[560px] lg:gap-7 xl:w-[560px] xl:shrink">
-              <h1 className="text-4xl leading-10 font-extralight text-foreground lg:text-5xl lg:leading-12">{title}</h1>
+              <h1 className="text-4xl leading-10 font-extralight text-foreground lg:text-5xl lg:leading-15">
+                <DesktopLines lines={title} />
+              </h1>
               <p className="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">{lead}</p>
               <CtaButtons primary={trial} secondary={{ ...demo, label: demoLabel, play: true }} />
             </div>

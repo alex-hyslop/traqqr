@@ -22,7 +22,7 @@ export const homeDe: HomePage = {
     {
       kind: 'hero',
       props: {
-        title: 'Welche Anzeige hat Deinen Kunden wirklich gebracht?',
+        title: ['Welche Anzeige hat Deinen Kunden', 'wirklich gebracht?'],
         lead: 'Traqqr zeigt Dir über Wochen, Geräte und jeden Touchpoint hinweg, welche Kampagne, Anzeige oder Creative wirklich Kunden bringt – nativ verbunden mit KlickTipp, Digistore24, HubSpot und Webinaris.',
         features: [
           { eyebrow: '01 / AD-TRACKING', title: 'Erster Klick erkannt.', body: 'Welche Kampagne, Anzeige oder welches Creative den ersten Klick gebracht hat.' },
