@@ -13,6 +13,7 @@ import type { IntegrationsStripProps } from '@/components/sections/IntegrationsS
 import type { StatsProps } from '@/components/sections/Stats';
 import type { SceneCopy } from '@/components/sections/SunbeamScene';
 import type { TrustStripProps } from '@/components/sections/TrustStrip';
+import type { MotionId } from '@/components/motion/MotionPiece.astro';
 
 /** One step of the long-funnel band: "01 ■ AD-KLICK", a big word and one line. */
 export interface FunnelStep {
@@ -33,10 +34,55 @@ export interface FunnelProps {
   action: CtaAction;
 }
 
+/** A motion piece from traqqr-motion.js, at its width in the Figma frame. */
+export interface MotionSlot {
+  id: MotionId;
+  /** One sentence for screen readers: what the animation shows. */
+  label: string;
+  width?: number;
+}
+
+export interface PageHeroProps {
+  layout: 'split' | 'centred';
+  /** The dashboard Breadcrumb: the parent page, then this one. */
+  breadcrumb: { parent: { label: string; href: string }; current: string };
+  /** Pass an array of lines to keep Figma's manual desktop line breaks. */
+  title: string | string[];
+  lead: string;
+  /** The outline button next to the shared trial CTA. */
+  secondaryAction: CtaAction;
+  motion?: MotionSlot;
+}
+
+export interface MotionSectionProps {
+  id: string;
+  eyebrow?: string;
+  title?: string;
+  motion: MotionSlot & { width: number };
+}
+
+export interface StepsProps {
+  id: string;
+  title: string;
+  steps: { number: string; title: string; body: string }[];
+}
+
+export interface AnswersProps {
+  id: string;
+  eyebrow: string;
+  title: string;
+  /** `placeholder`: not signed off yet (legal review, unconfirmed claims), shown in amber as in Figma. */
+  items: { question: string; answer: string; placeholder?: boolean }[];
+}
+
 // The sections a page is built from, in the order the page lists them. Each kind maps to a component
 // in src/components/page/sections; the props are the section's copy, from the page's content file.
 export type Section =
   | { kind: 'hero'; props: HeroCopy }
+  | { kind: 'pageHero'; props: PageHeroProps }
+  | { kind: 'motion'; props: MotionSectionProps }
+  | { kind: 'steps'; props: StepsProps }
+  | { kind: 'answers'; props: AnswersProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

@@ -1,0 +1,58 @@
+---
+// One motion piece from Kev's traqqr-motion.js (3 Nov handover §6.2), where the static visual sits in Figma.
+// Kev's MotionPiece.astro, plus two things the site needs: the stage's height is reserved before the
+// script mounts (from the piece's design size, or the scroll track's 240vh), so nothing shifts, and below
+// md only the pieces Kev keeps on mobile mount (§6.5: just the Live Feed marquee); the others stay hidden
+// and their section shows its static content instead. The script reads <html lang> for the stage copy.
+export type MotionId = keyof typeof sizes;
+
+interface Props {
+  id: MotionId;
+  /** One sentence for screen readers: what the animation shows. The moving stage itself is aria-hidden. */
+  label: string;
+  class?: string;
+}
+
+// Design sizes and modes, from traqqr-motion.js (PIECES). Scroll pieces build their own 240vh track.
+const sizes = {
+  'live-feed-hero': { size: [640, 470], scroll: false, mobile: false },
+  'live-feed-marquee': { size: [1200, 170], scroll: false, mobile: true },
+  'live-feed-split': { size: [1000, 330], scroll: false, mobile: false },
+  'proxy-flow': { size: [640, 560], scroll: false, mobile: false },
+  'inspector-hero': { size: [1000, 520], scroll: false, mobile: false },
+  'inspector-payload': { size: [1100, 520], scroll: true, mobile: false },
+  'fingerprint-360': { size: [760, 580], scroll: false, mobile: false },
+  'fingerprint-journey': { size: [1200, 270], scroll: true, mobile: false },
+  'klicktipp-card': { size: [600, 530], scroll: false, mobile: false },
+  'klicktipp-flow': { size: [1100, 230], scroll: true, mobile: false },
+  'integrations-hub': { size: [1200, 500], scroll: false, mobile: false },
+} as const;
+
+const { id, label, class: cls } = Astro.props;
+const piece = sizes[id];
+const reserve = piece.scroll ? 'height: var(--tq-scroll-h, 240vh)' : `aspect-ratio: ${piece.size[0]} / ${piece.size[1]}`;
+---
+
+<figure class:list={['tq-motion m-0 w-full', !piece.mobile && 'hidden md:block', cls]} data-tq-piece data-tq-mobile={piece.mobile ? '' : undefined}>
+  <div data-tq-motion={id} style={reserve} aria-hidden="true"></div>
+  <figcaption class="sr-only">{label}</figcaption>
+</figure>
+
+<script>
+  import { mountAll } from '@/scripts/motion/traqqr-motion.js';
+
+  // Mount each piece once it's allowed at this width (md and up, or a mobile piece), and drop the
+  // reserved size: the mounted stage sizes itself the same way.
+  const desktop = matchMedia('(min-width: 48rem)');
+  const mountReady = () => {
+    document.querySelectorAll<HTMLElement>('[data-tq-piece]:not([data-tq-mounted])').forEach((piece) => {
+      if (!desktop.matches && !piece.hasAttribute('data-tq-mobile')) return;
+      piece.setAttribute('data-tq-mounted', '');
+      mountAll({ root: piece });
+      piece.querySelector<HTMLElement>('[data-tq-motion]')?.style.removeProperty('aspect-ratio');
+      piece.querySelector<HTMLElement>('[data-tq-motion]')?.style.removeProperty('height');
+    });
+  };
+  mountReady();
+  desktop.addEventListener('change', mountReady);
+</script>

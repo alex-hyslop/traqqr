@@ -16,6 +16,7 @@ export const localeInfo: Record<Locale, { name: string; code: string; flag: Flag
  * are looked up by key, never by swapping the prefix. Add a page here when it's built. */
 export const routes = {
   home: { de: '/', en: '/en/' },
+  liveFeed: { de: '/live-feed/', en: '/en/live-feed/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

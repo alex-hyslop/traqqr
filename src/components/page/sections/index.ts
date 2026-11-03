@@ -1,6 +1,10 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SectionKind } from '@/data/sections';
 import HeroSection from './HeroSection.astro';
+import PageHeroSection from './PageHeroSection.astro';
+import MotionSection from './MotionSection.astro';
+import StepsSection from './StepsSection.astro';
+import AnswersSection from './AnswersSection.astro';
 import TrustSection from './TrustSection.astro';
 import StatsSection from './StatsSection.astro';
 import CardsSection from './CardsSection.astro';
@@ -17,6 +21,10 @@ import GlobeSection from './GlobeSection.astro';
 
 export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   hero: HeroSection,
+  pageHero: PageHeroSection,
+  motion: MotionSection,
+  steps: StepsSection,
+  answers: AnswersSection,
   trust: TrustSection,
   stats: StatsSection,
   cards: CardsSection,

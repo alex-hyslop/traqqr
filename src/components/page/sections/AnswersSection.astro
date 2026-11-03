@@ -1,0 +1,29 @@
+---
+// Short answers in two columns (Figma e.g. /live-feed/ §5 5225:238): a mono eyebrow and a 36px
+// ExtraLight title on the left (360px), every question open on the right (840px), each under a top
+// border. 120px padding, 80px between the columns. An answer still waiting for sign-off (legal review,
+// unconfirmed claims) shows as an amber placeholder, as in Figma. Stacks below lg.
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'answers' }>;
+}
+const { id, eyebrow, title, items } = Astro.props.section.props;
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="mx-auto flex max-w-312 flex-col gap-10 px-6 py-14 lg:flex-row lg:gap-20 lg:py-30">
+  <div class="flex flex-col gap-3 lg:w-[360px] lg:shrink-0">
+    <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>
+    <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+  </div>
+  <dl class="flex flex-col lg:w-[840px]">
+    {
+      items.map((item) => (
+        <div class="flex flex-col gap-2 border-t border-white/10 py-6">
+          <dt class="text-lg leading-7 text-foreground">{item.question}</dt>
+          <dd class:list={['max-w-[760px] text-sm leading-5', item.placeholder ? 'text-brand' : 'text-muted-foreground']}>{item.answer}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

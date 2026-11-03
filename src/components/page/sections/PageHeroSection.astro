@@ -1,0 +1,69 @@
+---
+// The internal-page hero (Kev's 3 Nov handover §3.2, §3.4; Figma e.g. /live-feed/ 5225:3): the dashboard
+// Breadcrumb, a 60/72 ExtraLight title, an 18px lead and the CTA pair, over the grid with the half-radial
+// top glow layered above it (so the grid's fade never shows as a dark box). "split" puts the motion
+// piece on the right (Figma: copy 560 · gap · visual, copy 30px lower than the visual); "centred" puts
+// the copy in the middle and the piece under it. Below md the hero is copy and buttons only (§6.5).
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  CtaButtons,
+  DesktopLines,
+} from '@klicktipp/traqqr-components';
+import { cn } from '@klicktipp/traqqr-components/utils';
+import MotionPiece from '@/components/motion/MotionPiece.astro';
+import type { Section } from '@/data/sections';
+import { siteContent } from '@/data/site';
+import { toLocale } from '@/i18n';
+
+interface Props {
+  section: Extract<Section, { kind: 'pageHero' }>;
+}
+const { layout, breadcrumb, title, lead, secondaryAction, motion } = Astro.props.section.props;
+const { trial } = siteContent[toLocale(Astro.currentLocale)].cta;
+const centred = layout === 'centred';
+---
+
+<section class="relative isolate overflow-hidden">
+  <div class="grid-bg absolute inset-x-0 top-30 bottom-0 -z-10" aria-hidden="true"></div>
+  <div class="hero-glow pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+
+  <div
+    class:list={[
+      'mx-auto flex max-w-312 flex-col gap-10 px-6 pt-24 pb-16',
+      centred ? 'items-center text-center lg:gap-12 lg:pt-[176px] lg:pb-24' : 'lg:flex-row lg:items-start lg:gap-5 lg:pt-[200px] lg:pb-[105px]',
+    ]}
+  >
+    <div class:list={['flex flex-col gap-6', centred ? 'max-w-[720px] items-center' : 'lg:mt-[30px] lg:w-[560px] lg:shrink-0']}>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={breadcrumb.parent.href}>{breadcrumb.parent.label}</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{breadcrumb.current}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h1 class="text-4xl leading-10 font-extralight text-foreground lg:text-6xl lg:leading-[72px]">
+        <DesktopLines lines={title} />
+      </h1>
+      <p class:list={['text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7', centred ? 'max-w-[640px]' : 'lg:max-w-[520px]']}>
+        {lead}
+      </p>
+      <CtaButtons primary={trial} arrow secondary={secondaryAction} stackOnMobile className={cn(centred && 'justify-center')} />
+    </div>
+    {
+      motion && (
+        <div class:list={['w-full', centred ? 'max-w-(--motion-w)' : 'lg:min-w-0 lg:flex-1']} style={motion.width ? `--motion-w: ${motion.width}px` : undefined}>
+          <MotionPiece id={motion.id} label={motion.label} />
+        </div>
+      )
+    }
+  </div>
+</section>

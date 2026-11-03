@@ -1,0 +1,34 @@
+---
+// A motion piece in its own section, optionally under a centred heading: a mono eyebrow and a 36px
+// ExtraLight title (Figma e.g. /live-feed/ §3 5225:165: 120px padding, 56px from heading to piece).
+// `width` is the piece's width in the Figma frame; it scales down with the column. A bare piece (no
+// heading, e.g. the Live Feed marquee) gets `bare` padding: just enough to centre it in its band.
+import MotionPiece from '@/components/motion/MotionPiece.astro';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'motion' }>;
+}
+const { id, eyebrow, title, motion } = Astro.props.section.props;
+const headingId = title ? `${id}-heading` : undefined;
+---
+
+<section
+  id={id}
+  aria-labelledby={headingId}
+  class:list={['mx-auto flex max-w-312 flex-col items-center px-6', title ? 'gap-10 py-14 lg:gap-14 lg:py-30' : 'py-[15px]']}
+>
+  {
+    title && (
+      <div class="flex flex-col items-center gap-3 text-center">
+        {eyebrow && <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>}
+        <h2 id={headingId} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">
+          {title}
+        </h2>
+      </div>
+    )
+  }
+  <div class="w-full" style={`max-width: ${motion.width}px`}>
+    <MotionPiece id={motion.id} label={motion.label} />
+  </div>
+</section>

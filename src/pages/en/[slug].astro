@@ -1,0 +1,17 @@
+---
+// The internal pages in English, at /en/<slug>/. One per entry in src/data/pages/content.ts.
+import type { GetStaticPaths } from 'astro';
+import ContentPage from '@/components/page/ContentPage.astro';
+import { contentPages } from '@/data/pages/content';
+import { pathFor, type RouteKey } from '@/i18n';
+
+export const getStaticPaths = (() =>
+  Object.entries(contentPages).map(([route, pages]) => ({
+    params: { slug: pathFor(route as RouteKey, 'en').split('/').filter(Boolean).at(-1) },
+    props: { route: route as RouteKey, page: pages.en },
+  }))) satisfies GetStaticPaths;
+
+const { route, page } = Astro.props;
+---
+
+<ContentPage route={route} page={page} />

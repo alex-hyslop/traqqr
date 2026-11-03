@@ -1,0 +1,17 @@
+---
+// An internal page in either language, rendered by src/pages/[slug].astro (DE) and src/pages/en/[slug].astro (EN).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageSections from '@/components/page/PageSections.astro';
+import type { ContentPage } from '@/data/pages/content';
+import type { RouteKey } from '@/i18n';
+
+interface Props {
+  route: RouteKey;
+  page: ContentPage;
+}
+const { route, page } = Astro.props;
+---
+
+<BaseLayout route={route} title={page.title} description={page.description}>
+  <PageSections sections={page.sections} />
+</BaseLayout>

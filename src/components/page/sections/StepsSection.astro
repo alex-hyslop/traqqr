@@ -1,0 +1,30 @@
+---
+// Numbered steps on a bg-card band (Figma e.g. /live-feed/ §4 5225:223): a 36px ExtraLight title, then
+// three 400px steps, each under a top border with a mono number, a 24px Light title and one line. The
+// last step is the active one: brand border and number. 120px padding, 56px from title to steps.
+// Below md the steps stack (the vertical rail of §6.5 comes with the mobile pass).
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'steps' }>;
+}
+const { id, title, steps } = Astro.props.section.props;
+const last = steps.length - 1;
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="border-y border-white/10 bg-card">
+  <div class="mx-auto flex max-w-312 flex-col gap-10 px-6 py-14 lg:gap-14 lg:py-30">
+    <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+    <ol class="grid gap-8 md:grid-cols-3 md:gap-0">
+      {
+        steps.map((step, i) => (
+          <li class:list={['flex flex-col gap-4 border-t pt-6', i === last ? 'border-brand' : 'border-white/16']}>
+            <span class:list={['font-mono text-2xl leading-8', i === last ? 'text-brand' : 'text-muted-foreground']}>{step.number}</span>
+            <h3 class="text-2xl leading-8 font-light text-foreground">{step.title}</h3>
+            <p class="max-w-[340px] text-sm leading-5 text-muted-foreground">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
