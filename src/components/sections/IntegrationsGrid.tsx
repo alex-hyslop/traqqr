@@ -40,10 +40,12 @@ export function IntegrationsGrid({ id, eyebrow, title, tabs, cards, href }: Inte
         </h2>
       </div>
       <Tabs defaultValue={all.key} className="w-full items-center gap-10">
-        {/* Figma Tab set (2003:2319): a 33px list, 4px padding and gap, 25px tabs with 10px sides. */}
-        <TabsList className="h-auto max-w-full gap-1 overflow-x-auto rounded-[10px] p-1">
+        {/* Figma Tab set (2003:2319): a 33px list, 4px padding and gap, 25px tabs with 10px sides. Too wide
+            for a phone, so it swipes sideways there with the scrollbar hidden; overflow-y-hidden because
+            overflow-x-auto alone makes the y axis scroll too, and a 1px overflow showed a bar. */}
+        <TabsList className="h-auto max-w-full justify-start gap-1 overflow-x-auto overflow-y-hidden rounded-[10px] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {tabs.map((tab) => (
-            <TabsTrigger key={tab.key} value={tab.key} className="h-[25px] cursor-pointer px-2.5 py-1 font-mono text-sm font-normal">
+            <TabsTrigger key={tab.key} value={tab.key} className="h-[25px] shrink-0 cursor-pointer px-2.5 py-1 font-mono text-sm font-normal">
               {tab.label}
             </TabsTrigger>
           ))}
