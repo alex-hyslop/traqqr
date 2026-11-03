@@ -1,21 +1,32 @@
 import { memo, useEffect, useRef } from 'react';
 import './sunbeam-scene.css';
 
-// Sunbeam scene (prototype only, between the comparison table and Live Feed; Kev, 20 Oct): the café
-// video scrubs with scroll and Julian's tracker card (GSAP) follows the video time. Kev's drop-in,
-// with its markup in React and the scripts unchanged; the overlay script adds its own elements, so
-// this renders once (memo, its one prop is static) and initialises once. Videos in public/media (need
-// range requests; Vercel serves them); the poster is optimised by Astro and passed in. Mobile (< 760px): the cropped video is its own rounded box and the
-// card sits over its top edge (Kev, 21 Oct).
-// Needs hydrating so the scripts run: client:idle, so its height (set by the script) is final soon
-// after load and anchors further down the page land in the right place. The video (1–2.5 MB) and the
-// poster load only once the scene is half a screen away, so they don't compete with the hero.
+// Sunbeam scene v2 (Kev, 3 Nov; Figma 5278:111 DE / 5278:716 EN): a one-screen "snap section". Scrolling
+// into it snaps it to fill the screen and the video plays once, with Julian's tracker card (GSAP)
+// following the video time; one more scroll leaves it (scene-snap.js, which reads <html lang> for its
+// hint text). Kev's drop-in, with its markup in React and the scripts unchanged; the overlay script
+// adds its own elements, so this renders once (memo, its props are static) and initialises once.
+// Videos in public/media (need range requests; Vercel serves them); the poster is optimised by Astro
+// and passed in. Needs hydrating so the scripts run (client:idle). The video (1–2.5 MB) and the poster
+// load only once the scene is half a screen away, so they don't compete with the hero.
 export interface ScenePoster {
   src: string;
   srcSet?: string;
 }
 
-export const SunbeamScene = memo(function SunbeamScene({ poster }: { poster: ScenePoster }) {
+/** The scene's copy, from the page's content file. */
+export interface SceneCopy {
+  /** Accessible name of the section. */
+  label: string;
+  /** The line under the video: it's example data. */
+  caption: string;
+}
+
+export interface SunbeamSceneProps extends SceneCopy {
+  poster: ScenePoster;
+}
+
+export const SunbeamScene = memo(function SunbeamScene({ poster, label, caption }: SunbeamSceneProps) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -23,7 +34,7 @@ export const SunbeamScene = memo(function SunbeamScene({ poster }: { poster: Sce
     if (!el || el.dataset.ready) return;
     el.dataset.ready = 'true';
     // Loaded in the browser only: the scripts (and GSAP) touch window on import.
-    import('@/scripts/motion/scene-scrub.js').then(({ initSunbeamScene }) => initSunbeamScene(el));
+    import('@/scripts/motion/scene-snap.js').then(({ initSunbeamSnap }) => initSunbeamSnap(el));
 
     const video = el.querySelector('video');
     if (!video) return;
@@ -45,7 +56,7 @@ export const SunbeamScene = memo(function SunbeamScene({ poster }: { poster: Sce
   }, []);
 
   return (
-    <section ref={ref} className="scene-band" id="scene" aria-label="Example: a purchase tracked live">
+    <section ref={ref} className="scene-band" id="scene" aria-label={label}>
       <div className="scene-track">
         <div className="scene-pin">
           <div className="scene">
@@ -74,17 +85,19 @@ export const SunbeamScene = memo(function SunbeamScene({ poster }: { poster: Sce
               <source src="/media/scrub-1080.mp4" type="video/mp4" />
               <source src="/media/scrub-1080.webm" type="video/webm" />
             </video>
+            <div className="topfade" aria-hidden="true" />
             <div className="hint" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 5v14" />
                 <path d="m19 12-7 7-7-7" />
               </svg>
-              <span>Scroll to play</span>
+              <span />
             </div>
             <div className="scrub-bar" aria-hidden="true">
               <i />
             </div>
           </div>
+          <p className="scene-cap">{caption}</p>
         </div>
       </div>
     </section>

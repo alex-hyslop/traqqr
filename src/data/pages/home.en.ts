@@ -2,21 +2,20 @@ import { integrations } from '@/data/integrations';
 import type { HomePage } from '@/data/pages/home';
 import { siteContent } from '@/data/site';
 
-// English homepage at /en/. Hero: Homepage v2 (Figma 5212:17936). The other sections are still the
-// 20 Oct homepage until Homepage v2 replaces them.
+// English homepage at /en/ (Figma: Homepage v2 5212:17935, Kev's 3 Nov handover §4). The copy is Kev's.
+// The meta title and description are ours, from the hero and the footer tagline, until Kev writes them.
 
 const { trial, demo } = siteContent.en.cta;
 
 export const homeEn: HomePage = {
-  title: 'Traqqr · Server-side tracking for Meta Ads',
+  title: 'Traqqr · Ad, conversion and fingerprint tracking for long funnels',
   description:
-    'Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser.',
+    'Traqqr shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers.',
   features: [
-    'Server-side tracking for Meta Ads',
-    'Live Feed of every event',
-    'Browser and server event deduplication',
-    'First-party reverse proxy on your own subdomain',
-    'Event Inspector',
+    'Ad tracking: the campaign, ad and creative behind the first click',
+    'Server-side conversion tracking',
+    'Fingerprint tracking across devices and sessions',
+    'Attribution across long customer journeys',
     `Integrations: ${integrations.map((i) => i.name).join(', ')}`,
   ],
   sections: [
@@ -31,94 +30,54 @@ export const homeEn: HomePage = {
           { eyebrow: '03 / FINGERPRINT TRACKING', title: 'One journey.', body: 'Devices, sessions and touchpoints joined into one customer journey.' },
           { eyebrow: '04 / ATTRIBUTION', title: 'Budget that works.', body: 'Invest in the ads that really bring customers.' },
         ],
-        demoLabel: 'Watch demo · 2\u00a0min',
+        demoLabel: 'Watch demo · 2 min',
         videoLabel: 'Play the 2-minute demo',
       },
     },
-    { kind: 'integrations' },
+    { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'Servers in Germany'] } },
     {
-      kind: 'problem',
+      kind: 'stats',
+      props: {
+        title: 'Measured to the sale. Not just to the click.',
+        // Three, not four: the EN frame drops "native DACH integrations".
+        items: [
+          { value: '3', label: 'tracking layers' },
+          { value: '360°', label: 'view of the funnel' },
+          { value: 'EU', label: 'hosting, servers in Europe' },
+        ],
+      },
+    },
+    {
+      kind: 'cards',
       props: {
         id: 'problem',
         badge: 'The problem',
-        title: "Your pixel misses sales. Traqqr doesn't.",
-        lead: 'Ad blockers, cookie banners and browser limits stop the Meta Pixel from reporting every sale. Traqqr sends the same events from your server too.',
-        columns: { bad: 'Meta Pixel only', good: 'Pixel + Traqqr' },
-        rows: [
-          { label: 'Ad blockers', bad: 'Events get blocked', good: 'Sent from your server' },
-          { label: 'What Meta receives', bad: 'Gaps and missing sales', good: 'Every visit, lead and sale' },
-          { label: 'Duplicates', bad: 'Counted twice or not at all', good: 'Deduplicated automatically' },
-          { label: 'Matching people', bad: 'Weak match quality', good: 'Fingerprint helps Meta match' },
-          { label: 'Setup', bad: 'Developer and tag manager', good: 'Minutes, no developer' },
+        title: 'Your tracking has gone blind.',
+        lead: 'iOS, ad blockers and cookie banners have blinded your pixel and GA4. You are paying for clicks you can no longer see.',
+        cards: [
+          { eyebrow: '01 / iOS', title: 'Less signal.', body: 'Privacy features on iOS limit classic pixel tracking.' },
+          { eyebrow: '02 / AD BLOCKERS', title: 'Blocked pixels.', body: 'Ad blockers stop browser pixels from firing at all.' },
+          { eyebrow: '03 / COOKIE BANNERS', title: 'Gaps in the funnel.', body: 'Without consent, clicks and events go missing from your reports.' },
+          { eyebrow: '04 / LONG JOURNEYS', title: 'No connection.', body: 'When days or weeks pass between click and sale, the chain breaks.' },
         ],
       },
     },
-    { kind: 'scene' },
     {
-      kind: 'liveFeed',
+      kind: 'funnel',
       props: {
-        id: 'product',
-        badge: 'Live Feed',
-        title: 'See every event the moment it happens.',
-        body: 'Watch visits, leads and sales arrive in real time, and check exactly what reached Meta from the browser and from your server.',
-        items: [
-          'Live feed of every event',
-          'Browser vs. server delivery',
-          'Deduplication at a glance',
-          'Fingerprint coverage per site',
-          'Event Inspector for debugging',
-        ],
-        primaryAction: trial,
-        secondaryAction: demo,
-        media: { type: 'image', placeholderLabel: 'Live Feed screenshot coming soon' },
-        grid: true,
-      },
-    },
-    {
-      kind: 'reverseProxy',
-      props: {
-        id: 'reverse-proxy',
-        badge: 'First-party reverse proxy',
-        title: ['Your domain. Your data.', 'Fewer blocked events.'],
-        body: 'Route tracking through your own subdomain with Cloudflare, so ad blockers treat it like the rest of your site.',
-        items: [
-          'Runs on your own domain',
-          'Set up with Cloudflare',
-          'Up to 4 proxy domains per site',
-          'Falls back safely if you switch it off',
-        ],
-        primaryAction: trial,
-        secondaryAction: demo,
-        media: { type: 'image', placeholderLabel: 'First-party reverse proxy screenshot coming soon' },
-        mediaSide: 'left',
-        grid: true,
-        borderTop: true,
-      },
-    },
-    {
-      kind: 'howItWorks',
-      props: {
-        id: 'how-it-works',
-        badge: 'How it works',
-        title: 'Live in three steps.',
-        lead: 'No tag manager, no developer. Most sites send their first server-side event within minutes.',
+        id: 'long-funnel',
+        badge: 'Long funnels',
+        title: 'From the first click to the sale.',
+        lead: 'From the ad click to the call three weeks later: finally, you see the whole path.',
         steps: [
-          {
-            eyebrow: '01 / ADD YOUR SITE',
-            title: 'Paste one snippet.',
-            body: "Add the Traqqr snippet to your site's <head>. That's the only code you need.",
-          },
-          {
-            eyebrow: '02 / CONNECT',
-            title: 'Link Meta and your tools.',
-            body: 'Connect your Meta pixel, then tools like KlickTipp, Digistore24 or EverWebinar.',
-          },
-          {
-            eyebrow: '03 / WATCH',
-            title: 'See every event arrive.',
-            body: 'Live Feed shows what reached Meta, from the browser and from your server.',
-          },
+          { number: '01', label: 'AD CLICK', title: 'Ad tracking', body: 'Identifies the campaign, ad and creative behind the first click.' },
+          { number: '02', label: 'OPT-IN', title: 'Server-side', body: 'Conversion tracking captures the opt-in on the server.' },
+          { number: '03', label: 'EMAIL', title: 'KlickTipp', body: 'Funnel data flows into segments, tags and\nfollow-ups.' },
+          { number: '04', label: 'WEBINAR', title: 'Webinaris', body: 'Registration and attendance, matched to the\nright ad.' },
+          { number: '05', label: 'CALL', title: 'Cross-device', body: 'Fingerprint tracking joins devices, sessions\nand touchpoints.' },
+          { number: '06', label: 'PURCHASE', title: 'Digistore24', body: 'The sale weeks later is credited to the ad that started it.' },
         ],
+        action: { label: 'How Traqqr works', href: demo.href },
       },
     },
     {
@@ -128,52 +87,44 @@ export const homeEn: HomePage = {
         badge: 'Customers',
         title: 'Teams that track with Traqqr',
         quote: [
-          '“Since we started using traqqr.ai, our processes',
-          'run far more reliably. Errors are caught early and our team',
-          'always knows exactly what to do.”',
+          '“Since we started using traqqr.ai, our processes run far',
+          'more reliably. Errors are caught early and our team always',
+          'knows exactly what to do.”',
         ],
         name: 'Dawid Przybylski',
         role: 'Founder & Managing Director, Visual Facilitators GmbH',
       },
     },
+    { kind: 'integrations', props: { title: 'Integrations', lead: 'Natively connected to your DACH funnel stack.' } },
+    {
+      kind: 'howItWorks',
+      props: {
+        id: 'why-traqqr',
+        badge: 'Why Traqqr',
+        title: 'Live faster. Easier to use.',
+        lead: 'Pro-grade tracking without an enterprise price or a sales call.',
+        steps: [
+          { eyebrow: '01 / SELF-SERVE', title: 'No sales call needed.', body: 'Create an account and set it up yourself.' },
+          { eyebrow: '02 / SETUP', title: 'No setup marathon.', body: 'No weeks of onboarding and no enterprise entry level.' },
+          { eyebrow: '03 / DACH STACK', title: 'Natively connected.', body: 'KlickTipp, Digistore24, HubSpot and Webinaris, no workarounds.' },
+        ],
+      },
+    },
+    {
+      kind: 'scene',
+      props: { label: 'Example: a purchase tracked live', caption: 'Example data · the card is live HTML over the video' },
+    },
     {
       kind: 'faq',
       props: {
         title: 'Frequently asked questions',
-        // Answers from Kev, Slack, 20 Oct 11:41.
+        // Only the first answer is written (Figma 5212:17946); the other four questions wait for Kev's answers.
         items: [
           {
-            question: 'What is server-side tracking?',
+            question: 'What is Traqqr?',
             answer:
-              "Your server sends each visit, lead and sale to Meta directly, instead of relying only on the pixel in the visitor's browser. Ad blockers and browser limits can't stop that copy.",
+              'Traqqr is an ad, conversion and fingerprint tracking solution for German-speaking funnel marketers. It connects ad clicks, website events, opt-ins, webinars, calls and purchases across longer customer journeys.',
           },
-          {
-            question: 'Do I need a developer to set it up?',
-            answer: "No. You paste one snippet into your site's <head> and connect Meta from the dashboard.",
-          },
-          {
-            question: 'Which tools does Traqqr work with?',
-            answer: 'Meta Ads and Facebook, plus Cloudflare, KlickTipp, Digistore24, Ablefy, EverWebinar, Webinaris and HubSpot.',
-          },
-          {
-            question: 'Does Traqqr replace my Meta Pixel?',
-            answer:
-              'No. Traqqr works alongside your pixel. Meta gets each event from the browser and from your server, and counts it once thanks to deduplication.',
-          },
-          {
-            question: 'Will ad blockers still block my tracking?',
-            answer:
-              "Server-side events aren't affected. With the first-party reverse proxy on your own subdomain, browser events are blocked far less often too.",
-          },
-          {
-            question: 'Can I see what is sent to Meta?',
-            answer: 'Yes. Live Feed shows every event as it arrives, and Event Inspector shows exactly what each one contained.',
-          },
-          {
-            question: 'Can I try Traqqr for free?',
-            answer: 'Start a free trial from any "Start free trial" button on this page.',
-          },
-    
         ],
       },
     },
@@ -181,12 +132,12 @@ export const homeEn: HomePage = {
       kind: 'cta',
       props: {
         id: 'cta',
-        title: 'Stop losing conversions you paid for.',
-        lead: 'Set up Traqqr in minutes and send every visit, lead and sale to Meta.',
+        title: 'Which ad brings your customers?',
+        lead: 'Find out, from the first click to the sale weeks later.',
         primaryAction: trial,
         secondaryAction: demo,
       },
     },
-    { kind: 'globe' },
+    { kind: 'globe', props: { label: 'Example events arriving from around Europe' } },
   ],
 };

@@ -6,8 +6,9 @@ import type { Section } from '@/data/sections';
 interface Props {
   section: Extract<Section, { kind: 'integrations' }>;
 }
+const { section } = Astro.props;
 ---
 
 <Reveal>
-  <IntegrationsStrip client:visible />
+  <IntegrationsStrip client:visible {...section.props} />
 </Reveal>

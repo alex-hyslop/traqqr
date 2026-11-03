@@ -1,8 +1,12 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { SectionKind } from '@/data/sections';
 import HeroSection from './HeroSection.astro';
+import TrustSection from './TrustSection.astro';
+import StatsSection from './StatsSection.astro';
+import CardsSection from './CardsSection.astro';
+import FunnelSection from './FunnelSection.astro';
 import IntegrationsSection from './IntegrationsSection.astro';
-import ProblemSection from './ProblemSection.astro';
+import ComparisonSection from './ComparisonSection.astro';
 import SceneSection from './SceneSection.astro';
 import TextMediaSection from './TextMediaSection.astro';
 import HowItWorksSection from './HowItWorksSection.astro';
@@ -13,11 +17,14 @@ import GlobeSection from './GlobeSection.astro';
 
 export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   hero: HeroSection,
+  trust: TrustSection,
+  stats: StatsSection,
+  cards: CardsSection,
+  funnel: FunnelSection,
   integrations: IntegrationsSection,
-  problem: ProblemSection,
+  comparison: ComparisonSection,
   scene: SceneSection,
-  liveFeed: TextMediaSection,
-  reverseProxy: TextMediaSection,
+  textMedia: TextMediaSection,
   howItWorks: HowItWorksSection,
   testimonial: TestimonialSection,
   faq: FaqSection,

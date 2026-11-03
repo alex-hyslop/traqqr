@@ -1,0 +1,14 @@
+---
+import Reveal from '@/components/Reveal.astro';
+import { FeatureCards } from '@/components/sections/FeatureCards';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'cards' }>;
+}
+const { section } = Astro.props;
+---
+
+<Reveal>
+  <FeatureCards {...section.props} />
+</Reveal>

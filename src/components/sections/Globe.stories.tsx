@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite"
+import { homeSection } from "@/data/pages/home"
 import { Globe } from "./Globe"
 
 // Example data only. Below 980px only 3 readouts show.
@@ -6,6 +7,7 @@ const meta = {
   title: "Website Sections/Globe",
   component: Globe,
   parameters: { layout: "fullscreen" },
+  args: homeSection("de", "globe"),
 } satisfies Meta<typeof Globe>
 
 export default meta

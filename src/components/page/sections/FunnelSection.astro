@@ -1,0 +1,167 @@
+---
+// Long funnel, the charcoal band (Figma: Homepage v2 §4, 5217:727 DE / 5217:1414 EN). A bg-card band whose
+// top edge steps up on the left and bottom edge steps down on the right (chamfer v2), a 1px accent line
+// on each step. Inside, six steps alternate either side of a vertical line; Kev's funnel-line.js draws
+// the line with the scroll, a white light riding its tip, and lands it amber on the last step (Kauf).
+// Static markup, no hydration: the script only sets transforms, opacity and data-on / data-lit.
+//
+// Desktop geometry from Figma (1440 frame): a 960px rail (callout 360 · gap 240 · callout 360), the line
+// at its centre, a step every 110px, each callout's label 8px below its row top with a 9px node on the
+// line and a 1px connector 6px short of the callout. Below lg the line runs down the left (Kev's mobile
+// rules, 3 Nov) and the band's steps are 32px.
+import { SectionHeading } from '@klicktipp/traqqr-components';
+import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import { ArrowRight } from 'lucide-react';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'funnel' }>;
+}
+const { id, badge, title, lead, steps, action } = Astro.props.section.props;
+const last = steps.length - 1;
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="funnel-band relative bg-card" data-tq-funnel>
+  <svg class="funnel-accent funnel-accent-top text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke" />
+  </svg>
+  <svg class="funnel-accent funnel-accent-bottom text-accent-line" viewBox="0 0 64 64" aria-hidden="true">
+    <path d="M64 0 0 64" stroke="currentColor" vector-effect="non-scaling-stroke" />
+  </svg>
+
+  <div class="mx-auto flex max-w-240 flex-col gap-12 px-6 pt-24 pb-20 lg:gap-[94px] lg:px-0 lg:pt-40 lg:pb-[106px]">
+    {/* Figma's Section heading (5058:2057) is gap 16; the library's is gap-3. */}
+    <SectionHeading id={`${id}-heading`} badge={badge} title={title} lead={lead} className="mx-auto gap-4" />
+
+    <div class="funnel-rail relative grid grid-cols-1 gap-10 pl-8 lg:grid-cols-[360px_240px_360px] lg:grid-rows-[repeat(5,110px)_auto] lg:gap-0 lg:pl-0" data-tq-funnel-rail>
+      <i data-tq-funnel-line></i>
+      <i data-tq-funnel-tip></i>
+      {
+        steps.map((step, i) => {
+          const left = i % 2 === 0;
+          return (
+            <article
+              class:list={[
+                'funnel-step relative flex flex-col gap-2 lg:[grid-row:var(--row)]',
+                left ? 'lg:col-start-1 lg:items-end lg:text-right' : 'lg:col-start-3 lg:items-start',
+              ]}
+              style={`--row: ${i + 1}`}
+              data-tq-step
+              data-tq-amber={i === last ? '' : undefined}
+              data-side={left ? 'left' : 'right'}
+            >
+              <i class="funnel-dot" data-tq-dot></i>
+              <i class="funnel-connector hidden lg:block" aria-hidden="true"></i>
+              <p class:list={['flex items-center gap-2.5 font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground', left && 'lg:flex-row-reverse']}>
+                <span class="size-[5px] bg-foreground" aria-hidden="true"></span>
+                <span class="whitespace-pre">{`${step.number}   ${step.label}`}</span>
+              </p>
+              <h3 class="text-3xl leading-10 font-extralight text-foreground lg:text-4xl lg:whitespace-nowrap">{step.title}</h3>
+              <p class="max-w-[340px] text-sm leading-5 text-muted-foreground lg:whitespace-pre-line">{step.body}</p>
+            </article>
+          );
+        })
+      }
+      <a
+        href={action.href}
+        class={cn(
+          buttonVariants({ variant: 'outline', size: 'lg' }),
+          'justify-self-start lg:col-start-1 lg:mt-[58px] lg:self-start lg:justify-self-end lg:[grid-row:var(--row)]'
+        )}
+        style={`--row: ${steps.length}`}
+      >
+        {action.label}
+        <ArrowRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The band's outline: chamfer v2 steps, 32px below lg and 64px from lg (Figma 5217:728). The top step is
+     the bottom one mirrored through the centre, so it ends at 38.9%. */
+  .funnel-band {
+    --step: 32px;
+    clip-path: polygon(
+      0 var(--step),
+      calc(38.9% - var(--step)) var(--step),
+      38.9% 0,
+      100% 0,
+      100% calc(100% - var(--step)),
+      calc(61.1% + var(--step)) calc(100% - var(--step)),
+      61.1% 100%,
+      0 100%
+    );
+  }
+  .funnel-accent {
+    position: absolute;
+    width: var(--step);
+    height: var(--step);
+    overflow: visible;
+  }
+  .funnel-accent-top {
+    top: 0;
+    left: calc(38.9% - var(--step));
+  }
+  .funnel-accent-bottom {
+    bottom: 0;
+    left: 61.1%;
+  }
+  @media (min-width: 64rem) {
+    .funnel-band {
+      --step: 64px;
+    }
+  }
+
+  /* The line and its tip sit at the rail's centre from lg, 4px in from the left below it. funnel-line.js
+     injects their looks (FUNNEL_CSS); this only places them. */
+  .funnel-rail :global([data-tq-funnel-line]),
+  .funnel-rail :global([data-tq-funnel-tip]) {
+    left: 4px;
+  }
+
+  /* The 9px node on the line, hollow until the tip passes it (FUNNEL_CSS fills it, amber on the last). */
+  .funnel-dot {
+    position: absolute;
+    top: 3.5px;
+    left: -32px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 0.6);
+    background: var(--card);
+  }
+  .funnel-connector {
+    position: absolute;
+    top: 8px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @media (min-width: 64rem) {
+    .funnel-rail :global([data-tq-funnel-line]),
+    .funnel-rail :global([data-tq-funnel-tip]) {
+      left: 480px;
+    }
+    /* Rail x of the node: 476 (centred on the line at 480). Left callouts start at 0, right ones at 600. */
+    .funnel-step[data-side='left'] .funnel-dot {
+      left: 476px;
+    }
+    .funnel-step[data-side='right'] .funnel-dot {
+      left: -124px;
+    }
+    .funnel-step[data-side='left'] .funnel-connector {
+      left: calc(100% + 6px);
+      width: 109.5px;
+    }
+    .funnel-step[data-side='right'] .funnel-connector {
+      left: -114.5px;
+      width: 108.5px;
+    }
+  }
+</style>
+
+<script>
+  import { mountFunnel } from '@/scripts/motion/funnel-line.js';
+  document.querySelectorAll<HTMLElement>('[data-tq-funnel]').forEach((section) => mountFunnel(section));
+</script>

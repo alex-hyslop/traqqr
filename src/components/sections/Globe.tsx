@@ -20,9 +20,9 @@ function Tick() {
 
 // Globe above the footer (Figma: Brand / Horizon glow 5004:62533): Kev's drop-in, with its markup in
 // React and his globe.js unchanged. globe.js rewrites the readouts' text itself, so this renders once
-// (memo, no props) and initialises once. Below 980px only 3 readouts show; reduced motion: no movement.
+// (memo, its one prop is static) and initialises once. Below 980px only 3 readouts show; reduced motion: no movement.
 // Needs hydrating (client:visible) so the script runs.
-export const Globe = memo(function Globe() {
+export const Globe = memo(function Globe({ label }: { label: string }) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const Globe = memo(function Globe() {
   }, []);
 
   return (
-    <section ref={ref} className="globe-sec" id="globe" aria-label="Example events arriving from around Europe">
+    <section ref={ref} className="globe-sec" id="globe" aria-label={label}>
       <div className="dome" aria-hidden="true" />
       <canvas aria-hidden="true" />
       {signals.map((s) => (

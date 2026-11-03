@@ -5,6 +5,7 @@ import type { Section } from '@/data/sections';
 interface Props {
   section: Extract<Section, { kind: 'globe' }>;
 }
+const { section } = Astro.props;
 ---
 
-<Globe client:visible />
+<Globe client:visible {...section.props} />

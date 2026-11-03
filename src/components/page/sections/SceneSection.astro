@@ -7,9 +7,10 @@ import type { Section } from '@/data/sections';
 interface Props {
   section: Extract<Section, { kind: 'scene' }>;
 }
+const { section } = Astro.props;
 
 // First frame of the scroll video, shown until the video loads.
 const sceneFrame = await getImage({ src: scenePoster, width: 1920, format: 'webp', widths: [800, 1280, 1920] });
 ---
 
-<SunbeamScene client:idle poster={{ src: sceneFrame.src, srcSet: sceneFrame.srcSet.attribute }} />
+<SunbeamScene client:idle {...section.props} poster={{ src: sceneFrame.src, srcSet: sceneFrame.srcSet.attribute }} />

@@ -1,0 +1,11 @@
+---
+import { TrustStrip } from '@/components/sections/TrustStrip';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'trust' }>;
+}
+const { section } = Astro.props;
+---
+
+<TrustStrip {...section.props} />

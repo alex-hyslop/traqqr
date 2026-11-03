@@ -75,6 +75,6 @@ export const integrationsHref = '#';
 export const pricingHref = '#';
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;
-/** The 2-minute demo video. Until it exists, "How it works" on the homepage (Alex, 26 Oct). It is
- * absolute so other pages can link to it. */
-export const demoHref = (locale: Locale) => `${pathFor('home', locale)}#how-it-works`;
+/** The 2-minute demo video. Until it exists, the homepage's Sunbeam scene, which plays when a link
+ * lands on it (Homepage v2 has no "How it works" any more). Absolute so other pages can link to it. */
+export const demoHref = (locale: Locale) => `${pathFor('home', locale)}#scene`;

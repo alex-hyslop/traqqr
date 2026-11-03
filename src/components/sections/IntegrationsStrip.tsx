@@ -3,19 +3,15 @@ import { LogoTiles } from '@/components/website/LogoTiles';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
 
 export interface IntegrationsStripProps {
-  title?: string;
-  lead?: string;
+  title: string;
+  lead: string;
   integrations?: Integration[];
 }
 
 // Integrations strip (Figma: Block / Integrations strip 5058:1639; mobile 5063:15579). Heading on the
 // left and logo tiles with tooltips; on mobile the heading sits on top and the tiles wrap.
 // Needs hydrating (client:visible) for the tooltips.
-export function IntegrationsStrip({
-  title = 'Integrations',
-  lead = 'Works with the tools you already use.',
-  integrations = allIntegrations,
-}: IntegrationsStripProps) {
+export function IntegrationsStrip({ title, lead, integrations = allIntegrations }: IntegrationsStripProps) {
   return (
     <Section
       id="integrations"
