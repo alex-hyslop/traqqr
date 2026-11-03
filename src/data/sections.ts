@@ -13,7 +13,7 @@ import type { IntegrationsStripProps } from '@/components/sections/IntegrationsS
 import type { StatsProps } from '@/components/sections/Stats';
 import type { SceneCopy } from '@/components/sections/SunbeamScene';
 import type { TrustStripProps } from '@/components/sections/TrustStrip';
-import type { MotionId } from '@/components/motion/MotionPiece.astro';
+import type { MotionId } from '@/components/motion/pieces';
 
 /** One step of the long-funnel band: "01 ■ AD-KLICK", a big word and one line. */
 export interface FunnelStep {
@@ -59,6 +59,10 @@ export interface MotionSectionProps {
   eyebrow?: string;
   title?: string;
   align?: 'center' | 'left';
+  /** "lg": a 48/60 title instead of 36/40 (Figma /klicktipp-tracking/ §3). */
+  titleSize?: 'md' | 'lg';
+  /** On a bg-card band with border-y. */
+  band?: boolean;
   motion: MotionSlot & { width: number };
 }
 
@@ -79,6 +83,20 @@ export interface StepsDropzoneProps {
   steps: { number: string; title: string; body: string }[];
   /** The app's upload panel, as an illustration. */
   dropzone: { title: string; hint: string; action: string };
+}
+
+export type BentoVisual =
+  | { kind: 'tags'; items: { key: string; value: string }[] }
+  | { kind: 'segments'; items: { name: string; count: string }[] }
+  | { kind: 'chain'; steps: string[] }
+  | { kind: 'purchase'; from: { label: string; value: string }; to: { label: string; value: string }; note: string };
+
+export interface BentoProps {
+  id: string;
+  eyebrow: string;
+  title: string;
+  /** Four tiles: wide + narrow, then narrow + wide. */
+  tiles: { eyebrow: string; title: string; body: string; visual: BentoVisual }[];
 }
 
 export interface StatementProps {
@@ -117,6 +135,7 @@ export type Section =
   | { kind: 'featureTable'; props: FeatureTableProps }
   | { kind: 'stepsDropzone'; props: StepsDropzoneProps }
   | { kind: 'statement'; props: StatementProps }
+  | { kind: 'bento'; props: BentoProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

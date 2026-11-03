@@ -3,34 +3,41 @@
 // ExtraLight title (Figma e.g. /live-feed/ §3 5225:165: 120px padding, 56px from heading to piece).
 // `width` is the piece's width in the Figma frame; it scales down with the column. A bare piece (no
 // heading, e.g. the Live Feed marquee) gets just enough padding to centre it in its band. `align: "left"`
-// puts the heading at the column's left edge (Figma /fingerprint-tracking/ §2).
+// puts the heading at the column's left edge (Figma /fingerprint-tracking/ §2); `band` puts the section on
+// a bg-card band, and `titleSize: "lg"` makes the title 48/60, 64px above the piece (/klicktipp-tracking/ §3).
 import MotionPiece from '@/components/motion/MotionPiece.astro';
 import type { Section } from '@/data/sections';
 
 interface Props {
   section: Extract<Section, { kind: 'motion' }>;
 }
-const { id, eyebrow, title, align = 'center', motion } = Astro.props.section.props;
+const { id, eyebrow, title, align = 'center', titleSize = 'md', band = false, motion } = Astro.props.section.props;
 const left = align === 'left';
 const headingId = title ? `${id}-heading` : undefined;
 ---
 
-<section
-  id={id}
-  aria-labelledby={headingId}
-  class:list={['mx-auto flex max-w-312 flex-col items-center px-6', title ? 'gap-10 py-14 lg:gap-14 lg:py-30' : 'py-[15px]']}
->
-  {
-    title && (
-      <div class:list={['flex flex-col gap-3', left ? 'self-start' : 'items-center text-center']}>
-        {eyebrow && <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>}
-        <h2 id={headingId} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">
-          {title}
-        </h2>
-      </div>
-    )
-  }
-  <div class="w-full" style={`max-width: ${motion.width}px`}>
-    <MotionPiece id={motion.id} label={motion.label} />
+<section id={id} aria-labelledby={headingId} class:list={[band && 'border-y border-white/10 bg-card']}>
+  <div
+    class:list={[
+      'mx-auto flex max-w-312 flex-col items-center px-6',
+      title ? ['gap-10 py-14 lg:py-30', titleSize === 'lg' ? 'lg:gap-16' : 'lg:gap-14'] : 'py-[15px]',
+    ]}
+  >
+    {
+      title && (
+        <div class:list={['flex flex-col gap-3', left ? 'self-start' : 'items-center text-center']}>
+          {eyebrow && <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>}
+          <h2
+            id={headingId}
+            class:list={['text-3xl leading-9 font-extralight text-foreground', titleSize === 'lg' ? 'lg:text-5xl lg:leading-15' : 'lg:text-4xl lg:leading-10']}
+          >
+            {title}
+          </h2>
+        </div>
+      )
+    }
+    <div class="w-full" style={`max-width: ${motion.width}px`}>
+      <MotionPiece id={motion.id} label={motion.label} />
+    </div>
   </div>
 </section>

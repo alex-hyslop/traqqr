@@ -4,7 +4,9 @@
 // script mounts (from the piece's design size, or the scroll track's 240vh), so nothing shifts, and below
 // md only the pieces Kev keeps on mobile mount (§6.5: just the Live Feed marquee); the others stay hidden
 // and their section shows its static content instead. The script reads <html lang> for the stage copy.
-export type MotionId = keyof typeof sizes;
+import { motionPieces, type MotionId } from './pieces';
+
+export type { MotionId };
 
 interface Props {
   id: MotionId;
@@ -13,23 +15,8 @@ interface Props {
   class?: string;
 }
 
-// Design sizes and modes, from traqqr-motion.js (PIECES). Scroll pieces build their own 240vh track.
-const sizes = {
-  'live-feed-hero': { size: [640, 470], scroll: false, mobile: false },
-  'live-feed-marquee': { size: [1200, 170], scroll: false, mobile: true },
-  'live-feed-split': { size: [1000, 330], scroll: false, mobile: false },
-  'proxy-flow': { size: [640, 560], scroll: false, mobile: false },
-  'inspector-hero': { size: [1000, 520], scroll: false, mobile: false },
-  'inspector-payload': { size: [1100, 520], scroll: true, mobile: false },
-  'fingerprint-360': { size: [760, 580], scroll: false, mobile: false },
-  'fingerprint-journey': { size: [1200, 270], scroll: true, mobile: false },
-  'klicktipp-card': { size: [600, 530], scroll: false, mobile: false },
-  'klicktipp-flow': { size: [1100, 230], scroll: true, mobile: false },
-  'integrations-hub': { size: [1200, 500], scroll: false, mobile: false },
-} as const;
-
 const { id, label, class: cls } = Astro.props;
-const piece = sizes[id];
+const piece = motionPieces[id];
 const reserve = piece.scroll ? 'height: var(--tq-scroll-h, 240vh)' : `aspect-ratio: ${piece.size[0]} / ${piece.size[1]}`;
 ---
 
