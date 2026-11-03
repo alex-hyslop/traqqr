@@ -40,7 +40,6 @@ import {
   navLinks,
   pricingHref,
   type NavLink,
-  type NavLinks,
   type ResourceLink,
 } from '@/data/links';
 import { integrations as allIntegrations, type Integration } from '@/data/integrations';
@@ -92,8 +91,26 @@ interface DesktopMenuProps {
   integrationsPage: string;
   integrations: Integration[];
   product: NavLink[];
-  solutions: NavLinks['solutions'];
+  solutions: NavLink[];
   resources: ResourceLink[];
+}
+
+/** The Product and Lösungen panels: a title and a line of description per page. */
+function PanelLinks({ links }: { links: NavLink[] }) {
+  return (
+    <ul className="flex flex-col">
+      {links.map((link) => (
+        <li key={link.title}>
+          <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
+            <a href={link.href}>
+              <span className="font-mono text-sm leading-5 text-foreground">{link.title}</span>
+              <span className="text-sm leading-5 text-muted-foreground">{link.description}</span>
+            </a>
+          </NavigationMenuLink>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function DesktopMenu({ labels, integrationsPage, integrations, product, solutions, resources }: DesktopMenuProps) {
@@ -103,45 +120,14 @@ function DesktopMenu({ labels, integrationsPage, integrations, product, solution
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClass}>{labels.product}</NavigationMenuTrigger>
           <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
-            <ul className="flex flex-col">
-              {product.map((link) => (
-                <li key={link.title}>
-                  <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
-                    <a href={link.href}>
-                      <span className="font-mono text-sm leading-5 text-foreground">{link.title}</span>
-                      <span className="text-sm leading-5 text-muted-foreground">{link.description}</span>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-              ))}
-            </ul>
+            <PanelLinks links={product} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        {/* Built like the Product panel, plus a featured Traqqr card (Figma 5273:36): a 200px bg-muted
-            rounded-md p-6 card with its content at the bottom, gap-2, then the links. */}
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClass}>{labels.solutions}</NavigationMenuTrigger>
           <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
-            <div className="grid grid-cols-[200px_1fr] gap-2">
-              <div className="flex flex-col justify-end gap-2 rounded-md bg-muted p-6">
-                <TraqqrLogo className="mb-1 [&_[data-wordmark]]:hidden" />
-                <span className="text-lg leading-7 text-foreground">{solutions.featured.title}</span>
-                <span className="text-sm leading-5 text-muted-foreground">{solutions.featured.description}</span>
-              </div>
-              <ul className="flex flex-col">
-                {solutions.links.map((link) => (
-                  <li key={link.title}>
-                    <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
-                      <a href={link.href}>
-                        <span className="font-mono text-sm leading-5 text-foreground">{link.title}</span>
-                        <span className="text-sm leading-5 text-muted-foreground">{link.description}</span>
-                      </a>
-                    </NavigationMenuLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <PanelLinks links={solutions} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
@@ -476,7 +462,7 @@ export function SiteNav({
         onOpenChange={setMenuOpen}
         currentPath={currentPath}
         product={product}
-        solutions={navLinks[locale].solutions.links}
+        solutions={navLinks[locale].solutions}
         resources={resources}
         scrolled={scrolled}
       />

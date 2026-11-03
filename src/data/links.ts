@@ -15,8 +15,7 @@ export type ResourceLink = NavLink & { icon: 'docs' | 'help' | 'blog' };
 
 export interface NavLinks {
   product: NavLink[];
-  /** The Lösungen / Solutions panel: a featured Traqqr card (not a link) beside the four pages. */
-  solutions: { featured: { title: string; description: string }; links: NavLink[] };
+  solutions: NavLink[];
   resources: ResourceLink[];
 }
 
@@ -27,18 +26,12 @@ export const navLinks: Record<Locale, NavLinks> = {
       { title: 'Reverse Proxy', description: 'Tracking über Deine eigene Subdomain.', href: pathFor('reverseProxy', 'de') },
       { title: 'Event Inspector', description: 'Sieh genau, was bei Meta angekommen ist.', href: pathFor('eventInspector', 'de') },
     ],
-    solutions: {
-      featured: {
-        title: 'Traqqr',
-        description: 'Tracking für lange Funnels: vom ersten Anzeigenklick bis zum Kauf Wochen später.',
-      },
-      links: [
-        { title: 'Serverseitiges Tracking', description: 'Meta CAPI vom Server, für lange Funnels.', href: pathFor('serverSideTracking', 'de') },
-        { title: 'Webinar-Funnel-Tracking', description: 'Webinare, Calls und High-Ticket-Verkäufe.', href: pathFor('webinarFunnelTracking', 'de') },
-        { title: 'Fingerprint Tracking', description: 'Ein Kunde über Geräte und Wochen hinweg.', href: pathFor('fingerprintTracking', 'de') },
-        { title: 'KlickTipp Tracking', description: 'Quelle, Kampagne und Anzeige als KlickTipp-Tags.', href: pathFor('klicktippTracking', 'de') },
-      ],
-    },
+    solutions: [
+      { title: 'Serverseitiges Tracking', description: 'Meta CAPI vom Server, für lange Funnels.', href: pathFor('serverSideTracking', 'de') },
+      { title: 'Webinar-Funnel-Tracking', description: 'Webinare, Calls und High-Ticket-Verkäufe.', href: pathFor('webinarFunnelTracking', 'de') },
+      { title: 'Fingerprint Tracking', description: 'Ein Kunde über Geräte und Wochen hinweg.', href: pathFor('fingerprintTracking', 'de') },
+      { title: 'KlickTipp Tracking', description: 'Quelle, Kampagne und Anzeige als KlickTipp-Tags.', href: pathFor('klicktippTracking', 'de') },
+    ],
     resources: [
       { title: 'Docs', description: 'Setup-Anleitungen und API-Referenz.', href: '#', icon: 'docs' },
       { title: 'Hilfe-Center', description: 'Antworten auf häufige Fragen.', href: '#', icon: 'help' },
@@ -51,18 +44,12 @@ export const navLinks: Record<Locale, NavLinks> = {
       { title: 'Reverse proxy', description: 'Track through your own subdomain.', href: pathFor('reverseProxy', 'en') },
       { title: 'Event Inspector', description: 'See exactly what reached Meta.', href: pathFor('eventInspector', 'en') },
     ],
-    solutions: {
-      featured: {
-        title: 'Traqqr',
-        description: 'Tracking for long funnels: from the first ad click to the sale weeks later.',
-      },
-      links: [
-        { title: 'Server-side tracking', description: 'Meta CAPI from the server, for long funnels.', href: pathFor('serverSideTracking', 'en') },
-        { title: 'Webinar funnel tracking', description: 'Webinars, calls and high-ticket sales.', href: pathFor('webinarFunnelTracking', 'en') },
-        { title: 'Fingerprint tracking', description: 'One customer across devices and weeks.', href: pathFor('fingerprintTracking', 'en') },
-        { title: 'KlickTipp tracking', description: 'Source, campaign and ad as KlickTipp tags.', href: pathFor('klicktippTracking', 'en') },
-      ],
-    },
+    solutions: [
+      { title: 'Server-side tracking', description: 'Meta CAPI from the server, for long funnels.', href: pathFor('serverSideTracking', 'en') },
+      { title: 'Webinar funnel tracking', description: 'Webinars, calls and high-ticket sales.', href: pathFor('webinarFunnelTracking', 'en') },
+      { title: 'Fingerprint tracking', description: 'One customer across devices and weeks.', href: pathFor('fingerprintTracking', 'en') },
+      { title: 'KlickTipp tracking', description: 'Source, campaign and ad as KlickTipp tags.', href: pathFor('klicktippTracking', 'en') },
+    ],
     resources: [
       { title: 'Docs', description: 'Set-up guides and API reference.', href: '#', icon: 'docs' },
       { title: 'Help center', description: 'Answers to common questions.', href: '#', icon: 'help' },
