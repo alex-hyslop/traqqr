@@ -49,8 +49,8 @@ export interface PageHeroProps {
   /** Pass an array of lines to keep Figma's manual desktop line breaks. */
   title: string | string[];
   lead: string;
-  /** The outline button next to the shared trial CTA. */
-  secondaryAction: CtaAction;
+  /** The outline button next to the shared trial CTA. Without it, the hero has no buttons. */
+  secondaryAction?: CtaAction;
   motion?: MotionSlot;
 }
 
@@ -70,6 +70,14 @@ export interface StepsProps {
   eyebrow?: string;
   title: string;
   steps: { number: string; title: string; body: string }[];
+}
+
+export interface StepsDropzoneProps {
+  id: string;
+  title: string;
+  steps: { number: string; title: string; body: string }[];
+  /** The app's upload panel, as an illustration. */
+  dropzone: { title: string; hint: string; action: string };
 }
 
 export interface FeatureTableProps {
@@ -100,6 +108,7 @@ export type Section =
   | { kind: 'steps'; props: StepsProps }
   | { kind: 'answers'; props: AnswersProps }
   | { kind: 'featureTable'; props: FeatureTableProps }
+  | { kind: 'stepsDropzone'; props: StepsDropzoneProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

@@ -4,6 +4,7 @@
 // feature column, two 240px columns, the second (the one this page is about) tinted brand/6 with green
 // checks; the other column's checks are muted and a missing feature is a muted dash. Rows 56px apart,
 // white/8 lines. Below md the columns get narrower (the stacked rows of §6.5 come with the mobile pass).
+import { cn } from '@klicktipp/traqqr-components/utils';
 import { Check } from 'lucide-react';
 import type { Section } from '@/data/sections';
 
@@ -38,7 +39,7 @@ const headCell = 'px-3 py-3.5 text-center font-mono text-xs leading-4 font-norma
               {[row.standard, row.highlight].map((has, col) => (
                 <td class:list={['py-[18px] text-center', col === 1 && 'bg-brand/6']}>
                   {has ? (
-                    <Check class:list={['mx-auto block size-[18px]', col === 1 ? 'text-success' : 'text-muted-foreground']} strokeWidth={1.5} aria-hidden="true" />
+                    <Check className={cn('mx-auto block size-[18px]', col === 1 ? 'text-success' : 'text-muted-foreground')} strokeWidth={1.5} aria-hidden="true" />
                   ) : (
                     <span class="text-muted-foreground" aria-hidden="true">
                       —

@@ -1,0 +1,46 @@
+---
+// Steps beside the app's upload panel (Figma: /event-inspector/ §3 5227:150): a bg-card band with
+// border-y, 120px padding. On the left (520px) a 36px ExtraLight title over three steps, 32px apart:
+// a mono number (the last in brand) and an 18px title with one muted line. On the right, 80px across,
+// the 600px dashed dropzone with an upload icon, title, hint and a primary "Inspect" button. The
+// dropzone is a picture of the app, so it's decorative here. Stacks below lg.
+import { buttonVariants } from '@klicktipp/traqqr-components/utils';
+import { Upload } from 'lucide-react';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'stepsDropzone' }>;
+}
+const { id, title, steps, dropzone } = Astro.props.section.props;
+const last = steps.length - 1;
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="border-y border-white/10 bg-card">
+  <div class="mx-auto flex max-w-312 flex-col gap-12 px-6 py-14 lg:flex-row lg:items-center lg:gap-20 lg:py-30">
+    <div class="flex flex-col gap-8 lg:w-[520px] lg:shrink-0">
+      <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">{title}</h2>
+      <ol class="flex flex-col gap-8">
+        {
+          steps.map((step, i) => (
+            <li class="flex gap-5">
+              <span class:list={['font-mono text-2xl leading-8', i === last ? 'text-brand' : 'text-muted-foreground']}>{step.number}</span>
+              <div class="flex flex-col gap-1.5">
+                <h3 class="text-lg leading-7 font-normal text-foreground">{step.title}</h3>
+                <p class="max-w-[420px] text-sm leading-5 text-muted-foreground">{step.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+    <div
+      class="flex flex-col items-center justify-center gap-4 rounded-[14px] border border-dashed border-white/20 bg-white/2 p-12 text-center lg:w-[600px] lg:shrink-0"
+      aria-hidden="true"
+    >
+      <Upload className="size-7 text-foreground" strokeWidth={1.5} />
+      <p class="text-lg leading-7 text-foreground">{dropzone.title}</p>
+      <p class="text-sm leading-5 text-muted-foreground">{dropzone.hint}</p>
+      <span class={buttonVariants({ variant: 'primary', size: 'lg' })}>{dropzone.action}</span>
+    </div>
+  </div>
+</section>

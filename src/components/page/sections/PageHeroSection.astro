@@ -3,7 +3,8 @@
 // Breadcrumb, a 60/72 ExtraLight title, an 18px lead and the CTA pair, over the grid with the half-radial
 // top glow layered above it (so the grid's fade never shows as a dark box). "split" puts the motion
 // piece on the right of the 560px copy, both centred on one line (Figma: y≈428); "centred" puts
-// the copy in the middle and the piece under it. Below md the hero is copy and buttons only (§6.5).
+// the copy in the middle (900px, 20px apart) and the piece under it. Without a secondary action there are
+// no buttons (Event Inspector). Below md the hero is copy and buttons only (§6.5).
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -35,10 +36,10 @@ const centred = layout === 'centred';
   <div
     class:list={[
       'mx-auto flex max-w-312 flex-col gap-10 px-6 pt-24 pb-16',
-      centred ? 'items-center text-center lg:gap-12 lg:pt-[176px] lg:pb-24' : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-[200px] lg:pb-[105px]',
+      centred ? 'items-center text-center lg:gap-2 lg:pt-[176px] lg:pb-12' : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-[200px] lg:pb-[105px]',
     ]}
   >
-    <div class:list={['flex flex-col gap-6', centred ? 'max-w-[720px] items-center' : 'lg:w-[560px] lg:shrink-0']}>
+    <div class:list={['flex flex-col', centred ? 'max-w-225 items-center gap-5' : 'gap-6 lg:w-[560px] lg:shrink-0']}>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -56,7 +57,7 @@ const centred = layout === 'centred';
       <p class:list={['text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7', centred ? 'max-w-[640px]' : 'lg:max-w-[520px]']}>
         {lead}
       </p>
-      <CtaButtons primary={trial} arrow secondary={secondaryAction} stackOnMobile className={cn(centred && 'justify-center')} />
+      {secondaryAction && <CtaButtons primary={trial} arrow secondary={secondaryAction} stackOnMobile className={cn(centred && 'justify-center')} />}
     </div>
     {
       motion && (
