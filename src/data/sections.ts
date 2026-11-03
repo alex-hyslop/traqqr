@@ -9,6 +9,7 @@ import type {
 import type { FaqProps } from '@/components/sections/Faq';
 import type { FeatureCardsProps } from '@/components/sections/FeatureCards';
 import type { HeroCopy } from '@/components/sections/Hero';
+import type { IntegrationsGridProps } from '@/components/sections/IntegrationsGrid';
 import type { IntegrationsStripProps } from '@/components/sections/IntegrationsStrip';
 import type { StatsProps } from '@/components/sections/Stats';
 import type { SceneCopy } from '@/components/sections/SunbeamScene';
@@ -52,6 +53,8 @@ export interface PageHeroProps {
   /** The outline button next to the shared trial CTA. Without it, the hero has no buttons. */
   secondaryAction?: CtaAction;
   motion?: MotionSlot;
+  /** Centred heroes: px between the copy and the piece (default 8, Event Inspector's stage has its own space). */
+  motionGap?: number;
 }
 
 export interface MotionSectionProps {
@@ -136,6 +139,7 @@ export type Section =
   | { kind: 'stepsDropzone'; props: StepsDropzoneProps }
   | { kind: 'statement'; props: StatementProps }
   | { kind: 'bento'; props: BentoProps }
+  | { kind: 'integrationsGrid'; props: IntegrationsGridProps }
   | { kind: 'trust'; props: TrustStripProps }
   | { kind: 'stats'; props: StatsProps }
   | { kind: 'cards'; props: FeatureCardsProps }

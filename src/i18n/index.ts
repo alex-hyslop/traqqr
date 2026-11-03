@@ -21,6 +21,7 @@ export const routes = {
   eventInspector: { de: '/event-inspector/', en: '/en/event-inspector/' },
   fingerprintTracking: { de: '/fingerprint-tracking/', en: '/en/fingerprint-tracking/' },
   klicktippTracking: { de: '/klicktipp-tracking/', en: '/en/klicktipp-tracking/' },
+  integrations: { de: '/integrationen/', en: '/en/integrations/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

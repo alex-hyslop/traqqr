@@ -1,9 +1,9 @@
 import { pathFor, type Locale } from '@/i18n';
 
 // Landing nav content (Kev's 20 Oct nav update, Figma 5073:16323; Solutions panel 5273:36; DE copy from
-// the 3 Nov handover §3.3).
-// Every href is "#" until the pages exist, except "Start free trial" and "Log in", which go to the app
-// login. Desktop dropdowns and the mobile menu share them.
+// the 3 Nov handover §3.3). Links go to the built pages, by key in src/i18n; the rest stay "#" until their
+// pages exist, except "Start free trial" and "Log in", which go to the app login. Desktop dropdowns and the
+// mobile menu share them.
 
 export interface NavLink {
   title: string;
@@ -23,9 +23,9 @@ export interface NavLinks {
 export const navLinks: Record<Locale, NavLinks> = {
   de: {
     product: [
-      { title: 'Live Feed', description: 'Sieh jedes Event in dem Moment, in dem es ankommt.', href: '#' },
-      { title: 'Reverse Proxy', description: 'Tracking über Deine eigene Subdomain.', href: '#' },
-      { title: 'Event Inspector', description: 'Sieh genau, was bei Meta angekommen ist.', href: '#' },
+      { title: 'Live Feed', description: 'Sieh jedes Event in dem Moment, in dem es ankommt.', href: pathFor('liveFeed', 'de') },
+      { title: 'Reverse Proxy', description: 'Tracking über Deine eigene Subdomain.', href: pathFor('reverseProxy', 'de') },
+      { title: 'Event Inspector', description: 'Sieh genau, was bei Meta angekommen ist.', href: pathFor('eventInspector', 'de') },
     ],
     solutions: {
       featured: {
@@ -35,8 +35,8 @@ export const navLinks: Record<Locale, NavLinks> = {
       links: [
         { title: 'Serverseitiges Tracking', description: 'Meta CAPI vom Server, für lange Funnels.', href: '#' },
         { title: 'Webinar-Funnel-Tracking', description: 'Webinare, Calls und High-Ticket-Verkäufe.', href: '#' },
-        { title: 'Fingerprint Tracking', description: 'Ein Kunde über Geräte und Wochen hinweg.', href: '#' },
-        { title: 'KlickTipp Tracking', description: 'Quelle, Kampagne und Anzeige als KlickTipp-Tags.', href: '#' },
+        { title: 'Fingerprint Tracking', description: 'Ein Kunde über Geräte und Wochen hinweg.', href: pathFor('fingerprintTracking', 'de') },
+        { title: 'KlickTipp Tracking', description: 'Quelle, Kampagne und Anzeige als KlickTipp-Tags.', href: pathFor('klicktippTracking', 'de') },
       ],
     },
     resources: [
@@ -47,9 +47,9 @@ export const navLinks: Record<Locale, NavLinks> = {
   },
   en: {
     product: [
-      { title: 'Live Feed', description: 'Watch every event arrive as it happens.', href: '#' },
-      { title: 'Reverse proxy', description: 'Track through your own subdomain.', href: '#' },
-      { title: 'Event Inspector', description: 'See exactly what reached Meta.', href: '#' },
+      { title: 'Live Feed', description: 'Watch every event arrive as it happens.', href: pathFor('liveFeed', 'en') },
+      { title: 'Reverse proxy', description: 'Track through your own subdomain.', href: pathFor('reverseProxy', 'en') },
+      { title: 'Event Inspector', description: 'See exactly what reached Meta.', href: pathFor('eventInspector', 'en') },
     ],
     solutions: {
       featured: {
@@ -59,8 +59,8 @@ export const navLinks: Record<Locale, NavLinks> = {
       links: [
         { title: 'Server-side tracking', description: 'Meta CAPI from the server, for long funnels.', href: '#' },
         { title: 'Webinar funnel tracking', description: 'Webinars, calls and high-ticket sales.', href: '#' },
-        { title: 'Fingerprint tracking', description: 'One customer across devices and weeks.', href: '#' },
-        { title: 'KlickTipp tracking', description: 'Source, campaign and ad as KlickTipp tags.', href: '#' },
+        { title: 'Fingerprint tracking', description: 'One customer across devices and weeks.', href: pathFor('fingerprintTracking', 'en') },
+        { title: 'KlickTipp tracking', description: 'Source, campaign and ad as KlickTipp tags.', href: pathFor('klicktippTracking', 'en') },
       ],
     },
     resources: [
@@ -71,7 +71,7 @@ export const navLinks: Record<Locale, NavLinks> = {
   },
 };
 
-export const integrationsHref = '#';
+export const integrationsHref = (locale: Locale) => pathFor('integrations', locale);
 export const pricingHref = '#';
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;

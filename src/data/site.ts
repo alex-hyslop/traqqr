@@ -1,6 +1,6 @@
 import type { CtaAction } from '@klicktipp/traqqr-components';
-import { demoHref, signupHref } from '@/data/links';
-import type { Locale } from '@/i18n';
+import { demoHref, integrationsHref, signupHref } from '@/data/links';
+import { pathFor, type Locale } from '@/i18n';
 
 // Content shared by every page, per language, next to the per-page content in data/pages/. Pages, the
 // nav, the footer and llms.txt take it from here so labels aren't retyped; the URLs stay in links.ts.
@@ -65,7 +65,10 @@ export const siteContent: Record<Locale, SiteContent> = {
     footer: {
       tagline: 'Ad-, Conversion- und Fingerprint-Tracking für lange Funnel.',
       columns: [
-        { heading: 'Produkt', links: [link('Funktionen'), link('Integrationen'), link('Preise'), link('Live Feed')] },
+        {
+          heading: 'Produkt',
+          links: [link('Funktionen'), link('Integrationen', integrationsHref('de')), link('Preise'), link('Live Feed', pathFor('liveFeed', 'de'))],
+        },
         { heading: 'Ressourcen', links: [link('Docs'), link('Hilfe-Center'), link('Blog')] },
         { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
       ],
@@ -95,7 +98,10 @@ export const siteContent: Record<Locale, SiteContent> = {
     footer: {
       tagline: 'Ad, conversion and fingerprint tracking for long funnels.',
       columns: [
-        { heading: 'Product', links: [link('Features'), link('Integrations'), link('Pricing'), link('Live Feed')] },
+        {
+          heading: 'Product',
+          links: [link('Features'), link('Integrations', integrationsHref('en')), link('Pricing'), link('Live Feed', pathFor('liveFeed', 'en'))],
+        },
         { heading: 'Resources', links: [link('Docs'), link('Help center'), link('Blog')] },
         { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },
       ],

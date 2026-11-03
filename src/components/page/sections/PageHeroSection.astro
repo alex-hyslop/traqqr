@@ -25,7 +25,7 @@ import { toLocale } from '@/i18n';
 interface Props {
   section: Extract<Section, { kind: 'pageHero' }>;
 }
-const { layout, breadcrumb, title, lead, secondaryAction, motion } = Astro.props.section.props;
+const { layout, breadcrumb, title, lead, secondaryAction, motion, motionGap = 8 } = Astro.props.section.props;
 const { trial } = siteContent[toLocale(Astro.currentLocale)].cta;
 const centred = layout === 'centred';
 // Split heroes centre the visual on y≈428, as every Figma frame does, whatever the piece's height.
@@ -40,9 +40,9 @@ const splitTop = `${Math.round(428 - visualHeight / 2)}px`;
   <div
     class:list={[
       'mx-auto flex max-w-312 flex-col gap-10 px-6 pt-24 pb-16',
-      centred ? 'items-center text-center lg:gap-2 lg:pt-[176px] lg:pb-12' : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-[105px]',
+      centred ? 'items-center text-center lg:gap-(--motion-gap) lg:pt-[176px] lg:pb-12' : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-[105px]',
     ]}
-    style={centred ? undefined : `--split-top: ${splitTop}`}
+    style={centred ? `--motion-gap: ${motionGap}px` : `--split-top: ${splitTop}`}
   >
     <div class:list={['flex flex-col', centred ? 'max-w-225 items-center gap-5' : 'gap-6 lg:w-[560px] lg:shrink-0']}>
       <Breadcrumb>

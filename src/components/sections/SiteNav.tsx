@@ -88,13 +88,15 @@ function IconBox({ children }: { children: React.ReactNode }) {
 
 interface DesktopMenuProps {
   labels: NavLabels;
+  /** The integrations page; the nine tiles stay "#" until their detail pages exist. */
+  integrationsPage: string;
   integrations: Integration[];
   product: NavLink[];
   solutions: NavLinks['solutions'];
   resources: ResourceLink[];
 }
 
-function DesktopMenu({ labels, integrations, product, solutions, resources }: DesktopMenuProps) {
+function DesktopMenu({ labels, integrationsPage, integrations, product, solutions, resources }: DesktopMenuProps) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
@@ -148,7 +150,7 @@ function DesktopMenu({ labels, integrations, product, solutions, resources }: De
           <NavigationMenuContent className={cn(panelClass, 'md:w-[600px]')}>
             <ul className="grid grid-cols-3 gap-1">
               {integrations.map((integration) => (
-                <PanelLink key={integration.name} link={{ title: integration.name, href: integrationsHref }}>
+                <PanelLink key={integration.name} link={{ title: integration.name, href: '#' }}>
                   <IconBox>
                     <img src={integration.mono} alt="" width={16} height={16} className="size-4" />
                   </IconBox>
@@ -157,7 +159,7 @@ function DesktopMenu({ labels, integrations, product, solutions, resources }: De
             </ul>
             <Separator className="my-2" />
             <ul>
-              <PanelLink link={{ title: labels.allIntegrations, href: integrationsHref }}>
+              <PanelLink link={{ title: labels.allIntegrations, href: integrationsPage }}>
                 <IconBox>
                   <ArrowRight className="size-4" strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />
                 </IconBox>
@@ -329,7 +331,7 @@ function MobileMenu({
         <nav aria-label="Mobile" className="flex flex-col gap-0.5 px-3 py-4">
           {renderGroup(groups[0])}
           {renderGroup(groups[1])}
-          {plainRow(labels.integrations, integrationsHref, <NavIntegrationsIcon />)}
+          {plainRow(labels.integrations, integrationsHref(locale), <NavIntegrationsIcon />)}
           {renderGroup(groups[2])}
           {plainRow(labels.pricing, pricingHref, <NavPricingIcon />)}
           <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow(labels.login, loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
@@ -437,6 +439,7 @@ export function SiteNav({
 
         <DesktopMenu
           labels={labels}
+          integrationsPage={integrationsHref(locale)}
           integrations={integrations}
           product={product}
           solutions={navLinks[locale].solutions}

@@ -3,6 +3,7 @@ import type { Locale, RouteKey } from '@/i18n';
 import { liveFeed } from './live-feed';
 import { eventInspector } from './event-inspector';
 import { fingerprintTracking } from './fingerprint-tracking';
+import { integrationsPage } from './integrations';
 import { klicktippTracking } from './klicktipp-tracking';
 import { reverseProxy } from './reverse-proxy';
 
@@ -20,4 +21,5 @@ export const contentPages: Partial<Record<RouteKey, Record<Locale, ContentPage>>
   eventInspector,
   fingerprintTracking,
   klicktippTracking,
+  integrations: integrationsPage,
 };

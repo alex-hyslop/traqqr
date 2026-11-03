@@ -9,6 +9,7 @@ import FeatureTableSection from './FeatureTableSection.astro';
 import StepsDropzoneSection from './StepsDropzoneSection.astro';
 import StatementSection from './StatementSection.astro';
 import BentoSection from './BentoSection.astro';
+import IntegrationsGridSection from './IntegrationsGridSection.astro';
 import TrustSection from './TrustSection.astro';
 import StatsSection from './StatsSection.astro';
 import CardsSection from './CardsSection.astro';
@@ -33,6 +34,7 @@ export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   stepsDropzone: StepsDropzoneSection,
   statement: StatementSection,
   bento: BentoSection,
+  integrationsGrid: IntegrationsGridSection,
   trust: TrustSection,
   stats: StatsSection,
   cards: CardsSection,
