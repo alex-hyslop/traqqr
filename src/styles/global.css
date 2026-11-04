@@ -163,19 +163,7 @@
     opacity: 0.12;
     transform: translateY(14px);
   }
-  /* Touch screens (Kev, 4 Nov: iOS Safari went black and lagged scrolling back up): no filter, which is
-     costly on big layers while scrolling, and ambient.ts reveals each section once instead of darkening
-     it again when it leaves. */
-  @media (hover: none) {
-    [data-reveal] {
-      transition:
-        opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
-        transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
-    }
-    [data-reveal].is-dark {
-      filter: none;
-    }
-  }
+  /* Off on touch screens (ambient.ts): iOS Safari left sections dark while scrolling (Kev, 4 Nov). */
   @media (prefers-reduced-motion: reduce) {
     [data-reveal],
     .ambient .cursor-light,
