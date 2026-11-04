@@ -9,6 +9,8 @@
    https://claude.ai/artifact/WL1mnDNLaNCVFA7QAnzrFD), plus: DE/EN hint text, and a nav jump (#scene) also plays it.
    Site change (Kev, 4 Nov): on mobile the v1 layout is back. The video is its own rounded box starting halfway
    down the card, so the card sits over the box's top edge; no top fade (as on 21 Oct, commit 4774ee4).
+   Site change (Kev, 4 Nov): no snap on touch screens. The scene scrolls like the rest of the page and the
+   video plays from the start each time most of it comes on screen; the snap's scrollTo fought iOS momentum.
    Usage: initSunbeamSnap(sectionEl) — markup in SunbeamScene.astro. Needs gsap@3.14.2 (+ CustomEase). */
 import './gsap-global.js';
 import './sunbeam-overlay.js';
@@ -22,6 +24,7 @@ export function initSunbeamSnap(band) {
   const root = band && band.querySelector('.scene'); if (!root || !window.SunbeamOverlay || !window.gsap) return;
   const lang = (document.documentElement.lang || 'de').toLowerCase().startsWith('en') ? 'en' : 'de';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(hover: none)').matches;
   const [poster, video] = root.querySelectorAll('.media');
   const bar = root.querySelector('.scrub-bar i');
   const hint = root.querySelector('.hint span');
@@ -115,6 +118,14 @@ export function initSunbeamSnap(band) {
       const end = () => { video.currentTime = Math.max(0, (video.duration || DUR) - .04); };
       video.readyState >= 1 ? end() : video.addEventListener('loadedmetadata', end, { once: true });
       draw(DUR); return;
+    }
+    if (touch) {                        // no snap: play when 60% is on screen, pause once it's gone
+      root.classList.add('free');
+      new IntersectionObserver(([e]) => {
+        if (e.intersectionRatio >= .6) { if (video.paused || video.ended) play(); }
+        else if (!e.isIntersecting) { try { video.pause(); } catch (err) {} }
+      }, { threshold: [0, .6] }).observe(root);
+      return;
     }
     hint.textContent = HINT[lang].idle;
 

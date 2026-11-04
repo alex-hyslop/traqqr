@@ -31,7 +31,7 @@
 .scene-band .scene .hint{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:rgba(0,0,0,.35);
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:400 11px/1 var(--font-mono, "Space Mono", ui-monospace, monospace);letter-spacing:.04em;color:rgba(255,255,255,.8);pointer-events:none;transition:opacity .4s,transform .4s}
 .scene-band .scene .hint svg{width:12px;height:12px}
-.scene-band .scene.static .hint{opacity:0;transform:translateY(4px)}
+.scene-band .scene.static .hint,.scene-band .scene.free .hint{opacity:0;transform:translateY(4px)}
 .scene-band .scene .scrub-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08);pointer-events:none}
 .scene-band .scene .scrub-bar i{display:block;height:100%;width:100%;background:var(--brand, #ffb74d);transform-origin:0 50%;transform:scaleX(0)}
 .scene-band .scene.static .scrub-bar{display:none}
