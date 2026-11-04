@@ -164,6 +164,21 @@
     transform: translateY(14px);
   }
   /* Off on touch screens (ambient.ts): iOS Safari left sections dark while scrolling (Kev, 4 Nov). */
+
+  /* Touch screens: iOS Safari still blacked out sections after a scroll to the footer and back (Kev,
+     4 Nov), which is what running out of graphics memory looks like. The fixed cursor-light layer (unused
+     without a mouse) and the cards' glass blur each made the browser keep page-tall layers; without them
+     the homepage's extra layers drop from about 335 MB to about 45 MB at iPhone size (Chromium's layer
+     tree, 3x). The cards keep their glass fill, just unblurred. */
+  @media (hover: none) {
+    .ambient {
+      display: none;
+    }
+    .chamfer > .chamfer-surface {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     [data-reveal],
     .ambient .cursor-light,

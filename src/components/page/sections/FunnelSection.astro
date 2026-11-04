@@ -83,6 +83,15 @@ const last = steps.length - 1;
     display: none;
   }
 
+  /* Touch screens: no standing layers for the steps and the line (FUNNEL_CSS asks for them), to save
+     graphics memory on iOS (see "Touch screens" in global.css). */
+  @media (hover: none) {
+    .funnel-rail :global([data-tq-step]),
+    .funnel-rail :global([data-tq-funnel-line]) {
+      will-change: auto;
+    }
+  }
+
   /* The 9px node on the line, hollow until the tip passes it (FUNNEL_CSS fills it, amber on the last). */
   .funnel-dot {
     position: absolute;
