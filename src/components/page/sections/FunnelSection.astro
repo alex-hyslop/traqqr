@@ -1,7 +1,7 @@
 ---
 // Long funnel, on the charcoal band (Figma: Homepage v2 §4, 5217:727 DE / 5217:1414 EN). Six steps
-// alternate either side of a vertical line; Kev's funnel-line.js draws the line with the scroll, a
-// white light riding its tip, and lands it amber on the last step (Kauf).
+// alternate either side of a vertical line; Kev's funnel-line.js draws the line with the scroll and
+// lights each dot it passes, the last one (Kauf) amber. Its tip light is hidden (Kev, 4 Nov).
 // Static markup, no hydration: the script only sets transforms, opacity and data-on / data-lit.
 //
 // Desktop geometry from Figma (1440 frame): a 960px rail (callout 360 · gap 240 · callout 360), the line
@@ -76,6 +76,11 @@ const last = steps.length - 1;
   .funnel-rail :global([data-tq-funnel-line]),
   .funnel-rail :global([data-tq-funnel-tip]) {
     left: 4px;
+  }
+  /* No light riding the line's tip (Kev, 4 Nov): the line draws down and lights the dots it passes, and
+     the last one turns amber. */
+  .funnel-rail :global([data-tq-funnel-tip]) {
+    display: none;
   }
 
   /* The 9px node on the line, hollow until the tip passes it (FUNNEL_CSS fills it, amber on the last). */
