@@ -36,7 +36,7 @@ export const heroPosterSizes =
 export function Hero({ locale = defaultLocale, title, lead, features, demoLabel, videoLabel, poster }: HeroProps) {
   const { trial, demo } = siteContent[locale].cta;
   return (
-    <section className="relative overflow-hidden">
+    <section data-hero className="relative overflow-hidden">
       <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
 
       <div className="relative mx-auto flex max-w-[1440px] flex-col gap-3 px-3 pt-[68px] lg:gap-[29px] lg:px-6 lg:pt-6 lg:pb-6">

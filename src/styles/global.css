@@ -31,10 +31,11 @@
     [data-site-header] .site-nav {
       height: 56px;
       padding: 0 16px;
-      border: 0 solid var(--border);
+      /* Transparent at the top of the page, over the hero glow (Kev, 3 Nov: the hero runs to the top). */
+      border: 0 solid transparent;
       border-bottom-width: 1px;
       border-radius: 0;
-      background-color: var(--sidebar);
+      background-color: transparent;
     }
     [data-site-header][data-scrolled] {
       top: 12px;
@@ -54,7 +55,7 @@
     [data-site-header],
     [data-site-header] .site-nav {
       transition-property: top, padding, height, border-radius, border-color, background-color;
-      transition-duration: 0.3s;
+      transition-duration: 0.2s;
       transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
     }
   }
@@ -110,6 +111,19 @@
   }
   .has-cursor .ambient .cursor-light {
     opacity: 1;
+  }
+  /* No cursor glow over the heroes (Kev, 4 Nov): the light fades out there and their grid doesn't light up. */
+  .has-cursor.cursor-in-hero .ambient .cursor-light {
+    opacity: 0;
+  }
+  [data-hero] .grid-bg::after {
+    content: none;
+  }
+  /* Hero grid (Kev, 3 Nov): from the top of the screen, behind the floating nav, fading in over the first
+     160px and out over the last 200px, so there's no edge under the nav. */
+  .hero-grid {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 160px, #000 calc(100% - 200px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 160px, #000 calc(100% - 200px), transparent 100%);
   }
   body > main,
   body > footer {

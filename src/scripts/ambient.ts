@@ -1,7 +1,7 @@
 // Page-level effects ported from Kev's motion prototype (prototype/index.html, 20 Oct): Kev asked for
 // them after seeing the prototype artifact.
 // - Cursor light: a warm glow that follows the pointer, plus the grid lines lighting up around it on
-//   .grid-bg sections. Desktop pointers only, as in the prototype.
+//   .grid-bg sections. Desktop pointers only, as in the prototype. Off over the heroes ([data-hero]).
 // - Dark until on screen: [data-reveal] sections sit dimmed and fade up as they scroll into view,
 //   and go dark again when they leave. Off with reduced motion.
 // Styles: "Ambient effects" in global.css.
@@ -22,6 +22,8 @@ if (fine) {
     (e) => {
       x = e.clientX;
       y = e.clientY;
+      // No cursor glow over the heroes (Kev, 4 Nov).
+      root.classList.toggle('cursor-in-hero', e.target instanceof Element && !!e.target.closest('[data-hero]'));
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
