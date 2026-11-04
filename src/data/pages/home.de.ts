@@ -112,7 +112,7 @@ export const homeDe: HomePage = {
     },
     {
       kind: 'scene',
-      props: { label: 'Beispiel: ein Kauf, live getrackt', caption: 'Beispieldaten · die Karte ist live HTML über dem Video' },
+      props: { label: 'Beispiel: ein Kauf, live getrackt' },
     },
     {
       kind: 'faq',

@@ -18,15 +18,13 @@ export interface ScenePoster {
 export interface SceneCopy {
   /** Accessible name of the section. */
   label: string;
-  /** The line under the video: it's example data. */
-  caption: string;
 }
 
 export interface SunbeamSceneProps extends SceneCopy {
   poster: ScenePoster;
 }
 
-export const SunbeamScene = memo(function SunbeamScene({ poster, label, caption }: SunbeamSceneProps) {
+export const SunbeamScene = memo(function SunbeamScene({ poster, label }: SunbeamSceneProps) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -87,7 +85,6 @@ export const SunbeamScene = memo(function SunbeamScene({ poster, label, caption 
               <source src="/media/scrub-1080.mp4" type="video/mp4" />
               <source src="/media/scrub-1080.webm" type="video/webm" />
             </video>
-            <div className="topfade" aria-hidden="true" />
             <div className="hint" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 5v14" />
@@ -99,7 +96,6 @@ export const SunbeamScene = memo(function SunbeamScene({ poster, label, caption 
               <i />
             </div>
           </div>
-          <p className="scene-cap">{caption}</p>
         </div>
       </div>
     </section>

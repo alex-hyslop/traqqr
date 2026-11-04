@@ -8,7 +8,6 @@
 .scene-band .scene-pin{position:relative}
 .scene-band .scene{position:relative;isolation:isolate;overflow:hidden;border-radius:16px;background:#1b140d;aspect-ratio:16/9}
 .scene-band .scene .media{position:absolute;left:0;right:0;top:0;width:100%;height:100%;object-fit:cover}
-.scene-band .scene .topfade{display:none}
 /* Sunbeam overlay (Julian, 19 Oct): looks only; positions and motion come from sunbeam-overlay.js. Unchanged from v1. */
 .scene-band .sbo { position: absolute; inset: 0; pointer-events: none; font-family: var(--font-mono, "Space Mono", ui-monospace, monospace); color: #fafaf9; }
 .scene-band .sbo i { display: block; }
@@ -36,9 +35,14 @@
 .scene-band .scene .scrub-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08);pointer-events:none}
 .scene-band .scene .scrub-bar i{display:block;height:100%;width:100%;background:var(--brand, #ffb74d);transform-origin:0 50%;transform:scaleX(0)}
 .scene-band .scene.static .scrub-bar{display:none}
-.scene-band .scene-cap{max-width:1600px;margin:12px auto 0;font:400 12px/1.4 var(--font-mono, "Space Mono", ui-monospace, monospace);color:var(--muted-foreground, #a8a29e);letter-spacing:.04em}
+/* Mobile (Kev, 4 Nov, the v1 layout from 21 Oct): no fade. The cropped video is its own rounded box from
+   --media-top (set by scene-snap.js) and the card sits over the box's top edge; the scrub bar follows the
+   box's rounded bottom. */
 @media (max-width:759px){
-  .scene-band .scene{aspect-ratio:auto}
-  .scene-band .scene .topfade{display:block;position:absolute;left:0;right:0;background:linear-gradient(#1b140d,transparent);pointer-events:none}
+  .scene-band .scene{aspect-ratio:auto;background:none;border-radius:0}
+  .scene-band .scene::before{content:"";position:absolute;left:0;right:0;top:var(--media-top,0);bottom:0;z-index:-1;border-radius:16px;background:#1b140d}
+  .scene-band .scene .media{border-radius:16px;clip-path:inset(0 round 16px)}
+  .scene-band .scene .scrub-bar{height:16px;overflow:hidden;border-radius:0 0 16px 16px;background:linear-gradient(to top,rgba(255,255,255,.08) 2px,transparent 2px)}
+  .scene-band .scene .scrub-bar i{position:absolute;left:0;bottom:0;height:2px}
 }
 @media (prefers-reduced-motion: reduce){ .scene-band{min-height:0;padding-block:48px} }

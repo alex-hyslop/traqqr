@@ -7,6 +7,8 @@
    · the rest of the page scrolls normally.
    Ported 1:1 from the "snap section" test in the Traqqr Homepage Motion artifact (22 Oct,
    https://claude.ai/artifact/WL1mnDNLaNCVFA7QAnzrFD), plus: DE/EN hint text, and a nav jump (#scene) also plays it.
+   Site change (Kev, 4 Nov): on mobile the v1 layout is back. The video is its own rounded box starting halfway
+   down the card, so the card sits over the box's top edge; no top fade (as on 21 Oct, commit 4774ee4).
    Usage: initSunbeamSnap(sectionEl) — markup in SunbeamScene.astro. Needs gsap@3.14.2 (+ CustomEase). */
 import './gsap-global.js';
 import './sunbeam-overlay.js';
@@ -21,7 +23,7 @@ export function initSunbeamSnap(band) {
   const lang = (document.documentElement.lang || 'de').toLowerCase().startsWith('en') ? 'en' : 'de';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const [poster, video] = root.querySelectorAll('.media');
-  const topfade = root.querySelector('.topfade'), bar = root.querySelector('.scrub-bar i');
+  const bar = root.querySelector('.scrub-bar i');
   const hint = root.querySelector('.hint span');
   const DUR = SunbeamOverlay.DURATION, MOBILE_BP = 760, FOCUS_M = .55, MARGIN = 16;
   let overlay = null;
@@ -30,13 +32,14 @@ export function initSunbeamSnap(band) {
     if (!overlay) return;
     const w = root.clientWidth, mobile = w < MOBILE_BP;
     if (mobile) {
-      // first pass sizes the card, second places everything around its real height
-      const { cardHeight } = overlay.layout({ cardTop: MARGIN, scale: 1.15, focusX: FOCUS_M });
-      const vt = Math.round(cardHeight + MARGIN * 2), vh = Math.round(w * .9);
+      // first pass sizes the card, second places everything around its real height; the video box starts
+      // halfway down the card
+      const { cardHeight } = overlay.layout({ cardTop: 0, scale: 1.15, focusX: FOCUS_M });
+      const vt = Math.round(cardHeight / 2), vh = Math.round(w * .9);
       root.style.height = (vt + vh) + 'px';
+      root.style.setProperty('--media-top', vt + 'px');
       for (const m of [poster, video]) Object.assign(m.style, { top: vt + 'px', height: vh + 'px', objectPosition: `${FOCUS_M * 100}% 50%` });
-      Object.assign(topfade.style, { top: (vt - 1) + 'px', height: (vh * .22) + 'px' });
-      overlay.layout({ mediaTop: vt, mediaHeight: vh, focusX: FOCUS_M, cardTop: MARGIN, scale: 1.15 });
+      overlay.layout({ mediaTop: vt, mediaHeight: vh, focusX: FOCUS_M, cardTop: 0, scale: 1.15 });
     } else {
       root.style.height = '';
       for (const m of [poster, video]) Object.assign(m.style, { top: '0', height: '100%', objectPosition: '50% 50%' });
