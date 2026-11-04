@@ -3,7 +3,8 @@
 // - Cursor light: a warm glow that follows the pointer, plus the grid lines lighting up around it on
 //   .grid-bg sections. Desktop pointers only, as in the prototype. Off over the heroes ([data-hero]).
 // - Dark until on screen: [data-reveal] sections sit dimmed and fade up as they scroll into view,
-//   and go dark again when they leave. Off with reduced motion.
+//   and go dark again when they leave. On touch screens they light up once and stay lit (Kev, 4 Nov:
+//   scrolling back up in iOS Safari showed black sections). Off with reduced motion.
 // Styles: "Ambient effects" in global.css.
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -42,8 +43,13 @@ if (fine) {
 }
 
 if (!reduce && 'IntersectionObserver' in window) {
+  const touch = matchMedia('(hover: none)').matches;
   const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => e.target.classList.toggle('is-dark', !e.isIntersecting)),
+    (entries) =>
+      entries.forEach((e) => {
+        e.target.classList.toggle('is-dark', !e.isIntersecting);
+        if (touch && e.isIntersecting) io.unobserve(e.target);
+      }),
     { threshold: 0.15 }
   );
   document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((section) => {
