@@ -6,7 +6,8 @@ import type { Locale } from '@/i18n';
 // /webinar-funnel-tracking/ (Figma: 5218:1412 DE, 5287:3136 EN; Kev's 3 Nov handover §5, redesigned 3 Nov).
 // The copy is Kev's. The EN frame still has German in the hero cards, the funnel band and the "Why Traqqr"
 // heading: the band reuses the homepage's EN copy, and the cards and heading are our translations. The
-// Text + media images stay placeholders on staging; the FAQ shows only answer 1, as the handover says.
+// Text + media images stay placeholders on staging. The FAQ answers are from Kev's 5 Nov note (he still has
+// to confirm answer 5 with product).
 
 const touchingBelow = 'lg:pt-20 lg:pb-10';
 const touchingAbove = 'lg:pt-10 lg:pb-20';
@@ -92,6 +93,26 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
               question: 'Wie trackt Traqqr einen Webinar-Funnel?',
               answer:
                 'Traqqr verbindet den Ad-Klick mit Opt-in, Webinar-Anmeldung, Teilnahme, Call und Kauf zu einer Customer Journey – nativ mit KlickTipp, Webinaris und Digistore24.',
+            },
+            {
+              question: 'Funktioniert Traqqr mit KlickTipp und Digistore24?',
+              answer:
+                'Ja, beide sind nativ angebunden. Opt-ins und Tags kommen aus KlickTipp, Käufe aus Digistore24 – Traqqr ordnet beides derselben Journey und derselben Anzeige zu. Weitere Tools findest Du unter Integrationen.',
+            },
+            {
+              question: 'Was passiert, wenn der Kauf Wochen nach dem Klick kommt?',
+              answer:
+                'Die Journey bleibt offen. Wenn der Kauf kommt, ordnet Traqqr ihn dem ersten Klick zu und sendet ihn an Meta – auch wenn dazwischen ein Webinar, ein Call und ein Gerätewechsel lagen.',
+            },
+            {
+              question: 'Für wen ist Webinar-Funnel-Tracking gedacht?',
+              answer:
+                'Für alle, die über Webinare, Calls oder Challenges verkaufen – besonders bei High-Ticket-Angeboten, bei denen sich Kunden Zeit für die Entscheidung nehmen.',
+            },
+            {
+              question: 'Brauche ich ein Onboarding?',
+              answer:
+                'Nein. Du verbindest Deine Tools selbst im Dashboard, und den Reverse Proxy richtest Du per Klick über Cloudflare ein. Wenn Du Hilfe möchtest, unterstützen wir Dich beim Setup.',
             },
           ],
         },
@@ -188,6 +209,26 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
               question: 'How does Traqqr track a webinar funnel?',
               answer:
                 'Traqqr connects the ad click with the opt-in, webinar registration, attendance, call and purchase in one customer journey – natively with KlickTipp, Webinaris and Digistore24.',
+            },
+            {
+              question: 'Does Traqqr work with KlickTipp and Digistore24?',
+              answer:
+                'Yes, both connect natively. Opt-ins and tags come from KlickTipp and purchases from Digistore24, and Traqqr attributes both to the same journey and the same ad. You\'ll find more tools under Integrations.',
+            },
+            {
+              question: 'What happens when the sale comes weeks after the click?',
+              answer:
+                'The journey stays open. When the purchase comes in, Traqqr attributes it to the first click and sends it to Meta, even if there was a webinar, a call and a change of device in between.',
+            },
+            {
+              question: 'Who is webinar funnel tracking for?',
+              answer:
+                'Anyone who sells through webinars, calls or challenges, especially high-ticket offers where customers take their time to decide.',
+            },
+            {
+              question: 'Do I need onboarding?',
+              answer:
+                'No. You connect your tools yourself in the dashboard, and you set up the reverse proxy in one click through Cloudflare. If you\'d like help, we\'ll support you with the setup.',
             },
           ],
         },

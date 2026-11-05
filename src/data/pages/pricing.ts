@@ -3,12 +3,9 @@ import { siteContent } from '@/data/site';
 import { pathFor, type Locale } from '@/i18n';
 
 // /pricing/ · /de/preise/ (Figma: 5307:142 DE, 5307:1143 EN, states board 5307:1089; Kev's 5 Nov handover).
-// The copy is Kev's (case study updated 5 Nov). Prices come from src/data/pricing.ts. Placeholders, all to
-// replace before launch:
-// - the case study (Alex Hyslop, for the internal presentation);
-// - FAQ answer 1 (Kev's, marked in Figma);
-// - FAQ answers 2–5: Figma has the questions only, so these are built from what the page already says,
-//   marked the same way until Kev writes them.
+// The copy is Kev's, the FAQ answers from his 5 Nov testimonial-band/FAQ note. Prices come from
+// src/data/pricing.ts. The case study (Alex Hyslop) is a placeholder for the internal presentation: replace
+// it before launch. Kev still has to confirm FAQ answers 1, 2, 4 and 5 with product (⚑ in his note).
 
 export const pricing: Record<Locale, ContentPage> = {
   de: {
@@ -74,23 +71,27 @@ export const pricing: Record<Locale, ContentPage> = {
             {
               question: 'Was zählt als Event?',
               answer:
-                '[Platzhalter: Definition mit dem Produkt abstimmen] Ein Event ist eine Aktion, die Traqqr auf Deiner Seite erfasst, zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf.',
+                'Ein Event ist eine Aktion, die Traqqr auf Deiner Seite erfasst, zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf.',
             },
             {
               question: 'Was passiert nach den 14 Tagen?',
-              answer: '[Platzhalter] Vor dem Ende der Testphase hinterlegst Du eine Karte und wählst Deinen Plan. Danach trackt Traqqr ohne Unterbrechung weiter.',
+              answer:
+                'Du wählst den Plan, der zu Deinen Events passt, und hinterlegst Deine Zahlungsdaten. Wenn Du keinen Plan wählst, endet der Test automatisch – es entstehen keine Kosten.',
             },
             {
               question: 'Wird pro Website abgerechnet?',
-              answer: '[Platzhalter] Ja. Jede Website hat ihren eigenen Plan, nach Events im Monat.',
+              answer:
+                'Ja. Jede Website hat ihren eigenen Plan, abhängig von ihren Events im Monat. Zwei Websites mit je 5.000 Events kosten zum Beispiel 2 × 49 € = 98 € im Monat.',
             },
             {
               question: 'Kann ich meinen Plan später ändern?',
-              answer: '[Platzhalter] Ja. Im Dashboard siehst Du Deine echten Zahlen und kannst den Plan jederzeit anpassen.',
+              answer:
+                'Ja. Du kannst jederzeit in einen größeren oder kleineren Plan wechseln, wenn sich Deine Events ändern.',
             },
             {
               question: 'Brauche ich für den Test eine Kreditkarte?',
-              answer: '[Platzhalter] Erst vor dem Ende der Testphase. Starten kannst Du ohne Karte.',
+              answer:
+                'Nein, nicht zum Starten. Eine Karte brauchst Du erst vor dem Ende der Testphase.',
             },
           ],
         },
@@ -170,23 +171,27 @@ export const pricing: Record<Locale, ContentPage> = {
             {
               question: 'What counts as an event?',
               answer:
-                '[Placeholder: confirm the definition with product] An event is an action Traqqr captures on your site, for example a page view, an opt-in or a purchase.',
+                'An event is an action Traqqr captures on your site, for example a page view, an opt-in or a purchase.',
             },
             {
               question: 'What happens after the 14 days?',
-              answer: '[Placeholder] Before the trial ends you add a card and pick your plan. Traqqr then keeps tracking without a break.',
+              answer:
+                'You pick the plan that fits your events and add your payment details. If you don\'t pick a plan, the trial simply ends and you aren\'t charged.',
             },
             {
               question: 'Is it billed per website?',
-              answer: '[Placeholder] Yes. Each website has its own plan, by events per month.',
+              answer:
+                'Yes. Each website has its own plan, based on its events per month. For example, two websites with 5,000 events each cost 2 × €49 = €98 a month.',
             },
             {
               question: 'Can I change my plan later?',
-              answer: '[Placeholder] Yes. The dashboard shows your real numbers, and you can change the plan at any time.',
+              answer:
+                'Yes. You can move to a bigger or smaller plan at any time as your events change.',
             },
             {
               question: 'Do I need a card for the trial?',
-              answer: '[Placeholder] Only before the trial ends. You can start without one.',
+              answer:
+                'No, not to start. You only need a card before the trial ends.',
             },
           ],
         },

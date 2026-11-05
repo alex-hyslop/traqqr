@@ -16,9 +16,12 @@ const portrait = await getImage({ src: photo, width: 280, height: 350, format: '
 const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
 ---
 
+<!-- No line at the top and the page's own background, so the band runs on from the section above; the grid
+     and the bottom line stay (Kev, 5 Nov: Figma 5282:341, and the pricing case study 5307:463). -->
 <Reveal>
   <Testimonial
     {...props}
+    className="border-t-0 bg-background"
     photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
     avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
   />

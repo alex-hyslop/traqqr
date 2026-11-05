@@ -118,12 +118,32 @@ export const homeDe: HomePage = {
       kind: 'faq',
       props: {
         title: 'Häufige Fragen',
-        // Only the first answer is written (Figma 5212:17311); the other four questions wait for Kev's answers.
+        // Figma 5212:17311; the answers are Kev's (5 Nov testimonial-band/FAQ note).
         items: [
           {
             question: 'Was ist Traqqr?',
             answer:
               'Traqqr ist eine Ad-, Conversion- und Fingerprint-Tracking-Lösung für deutschsprachige Funnel-Marketer. Sie verbindet Anzeigenklicks, Webseiten-Events, Opt-ins, Webinare, Calls und Käufe über längere Customer Journeys hinweg.',
+          },
+          {
+            question: 'Wofür wird Traqqr eingesetzt?',
+            answer:
+              'Um zu sehen, welche Anzeige wirklich Käufe bringt – auch wenn der Kauf erst Wochen nach dem Klick kommt. Traqqr sendet Conversions serverseitig an Meta, schreibt Quelle, Kampagne und Anzeige als Tags an Deine KlickTipp-Kontakte und zeigt Dir jedes Event live im Feed.',
+          },
+          {
+            question: 'Was unterscheidet Traqqr von Pixel- oder GA4-Tracking?',
+            answer:
+              'Pixel und GA4 laufen im Browser. Adblocker, kurze Cookie-Laufzeiten und Gerätewechsel können dort Daten kosten. Traqqr erfasst Events über Deine eigene Subdomain, sendet sie vom Server und verbindet Besuche auf verschiedenen Geräten. So bleibt ein Kauf der Anzeige zugeordnet, die ihn ausgelöst hat.',
+          },
+          {
+            question: 'Wie hängt Traqqr mit KlickTipp zusammen?',
+            answer:
+              'Traqqr ist nativ mit KlickTipp verbunden. Jeder Kontakt bekommt Quelle, Kampagne und Anzeige als Tags, und spätere Käufe werden der ursprünglichen Anzeige zugeordnet. So baust Du Segmente und Follow-ups nach Herkunft.',
+          },
+          {
+            question: 'Für wen ist Traqqr geeignet?',
+            answer:
+              'Für Marketer, Coaches und Agenturen mit langen Funnels: Webinare, Calls und High-Ticket-Angebote, bei denen zwischen Klick und Kauf Tage oder Wochen liegen. Vor allem, wenn Du Meta Ads schaltest und mit KlickTipp arbeitest.',
           },
         ],
       },

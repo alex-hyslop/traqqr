@@ -118,12 +118,32 @@ export const homeEn: HomePage = {
       kind: 'faq',
       props: {
         title: 'Frequently asked questions',
-        // Only the first answer is written (Figma 5212:17946); the other four questions wait for Kev's answers.
+        // Figma 5212:17946; the answers are Kev's (5 Nov testimonial-band/FAQ note).
         items: [
           {
             question: 'What is Traqqr?',
             answer:
               'Traqqr is an ad, conversion and fingerprint tracking solution for German-speaking funnel marketers. It connects ad clicks, website events, opt-ins, webinars, calls and purchases across longer customer journeys.',
+          },
+          {
+            question: 'What is Traqqr used for?',
+            answer:
+              'To see which ad really brings in sales, even when the purchase comes weeks after the click. Traqqr sends conversions to Meta from the server, adds source, campaign and ad as tags to your KlickTipp contacts, and shows you every event live in the feed.',
+          },
+          {
+            question: 'How is Traqqr different from pixel or GA4 tracking?',
+            answer:
+              'The pixel and GA4 run in the browser, where ad blockers, short cookie lifetimes and switching devices can cost you data. Traqqr captures events through your own subdomain, sends them from the server and connects visits across devices. That way a purchase stays attributed to the ad that drove it.',
+          },
+          {
+            question: 'How does Traqqr work with KlickTipp?',
+            answer:
+              'Traqqr connects natively to KlickTipp. Every contact gets source, campaign and ad as tags, and later purchases are attributed to the original ad. So you can build segments and follow-ups by where people came from.',
+          },
+          {
+            question: 'Who is Traqqr for?',
+            answer:
+              'Marketers, coaches and agencies with long funnels: webinars, calls and high-ticket offers, where days or weeks pass between the click and the purchase. Especially if you run Meta Ads and work with KlickTipp.',
           },
         ],
       },
