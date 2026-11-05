@@ -2,7 +2,7 @@ import type { ContentPage } from '@/data/pages/content';
 import { siteContent } from '@/data/site';
 import type { Locale } from '@/i18n';
 
-// /integrationen/ · EN /en/integrations/ (Figma: 5233:2 DE, 5236:697 EN; Kev's 3 Nov handover §5). The copy
+// /integrations/ · DE /de/integrationen/ (Figma: 5233:2 DE, 5236:697 EN; Kev's 3 Nov handover §5). The copy
 // is Kev's, except the motion piece's screen-reader sentence. The developer answer is a placeholder until the
 // setup claims are confirmed (strategy §12), shown in amber as in Figma. The cards link to # until the
 // integration detail pages exist (§10).
