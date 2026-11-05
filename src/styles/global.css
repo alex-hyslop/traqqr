@@ -7,6 +7,14 @@
   --hero-glow-mid: rgb(255 158 51 / 0.12);
 }
 
+/* Selected text on the website (Kev, 5 Nov; not the dashboard). Button labels can't be selected: the
+   library's buttonVariants already sets select-none. */
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-shadow: none;
+}
+
 /*
  * Site nav bar states (SiteNav.tsx sets data-scrolled past 80px).
  * Desktop: the floating glass bar; scrolled, the wordmark folds away and the glass gets denser.

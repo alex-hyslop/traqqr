@@ -1,0 +1,42 @@
+---
+// The 404 page in either language (Figma: DE 5331:914, EN 5331:1287; Kev's 5 Nov note). A solid
+// background with no hero glow or grid, and no CTA block. src/pages/404.astro serves English and
+// src/pages/de/404.astro German; vercel.json sends unknown /de/ URLs to the German one.
+import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TraqqrMarkStatic from '@/components/brand/TraqqrMarkStatic.astro';
+import { pathFor, toLocale } from '@/i18n';
+
+const copy = {
+  de: {
+    title: 'Seite nicht gefunden · Traqqr',
+    description: 'Diese Seite gibt es nicht.',
+    heading: 'Diese Seite gibt es nicht.',
+    lead: 'Lass uns Dich wieder auf die richtige Spur bringen.',
+    action: 'Jetzt starten',
+  },
+  en: {
+    title: 'Page not found · Traqqr',
+    description: "This page doesn't exist.",
+    heading: "This page doesn't exist.",
+    lead: "Let's get you back on track.",
+    action: 'Get started',
+  },
+};
+const locale = toLocale(Astro.currentLocale);
+const t = copy[locale];
+---
+
+<BaseLayout route="home" title={t.title} description={t.description} notFound>
+  {/* Figma: an 800px hero, the copy block from y 208 to 700. The button's gap is 64: Figma's 16px spacer
+     sits between two 24px gaps. */}
+  <section class="flex justify-center bg-background px-6 pt-[136px] pb-24 lg:pt-[208px] lg:pb-[100px]">
+    <div class="flex flex-col items-center gap-6 text-center">
+      <TraqqrMarkStatic size={60} />
+      <p class="text-[112px] leading-[112px] font-extralight tracking-[-0.02em] text-foreground lg:text-[160px] lg:leading-[160px]" aria-hidden="true">404</p>
+      <h1 class="text-4xl leading-11 font-extralight text-foreground lg:text-6xl lg:leading-[72px]">{t.heading}</h1>
+      <p class="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">{t.lead}</p>
+      <a href={pathFor('home', locale)} class={cn(buttonVariants({ size: 'lg' }), 'mt-10')}>{t.action}</a>
+    </div>
+  </section>
+</BaseLayout>

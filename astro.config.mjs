@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { rename, rmdir } from 'node:fs/promises';
 import { routes } from './src/i18n/index.ts';
 
 // https://astro.build/config
@@ -13,9 +14,21 @@ export default defineConfig({
   i18n: { defaultLocale: 'en', locales: ['de', 'en'], routing: { prefixDefaultLocale: false } },
   integrations: [
     react(),
+    // Astro writes src/pages/de/404.astro as de/404/index.html; hosts look for de/404.html (vercel.json's
+    // route for unknown /de/ URLs, and Cloudflare's 404-page handling on the research branch).
+    {
+      name: 'de-404',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          await rename(new URL('de/404/index.html', dir), new URL('de/404.html', dir));
+          await rmdir(new URL('de/404/', dir));
+        },
+      },
+    },
     // Pairs each page with its other language from src/i18n's routes, so pages whose slugs differ
     // (/integrations/ ↔ /de/integrationen/) get their hreflang links too.
     sitemap({
+      filter: (page) => !new URL(page).pathname.endsWith('/404/'),
       serialize(item) {
         const path = new URL(item.url).pathname;
         const pair = Object.values(routes).find((r) => r.en === path || r.de === path);

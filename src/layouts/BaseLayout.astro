@@ -19,6 +19,8 @@ interface Props {
   title: string;
   description: string;
   image?: OgImage;
+  /** The 404 page: never indexed, and no canonical or language links, since it has no URL of its own. */
+  notFound?: boolean;
 }
 
 const defaultImage: OgImage = {
@@ -28,7 +30,7 @@ const defaultImage: OgImage = {
   alt: 'Traqqr: server-side tracking for Meta Ads',
 };
 
-const { route, title, description, image = defaultImage } = Astro.props;
+const { route, title, description, image = defaultImage, notFound = false } = Astro.props;
 const locale = toLocale(Astro.currentLocale);
 // Absolute URLs from `site` in astro.config.mjs, so previews and the canonical link follow the domain.
 const canonical = new URL(pathFor(route, locale), Astro.site);
@@ -54,9 +56,9 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <meta name="theme-color" content="#0c0a09" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
-    {isPreviewHost && <meta name="robots" content="noindex" />}
+    {!notFound && <link rel="canonical" href={canonical} />}
+    {!notFound && alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+    {(isPreviewHost || notFound) && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Traqqr" />
