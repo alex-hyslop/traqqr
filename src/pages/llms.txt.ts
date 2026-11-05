@@ -23,10 +23,9 @@ export const GET: APIRoute = ({ site }) => {
 
 ## Pricing
 
-Billed per website, by events per month. ${priceTiers
-    .filter((t) => t.priceCents !== null)
-    .map((t) => `${t.events.toLocaleString('en-GB')} events a month: €${t.priceCents! / 100} per website a month.`)
-    .join(' ')} Other tiers: price to follow. Free trial: ${trialDays} days.
+Billed per website, by events per month. Free trial: ${trialDays} days. Price per website a month:
+
+${priceTiers.map((t) => `- ${t.events.toLocaleString('en-GB')} events: €${(t.priceCents / 100).toLocaleString('en-GB')}`).join('\n')}
 
 ## Integrations
 

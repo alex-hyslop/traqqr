@@ -14,8 +14,6 @@ export interface PricingCalculatorCopy {
   hint: string;
   priceLabel: string;
   perMonth: string;
-  /** Shown in place of a price for a tier that isn't confirmed yet. */
-  pricePending: string;
   action: string;
 }
 
@@ -45,7 +43,7 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
   };
 
   const tier = priceTiers.find((t) => t.events === events)!;
-  const price = tier.priceCents === null ? null : money.format((tier.priceCents * sites) / 100);
+  const price = money.format((tier.priceCents * sites) / 100);
   const breakdown = locale === 'de' ? `${sitesText(sites)} × ${eventsText(events)} im Monat` : `${sitesText(sites)} × ${eventsText(events)} a month`;
   const href = `${signupHref}?${new URLSearchParams({ events: String(events), sites: String(sites) })}`;
 
@@ -67,10 +65,10 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
               {/* The trigger shows the tier only; the open list adds each tier's price (Figma states board). */}
               <SelectValue>{eventsText(events)}</SelectValue>
             </SelectTrigger>
-            <SelectContent position="popper">
+            <SelectContent position="popper" className="max-h-80">
               {priceTiers.map((t) => (
                 <SelectItem key={t.events} value={String(t.events)}>
-                  {eventsText(t.events)} · {t.priceCents === null ? copy.pricePending : money.format(t.priceCents / 100)}
+                  {eventsText(t.events)} · {money.format(t.priceCents / 100)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -101,14 +99,8 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
       <div className="flex flex-col gap-1.5" aria-live="polite">
         <p className="font-mono text-xs leading-4 tracking-[0.06em] text-muted-foreground uppercase">{copy.priceLabel}</p>
         <p className="flex items-baseline gap-2.5 whitespace-nowrap">
-          {price ? (
-            <>
-              <span className="text-[64px] leading-[72px] font-extralight text-foreground">{price}</span>
-              <span className="text-base leading-6 text-muted-foreground">{copy.perMonth}</span>
-            </>
-          ) : (
-            <span className="text-[40px] leading-[72px] font-extralight text-muted-foreground">{copy.pricePending}</span>
-          )}
+          <span className="text-[64px] leading-[72px] font-extralight text-foreground">{price}</span>
+          <span className="text-base leading-6 text-muted-foreground">{copy.perMonth}</span>
         </p>
         <p className="font-mono text-sm leading-5 text-muted-foreground">{breakdown}</p>
       </div>

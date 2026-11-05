@@ -3,7 +3,8 @@ import { siteContent } from '@/data/site';
 import { pathFor, type Locale } from '@/i18n';
 
 // /pricing/ · /de/preise/ (Figma: 5307:142 DE, 5307:1143 EN, states board 5307:1089; Kev's 5 Nov handover).
-// The copy is Kev's. Prices come from src/data/pricing.ts. Placeholders, all to replace before launch:
+// The copy is Kev's (case study updated 5 Nov). Prices come from src/data/pricing.ts. Placeholders, all to
+// replace before launch:
 // - the case study (Alex Hyslop, for the internal presentation);
 // - FAQ answer 1 (Kev's, marked in Figma);
 // - FAQ answers 2–5: Figma has the questions only, so these are built from what the page already says,
@@ -48,7 +49,6 @@ export const pricing: Record<Locale, ContentPage> = {
             hint: 'Nicht sicher, wie viele Events Du hast? Starte klein: Im Dashboard siehst Du Deine echten Zahlen und kannst den Plan jederzeit anpassen.',
             priceLabel: 'Dein Preis',
             perMonth: '/ Monat',
-            pricePending: 'Preis folgt',
             action: '14 Tage kostenlos testen',
           },
         },
@@ -58,9 +58,9 @@ export const pricing: Record<Locale, ContentPage> = {
         props: {
           id: 'case-study',
           badge: 'PLATZHALTER-FALLSTUDIE',
-          title: 'Was 30 Tage verändern können.',
+          title: 'Was 14 Tage verändern können.',
           quote:
-            '„In 30 Tagen hat Traqqr 37 Käufe der Anzeige zugeordnet, die sie wirklich ausgelöst hat. Zwei Kampagnen haben wir gestoppt, eine verdoppelt. Ich kann mir nur vorstellen, was wir in einem Jahr schaffen.“',
+            '„Nach 14 Tagen wussten wir zum ersten Mal, welche Anzeige unsere Leads bringt. Traqqr hat 214 Opt-ins und die ersten 9 Käufe zugeordnet – und bei Meta kommen jetzt 17 % mehr Conversions an. Eine Kampagne haben wir pausiert, die viele Leads, aber keine Käufer gebracht hat.“',
           name: 'Alex Hyslop',
           role: '[Rolle, Firma] · Platzhalter, wird vor dem Launch ersetzt',
           person: 'alex-hyslop',
@@ -145,7 +145,6 @@ export const pricing: Record<Locale, ContentPage> = {
             hint: 'Not sure how many events you have? Start small: the dashboard shows your real numbers, and you can change the plan at any time.',
             priceLabel: 'Your price',
             perMonth: '/ month',
-            pricePending: 'Price to follow',
             action: 'Try 14 days free',
           },
         },
@@ -155,9 +154,9 @@ export const pricing: Record<Locale, ContentPage> = {
         props: {
           id: 'case-study',
           badge: 'PLACEHOLDER CASE STUDY',
-          title: 'What 30 days can change.',
+          title: 'What 14 days can change.',
           quote:
-            '“In 30 days Traqqr matched 37 purchases to the ads that really drove them. We stopped two campaigns and doubled one. I can only imagine what we’ll do in a year.”',
+            '“After 14 days, we knew for the first time which ad brings our leads. Traqqr attributed 214 opt-ins and our first 9 purchases, and Meta now receives 17% more conversions. We paused one campaign that brought plenty of leads but no buyers.”',
           name: 'Alex Hyslop',
           role: 'placeholder, replaced before launch',
           person: 'alex-hyslop',
