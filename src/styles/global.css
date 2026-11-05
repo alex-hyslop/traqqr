@@ -5,13 +5,16 @@
 :root {
   --hero-glow-core: rgb(255 183 77 / 0.36);
   --hero-glow-mid: rgb(255 158 51 / 0.12);
+  /* Dark text on the brand amber (--brand, from the library), for text selection. */
+  --brand-foreground: #1c1917;
 }
 
-/* Selected text on the website (Kev, 5 Nov; not the dashboard). Button labels can't be selected: the
+/* Selected text on the website (Kev, 5 Nov; not the dashboard): the brand amber with dark text. Unlayered,
+   so it beats the library's selection: utilities in either theme. Button labels can't be selected: the
    library's buttonVariants already sets select-none. */
 ::selection {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--brand);
+  color: var(--brand-foreground);
   text-shadow: none;
 }
 
