@@ -10,7 +10,9 @@ const { section } = Astro.props;
 ---
 
 <Reveal>
-  <Cta {...section.props} />
+  <div data-cta>
+    <Cta {...section.props} />
+  </div>
 </Reveal>
 
 <style>
@@ -22,4 +24,33 @@ const { section } = Astro.props;
   :global(.bg-cta-glow) {
     display: none;
   }
+  /* Kev's target lock (cta-lock.js) draws on a canvas at z-index -1 inside the card. */
+  :global([data-cta-lock]) {
+    isolation: isolate;
+  }
 </style>
+
+<script>
+  // Kev's "target lock" CTA background (5 Nov, cta-lock.js as he sent it): brackets lock around the amber
+  // button. The library's Cta can't take data attributes, so the card and its main button are marked here.
+  // Desktop pointers only: below 1024px or on touch nothing is mounted, so no canvas exists there (the
+  // script would only hide its canvas, and iOS is short of graphics memory, see global.css). Once per page.
+  import { mountAllCtaLocks } from '@/scripts/motion/cta-lock.js';
+
+  const desktop = matchMedia('(min-width: 1024px) and (pointer: fine)');
+  let mounted = false;
+  const mount = () => {
+    if (mounted || !desktop.matches) return;
+    mounted = true;
+    document.querySelectorAll<HTMLElement>('[data-cta]').forEach((wrap) => {
+      const card = wrap.querySelector<HTMLElement>('.rounded-xl:has(> div > .bg-cta-glow)');
+      const primary = card?.querySelector<HTMLElement>('[data-slot="cta-buttons"] > a:first-child');
+      if (!card || !primary) return;
+      card.dataset.ctaLock = '';
+      primary.dataset.ctaLockTarget = '';
+    });
+    mountAllCtaLocks();
+  };
+  mount();
+  desktop.addEventListener('change', mount);
+</script>
