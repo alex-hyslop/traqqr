@@ -96,10 +96,11 @@ interface DesktopMenuProps {
   resources: ResourceLink[];
 }
 
-/** The Product and Lösungen panels: a title and a line of description per page. */
+/** The Product and Lösungen panels: a title and a line of description per page. The panels hug their
+ * longest line (Kev, 5 Nov: w-max, Figma 5071:257 and 5273:36); each item fills the panel's width. */
 function PanelLinks({ links }: { links: NavLink[] }) {
   return (
-    <ul className="flex flex-col">
+    <ul className="flex flex-col gap-1">
       {links.map((link) => (
         <li key={link.title}>
           <NavigationMenuLink asChild className={cn(panelLinkClass, 'flex-col gap-1 px-4')}>
@@ -120,14 +121,14 @@ function DesktopMenu({ labels, integrationsPage, pricingPage, integrations, prod
       <NavigationMenuList className="gap-1">
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClass}>{labels.product}</NavigationMenuTrigger>
-          <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
+          <NavigationMenuContent className={cn(panelClass, 'md:w-max')}>
             <PanelLinks links={product} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <NavigationMenuTrigger className={triggerClass}>{labels.solutions}</NavigationMenuTrigger>
-          <NavigationMenuContent className={cn(panelClass, 'md:w-[520px]')}>
+          <NavigationMenuContent className={cn(panelClass, 'md:w-max')}>
             <PanelLinks links={solutions} />
           </NavigationMenuContent>
         </NavigationMenuItem>
