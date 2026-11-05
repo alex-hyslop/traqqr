@@ -46,9 +46,9 @@ export interface MotionSlot {
 
 export interface PageHeroProps {
   layout: 'split' | 'centred';
-  /** The dashboard Breadcrumb: Traqqr (a link to the homepage), the menu the page sits in ("Produkt",
-   * "Lösungen") as plain text since it has no page of its own, then this page (Kev, 5 Nov). */
-  breadcrumb: { section?: string; current: string };
+  /** The dashboard Breadcrumb: Traqqr (a link to the homepage), the nav menu the page sits in as plain
+   * text (from the nav config, see navSectionFor), then this page, named here (Kev, 5 Nov). */
+  breadcrumb: { current: string };
   /** Pass an array of lines to keep Figma's manual desktop line breaks. */
   title: string | string[];
   lead: string;

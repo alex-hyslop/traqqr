@@ -1,7 +1,7 @@
 /* Sunbeam scene v2 (Kev's 3 Nov handover, astro/SunbeamScene.astro) with Julian's overlay styles. Scoped
-   under .scene-band so .scene, .media, .hint and the .sbo-* overlay can't clash with the rest of the
+   under .scene-band so .scene, .media and the .sbo-* overlay can't clash with the rest of the
    site; the selectors and values are otherwise theirs. Pairs with src/scripts/motion/scene-snap.js. */
-/* v2 layout: the band is one screen tall and centres the scene; no tall scroll track any more. */
+/* The band is one screen tall and centres the scene (v2's layout, kept for v3's natural scroll, Kev 5 Nov). */
 .scene-band{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow-anchor:none;padding:0 16px}
 @media (min-width:700px){.scene-band{padding-inline:48px}}
 .scene-band .scene-track{position:relative;width:100%;max-width:1600px;margin:0 auto;padding:84px 0 24px} /* 84px clears the floating nav */
@@ -28,10 +28,6 @@
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
 .scene-band .sbo-stem, .scene-band .sbo-dot, .scene-band .sbo-ro, .scene-band .sbo-row { will-change: transform, opacity; }
-.scene-band .scene .hint{position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:rgba(0,0,0,.35);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:400 11px/1 var(--font-mono, "Space Mono", ui-monospace, monospace);letter-spacing:.04em;color:rgba(255,255,255,.8);pointer-events:none;transition:opacity .4s,transform .4s}
-.scene-band .scene .hint svg{width:12px;height:12px}
-.scene-band .scene.static .hint{opacity:0;transform:translateY(4px)}
 .scene-band .scene .scrub-bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.08);pointer-events:none}
 .scene-band .scene .scrub-bar i{display:block;height:100%;width:100%;background:var(--brand, #ffb74d);transform-origin:0 50%;transform:scaleX(0)}
 .scene-band .scene.static .scrub-bar{display:none}
@@ -46,5 +42,3 @@
   .scene-band .scene .scrub-bar i{position:absolute;left:0;bottom:0;height:2px}
 }
 @media (prefers-reduced-motion: reduce){ .scene-band{min-height:0;padding-block:48px} }
-/* Touch screens: no snap, so no hint, and no layer for it (scene-snap.js adds .free). */
-.scene-band .scene.free .hint{display:none}

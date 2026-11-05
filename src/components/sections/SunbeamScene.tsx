@@ -1,10 +1,10 @@
 import { memo, useEffect, useRef } from 'react';
 import './sunbeam-scene.css';
 
-// Sunbeam scene v2 (Kev, 3 Nov; Figma 5278:111 DE / 5278:716 EN): a one-screen "snap section". Scrolling
-// into it snaps it to fill the screen and the video plays once, with Julian's tracker card (GSAP)
-// following the video time; one more scroll leaves it (scene-snap.js, which reads <html lang> for its
-// hint text). Kev's drop-in, with its markup in React and the scripts unchanged; the overlay script
+// Sunbeam scene v3 (Kev, 5 Nov; Figma 5278:111 DE / 5278:716 EN): the page scrolls past it naturally. Once
+// 60% of it is on screen the video plays once from the start, with Julian's tracker card (GSAP) following
+// the video time; once it's fully off screen it resets and plays again on the way back (scene-snap.js).
+// No snap, no scroll hint. Kev's drop-in, with its markup in React; the overlay script
 // adds its own elements, so this renders once (memo, its props are static) and initialises once.
 // Videos in public/media (need range requests; Vercel serves them); the poster is optimised by Astro
 // and passed in. Needs hydrating so the scripts run (client:idle). The video (1–2.5 MB) and the poster
@@ -85,13 +85,6 @@ export const SunbeamScene = memo(function SunbeamScene({ poster, label }: Sunbea
               <source src="/media/scrub-1080.mp4" type="video/mp4" />
               <source src="/media/scrub-1080.webm" type="video/webm" />
             </video>
-            <div className="hint" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 5v14" />
-                <path d="m19 12-7 7-7-7" />
-              </svg>
-              <span />
-            </div>
             <div className="scrub-bar" aria-hidden="true">
               <i />
             </div>

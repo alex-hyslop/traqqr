@@ -20,7 +20,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Lösungen', current: 'Serverseitiges Tracking' },
+          breadcrumb: { current: 'Serverseitiges Tracking' },
           title: 'Serverseitiges Conversion Tracking für Meta Ads und lange Funnel',
           lead: 'Traqqr verbindet Ad-Tracking, serverseitiges Conversion Tracking und Fingerprint Tracking, damit Du erkennst, welche Ads wirklich Kunden bringen.',
           secondaryAction: { label: 'Demo ansehen · 2 Min.', href: siteContent.de.cta.demo.href },
@@ -123,7 +123,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Solutions', current: 'Server-side tracking' },
+          breadcrumb: { current: 'Server-side tracking' },
           title: 'Server-side conversion tracking for Meta Ads and long funnels',
           lead: 'Traqqr combines ad tracking, server-side conversion tracking and fingerprint tracking, so you can see which ads really bring you customers.',
           secondaryAction: { label: 'Watch demo · 2 min', href: siteContent.en.cta.demo.href },

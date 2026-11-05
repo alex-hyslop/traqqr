@@ -1,34 +1,29 @@
-/* Sunbeam scene · "snap section" · v2 · 3 Nov 2026 (replaces scene-scrub.js)
-   The red-haired woman at her laptop, sunlight coming in. It is NOT scroll-scrubbed any more:
-   · scrolling into the scene snaps it to fill the screen (750 ms) and the video plays once from the start (5.04 s);
-   · Julian's tracker card (sunbeam-overlay.js) is drawn from video.currentTime every frame;
-   · while you're in the scene, ONE scroll / swipe / arrow key moves you out of the whole block,
-     to the next or the previous section. There's no slow scroll through it;
-   · the rest of the page scrolls normally.
-   Ported 1:1 from the "snap section" test in the Traqqr Homepage Motion artifact (22 Oct,
-   https://claude.ai/artifact/WL1mnDNLaNCVFA7QAnzrFD), plus: DE/EN hint text, and a nav jump (#scene) also plays it.
-   Site change (Kev, 4 Nov): on mobile the v1 layout is back. The video is its own rounded box starting halfway
-   down the card, so the card sits over the box's top edge; no top fade (as on 21 Oct, commit 4774ee4).
-   Site change (Kev, 4 Nov): no snap on touch screens. The scene scrolls like the rest of the page and the
-   video plays from the start each time most of it comes on screen; the snap's scrollTo fought iOS momentum.
-   Usage: initSunbeamSnap(sectionEl) — markup in SunbeamScene.astro. Needs gsap@3.14.2 (+ CustomEase). */
+/* Sunbeam scene · "play in view" · v3 · 5 Nov 2026 (replaces the v2 snap section; same file name, same markup)
+   The red-haired woman at her laptop, sunlight coming in. Kev, 5 Nov: the snap/lock was annoying, so the page now
+   scrolls NATURALLY past the scene. Nothing is locked, nothing hijacks the wheel, touch or keyboard.
+   · When the scene is ≥ 60% in view, the video plays once from the start (5.04 s) and Julian's tracker card
+     (sunbeam-overlay.js) is drawn from video.currentTime every frame.
+   · Scroll on whenever you like. The video keeps playing while it's still partly on screen.
+   · Once the scene has left the screen completely, it resets to the start. Scroll back to it (from above or below)
+     and it plays again from the start.
+   · Hidden tab: paused. Reduced motion: no autoplay, the last frame with the finished card (as before).
+   Site changes (Kev, 4 Nov): on mobile the video is its own rounded box starting halfway down the card, so the
+   card sits over the box's top edge, with no top fade (layout() below; commit 4774ee4). The hint is gone from the
+   markup (SunbeamScene.tsx), so there's nothing to hide here.
+   Usage: initSunbeamSnap(sectionEl) or initSunbeamScene(sectionEl) — the same function; markup in SunbeamScene.tsx.
+   Needs gsap@3.14.2 (+ CustomEase) for the overlay, as before. */
 import './gsap-global.js';
 import './sunbeam-overlay.js';
 
-const HINT = {
-  de: { idle: 'Zum Abspielen scrollen', in: 'Weiterscrollen' },
-  en: { idle: 'Scroll into view to play', in: 'Scroll to continue' },
-};
+const PLAY_AT = .6;    // share of the scene that must be on screen to start playing
+const RESET_AT = 0;    // reset once it's completely off screen
 
-export function initSunbeamSnap(band) {
+export function initSunbeamScene(band) {
   const root = band && band.querySelector('.scene'); if (!root || !window.SunbeamOverlay || !window.gsap) return;
-  const lang = (document.documentElement.lang || 'de').toLowerCase().startsWith('en') ? 'en' : 'de';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const touch = matchMedia('(hover: none)').matches;
   const [poster, video] = root.querySelectorAll('.media');
   const bar = root.querySelector('.scrub-bar i');
-  const hint = root.querySelector('.hint span');
-  const DUR = SunbeamOverlay.DURATION, MOBILE_BP = 760, FOCUS_M = .55, MARGIN = 16;
+  const DUR = window.SunbeamOverlay ? SunbeamOverlay.DURATION : 5.04, MOBILE_BP = 760, FOCUS_M = .55, MARGIN = 16;
   let overlay = null;
 
   function layout() {
@@ -55,7 +50,7 @@ export function initSunbeamSnap(band) {
     bar.style.transform = `scaleX(${Math.min(1, t / DUR).toFixed(4)})`;
   }
 
-  // ---- playback: play once from the start each time you snap in; the overlay follows the video clock
+  // ---- playback: play once from the start each time the scene comes into view; the overlay follows the video clock
   let raf = 0, failed = false;
   const tick = () => { draw(video.currentTime); if (!video.paused && !video.ended) raf = requestAnimationFrame(tick); else { raf = 0; if (video.ended) draw(DUR); } };
   function play() {
@@ -70,103 +65,46 @@ export function initSunbeamSnap(band) {
   video.addEventListener('ended', () => draw(DUR));
   video.addEventListener('error', () => failed = true);
 
-  // ---- snap engine
-  let state = 'out', anim = 0, lockUntil = 0, lastWheel = 0, wheelAcc = 0;
-  const ease = t => 1 - Math.pow(1 - t, 4);
-  function scrollToY(y, ms, done) {
-    cancelAnimationFrame(anim);
-    const y0 = scrollY, d = y - y0, t0 = performance.now();
-    if (Math.abs(d) < 2) { done && done(); return; }
-    const step = now => { const k = Math.min(1, (now - t0) / ms); window.scrollTo(0, y0 + d * ease(k)); if (k < 1) anim = requestAnimationFrame(step); else { anim = 0; done && done(); } };
-    anim = requestAnimationFrame(step);
+  // ---- in-view engine: no snapping, no locked scroll
+  let armed = true, ticking = 0;
+  function reset() {
+    armed = true;
+    try { video.pause(); video.currentTime = 0; } catch (e) {}
+    cancelAnimationFrame(raf); raf = 0; draw(0);
   }
-  const bandTop = () => band.getBoundingClientRect().top + scrollY;
-  const snapY = () => Math.round(bandTop() + (band.offsetHeight - innerHeight) / 2);   // band centred = fills the screen
-  const settleIn = () => { state = 'in'; lockUntil = performance.now() + 450; hint.textContent = HINT[lang].in; play(); };
-  function enter() { state = 'snapping'; scrollToY(snapY(), 750, settleIn); }
-  function leave(dir) {
-    state = 'leaving';
-    try { video.pause(); } catch (e) {}
-    const y = dir > 0 ? bandTop() + band.offsetHeight      // block fully above the screen; the next section starts at the top
-                      : bandTop() - innerHeight;            // block fully below the screen; the previous section ends at the bottom
-    scrollToY(Math.max(0, y), 750, () => { state = 'out'; lockUntil = performance.now() + 450; });
+  function check() {
+    ticking = 0;
+    const r = root.getBoundingClientRect(), vh = innerHeight;
+    const seen = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+    const share = seen / Math.max(1, Math.min(r.height, vh));            // tall scenes count as "in" once they fill the screen
+    if (share >= PLAY_AT && armed && !document.hidden) { armed = false; play(); }
+    else if (share <= RESET_AT && !armed) reset();
   }
-  // Is the band arriving in the direction we're travelling?
-  function arriving(dir) {
-    const r = band.getBoundingClientRect(), vh = innerHeight;
-    return dir > 0 ? (r.top > 4 && r.top < vh + 4) : (r.bottom < vh - 4 && r.bottom > -4);
-  }
-  function intent(dir, e) {
-    const now = performance.now();
-    if (state === 'snapping' || state === 'leaving') { e && e.cancelable && e.preventDefault(); return; }
-    if (state === 'in') {
-      e && e.cancelable && e.preventDefault();
-      if (now < lockUntil) return;            // swallow the tail of the gesture that brought us in
-      leave(dir); return;
-    }
-    if (now < lockUntil) return;
-    if (arriving(dir)) { e && e.cancelable && e.preventDefault(); enter(); }
-  }
+  const onScroll = () => { if (!ticking) ticking = requestAnimationFrame(check); };
 
   const start = () => {
     overlay = SunbeamOverlay(root, { autoLayout: false });
     new ResizeObserver(layout).observe(root);
     addEventListener('resize', layout);
     layout();
-    if (reduce) {                       // no snap, no autoplay: the last frame and the finished card
+    if (reduce) {                       // no autoplay: the last frame and the finished card
       root.classList.add('static', 'played');
       const end = () => { video.currentTime = Math.max(0, (video.duration || DUR) - .04); };
       video.readyState >= 1 ? end() : video.addEventListener('loadedmetadata', end, { once: true });
       draw(DUR); return;
     }
-    if (touch) {                        // no snap: play when 60% is on screen, pause once it's gone
-      root.classList.add('free');
-      new IntersectionObserver(([e]) => {
-        if (e.intersectionRatio >= .6) { if (video.paused || video.ended) play(); }
-        else if (!e.isIntersecting) { try { video.pause(); } catch (err) {} }
-      }, { threshold: [0, .6] }).observe(root);
-      return;
-    }
-    hint.textContent = HINT[lang].idle;
-
-    // wheel / trackpad: a burst of wheel events is one gesture
-    addEventListener('wheel', e => {
-      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
-      const now = performance.now(), fresh = now - lastWheel > 220; lastWheel = now;
-      if (state !== 'out') { e.preventDefault(); if (state === 'in' && fresh && now >= lockUntil) leave(Math.sign(e.deltaY)); else if (state === 'in') lockUntil = Math.max(lockUntil, now + 120); return; }
-      wheelAcc = fresh ? e.deltaY : wheelAcc + e.deltaY;
-      if (Math.abs(wheelAcc) > 8) intent(Math.sign(wheelAcc), e);
-    }, { passive: false });
-    // touch: one swipe
-    let ty = null, tHandled = false;
-    addEventListener('touchstart', e => { ty = e.touches[0].clientY; tHandled = false; }, { passive: true });
-    addEventListener('touchmove', e => {
-      if (ty == null) return;
-      const dy = ty - e.touches[0].clientY;
-      if (state !== 'out') { e.preventDefault(); if (!tHandled && Math.abs(dy) > 24 && state === 'in' && performance.now() >= lockUntil) { tHandled = true; leave(Math.sign(dy)); } return; }
-      if (!tHandled && Math.abs(dy) > 24 && arriving(Math.sign(dy)) && performance.now() >= lockUntil) { tHandled = true; e.preventDefault(); enter(); }
-    }, { passive: false });
-    addEventListener('touchend', () => { ty = null; }, { passive: true });
-    // keyboard
-    addEventListener('keydown', e => {
-      if (e.target.closest && e.target.closest('input,textarea,select,[contenteditable]')) return;
-      const down = ['ArrowDown', 'PageDown', ' '].includes(e.key) && !e.shiftKey, up = ['ArrowUp', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey);
-      if (down || up) intent(down ? 1 : -1, e);
+    draw(0);
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { try { video.pause(); } catch (e) {} }
+      else if (!armed && !video.ended) { const p = video.play(); if (p && p.catch) p.catch(() => {}); if (!raf) raf = requestAnimationFrame(tick); }
+      onScroll();
     });
-    // safety net + nav jumps: if the user drags the scrollbar or follows a #scene link, keep the state honest
-    let settle = 0;
-    addEventListener('scroll', () => {
-      if (anim) return;
-      const r = band.getBoundingClientRect();
-      if (state === 'in' && (r.bottom < innerHeight * .5 || r.top > innerHeight * .5)) state = 'out';
-      clearTimeout(settle);
-      settle = setTimeout(() => {          // landed with the scene filling the screen (e.g. an anchor jump): play it
-        if (state !== 'out' || anim) return;
-        const q = band.getBoundingClientRect();
-        if (Math.abs(q.top - (innerHeight - q.height) / 2) < 48) settleIn();
-      }, 140);
-    }, { passive: true });
-    if (location.hash === '#' + band.id) requestAnimationFrame(() => scrollToY(snapY(), 1, settleIn));
+    onScroll();                          // already in view on load (or after a #scene jump)
   };
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(start);
 }
+
+// v2 name, so existing imports keep working
+export const initSunbeamSnap = initSunbeamScene;

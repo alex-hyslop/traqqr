@@ -25,7 +25,7 @@ import { cn } from '@klicktipp/traqqr-components/utils';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
 import { integrations } from '@/data/integrations';
 import type { Section } from '@/data/sections';
-import { siteContent } from '@/data/site';
+import { navSectionFor, siteContent } from '@/data/site';
 import { pathFor, toLocale } from '@/i18n';
 
 interface Props {
@@ -34,6 +34,7 @@ interface Props {
 const { layout, breadcrumb, title, lead, secondaryAction, motion, video, cards, motionGap = 8 } = Astro.props.section.props;
 const locale = toLocale(Astro.currentLocale);
 const { trial } = siteContent[locale].cta;
+const navSection = navSectionFor(Astro.url.pathname, locale);
 const centred = layout === 'centred';
 const splitBottom = video ? '96px' : '105px';
 // Below lg the copy sits in the glass HUD box, 12px from the screen edges (Figma mobile 5294:597); from lg
@@ -66,8 +67,8 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
         centred ? 'lg:max-w-225 lg:items-center lg:gap-5' : 'lg:w-[560px] lg:shrink-0 lg:pt-10'
       )}
     >
-      {/* Traqqr › Produkt › Live Feed (Kev, 5 Nov): the menu crumb is plain text until it has a page. The
-          library's list already wraps. */}
+      {/* Traqqr › Produkt › Live Feed (Kev, 5 Nov): the middle crumb is the nav menu the page sits in, plain
+          text until it has a page. The library's list already wraps. */}
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -75,9 +76,9 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           {
-            breadcrumb.section && (
+            navSection && (
               <>
-                <BreadcrumbItem>{breadcrumb.section}</BreadcrumbItem>
+                <BreadcrumbItem>{navSection}</BreadcrumbItem>
                 <BreadcrumbSeparator />
               </>
             )

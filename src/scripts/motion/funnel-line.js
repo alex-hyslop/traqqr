@@ -1,8 +1,8 @@
-/* Homepage v2 · §4 long-funnel charcoal band · scroll-drawn journey line · v2 · 3 Nov 2026
+/* Homepage v2 · §4 long-funnel charcoal band · scroll-drawn journey line · v3 · 5 Nov 2026
    As you scroll through the band, the vertical line draws down and a soft WHITE light rides its tip (the light IS the
    line's leading edge, never a separate dot travelling along it). Each step the tip passes switches on with one short ping
-   and stays lit. When the tip reaches the last step (Kauf / Purchase) it turns AMBER and lands there: that is the band's
-   one amber accent. Scrolling back up reverses everything (it's scroll-scrubbed, a pure function of scroll position).
+   and stays lit. v3 (Kev, 5 Nov): every step is equal, so the last one (Kauf / Purchase) is a white dot like the rest:
+   no amber, no special landing. The tip simply stops on it. Scrolling back up reverses everything (scroll-scrubbed).
 
    Markup (your Astro section, built from Figma 5217:727 / 5217:1414):
      <section data-tq-funnel>
@@ -12,21 +12,19 @@
        </div>
        <article data-tq-step>…<i data-tq-dot></i>…01 ■ AD-KLICK…</article>   ← six steps, in order; each has a dot on the line
        …
-       <article data-tq-step data-tq-amber>…<i data-tq-dot></i>…06 ■ KAUF…</article>
+       <article data-tq-step>…<i data-tq-dot></i>…06 ■ KAUF…</article>     ← no data-tq-amber any more (ignored if left in)
      </section>
-   The script only sets transform / opacity / box-shadow / [data-on] / [data-lit]; style everything else in CSS (see CSS below).
-   Reduced motion: everything shows, the amber light sits on Kauf, nothing moves. */
+   The script only sets transform / opacity / box-shadow / [data-on]; style everything else in CSS (see CSS below).
+   Reduced motion: everything shows, the tip sits on Kauf, nothing moves. */
 
 export const FUNNEL_CSS = `
 [data-tq-funnel-line]{position:absolute;left:0;top:0;bottom:0;width:1px;transform-origin:50% 0;
   background:linear-gradient(to bottom,rgba(255,255,255,.12),rgba(255,255,255,.85))}
 [data-tq-funnel-tip]{position:absolute;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fafaf9;
   box-shadow:0 0 12px 3px rgba(255,255,255,.45);will-change:transform,opacity,box-shadow}
-[data-tq-funnel-tip][data-lit]{background:#ffb74d;box-shadow:0 0 22px 6px rgba(255,183,77,.55)}
 [data-tq-step]{will-change:opacity,transform}
 [data-tq-dot]{transition:none}
 [data-tq-step][data-on] [data-tq-dot]{background:#fafaf9}
-[data-tq-step][data-tq-amber][data-on] [data-tq-dot]{background:#ffb74d}
 `;
 
 const bez = (x1, y1, x2, y2) => t => {           // cubic-bezier(x1,y1,x2,y2) at t, by bisection (fine for UI)
@@ -73,19 +71,10 @@ export function mountFunnel(section) {
       s.toggleAttribute('data-on', past >= 0);
       // one short ping on the dot as the tip passes: scale 1 → 1.8 → 1 and a glow, over ~90px of scroll, then it stays lit
       const p = reduced ? 0 : (past >= 0 && past < 90 ? Math.sin(Math.PI * soft(past / 90)) : 0);
-      const amber = s.hasAttribute('data-tq-amber');
       dots[i].style.transform = `scale(${(1 + .8 * p).toFixed(3)})`;
-      dots[i].style.boxShadow = p > .01 ? `0 0 ${(14 * p).toFixed(1)}px rgba(${amber ? '255,183,77' : '255,255,255'},${(.6 * p).toFixed(2)})` : 'none';
+      dots[i].style.boxShadow = p > .01 ? `0 0 ${(14 * p).toFixed(1)}px rgba(255,255,255,${(.6 * p).toFixed(2)})` : 'none';
     });
 
-    // landing: within the last 48px before Kauf the tip warms from white to amber, and stays amber once it's there
-    const w = reduced ? 1 : cl(1 - (last - y) / 48);
-    tip.toggleAttribute('data-lit', w >= 1);
-    if (w > 0 && w < 1) {
-      const g = Math.round(250 - 67 * w), b = Math.round(249 - 172 * w);           // #fafaf9 → #ffb74d
-      tip.style.background = `rgb(${Math.round(250 + 5 * w)},${g},${b})`;
-      tip.style.boxShadow = `0 0 ${(12 + 10 * w).toFixed(1)}px ${(3 + 3 * w).toFixed(1)}px rgba(255,${Math.round(255 - 72 * w)},${Math.round(255 - 178 * w)},${(.45 + .1 * w).toFixed(2)})`;
-    } else { tip.style.background = ''; tip.style.boxShadow = ''; }
   };
   const req = () => { if (!raf) raf = requestAnimationFrame(draw); };
   const ro = new ResizeObserver(() => { measure(); req(); }); ro.observe(rail);

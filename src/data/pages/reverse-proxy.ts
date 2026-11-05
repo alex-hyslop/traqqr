@@ -20,7 +20,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Produkt', current: 'First-Party Reverse Proxy' },
+          breadcrumb: { current: 'First-Party Reverse Proxy' },
           title: 'Tracking, das auf Deiner Domain läuft.',
           lead: 'Der Reverse Proxy leitet Tracking über Deine eigene Domain – für mehr Datenqualität und mehr Widerstand gegen Adblocker. Per Klick über Cloudflare bereitgestellt.',
           secondaryAction: { label: "So funktioniert's", href: '#' },
@@ -107,7 +107,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Product', current: 'First-party reverse proxy' },
+          breadcrumb: { current: 'First-party reverse proxy' },
           title: 'Tracking that runs on your domain.',
           lead: 'The reverse proxy routes tracking through your own domain – for better data quality and more resistance to ad blockers. Deployed in one click via Cloudflare.',
           secondaryAction: { label: 'How it works', href: '#' },

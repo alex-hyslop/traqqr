@@ -15,7 +15,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Produkt', current: 'KlickTipp Tracking' },
+          breadcrumb: { current: 'KlickTipp Tracking' },
           title: 'Jeder Kontakt weiß, woher er kommt.',
           lead: 'Traqqr ist nativ mit KlickTipp verbunden und schreibt Quelle, Kampagne und Anzeige als Tags an jeden Kontakt – für Segmente und Follow-ups nach Herkunft.',
           secondaryAction: { label: 'So funktioniert’s', href: '#' },
@@ -150,7 +150,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { section: 'Product', current: 'KlickTipp Tracking' },
+          breadcrumb: { current: 'KlickTipp Tracking' },
           title: 'Every contact knows where it came from.',
           lead: 'Traqqr is natively connected to KlickTipp and adds the source, campaign and ad to every contact as tags – for segments and follow-ups by origin.',
           secondaryAction: { label: 'How it works', href: '#' },

@@ -1,8 +1,8 @@
 ---
 // Long funnel, on the charcoal band (Figma: Homepage v2 §4, 5217:727 DE / 5217:1414 EN). Six steps
 // alternate either side of a vertical line; Kev's funnel-line.js draws the line with the scroll and
-// lights each dot it passes, the last one (Kauf) amber. Its tip light is hidden (Kev, 4 Nov).
-// Static markup, no hydration: the script only sets transforms, opacity and data-on / data-lit.
+// lights each dot it passes, all six white, Kauf included (v3, Kev 5 Nov). Its tip light is hidden (Kev,
+// 4 Nov). Static markup, no hydration: the script only sets transforms, opacity and data-on.
 //
 // Desktop geometry from Figma (1440 frame): a 960px rail (callout 360 · gap 240 · callout 360), the line
 // at its centre, a step every 110px, each callout's label 8px below its row top with a 9px node on the
@@ -18,7 +18,6 @@ interface Props {
   section: Extract<Section, { kind: 'funnel' }>;
 }
 const { id, badge, title, lead, steps, action } = Astro.props.section.props;
-const last = steps.length - 1;
 ---
 
 <CharcoalBand id={id} labelledBy={`${id}-heading`} data-tq-funnel>
@@ -40,7 +39,6 @@ const last = steps.length - 1;
               ]}
               style={`--row: ${i + 1}`}
               data-tq-step
-              data-tq-amber={i === last ? '' : undefined}
               data-side={left ? 'left' : 'right'}
             >
               <i class="funnel-dot" data-tq-dot></i>
@@ -77,8 +75,7 @@ const last = steps.length - 1;
   .funnel-rail :global([data-tq-funnel-tip]) {
     left: 4px;
   }
-  /* No light riding the line's tip (Kev, 4 Nov): the line draws down and lights the dots it passes, and
-     the last one turns amber. */
+  /* No light riding the line's tip (Kev, 4 Nov): the line draws down and lights the dots it passes. */
   .funnel-rail :global([data-tq-funnel-tip]) {
     display: none;
   }
@@ -92,7 +89,7 @@ const last = steps.length - 1;
     }
   }
 
-  /* The 9px node on the line, hollow until the tip passes it (FUNNEL_CSS fills it, amber on the last). */
+  /* The 9px node on the line, hollow until the tip passes it (FUNNEL_CSS fills it white). */
   .funnel-dot {
     position: absolute;
     top: 3.5px;

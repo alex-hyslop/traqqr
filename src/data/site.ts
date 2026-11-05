@@ -1,5 +1,5 @@
 import type { CtaAction } from '@klicktipp/traqqr-components';
-import { demoHref, integrationsHref, pricingHref, signupHref } from '@/data/links';
+import { demoHref, integrationsHref, navLinks, pricingHref, signupHref } from '@/data/links';
 import { pathFor, type Locale } from '@/i18n';
 
 // Content shared by every page, per language, next to the per-page content in data/pages/. Pages, the
@@ -109,4 +109,13 @@ export const siteContent: Record<Locale, SiteContent> = {
       copyright: '© 2026 Traqqr. All rights reserved.',
     },
   },
+};
+
+/** The nav dropdown a page sits in ("Produkt", "Lösungen"), for its breadcrumb (Kev, 5 Nov: the middle crumb
+ * is the menu you open to reach the page). Read from the nav's own links, so the two can't disagree; pages
+ * with their own menu item (Integrationen, Preise) have none. */
+export const navSectionFor = (path: string, locale: Locale): string | undefined => {
+  const menus = ['product', 'solutions'] as const;
+  const menu = menus.find((key) => navLinks[locale][key].some((link) => link.href === path));
+  return menu && siteContent[locale].nav[menu];
 };
