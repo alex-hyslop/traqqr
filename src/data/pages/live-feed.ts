@@ -14,7 +14,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { parent: { label: 'Produkt', href: '#' }, current: 'Live Feed' },
+          breadcrumb: { section: 'Produkt', current: 'Live Feed' },
           title: ['Jedes Event. In dem Moment, in dem', 'es passiert.'],
           lead: 'Sieh live, was auf Deiner Seite passiert und was bei Meta ankommt – aus dem Browser und vom Server.',
           secondaryAction: { label: 'Live Feed ansehen', href: '#' },
@@ -78,6 +78,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Sieh Deine Events live.',
@@ -96,7 +97,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { parent: { label: 'Product', href: '#' }, current: 'Live Feed' },
+          breadcrumb: { section: 'Product', current: 'Live Feed' },
           title: ['Every event.', 'As it happens.'],
           lead: 'See live what happens on your site and what reaches Meta – from the browser and from the server.',
           secondaryAction: { label: 'See the Live Feed', href: '#' },
@@ -161,6 +162,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'See your events live.',

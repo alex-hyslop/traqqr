@@ -46,8 +46,9 @@ export interface MotionSlot {
 
 export interface PageHeroProps {
   layout: 'split' | 'centred';
-  /** The dashboard Breadcrumb: the parent page, then this one. */
-  breadcrumb: { parent: { label: string; href: string }; current: string };
+  /** The dashboard Breadcrumb: Traqqr (a link to the homepage), the menu the page sits in ("Produkt",
+   * "Lösungen") as plain text since it has no page of its own, then this page (Kev, 5 Nov). */
+  breadcrumb: { section?: string; current: string };
   /** Pass an array of lines to keep Figma's manual desktop line breaks. */
   title: string | string[];
   lead: string;
@@ -178,7 +179,11 @@ export type Section =
   | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> & { person?: TestimonialPerson } }
   | { kind: 'pricing'; props: PricingProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
-  | { kind: 'cta'; props: CtaProps }
+  /** `background`: Kev's CTA card animation (cta-bg.js), "lock" unless the page says otherwise. */
+  | { kind: 'cta'; background?: CtaBackground; props: CtaProps }
   | { kind: 'globe'; props: { label: string } };
+
+/** The CTA card's desktop animation: the target lock or the dot field (Kev, 5 Nov). */
+export type CtaBackground = 'lock' | 'dots';
 
 export type SectionKind = Section['kind'];

@@ -3,7 +3,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageSections from '@/components/page/PageSections.astro';
 import type { ContentPage } from '@/data/pages/content';
-import { toLocale, type RouteKey } from '@/i18n';
+import { pathFor, toLocale, type RouteKey } from '@/i18n';
 
 interface Props {
   route: RouteKey;
@@ -26,9 +26,23 @@ const structuredData = faqItems.length
       })),
     }
   : null;
+
+// BreadcrumbList from the hero's breadcrumb: Traqqr, then this page. The menu crumb ("Produkt") has no
+// page, so it's left out here; Google wants a URL on every item but the last.
+const hero = page.sections.find((section) => section.kind === 'pageHero');
+const breadcrumbData = hero && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Traqqr', item: new URL(pathFor('home', locale), Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: hero.props.breadcrumb.current, item: new URL(pathFor(route, locale), Astro.site).href },
+  ],
+};
+const jsonLd = (data: object) => JSON.stringify(data).replace(/</g, '\\u003c');
 ---
 
 <BaseLayout route={route} title={page.title} description={page.description}>
-  {structuredData && <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
+  {structuredData && <script slot="head" type="application/ld+json" set:html={jsonLd(structuredData)} />}
+  {breadcrumbData && <script slot="head" type="application/ld+json" set:html={jsonLd(breadcrumbData)} />}
   <PageSections sections={page.sections} />
 </BaseLayout>

@@ -1,6 +1,6 @@
 import type { ContentPage } from '@/data/pages/content';
 import { siteContent } from '@/data/site';
-import { pathFor, type Locale } from '@/i18n';
+import type { Locale } from '@/i18n';
 
 // /pricing/ · /de/preise/ (Figma: 5307:142 DE, 5307:1143 EN, states board 5307:1089; Kev's 5 Nov handover).
 // The copy is Kev's, the FAQ answers from his 5 Nov testimonial-band/FAQ note. Prices come from
@@ -16,7 +16,7 @@ export const pricing: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Traqqr', href: pathFor('home', 'de') }, current: 'Preise' },
+          breadcrumb: { current: 'Preise' },
           title: ['Zahl nur für das, was Du trackst.'],
           lead: 'Wähle, wie viele Events Du im Monat trackst, und sieh sofort, was Traqqr für Dich kostet. Oder starte erst einmal kostenlos.',
         },
@@ -98,6 +98,7 @@ export const pricing: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Welche Anzeige bringt Deine Kunden?',
@@ -116,7 +117,7 @@ export const pricing: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Traqqr', href: pathFor('home', 'en') }, current: 'Pricing' },
+          breadcrumb: { current: 'Pricing' },
           title: ['Only pay for what you track.'],
           lead: 'Pick how many events you track a month and see right away what Traqqr costs you. Or start for free first.',
         },
@@ -198,6 +199,7 @@ export const pricing: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Which ad brings your customers?',

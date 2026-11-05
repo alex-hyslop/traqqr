@@ -16,7 +16,7 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { parent: { label: 'Produkt', href: '#' }, current: 'Fingerprint Tracking' },
+          breadcrumb: { section: 'Produkt', current: 'Fingerprint Tracking' },
           title: 'Ein Kunde. Drei Geräte. Eine Journey.',
           lead: 'Fingerprint Tracking verbindet Geräte, Sessions und Touchpoints zu einer 360°-Sicht – damit der Kauf am Laptop zur Anzeige auf dem Handy passt.',
           secondaryAction: { label: "So funktioniert's", href: '#' },
@@ -110,7 +110,7 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'split',
-          breadcrumb: { parent: { label: 'Product', href: '#' }, current: 'Fingerprint Tracking' },
+          breadcrumb: { section: 'Product', current: 'Fingerprint Tracking' },
           title: ['One customer.', 'Three devices.', 'One journey.'],
           lead: 'Fingerprint tracking connects devices, sessions and touchpoints into a 360° view – so the purchase on the laptop matches the ad on the phone.',
           secondaryAction: { label: 'How it works', href: '#' },

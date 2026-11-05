@@ -14,7 +14,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Produkt', href: '#' }, current: 'Event Inspector' },
+          breadcrumb: { section: 'Produkt', current: 'Event Inspector' },
           title: ['Sieh, was Dein Meta Pixel', 'wirklich sendet.'],
           lead: 'Ein Parameter an der URL – und Du prüfst jedes Pixel-Event, ohne Entwickler-Tools.',
           motion: {
@@ -83,6 +83,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Prüfe Dein Pixel, bevor Budget fließt.',
@@ -101,7 +102,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Product', href: '#' }, current: 'Event Inspector' },
+          breadcrumb: { section: 'Product', current: 'Event Inspector' },
           title: ['See what your Meta Pixel', 'really sends.'],
           lead: 'One parameter on the URL – and you check every pixel event, without developer tools.',
           motion: {
@@ -169,6 +170,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Check your pixel before you spend budget.',

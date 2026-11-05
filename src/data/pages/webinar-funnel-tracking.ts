@@ -22,7 +22,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Lösungen', href: '#' }, current: 'Webinar-Funnel-Tracking' },
+          breadcrumb: { section: 'Lösungen', current: 'Webinar-Funnel-Tracking' },
           title: ['Funnel-Tracking für Webinare,', 'Calls und High-Ticket-Sales'],
           lead: 'Vom ersten Ad-Klick bis zum Call drei Wochen später: Traqqr zeigt Dir, welche Anzeige den Kunden gebracht hat – nicht nur den Lead.',
           secondaryAction: { label: 'Demo ansehen · 2 Min.', href: siteContent.de.cta.demo.href },
@@ -119,6 +119,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Welche Anzeige füllt Dein Webinar – und Deinen Kalender?',
@@ -138,7 +139,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Solutions', href: '#' }, current: 'Webinar funnel tracking' },
+          breadcrumb: { section: 'Solutions', current: 'Webinar funnel tracking' },
           title: ['Funnel tracking for webinars,', 'calls and high-ticket sales'],
           lead: 'From the first ad click to the call three weeks later: Traqqr shows you which ad brought the customer – not just the lead.',
           secondaryAction: { label: 'Watch demo · 2 min', href: siteContent.en.cta.demo.href },
@@ -235,6 +236,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
       },
       {
         kind: 'cta',
+        background: 'dots',
         props: {
           id: 'cta',
           title: 'Which ad fills your webinar – and your calendar?',

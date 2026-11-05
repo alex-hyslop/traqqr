@@ -7,10 +7,12 @@ interface Props {
   section: Extract<Section, { kind: 'cta' }>;
 }
 const { section } = Astro.props;
+// Which of Kev's CTA card animations (cta-bg.js) this page gets: the page data's `background`, else "lock".
+const background = section.background ?? 'lock';
 ---
 
 <Reveal>
-  <div data-cta>
+  <div data-cta={background}>
     <Cta {...section.props} />
   </div>
 </Reveal>
@@ -24,18 +26,19 @@ const { section } = Astro.props;
   :global(.bg-cta-glow) {
     display: none;
   }
-  /* Kev's target lock (cta-lock.js) draws on a canvas at z-index -1 inside the card. */
-  :global([data-cta-lock]) {
+  /* Kev's CTA backgrounds (cta-bg.js) draw on a canvas at z-index -1 inside the card. */
+  :global([data-cta-bg]) {
     isolation: isolate;
   }
 </style>
 
 <script>
-  // Kev's "target lock" CTA background (5 Nov, cta-lock.js as he sent it): brackets lock around the amber
-  // button. The library's Cta can't take data attributes, so the card and its main button are marked here.
+  // Kev's CTA card backgrounds (5 Nov, cta-bg.js as he sent it): "lock", brackets locking around the amber
+  // button, or "dots", a dot field with a ring closing in on it. The library's Cta can't take data
+  // attributes, so the card, its main button and its copy are marked here, the effect from the wrapper.
   // Desktop pointers only: below 1024px or on touch nothing is mounted, so no canvas exists there (the
   // script would only hide its canvas, and iOS is short of graphics memory, see global.css). Once per page.
-  import { mountAllCtaLocks } from '@/scripts/motion/cta-lock.js';
+  import { mountAllCtaBackgrounds } from '@/scripts/motion/cta-bg.js';
 
   const desktop = matchMedia('(min-width: 1024px) and (pointer: fine)');
   let mounted = false;
@@ -46,10 +49,12 @@ const { section } = Astro.props;
       const card = wrap.querySelector<HTMLElement>('.rounded-xl:has(> div > .bg-cta-glow)');
       const primary = card?.querySelector<HTMLElement>('[data-slot="cta-buttons"] > a:first-child');
       if (!card || !primary) return;
-      card.dataset.ctaLock = '';
-      primary.dataset.ctaLockTarget = '';
+      card.dataset.ctaBg = wrap.dataset.cta || 'lock';
+      primary.dataset.ctaBgTarget = '';
+      const copy = card.querySelector<HTMLElement>(':scope > div.relative > div:first-child');
+      if (copy) copy.dataset.ctaBgCopy = '';
     });
-    mountAllCtaLocks();
+    mountAllCtaBackgrounds();
   };
   mount();
   desktop.addEventListener('change', mount);

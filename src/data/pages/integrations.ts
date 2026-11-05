@@ -36,7 +36,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Produkt', href: '#' }, current: 'Integrationen' },
+          breadcrumb: { current: 'Integrationen' },
           title: ['Ein Hub für Deinen', 'ganzen Funnel.'],
           lead: 'Ads, E-Mail, Webinar, Verkauf und CRM – Traqqr verbindet die Tools, die Du schon nutzt, und ordnet jeden Schritt der richtigen Anzeige zu.',
           secondaryAction: { label: 'Alle Integrationen', href: '#all-integrations' },
@@ -115,7 +115,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
         kind: 'pageHero',
         props: {
           layout: 'centred',
-          breadcrumb: { parent: { label: 'Product', href: '#' }, current: 'Integrations' },
+          breadcrumb: { current: 'Integrations' },
           title: ['One hub for your', 'whole funnel.'],
           lead: 'Ads, email, webinars, sales and CRM – Traqqr connects the tools you already use and attributes every step to the right ad.',
           secondaryAction: { label: 'All integrations', href: '#all-integrations' },
