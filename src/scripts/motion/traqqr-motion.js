@@ -78,6 +78,8 @@ const ICON = {
   users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
   mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>', download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
   chevron: '<path d="m9 18 6-6-6-6"/>',
+  appwin: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/>',
+  megaphone: '<path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"/><path d="M8 6v8"/>',
 };
 const ico = (n, size = 16, cls = '') => h('span', { style: `display:inline-flex;width:${size}px;height:${size}px;flex:none`, class: cls, html: `<svg class="ico" style="width:${size}px;height:${size}px" viewBox="0 0 24 24">${ICON[n]}</svg>` });
 const tileImg = (n, size = 58) => h('img', { src: ASSET[n], alt: '', class: 'tile', style: `width:${size}px;height:${size}px` });
@@ -172,7 +174,7 @@ piece({ id: 'live-feed-split', page: '/live-feed/ · §3 browser vs server', fra
       c.appendChild(h('div', { style: 'margin-top:14px' }, [h('span', { class: 'badge ' + cls, text: badge })]));
       const ls = lines.map(l => { const r = h('div', { class: 'will', style: 'display:flex;gap:10px;align-items:center;margin-top:14px;font:400 14px/20px var(--sans);color:var(--mfg)' }, [ico('check', 14), l]); c.appendChild(r); return r; });
       st.appendChild(c); return { c, ls }; };
-    const A = mk(30, 'globe', 'Browser', 'Browser', '', [tx('Meta Pixel auf Deiner Seite'), tx('Sofort sichtbar im Feed'), tx('Kann von Adblockern gestoppt werden')]);
+    const A = mk(30, 'appwin', 'Browser', 'Browser', '', [tx('Meta Pixel auf Deiner Seite'), tx('Sofort sichtbar im Feed'), tx('Kann von Adblockern gestoppt werden')]);
     const B = mk(570, 'server', 'Server', 'Server', 'sec', [tx('Conversions API vom Server'), tx('Unabhängig vom Browser'), tx('Mit Daten aus Digistore24, KlickTipp und Co.')]);
     const l1 = h('i', { class: 'abs', style: 'left:430px;top:164px;width:70px;height:1px;background:var(--line2);transform-origin:0 50%' });
     const l2 = h('i', { class: 'abs', style: 'left:500px;top:164px;width:70px;height:1px;background:var(--line2);transform-origin:100% 50%' });
@@ -193,7 +195,7 @@ piece({ id: 'proxy-flow', page: '/reverse-proxy/ · hero', frame: '5226:2', mode
   what: 'One request travels down the chain: a line of light grows from the browser to your own subdomain, which pings amber (the active proxy, the one accent), then on to Traqqr and Meta. Each link label brightens as the light passes. Rest, then the lines fade for the next request.',
   size: [640, 560], build(st) {
     const NODES = [
-      { y: 24, ic: 'globe', t: 'Browser', s: tx('Besucher auf deineseite.de'), b: ['Browser', ''] },
+      { y: 24, ic: 'appwin', t: 'Browser', s: tx('Besucher auf deineseite.de'), b: ['Browser', ''] },
       { y: 164, ic: 'lock', t: tx('track.deineseite.de'), s: tx('Dein First-Party Reverse Proxy auf Cloudflare'), b: [tx('Aktiv'), 'ok'], mono: true, amber: true },
       { y: 304, mark: true, t: 'Traqqr', s: tx('Events zuordnen und deduplizieren') },
       { y: 444, tile: 'meta-ads', t: 'Meta', s: 'Facebook Conversions API', b: ['Server', 'sec'] },
@@ -427,7 +429,7 @@ piece({ id: 'klicktipp-flow', page: '/klicktipp-tracking/ · §3 tag flow', fram
   title: 'KlickTipp · from the click to the right email',
   what: 'Scrolling walks along the five steps. Each connector fills, then the next step lights. The last step, the purchase attributed to the ad, is the amber one and lands with a soft glow.',
   size: [1100, 230], build(st) {
-    const S = [['01', tx('Anzeige'), 'Meta Ads', 'globe'], ['02', 'Opt-in', tx('Formular'), 'users'], ['03', 'Tag', 'KlickTipp', 'tag'], ['04', 'Follow-up', tx('E-Mail-Kampagne'), 'mail'], ['05', tx('Kauf'), tx('Zur Anzeige zugeordnet'), 'check']];
+    const S = [['01', tx('Anzeige'), 'Meta Ads', 'megaphone'], ['02', 'Opt-in', tx('Formular'), 'users'], ['03', 'Tag', 'KlickTipp', 'tag'], ['04', 'Follow-up', tx('E-Mail-Kampagne'), 'mail'], ['05', tx('Kauf'), tx('Zur Anzeige zugeordnet'), 'check']];
     const X0 = 18, CW = 184, G = 32;
     const steps = S.map(([n, t, s, ic], i) => { const x = X0 + i * (CW + G), amber = i === 4;
       const c = h('div', { class: 'abs will', style: `left:${x}px;top:40px;width:${CW}px;height:150px;border-radius:16px;background:var(--bg);border:1px solid var(--line);padding:22px 22px;display:grid;align-content:start;gap:14px` },

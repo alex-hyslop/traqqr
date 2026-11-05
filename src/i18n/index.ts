@@ -1,15 +1,12 @@
 // The site's languages (Kev's 3 Nov handover §2): German is the default at /, English under /en/.
 // Keep `locales` and `defaultLocale` in step with `i18n` in astro.config.mjs.
-import type { FlagCode } from '@klicktipp/traqqr-components';
-
 export const locales = ['de', 'en'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'de';
 
-/** `flag` is the language switcher's flag: Germany for DE, the United States for EN (Kev's call, 3 Nov). */
-export const localeInfo: Record<Locale, { name: string; code: string; flag: FlagCode; ogLocale: string }> = {
-  de: { name: 'Deutsch', code: 'DE', flag: 'de', ogLocale: 'de_DE' },
-  en: { name: 'English', code: 'EN', flag: 'us', ogLocale: 'en_GB' },
+export const localeInfo: Record<Locale, { name: string; code: string; ogLocale: string }> = {
+  de: { name: 'Deutsch', code: 'DE', ogLocale: 'de_DE' },
+  en: { name: 'English', code: 'EN', ogLocale: 'en_GB' },
 };
 
 /** Each page's path per language. Slugs can differ (/integrationen/ ↔ /en/integrations/), so pages

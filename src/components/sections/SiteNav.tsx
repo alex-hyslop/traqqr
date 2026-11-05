@@ -333,6 +333,7 @@ function MobileMenu({
                   className={languageRowClass(l === locale)}
                   aria-current={l === locale ? 'page' : undefined}
                   onClick={close}
+                  data-lang-pick
                 >
                   <LanguageRowContent locale={l} selected={l === locale} />
                 </a>

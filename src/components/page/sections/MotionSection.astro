@@ -8,7 +8,7 @@
 // Below md, where only the marquee mounts, `fallback` shows the piece's content as static HTML: the small
 // vertical rail, or the two Browser / Server panels.
 import { Badge } from '@klicktipp/traqqr-components';
-import { Check, Globe, Server } from 'lucide-react';
+import { AppWindow, Check, Server } from 'lucide-react';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
 import MobileRail from '@/components/page/MobileRail.astro';
 import type { Section } from '@/data/sections';
@@ -65,8 +65,8 @@ const headingId = title ? `${id}-heading` : undefined;
               )}
               <div class="flex w-full flex-col gap-4 rounded-2xl border border-white/10 bg-card p-6">
                 <p class="flex items-center gap-3 text-2xl leading-8 font-light text-foreground">
-                  {panel.icon === 'globe' ? (
-                    <Globe className="size-6" strokeWidth={1.25} aria-hidden="true" />
+                  {panel.icon === 'browser' ? (
+                    <AppWindow className="size-6" strokeWidth={1.25} aria-hidden="true" />
                   ) : (
                     <Server className="size-6" strokeWidth={1.25} aria-hidden="true" />
                   )}

@@ -2,7 +2,8 @@
 import '@/styles/global.css';
 import { SiteNav } from '@/components/sections/SiteNav';
 import { SiteFooter } from '@/components/sections/SiteFooter';
-import { defaultLocale, localeInfo, locales, pathFor, toLocale, type Locale, type RouteKey } from '@/i18n';
+import LanguageSuggestion from '@/components/LanguageSuggestion.astro';
+import { defaultLocale, localeInfo, locales, pathFor, routes, toLocale, type Locale, type RouteKey } from '@/i18n';
 
 /** Link-preview image. `src` is a path on this site. The size and alt must match the file. */
 interface OgImage {
@@ -37,6 +38,7 @@ const alternates = [
   { hreflang: 'x-default', href: new URL(pathFor(route, defaultLocale), Astro.site) },
 ];
 const imageUrl = new URL(image.src, Astro.site);
+const languagePaths = Object.fromEntries(locales.map((l) => [l, pathFor(route, l)])) as Record<Locale, string>;
 const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
 ---
 
@@ -69,6 +71,19 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     {locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={localeInfo[l].ogLocale} />)}
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Traqqr for AI assistants" />
+    {
+      /* The homepage opens in the language the visitor chose before (src/scripts/language.ts), before
+         anything paints. Only on arrival from elsewhere: a click on the logo or a nav pick stays put. */
+      route === 'home' && (
+        <script is:inline define:vars={{ homes: routes.home, key: 'tq-lang' }}>
+          try {
+            const lang = localStorage.getItem(key);
+            const fromHere = document.referrer && new URL(document.referrer).origin === location.origin;
+            if (lang && homes[lang] && lang !== document.documentElement.lang && !fromHere) location.replace(homes[lang]);
+          } catch {}
+        </script>
+      )
+    }
     <slot name="head" />
   </head>
   <body class="min-h-screen bg-background font-sans text-foreground antialiased">
@@ -76,13 +91,14 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <SiteNav
       client:load
       locale={locale}
-      languagePaths={Object.fromEntries(locales.map((l) => [l, pathFor(route, l)])) as Record<Locale, string>}
+      languagePaths={languagePaths}
       currentPath={Astro.url.pathname}
     />
     <main>
       <slot />
     </main>
     <SiteFooter locale={locale} />
+    <LanguageSuggestion locale={locale} paths={languagePaths} />
     <script>
       import '@/scripts/ambient';
     </script>

@@ -66,7 +66,7 @@ export type MotionFallback =
   | { kind: 'rail'; items: { label: string; title: string; body: string }[]; note?: string }
   | {
       kind: 'panels';
-      panels: { icon: 'globe' | 'server'; title: string; badge: string; items: string[] }[];
+      panels: { icon: 'browser' | 'server'; title: string; badge: string; items: string[] }[];
       /** Between the panels: the dedupe badge and its line. */
       link: { badge: string; note: string };
     };

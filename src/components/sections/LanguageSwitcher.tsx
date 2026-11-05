@@ -1,6 +1,6 @@
-import { Button, Flag } from '@klicktipp/traqqr-components';
+import { Button } from '@klicktipp/traqqr-components';
 import { cn } from '@klicktipp/traqqr-components/utils';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, Globe } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,7 +23,7 @@ export interface LanguageSwitcherProps {
 const ease = 'ease-[cubic-bezier(.2,.7,.2,1)]';
 
 /** A row per language, linking to this page in that language. Shared by the desktop menu and the
- * mobile menu (Figma Language item 5259:248: h-9 rounded-lg, flag · name · code · check, hover
+ * mobile menu (Figma Language item 5259:248: h-9 rounded-lg, name · code · check, no flag (5 Nov), hover
  * bg-accent, selected bg-accent/50 with the check in brand; the check keeps its space in every row). */
 export function languageRowClass(selected: boolean) {
   return cn(
@@ -33,10 +33,9 @@ export function languageRowClass(selected: boolean) {
 }
 
 export function LanguageRowContent({ locale, selected }: { locale: Locale; selected: boolean }) {
-  const { name, code, flag } = localeInfo[locale];
+  const { name, code } = localeInfo[locale];
   return (
     <>
-      <Flag code={flag} />
       <span className="flex-1 text-sm leading-5">{name}</span>
       <span className="font-mono text-xs leading-4 text-muted-foreground">{code}</span>
       <Check className={cn('size-4 text-brand', !selected && 'invisible')} strokeWidth={1.5} aria-hidden="true" />
@@ -45,8 +44,8 @@ export function LanguageRowContent({ locale, selected }: { locale: Locale; selec
 }
 
 // Language switcher (Figma: Language switcher 5259:133, Language menu 5259:331; spec in Kev's
-// 3 Nov update). Desktop only, right of the CTA: the current flag + a chevron in a small bordered
-// box, opening a glass menu with one row per language.
+// 3 Nov update). Desktop only, right of the CTA: a globe + a chevron in a small bordered box, opening
+// a glass menu with one row per language. No flags (5 Nov, founder feedback): a language isn't a country.
 export function LanguageSwitcher({ locale, paths, label }: LanguageSwitcherProps) {
   return (
     <DropdownMenu modal={false}>
@@ -57,8 +56,7 @@ export function LanguageSwitcher({ locale, paths, label }: LanguageSwitcherProps
           aria-label={`${label}: ${localeInfo[locale].name}`}
           className="group/lang h-9 cursor-pointer gap-1.5 rounded-lg border border-foreground/10 bg-accent px-2.5 py-2 hover:border-foreground/20 hover:bg-accent data-[state=open]:border-foreground/20"
         >
-          {/* size-auto opts out of Button's size-4 icon rule, so the flag keeps its 20×15. */}
-          <Flag code={localeInfo[locale].flag} className="size-auto" />
+          <Globe className="size-4" strokeWidth={1.5} aria-hidden="true" />
           <ChevronDown
             className={cn('size-3 transition-transform duration-200 group-data-[state=open]/lang:rotate-180', ease)}
             strokeWidth={1.5}
@@ -82,7 +80,7 @@ export function LanguageSwitcher({ locale, paths, label }: LanguageSwitcherProps
         <DropdownMenuRadioGroup value={locale}>
           {locales.map((l) => (
             <DropdownMenuRadioItem key={l} value={l} asChild>
-              <a href={paths[l]} hrefLang={l} lang={l} className={languageRowClass(l === locale)}>
+              <a href={paths[l]} hrefLang={l} lang={l} className={languageRowClass(l === locale)} data-lang-pick>
                 <LanguageRowContent locale={l} selected={l === locale} />
               </a>
             </DropdownMenuRadioItem>
