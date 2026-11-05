@@ -32,7 +32,7 @@ export function IntegrationsGrid({ id, eyebrow, title, tabs, cards, href }: Inte
   const logos = Object.fromEntries(integrations.map((i) => [i.name, i.logo]));
   const [all] = tabs;
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="mx-auto flex max-w-312 flex-col items-center gap-10 px-6 pt-14 pb-14 lg:pt-30 lg:pb-24">
+    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-14 lg:scroll-mt-0 mx-auto flex max-w-312 flex-col items-center gap-10 px-6 pt-14 pb-14 lg:pt-30 lg:pb-24">
       <div className="flex flex-col items-center gap-3 text-center">
         <p className="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>
         <h2 id={`${id}-heading`} className="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-10">

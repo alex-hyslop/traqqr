@@ -59,6 +59,9 @@ export const navLinks: Record<Locale, NavLinks> = {
 };
 
 export const integrationsHref = (locale: Locale) => pathFor('integrations', locale);
+/** The integrations page's "Choose your stack" grid (id in src/data/pages/integrations.ts). The nav's
+ * integration tiles go here until each has its own page (Kev, 5 Nov). */
+export const integrationsStackHref = (locale: Locale) => `${integrationsHref(locale)}#all-integrations`;
 export const pricingHref = (locale: Locale) => pathFor('pricing', locale);
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;

@@ -36,6 +36,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import {
   integrationsHref,
+  integrationsStackHref,
   loginHref,
   navLinks,
   pricingHref,
@@ -87,8 +88,10 @@ function IconBox({ children }: { children: React.ReactNode }) {
 
 interface DesktopMenuProps {
   labels: NavLabels;
-  /** The integrations page; the nine tiles stay "#" until their detail pages exist. */
+  /** The integrations page. */
   integrationsPage: string;
+  /** Its "Choose your stack" grid, where the nine tiles go until their detail pages exist. */
+  integrationsStack: string;
   pricingPage: string;
   integrations: Integration[];
   product: NavLink[];
@@ -115,7 +118,7 @@ function PanelLinks({ links }: { links: NavLink[] }) {
   );
 }
 
-function DesktopMenu({ labels, integrationsPage, pricingPage, integrations, product, solutions, resources }: DesktopMenuProps) {
+function DesktopMenu({ labels, integrationsPage, integrationsStack, pricingPage, integrations, product, solutions, resources }: DesktopMenuProps) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
@@ -138,7 +141,7 @@ function DesktopMenu({ labels, integrationsPage, pricingPage, integrations, prod
           <NavigationMenuContent className={cn(panelClass, 'md:w-[600px]')}>
             <ul className="grid grid-cols-3 gap-1">
               {integrations.map((integration) => (
-                <PanelLink key={integration.name} link={{ title: integration.name, href: '#' }}>
+                <PanelLink key={integration.name} link={{ title: integration.name, href: integrationsStack }}>
                   <IconBox>
                     <img src={integration.mono} alt="" width={16} height={16} className="size-4" />
                   </IconBox>
@@ -429,6 +432,7 @@ export function SiteNav({
         <DesktopMenu
           labels={labels}
           integrationsPage={integrationsHref(locale)}
+          integrationsStack={integrationsStackHref(locale)}
           pricingPage={pricingHref(locale)}
           integrations={integrations}
           product={product}
