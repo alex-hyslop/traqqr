@@ -23,6 +23,7 @@ import TestimonialSection from './TestimonialSection.astro';
 import FaqSection from './FaqSection.astro';
 import CtaSection from './CtaSection.astro';
 import GlobeSection from './GlobeSection.astro';
+import PricingSection from './PricingSection.astro';
 
 export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   hero: HeroSection,
@@ -48,4 +49,5 @@ export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   faq: FaqSection,
   cta: CtaSection,
   globe: GlobeSection,
+  pricing: PricingSection,
 };

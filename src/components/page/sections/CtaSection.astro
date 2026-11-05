@@ -12,3 +12,14 @@ const { section } = Astro.props;
 <Reveal>
   <Cta {...section.props} />
 </Reveal>
+
+<style>
+  /* Kev, 5 Nov: no app-background layer on the CTA card (the library's bg-cta-glow); the card is var(--card)
+     with an amber wash from the top, on every CTA. Until the library takes this, the site overrides it here. */
+  :global(.rounded-xl:has(> div > .bg-cta-glow)) {
+    background: linear-gradient(180deg, rgb(255 183 77 / 0.19) -3%, rgb(255 183 77 / 0) 80%), var(--card);
+  }
+  :global(.bg-cta-glow) {
+    display: none;
+  }
+</style>

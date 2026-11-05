@@ -1,14 +1,16 @@
 ---
 import { getImage } from 'astro:assets';
 import { Testimonial } from '@klicktipp/traqqr-components';
-import photo from '@/assets/testimonials/dawid-przybylski.jpg';
+import alex from '@/assets/testimonials/alex-hyslop.jpg';
+import dawid from '@/assets/testimonials/dawid-przybylski.jpg';
 import Reveal from '@/components/Reveal.astro';
 import type { Section } from '@/data/sections';
 
 interface Props {
   section: Extract<Section, { kind: 'testimonial' }>;
 }
-const { section } = Astro.props;
+const { person = 'dawid-przybylski', ...props } = Astro.props.section.props;
+const photo = { 'dawid-przybylski': dawid, 'alex-hyslop': alex }[person];
 
 const portrait = await getImage({ src: photo, width: 280, height: 350, format: 'webp', densities: [1, 2] });
 const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp', densities: [1, 2] });
@@ -16,7 +18,7 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
 
 <Reveal>
   <Testimonial
-    {...section.props}
+    {...props}
     photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
     avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
   />

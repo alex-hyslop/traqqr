@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @import "@klicktipp/traqqr-components/styles.css";
 
-/* Hero glow colours (Figma homepage). The landing tokens (--card-glass, --accent-line, …) come from the library. */
+/* Hero glow colours (Figma homepage; softer from Kev, 5 Nov). The landing tokens (--card-glass, --accent-line, …) come from the library. */
 :root {
-  --hero-glow-core: rgb(255 176 69 / 0.5);
-  --hero-glow-mid: rgb(255 163 56 / 0.2);
+  --hero-glow-core: rgb(255 183 77 / 0.36);
+  --hero-glow-mid: rgb(255 158 51 / 0.12);
 }
 
 /*
@@ -197,10 +197,11 @@
  * Section backgrounds that need more than utilities.
  */
 @layer components {
-  /* Hero top glow: half radial brand glow from the top edge, behind the HUD and cards. */
+  /* Hero top glow: half radial brand glow from the top edge, behind the HUD and cards. It reaches down the
+     hero's full height (Kev, 5 Nov; it was 846px). */
   .hero-glow {
     background: radial-gradient(
-      847px 846px at 50% 0,
+      847px 100% at 50% 0,
       var(--hero-glow-core) 0%,
       var(--hero-glow-mid) 50%,
       rgb(255 153 51 / 0) 100%

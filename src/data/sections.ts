@@ -11,6 +11,7 @@ import type { FeatureCardsProps } from '@/components/sections/FeatureCards';
 import type { HeroCopy, HeroFeature } from '@/components/sections/Hero';
 import type { IntegrationsGridProps } from '@/components/sections/IntegrationsGrid';
 import type { IntegrationsStripProps } from '@/components/sections/IntegrationsStrip';
+import type { PricingCalculatorCopy } from '@/components/sections/PricingCalculator';
 import type { StatsProps } from '@/components/sections/Stats';
 import type { SceneCopy } from '@/components/sections/SunbeamScene';
 import type { TrustStripProps } from '@/components/sections/TrustStrip';
@@ -143,6 +144,15 @@ export interface AnswersProps {
   items: { question: string; answer: string; placeholder?: boolean }[];
 }
 
+/** Whose photo the testimonial shows: Dawid (homepage) or the pricing page's placeholder case study. */
+export type TestimonialPerson = 'dawid-przybylski' | 'alex-hyslop';
+
+export interface PricingProps {
+  /** The free trial column; its length comes from src/data/pricing.ts. */
+  trial: { badge: string; title: string; lead: string; stepsLabel: string; steps: { day: string; text: string }[] };
+  calculator: PricingCalculatorCopy;
+}
+
 // The sections a page is built from, in the order the page lists them. Each kind maps to a component
 // in src/components/page/sections; the props are the section's copy, from the page's content file.
 export type Section =
@@ -165,7 +175,8 @@ export type Section =
   | { kind: 'scene'; props: SceneCopy }
   | { kind: 'textMedia'; props: TextMediaProps }
   | { kind: 'howItWorks'; props: HowItWorksProps }
-  | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> }
+  | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> & { person?: TestimonialPerson } }
+  | { kind: 'pricing'; props: PricingProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
   | { kind: 'cta'; props: CtaProps }
   | { kind: 'globe'; props: { label: string } };

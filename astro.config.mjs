@@ -19,7 +19,7 @@ export default defineConfig({
       serialize(item) {
         const path = new URL(item.url).pathname;
         const pair = Object.values(routes).find((r) => r.en === path || r.de === path);
-        if (pair) item.links = ['en', 'de'].map((lang) => ({ lang, url: new URL(pair[lang], item.url).href }));
+        if (pair) item.links = /** @type {const} */ (['en', 'de']).map((lang) => ({ lang, url: new URL(pair[lang], item.url).href }));
         return item;
       },
     }),

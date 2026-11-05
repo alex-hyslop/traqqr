@@ -1,5 +1,5 @@
 import type { CtaAction } from '@klicktipp/traqqr-components';
-import { demoHref, integrationsHref, signupHref } from '@/data/links';
+import { demoHref, integrationsHref, pricingHref, signupHref } from '@/data/links';
 import { pathFor, type Locale } from '@/i18n';
 
 // Content shared by every page, per language, next to the per-page content in data/pages/. Pages, the
@@ -67,7 +67,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       columns: [
         {
           heading: 'Produkt',
-          links: [link('Funktionen'), link('Integrationen', integrationsHref('de')), link('Preise'), link('Live Feed', pathFor('liveFeed', 'de'))],
+          links: [link('Funktionen'), link('Integrationen', integrationsHref('de')), link('Preise', pricingHref('de')), link('Live Feed', pathFor('liveFeed', 'de'))],
         },
         { heading: 'Ressourcen', links: [link('Docs'), link('Hilfe-Center'), link('Blog')] },
         { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
@@ -100,7 +100,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       columns: [
         {
           heading: 'Product',
-          links: [link('Features'), link('Integrations', integrationsHref('en')), link('Pricing'), link('Live Feed', pathFor('liveFeed', 'en'))],
+          links: [link('Features'), link('Integrations', integrationsHref('en')), link('Pricing', pricingHref('en')), link('Live Feed', pathFor('liveFeed', 'en'))],
         },
         { heading: 'Resources', links: [link('Docs'), link('Help center'), link('Blog')] },
         { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },

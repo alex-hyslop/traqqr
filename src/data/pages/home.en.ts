@@ -92,7 +92,7 @@ export const homeEn: HomePage = {
           'knows exactly what to do.”',
         ],
         name: 'Dawid Przybylski',
-        role: 'Founder & Managing Director, Visual Facilitators GmbH',
+        role: 'Facebook Marketing Millionaire and Founder of Finest Audience Ltd.',
       },
     },
     { kind: 'integrations', props: { title: 'Integrations', lead: 'Natively connected to your DACH funnel stack.' } },

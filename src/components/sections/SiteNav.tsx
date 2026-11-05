@@ -89,6 +89,7 @@ interface DesktopMenuProps {
   labels: NavLabels;
   /** The integrations page; the nine tiles stay "#" until their detail pages exist. */
   integrationsPage: string;
+  pricingPage: string;
   integrations: Integration[];
   product: NavLink[];
   solutions: NavLink[];
@@ -113,7 +114,7 @@ function PanelLinks({ links }: { links: NavLink[] }) {
   );
 }
 
-function DesktopMenu({ labels, integrationsPage, integrations, product, solutions, resources }: DesktopMenuProps) {
+function DesktopMenu({ labels, integrationsPage, pricingPage, integrations, product, solutions, resources }: DesktopMenuProps) {
   return (
     <NavigationMenu viewport={false} className="hidden flex-none lg:flex">
       <NavigationMenuList className="gap-1">
@@ -174,7 +175,7 @@ function DesktopMenu({ labels, integrationsPage, integrations, product, solution
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), triggerClass)}>
-            <a href={pricingHref}>{labels.pricing}</a>
+            <a href={pricingPage}>{labels.pricing}</a>
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
@@ -319,7 +320,7 @@ function MobileMenu({
           {renderGroup(groups[1])}
           {plainRow(labels.integrations, integrationsHref(locale), <NavIntegrationsIcon />)}
           {renderGroup(groups[2])}
-          {plainRow(labels.pricing, pricingHref, <NavPricingIcon />)}
+          {plainRow(labels.pricing, pricingHref(locale), <NavPricingIcon />)}
           <div className="mt-2 border-t border-sidebar-border pt-2">{plainRow(labels.login, loginHref, <LogIn strokeWidth={1} absoluteStrokeWidth aria-hidden="true" />)}</div>
           {/* The language switcher isn't designed for mobile yet: two Language item rows at the
               bottom of the menu (Kev's 3 Nov handover §3.3). */}
@@ -427,6 +428,7 @@ export function SiteNav({
         <DesktopMenu
           labels={labels}
           integrationsPage={integrationsHref(locale)}
+          pricingPage={pricingHref(locale)}
           integrations={integrations}
           product={product}
           solutions={navLinks[locale].solutions}

@@ -59,7 +59,7 @@ export const navLinks: Record<Locale, NavLinks> = {
 };
 
 export const integrationsHref = (locale: Locale) => pathFor('integrations', locale);
-export const pricingHref = '#';
+export const pricingHref = (locale: Locale) => pathFor('pricing', locale);
 export const signupHref = 'https://traqqr.ai/app/login';
 export const loginHref = signupHref;
 /** The 2-minute demo video. Until it exists, the homepage's Sunbeam scene, which plays when a link

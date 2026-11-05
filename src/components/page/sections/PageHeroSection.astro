@@ -2,7 +2,8 @@
 // The internal-page hero (Kev's 3 Nov handover §3.2, §3.4; Figma e.g. /live-feed/ 5225:3): the dashboard
 // Breadcrumb, a 60/72 ExtraLight title, an 18px lead and the CTA pair, over the grid with the half-radial
 // top glow layered above it (so the grid's fade never shows as a dark box). "split" puts the motion
-// piece on the right of the 560px copy, both centred on one line (Figma: y≈428); "centred" puts
+// piece on the right of the 560px copy, both from the top (Kev, 5 Nov: the visual 48px under the nav, the
+// copy 40px lower; the video stays centred on the copy); "centred" puts
 // the copy in the middle (900px, 20px apart) and the piece under it. Without a secondary action there are
 // no buttons (Event Inspector). The Lösungen pages use the explainer video in place of a piece (split) or a
 // row of four glass cards under a centred hero, as on the homepage. Below md the hero is copy and buttons
@@ -22,7 +23,6 @@ import {
 } from '@klicktipp/traqqr-components';
 import { cn } from '@klicktipp/traqqr-components/utils';
 import MotionPiece from '@/components/motion/MotionPiece.astro';
-import { motionPieces } from '@/components/motion/pieces';
 import { integrations } from '@/data/integrations';
 import type { Section } from '@/data/sections';
 import { siteContent } from '@/data/site';
@@ -34,10 +34,6 @@ interface Props {
 const { layout, breadcrumb, title, lead, secondaryAction, motion, video, cards, motionGap = 8 } = Astro.props.section.props;
 const { trial } = siteContent[toLocale(Astro.currentLocale)].cta;
 const centred = layout === 'centred';
-// Split heroes centre the visual on y≈428, as every Figma frame does, whatever the piece's height. With the
-// video the copy is the taller side, so it sits at Figma's y 196 instead.
-const visualHeight = motion ? ((motion.width ?? 620) * motionPieces[motion.id].size[1]) / motionPieces[motion.id].size[0] : 455;
-const splitTop = video ? '196px' : `${Math.round(428 - visualHeight / 2)}px`;
 const splitBottom = video ? '96px' : '105px';
 // Below lg the copy sits in the glass HUD box, 12px from the screen edges (Figma mobile 5294:597); from lg
 // the box's surface, edges and accents are hidden and the copy stands on the grid.
@@ -54,10 +50,10 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
       // The video hero sits on the 1152px content column (Figma: copy at x 144, video ending at 1296).
       video ? 'max-w-300' : 'max-w-312',
       centred
-        ? ['lg:items-center lg:gap-(--motion-gap) lg:text-center', cards ? 'lg:pt-[170px] lg:pb-24' : 'lg:pt-[176px] lg:pb-12']
-        : 'lg:flex-row lg:items-center lg:gap-5 lg:pt-(--split-top) lg:pb-(--split-bottom)',
+        ? ['lg:items-center lg:gap-(--motion-gap) lg:pt-[152px] lg:text-center', cards ? 'lg:pb-24' : 'lg:pb-12']
+        : 'lg:flex-row lg:items-start lg:gap-5 lg:pt-[136px] lg:pb-(--split-bottom)',
     ]}
-    style={centred ? `--motion-gap: ${motionGap}px` : `--split-top: ${splitTop}; --split-bottom: ${splitBottom}`}
+    style={centred ? `--motion-gap: ${motionGap}px` : `--split-bottom: ${splitBottom}`}
   >
     <Chamfered
       cut={32}
@@ -66,7 +62,7 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
       className={cn(
         'flex flex-col gap-6 px-6 py-9',
         hudOff,
-        centred ? 'lg:max-w-225 lg:items-center lg:gap-5' : 'lg:w-[560px] lg:shrink-0'
+        centred ? 'lg:max-w-225 lg:items-center lg:gap-5' : 'lg:w-[560px] lg:shrink-0 lg:pt-10'
       )}
     >
       <Breadcrumb>
@@ -98,7 +94,8 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
           </ul>
         )
       }
-    </Chamfered>    {
+    </Chamfered>
+    {
       motion && (
         <div class:list={['w-full', !centred && 'lg:min-w-0 lg:flex-1']}>
           <div class="mx-auto w-full" style={motion.width ? `max-width: ${motion.width}px` : undefined}>
@@ -109,7 +106,7 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
     }
     {
       video && (
-        <div class="hidden w-full md:block lg:ml-auto lg:max-w-[560px] lg:min-w-0 lg:flex-1">
+        <div class="hidden w-full md:block lg:ml-auto lg:max-w-[560px] lg:min-w-0 lg:flex-1 lg:self-center">
           <VideoPlaceholder label={video.label} href={video.href} />
         </div>
       )

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { integrations } from '@/data/integrations';
 import { homePages } from '@/data/pages/home';
+import { priceTiers, trialDays } from '@/data/pricing';
 import { siteContent } from '@/data/site';
 import { pathFor } from '@/i18n';
 
@@ -20,6 +21,13 @@ export const GET: APIRoute = ({ site }) => {
 - First-party reverse proxy: tracking through your own subdomain with Cloudflare (up to 4 proxy domains per site), so ad blockers block browser events far less often.
 - Setup: paste one snippet into your site's <head> and connect Meta from the dashboard. No developer or tag manager needed.
 
+## Pricing
+
+Billed per website, by events per month. ${priceTiers
+    .filter((t) => t.priceCents !== null)
+    .map((t) => `${t.events.toLocaleString('en-GB')} events a month: €${t.priceCents! / 100} per website a month.`)
+    .join(' ')} Other tiers: price to follow. Free trial: ${trialDays} days.
+
 ## Integrations
 
 ${integrations.map((i) => `- ${i.name}`).join('\n')}
@@ -32,6 +40,8 @@ ${faqItems.map((i) => `### ${i.question}\n\n${i.answer}`).join('\n\n')}
 
 - [Homepage (English)](${new URL(pathFor('home', 'en'), site).href})
 - [Homepage (German)](${new URL(pathFor('home', 'de'), site).href})
+- [Pricing (English)](${new URL(pathFor('pricing', 'en'), site).href})
+- [Pricing (German)](${new URL(pathFor('pricing', 'de'), site).href})
 - [Start a free trial](${siteContent.en.cta.trial.href})
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

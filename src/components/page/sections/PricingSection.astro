@@ -1,0 +1,80 @@
+---
+// Pricing: the free trial and the calculator side by side (Figma: /preise/ 5307:230 DE, /pricing/ 5307:1157
+// EN; Kev's 5 Nov handover). Both are the HUD glass frame (cut 32), the same height, on a 432:696 grid in
+// the 1152 column, the free trial on the left (Kev, 5 Nov). Below lg they stack, calculator first, 12px
+// from the screen edges. The free trial column has no button on the page in Figma (the states board still
+// lists one); its rail is the mobile timeline pattern, the last stop amber.
+import { Badge, Chamfered } from '@klicktipp/traqqr-components';
+import { PricingCalculator } from '@/components/sections/PricingCalculator';
+import type { Section } from '@/data/sections';
+import { signupHref } from '@/data/links';
+import { trialDays } from '@/data/pricing';
+import { toLocale } from '@/i18n';
+
+interface Props {
+  section: Extract<Section, { kind: 'pricing' }>;
+}
+const { trial, calculator } = Astro.props.section.props;
+const locale = toLocale(Astro.currentLocale);
+const last = trial.steps.length - 1;
+---
+
+<section class="relative">
+  <div class="mx-auto grid max-w-300 grid-cols-1 gap-6 px-3 pb-14 lg:grid-cols-[432fr_696fr] lg:px-6 lg:pb-24">
+    <Chamfered cut={32} radius={16} accent={220} className="flex flex-col gap-6 p-6 lg:order-2 lg:p-10">
+      <PricingCalculator client:visible locale={locale} copy={calculator} signupHref={signupHref} />
+    </Chamfered>
+
+    <Chamfered cut={32} radius={16} accent={220} className="flex flex-col gap-6 p-6 lg:order-1 lg:p-10">
+      <Badge variant="outline" className="self-start font-mono uppercase">{trial.badge}</Badge>
+      <h2 class="flex items-baseline gap-3 whitespace-nowrap">
+        <span class="text-[64px] leading-[72px] font-extralight text-[#ffb74d]">{trialDays}</span>
+        <span class="text-2xl leading-8 font-light text-foreground">{trial.title}</span>
+      </h2>
+      <p class="text-base leading-6 text-muted-foreground">{trial.lead}</p>
+      <p class="font-mono text-xs leading-4 text-muted-foreground uppercase">{trial.stepsLabel}</p>
+      <ol class="trial-rail relative flex flex-col gap-5 pl-[26px]">
+        {
+          trial.steps.map((step, i) => (
+            <li class="relative flex flex-col gap-0.5" data-last={i === last ? '' : undefined}>
+              <span class:list={['font-mono text-xs leading-4 uppercase', i === last ? 'text-[#ffb74d]' : 'text-muted-foreground']}>{step.day}</span>
+              <span class="text-[15px] leading-[22px] text-foreground">{step.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </Chamfered>
+  </div>
+</section>
+
+<style>
+  /* The rail: a 1px line fading in from the top, a 9px white dot per stop, the last one an 11px amber dot
+     with a glow (Figma 5307:296–301). */
+  .trial-rail::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 32px;
+    left: 5px;
+    width: 1px;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.15), rgb(255 255 255 / 0.8));
+  }
+  .trial-rail li::before {
+    content: '';
+    position: absolute;
+    top: 3.5px;
+    left: -25px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--foreground);
+  }
+  .trial-rail li[data-last]::before {
+    top: 2.5px;
+    left: -26px;
+    width: 11px;
+    height: 11px;
+    background: #ffb74d;
+    box-shadow: 0 0 10px 2px rgb(255 183 77 / 0.55);
+  }
+</style>
