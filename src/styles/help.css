@@ -26,7 +26,7 @@
   --sl-color-gray-7: var(--tq-card);
   --sl-color-black: var(--tq-background);
   --sl-color-bg: var(--tq-background);
-  --sl-color-bg-nav: rgb(12 10 9 / 0.8);
+  --sl-color-bg-nav: rgb(12 10 9 / 0.95);
   --sl-color-bg-sidebar: var(--tq-background);
   --sl-color-bg-inline-code: var(--tq-accent);
   --sl-color-hairline: var(--tq-border);
@@ -54,6 +54,13 @@
 /* Header: logo, HILFE-CENTER, search, then language / website / dashboard. */
 .header {
   border-bottom: 1px solid var(--tq-border);
+  backdrop-filter: blur(12px);
+}
+/* Mobile: the "Auf dieser Seite" bar is opaque too, so the article never shows through (Kev, 6 Nov). */
+mobile-starlight-toc nav {
+  background: rgb(12 10 9 / 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--tq-border);
 }
 .tq-header {
   display: flex;
@@ -68,7 +75,7 @@
   flex-shrink: 0;
 }
 .tq-logo,
-.tq-logo > span {
+.tq-logo [data-logo] {
   display: inline-flex;
   align-items: center;
   color: var(--tq-foreground);
@@ -78,18 +85,12 @@
   height: 1.25rem;
   background: var(--tq-border-strong);
 }
-.tq-label,
-.tq-link {
+.tq-label {
   font: 400 0.75rem/1rem var(--sl-font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--tq-foreground);
   text-decoration: none;
-}
-.tq-link {
-  text-transform: none;
-  letter-spacing: 0.04em;
-  font-size: 0.8125rem;
 }
 .tq-search {
   flex: 0 1 25rem;
@@ -171,23 +172,148 @@ site-search dialog {
   border: 1px solid var(--tq-border);
   border-radius: 0.75rem;
 }
+/* Pagefind inside the dialog (Kev, 6 Nov): one focus ring, white matches, rows on hover. */
+#starlight__search {
+  --pagefind-ui-primary: var(--tq-foreground);
+  --pagefind-ui-text: var(--tq-foreground);
+  --pagefind-ui-background: var(--tq-card);
+  --pagefind-ui-border: var(--tq-border);
+  --pagefind-ui-tag: var(--tq-accent);
+  --pagefind-ui-border-radius: 10px;
+}
+#starlight__search .pagefind-ui__search-input {
+  outline: none;
+  border: 1px solid var(--tq-border);
+  border-radius: 10px;
+  background: var(--tq-card);
+  font-family: var(--sl-font);
+  text-overflow: ellipsis;
+}
+#starlight__search .pagefind-ui__search-input:focus,
+#starlight__search .pagefind-ui__search-input:focus-visible {
+  outline: none;
+  border-color: rgb(255 255 255 / 0.35);
+  box-shadow: 0 0 0 3px rgb(255 255 255 / 0.08);
+}
+#starlight__search .pagefind-ui__message {
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+#starlight__search .pagefind-ui__result {
+  border: 0;
+  padding: 0.75rem;
+  border-radius: 10px;
+}
+#starlight__search .pagefind-ui__result:hover {
+  background: var(--tq-accent);
+}
+#starlight__search .pagefind-ui__result-title .pagefind-ui__result-link {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tq-foreground);
+}
+#starlight__search .pagefind-ui__result-excerpt {
+  font-size: 0.8125rem;
+  color: var(--tq-muted);
+}
+#starlight__search mark {
+  background: transparent;
+  color: var(--tq-foreground);
+  font-weight: 500;
+}
+#starlight__search .pagefind-ui__search-clear {
+  color: var(--tq-muted);
+  background: transparent;
+}
+#starlight__search .pagefind-ui__search-clear::before {
+  background-color: var(--tq-muted);
+}
+/* "Abbrechen": white, never on top of the input. */
+site-search button[data-close-modal] {
+  color: var(--tq-foreground);
+}
+.tq-search-empty {
+  padding: 1rem 0.25rem;
+  color: var(--tq-muted);
+  font-size: 0.875rem;
+}
+.tq-search-empty p {
+  margin: 0;
+}
+.tq-search-popular-label {
+  margin-top: 1rem !important;
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tq-search-empty ul {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tq-search-empty a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  color: var(--tq-foreground);
+  text-decoration: none;
+}
+.tq-search-empty a:hover {
+  background: var(--tq-accent);
+}
+/* Mobile: a full-screen dark sheet with a sticky bar (the input, then "Abbrechen" beside it). */
+@media (max-width: 49.99rem) {
+  site-search dialog {
+    background: var(--tq-background);
+    border: 0;
+    border-radius: 0;
+  }
+  site-search .dialog-frame {
+    padding: 0.75rem 1rem;
+  }
+  site-search button[data-close-modal] {
+    position: static;
+    order: -1;
+    align-self: flex-end;
+    height: 2.75rem;
+  }
+  #starlight__search .pagefind-ui__search-input {
+    height: 2.75rem;
+  }
+  #starlight__search {
+    --sl-search-cancel-space: 0px;
+  }
+}
 
 /* Language switcher (the site's: globe + chevron, no flags). */
 .tq-lang {
   position: relative;
 }
-.tq-lang summary {
+.tq-lang summary,
+.tq-icon-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.25rem;
   height: 2.25rem;
   padding: 0 0.625rem;
   border: 1px solid var(--tq-border);
   border-radius: 0.5rem;
-  background: rgb(255 255 255 / 0.04);
+  background: var(--tq-accent);
   color: var(--tq-foreground);
   cursor: pointer;
   list-style: none;
+  transition: border-color 150ms;
+}
+.tq-icon-button {
+  width: 2.25rem;
+  padding: 0;
+}
+.tq-lang summary:hover,
+.tq-icon-button:hover {
+  border-color: var(--tq-border-strong);
 }
 .tq-lang summary::-webkit-details-marker {
   display: none;
@@ -226,24 +352,42 @@ site-search dialog {
 }
 .tq-menu-footer {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.75rem;
   padding: 1rem 0;
   border-top: 1px solid var(--tq-border);
 }
-.tq-menu-footer .tq-button {
-  flex: 1;
+.tq-menu-footer-row {
+  display: flex;
+  gap: 0.5rem;
 }
 
 /* Sidebar: mono caps group labels; links muted, the current one white on bg-white/6 with a 2px white bar. */
 .sidebar-pane {
   border-inline-end: 1px solid var(--tq-border);
 }
+/* Groups (Kev, 6 Nov): the label between two lines, the links indented under it, 20px between groups. */
+.sidebar-content .top-level > li + li {
+  margin-top: 1.25rem;
+}
+.sidebar-content details > summary {
+  width: 100%;
+}
+.sidebar-content .group-label {
+  display: block;
+  flex: 1;
+  padding: 0.625rem 0;
+  border-block: 1px solid var(--tq-border);
+}
 .sidebar-content .group-label .large {
   font: 400 0.6875rem/1rem var(--sl-font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--tq-muted);
+}
+.sidebar-content details > ul {
+  margin-top: 0.5rem;
+  padding-inline-start: 0.75rem;
 }
 .sidebar-content .caret {
   display: none;
@@ -255,14 +399,15 @@ site-search dialog {
   color: var(--tq-muted);
 }
 .sidebar-content a:hover {
+  background: rgb(41 37 36 / 0.5);
   color: var(--tq-foreground);
 }
+/* The current page: light background, white, medium (Kev, 6 Nov: no left stroke). */
 .sidebar-content a[aria-current='page'],
 .sidebar-content a[aria-current='page']:hover {
   background: rgb(255 255 255 / 0.06);
-  box-shadow: inset 2px 0 0 var(--tq-foreground);
   color: var(--tq-foreground);
-  font-weight: 400;
+  font-weight: 500;
 }
 .sidebar-content ul ul li {
   border-inline-start: 0;
@@ -532,10 +677,10 @@ starlight-toc a[aria-current='true'] {
 }
 .tq-feedback {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  text-align: center;
+  gap: 0.75rem;
   padding: 1rem 1.25rem;
   border: 1px solid var(--tq-border);
   border-radius: 0.75rem;
@@ -558,6 +703,35 @@ starlight-toc a[aria-current='true'] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+.tq-page-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+.tq-page-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.tq-next {
+  justify-content: flex-end;
+}
+.tq-next .tq-page-text {
+  align-items: flex-end;
+}
+/* Stacked on mobile, the cards hug their content: Zurück left, Weiter right. */
+@media (max-width: 49.99rem) {
+  .tq-pagination {
+    display: flex;
+    flex-direction: column;
+  }
+  .tq-prev {
+    align-self: flex-start;
+  }
+  .tq-next {
+    align-self: flex-end;
+  }
+}
 .tq-pagination-label {
   display: inline-flex;
   align-items: center;
@@ -572,7 +746,6 @@ starlight-toc a[aria-current='true'] {
   line-height: 1.5rem;
 }
 .tq-next {
-  align-items: flex-end;
   text-align: end;
 }
 .tq-legal {

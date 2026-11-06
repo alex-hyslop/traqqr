@@ -3,9 +3,9 @@
 // §2 Topics: six cards (icon, title, summary, three articles, "Alle Artikel"); the card is one link to its topic,
 // with the Integration Card behaviour (muted chevron; the card lightens and the chevron turns white on hover).
 // On mobile the cards are compact, without the article lists. §3 Most read: rows with the topic on the right.
-// §4 Still stuck: support and docs, where the button is the link. Titles come from the articles themselves.
+// §4 Still stuck: support and "Erste Schritte" (no Docs since 6 Nov), where the button is the link. Titles come from the articles themselves.
 import { getEntry } from 'astro:content';
-import { Activity, BookOpen, ChevronRight, Code, CreditCard, FileText, LifeBuoy, Plug, Rocket, Target } from 'lucide-react';
+import { Activity, ChevronRight, Code, CreditCard, FileText, LifeBuoy, Plug, Rocket, Target } from 'lucide-react';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import { supportHref } from '@/components/help/copy';
 import { helpPath, helpTopics, popularArticles } from '@/data/help';
@@ -110,7 +110,7 @@ const label = 'font-mono text-xs leading-4 tracking-[0.08em] text-muted-foregrou
   {
     [
       { ...stuck.support, Icon: LifeBuoy, href: supportHref },
-      { ...stuck.docs, Icon: BookOpen, href: '#' },
+      { ...stuck.start, Icon: Rocket, href: helpPath('getting-started', locale) },
     ].map(({ title, body, action, Icon, href }) => (
       <div class="flex flex-col items-start rounded-xl border border-white/10 bg-card p-7">
         <span class="flex size-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04]">

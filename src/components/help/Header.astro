@@ -1,13 +1,15 @@
 ---
 // Help Center header (Kev, 6 Nov: Figma "Article › Header"): the Traqqr logo → the website, "HILFE-CENTER" →
-// the Help Center home, Starlight's Pagefind search, then the language switcher, "Zur Website" and the
-// Dashboard button. On mobile only the logo, label and search stay; the rest moves into the menu drawer.
+// the Help Center home, Starlight's Pagefind search, then the language switcher, the home button (back to
+// the website) and the Dashboard button. On mobile only the logo, label and search stay; the rest moves into the menu drawer.
 import Search from '@astrojs/starlight/components/Search.astro';
 import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
 import { loginHref } from '@/data/links';
 import { helpPath } from '@/data/help';
 import { pathFor } from '@/i18n';
+import HomeButton from './HomeButton.astro';
 import LanguageSwitch from './LanguageSwitch.astro';
+import SearchExtras from './SearchExtras.astro';
 import { helpCopy, helpLocale } from './copy';
 
 const locale = helpLocale(Astro.locals.starlightRoute.locale);
@@ -21,10 +23,10 @@ const helpHome = helpPath('', locale);
     <span class="tq-divider" aria-hidden="true"></span>
     <a href={helpHome} class="tq-label">{copy.helpCenter}</a>
   </div>
-  <div class="tq-search"><Search /></div>
+  <div class="tq-search"><Search /><SearchExtras /></div>
   <div class="tq-actions">
     <LanguageSwitch />
-    <a href={pathFor('home', locale)} class="tq-link">{copy.website}</a>
+    <HomeButton />
     <a href={loginHref} class="tq-button">{copy.dashboard}</a>
   </div>
 </div>

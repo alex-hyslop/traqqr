@@ -1,0 +1,13 @@
+---
+// The way back to the website (Kev, 6 Nov): a house icon button in the language switcher's look.
+import { pathFor } from '@/i18n';
+import { helpCopy, helpLocale } from './copy';
+
+const locale = helpLocale(Astro.locals.starlightRoute.locale);
+---
+
+<a href={pathFor('home', locale)} class="tq-icon-button" aria-label={helpCopy[locale].website}>
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"
+    ><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg
+  >
+</a>

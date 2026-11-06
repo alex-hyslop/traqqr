@@ -1,0 +1,37 @@
+---
+// The search dialog's empty state (Kev, 6 Nov: "Search dialog · open, empty"): a hint, then the popular
+// articles. Starlight's dialog has no slot for it, so it's rendered here and moved into the dialog, and it
+// hides as soon as there's a query.
+import { helpPath, popularSearches } from '@/data/help';
+import { helpCopy, helpLocale } from './copy';
+
+const locale = helpLocale(Astro.locals.starlightRoute.locale);
+const copy = helpCopy[locale];
+---
+
+<div class="tq-search-empty" data-search-empty hidden>
+  <p class="tq-search-hint">{copy.searchHint}</p>
+  <p class="tq-search-popular-label">{copy.popular}</p>
+  <ul>
+    {
+      popularSearches.map((item) => (
+        <li>
+          <a href={helpPath(item.article, locale)}>{item.label[locale]}</a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const container = document.querySelector('site-search dialog .search-container, site-search dialog .dialog-frame');
+  if (empty && container) {
+    container.append(empty);
+    empty.hidden = false;
+    container.addEventListener('input', (event) => {
+      const input = event.target as HTMLInputElement;
+      if (input.matches('input')) empty.hidden = input.value.trim() !== '';
+    });
+  }
+</script>

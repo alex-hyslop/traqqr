@@ -36,7 +36,7 @@ export const help: Record<Locale, ContentPage> = {
           popular: { eyebrow: 'Häufig gelesen', title: 'Das suchen andere gerade.' },
           stuck: {
             support: { title: 'Nicht gefunden, was Du suchst?', body: 'Schreib uns. Wir antworten werktags, auf Deutsch.', action: 'Support kontaktieren' },
-            docs: { title: 'Du baust selbst?', body: 'Setup-Anleitungen für Entwickler und die API-Referenz findest Du in den Docs.', action: 'Zu den Docs' },
+            start: { title: 'Gerade erst gestartet?', body: 'Die Anleitungen unter „Erste Schritte“ bringen Dich in 3 Schritten zum ersten Event.', action: 'Erste Schritte' },
           },
         },
       },
@@ -51,7 +51,11 @@ export const help: Record<Locale, ContentPage> = {
               answer:
                 'Für die häufigsten Setups gibt es Schritt-für-Schritt-Anleitungen: Meta CAPI, Reverse Proxy, KlickTipp, Digistore24 und WebinarJam. Fang mit „Erste Schritte“ an.',
             },
-            { question: 'Wo finde ich die API-Referenz?', answer: 'In den Docs. Das Hilfe-Center erklärt die Bedienung, die Docs richten sich an Entwickler.' },
+            {
+              question: 'Gibt es Anleitungen für Entwickler?',
+              answer:
+                'Ja. Unter „Tracking einrichten“ und „Integrationen“ findest Du Schritt-für-Schritt-Anleitungen für das Script, den Reverse Proxy und die Server-Events.',
+            },
             { question: 'Warum sehe ich keine Events im Live Feed?', answer: 'Meistens fehlt das Tracking-Script oder die Domain ist noch nicht verbunden.' },
             { question: 'Kann ich Traqqr.ai vorher testen?', answer: 'Ja, 14 Tage kostenlos.' },
           ],
@@ -90,7 +94,7 @@ export const help: Record<Locale, ContentPage> = {
           popular: { eyebrow: 'Most read', title: 'What others are looking for.' },
           stuck: {
             support: { title: "Can't find what you're looking for?", body: 'Write to us. We reply on working days.', action: 'Contact support' },
-            docs: { title: 'Building it yourself?', body: 'Developer setup guides and the API reference are in the Docs.', action: 'Go to the Docs' },
+            start: { title: 'Just getting started?', body: 'The Getting started guides take you to your first event in 3 steps.', action: 'Getting started' },
           },
         },
       },
@@ -105,7 +109,10 @@ export const help: Record<Locale, ContentPage> = {
               answer:
                 'There are step-by-step guides for the most common setups: Meta CAPI, reverse proxy, KlickTipp, Digistore24 and WebinarJam. Start with "Getting started".',
             },
-            { question: 'Where is the API reference?', answer: 'In the Docs. The Help Center explains how to use Traqqr.ai; the Docs are for developers.' },
+            {
+              question: 'Are there guides for developers?',
+              answer: "Yes. Under Tracking setup and Integrations you'll find step-by-step guides for the script, the reverse proxy and server events.",
+            },
             { question: "Why don't I see any events in the Live Feed?", answer: "Usually the tracking script is missing or the domain isn't connected yet." },
             { question: 'Can I try Traqqr.ai first?', answer: 'Yes, free for 14 days.' },
           ],

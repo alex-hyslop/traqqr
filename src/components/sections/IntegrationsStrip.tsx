@@ -9,7 +9,8 @@ export interface IntegrationsStripProps {
 }
 
 // Integrations strip (Figma: Block / Integrations strip 5058:1639; mobile 5063:15579). Heading on the
-// left and logo tiles with tooltips; on mobile the heading sits on top and the tiles wrap.
+// left and logo tiles with tooltips; on mobile the heading sits on top and the tiles wrap, with 48px above
+// and below (Kev, 6 Nov).
 // Needs hydrating (client:visible) for the tooltips.
 export function IntegrationsStrip({ title, lead, integrations = allIntegrations }: IntegrationsStripProps) {
   return (
@@ -17,7 +18,7 @@ export function IntegrationsStrip({ title, lead, integrations = allIntegrations 
       id="integrations"
       labelledBy="integrations-heading"
       padded={false}
-      containerClassName="flex flex-col gap-5 pt-12 pb-6 md:pb-12 lg:flex-row lg:items-center lg:gap-10 xl:gap-15"
+      containerClassName="flex flex-col gap-5 py-12 lg:flex-row lg:items-center lg:gap-10 xl:gap-15"
     >
       <div className="flex shrink-0 flex-col gap-1.5">
         <h2 id="integrations-heading" className="text-2xl leading-8 font-light text-foreground">

@@ -1,6 +1,6 @@
 ---
-// Help Center page footer (Kev, 6 Nov): "War dieser Artikel hilfreich?" on articles, the previous / next cards
-// (bordered, with chevrons, no arrows) and a slim legal row. The feedback only says thanks: nothing is sent or
+// Help Center page footer (Kev, 6 Nov): "War dieser Artikel hilfreich?" (centred) on articles, the previous /
+// next cards (bordered, the chevron beside the text, no arrows) and a slim legal row. The feedback only says thanks: nothing is sent or
 // stored until there's somewhere to send it.
 import { siteContent } from '@/data/site';
 import { helpCopy, helpLocale, supportHref } from './copy';
@@ -35,17 +35,23 @@ const chevron = (d: string) => `<svg viewBox="0 0 24 24" width="14" height="14" 
     (prev || next) && (
       <nav class="tq-pagination" aria-label={`${copy.previous} / ${copy.next}`}>
         {prev ? (
-          <a href={prev.href} rel="prev" class="tq-card-link">
-            <span class="tq-pagination-label"><Fragment set:html={chevron('m15 18-6-6 6-6')} />{copy.previous}</span>
-            <span class="tq-pagination-title">{cardLabel(prev)}</span>
+          <a href={prev.href} rel="prev" class="tq-card-link tq-page-card tq-prev">
+            <Fragment set:html={chevron('m15 18-6-6 6-6')} />
+            <span class="tq-page-text">
+              <span class="tq-pagination-label">{copy.previous}</span>
+              <span class="tq-pagination-title">{cardLabel(prev)}</span>
+            </span>
           </a>
         ) : (
           <span />
         )}
         {next && (
-          <a href={next.href} rel="next" class="tq-card-link tq-next">
-            <span class="tq-pagination-label">{copy.next}<Fragment set:html={chevron('m9 18 6-6-6-6')} /></span>
-            <span class="tq-pagination-title">{cardLabel(next)}</span>
+          <a href={next.href} rel="next" class="tq-card-link tq-page-card tq-next">
+            <span class="tq-page-text">
+              <span class="tq-pagination-label">{copy.next}</span>
+              <span class="tq-pagination-title">{cardLabel(next)}</span>
+            </span>
+            <Fragment set:html={chevron('m9 18 6-6-6-6')} />
           </a>
         )}
       </nav>

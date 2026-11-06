@@ -6,6 +6,8 @@ export const helpCopy = {
   de: {
     helpCenter: 'Hilfe-Center',
     website: 'Zur Website',
+    searchHint: 'Suche nach Artikeln, Fehlern oder Integrationen.',
+    popular: 'Beliebt',
     dashboard: 'Zum Dashboard',
     language: 'Sprache wählen',
     updated: 'Zuletzt aktualisiert',
@@ -24,7 +26,9 @@ export const helpCopy = {
   },
   en: {
     helpCenter: 'Help Center',
-    website: 'Website',
+    website: 'Back to the website',
+    searchHint: 'Search for articles, errors or integrations.',
+    popular: 'Popular',
     dashboard: 'Dashboard',
     language: 'Choose language',
     updated: 'Last updated',

@@ -77,7 +77,7 @@ export interface HelpHomeProps {
   popular: { eyebrow: string; title: string };
   stuck: {
     support: { title: string; body: string; action: string };
-    docs: { title: string; body: string; action: string };
+    start: { title: string; body: string; action: string };
   };
 }
 

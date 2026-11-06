@@ -16,7 +16,6 @@ import {
   BookOpen,
   ChevronDown,
   Layers,
-  LifeBuoy,
   LogIn,
   Newspaper,
   X,
@@ -50,8 +49,7 @@ import { defaultLocale, locales, pathFor, type Locale } from '@/i18n';
 type NavLabels = SiteContent['nav'];
 
 const resourceIcons: Record<ResourceLink['icon'], LucideIcon> = {
-  docs: BookOpen,
-  help: LifeBuoy,
+  help: BookOpen, // the open book since Docs was dropped (Kev, 6 Nov)
   blog: Newspaper,
 };
 

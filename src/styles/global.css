@@ -71,16 +71,21 @@
     }
   }
 
+  /* The logo is one SVG (TraqqrLogo.tsx): the wrapper narrows to the mark while the wordmark group fades. */
   @media (min-width: 64rem) {
+    .site-nav [data-logo] {
+      max-width: var(--logo-full);
+      transition: max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
     .site-nav [data-wordmark] {
-      max-width: 88.4px;
       transition:
-        max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
         opacity 0.4s ease,
         filter 0.4s ease;
     }
+    [data-site-header][data-scrolled] .site-nav [data-logo] {
+      max-width: var(--logo-mark);
+    }
     [data-site-header][data-scrolled] .site-nav [data-wordmark] {
-      max-width: 0;
       opacity: 0;
       filter: blur(4px);
     }
@@ -89,6 +94,7 @@
   @media (prefers-reduced-motion: reduce) {
     [data-site-header],
     .site-nav,
+    .site-nav [data-logo],
     .site-nav [data-wordmark] {
       transition: none;
     }

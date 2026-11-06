@@ -28,6 +28,8 @@ export default defineConfig({
       // Like the site: never indexed while it runs on *.vercel.app (BaseLayout.astro does the same).
       head: new URL(site).hostname.endsWith('.vercel.app') ? [{ tag: 'meta', attrs: { name: 'robots', content: 'noindex' } }] : [],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
+      // No link icons beside the headings (Kev, 6 Nov); the headings keep their ids for the table of contents.
+      markdown: { headingLinks: false },
       expressiveCode: { themes: ['github-dark-default'], styleOverrides: { borderRadius: '12px', borderColor: 'rgb(255 255 255 / 0.1)', codeBackground: '#1c1917', frames: { editorTabBarBackground: '#1c1917', editorActiveTabBackground: '#1c1917', editorActiveTabIndicatorTopColor: 'transparent', editorActiveTabIndicatorBottomColor: 'transparent', editorTabBarBorderBottomColor: 'rgb(255 255 255 / 0.1)', frameBoxShadowCssValue: 'none', terminalTitlebarBackground: '#1c1917' } } },
       sidebar: helpTopics.map((topic) => ({
         label: topic.label.en,
