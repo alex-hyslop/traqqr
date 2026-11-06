@@ -57,6 +57,6 @@ const sections = [...new Set(articles.map((a) => a.section))];
       <p class="tq-missing-title">{copy.missing}</p>
       <p class="tq-missing-lead">{copy.missingLead}</p>
     </div>
-    <a href={supportHref} class="tq-button">{copy.contact}</a>
+    <a href={supportHref(locale)} class="tq-button">{copy.contact}</a>
   </div>
 </div>

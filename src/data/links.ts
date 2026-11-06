@@ -61,6 +61,9 @@ export const integrationsHref = (locale: Locale) => pathFor('integrations', loca
  * integration tiles go here until each has its own page (Kev, 5 Nov). */
 export const integrationsStackHref = (locale: Locale) => `${integrationsHref(locale)}#all-integrations`;
 export const pricingHref = (locale: Locale) => pathFor('pricing', locale);
+/** The contact page; `support` preselects Support in its topic field (?thema=support / ?topic=support, Kev, 6 Nov). */
+export const contactHref = (locale: Locale, topic?: 'support') =>
+  pathFor('contact', locale) + (topic ? `?${locale === 'de' ? 'thema' : 'topic'}=${topic}` : '');
 export const signupHref = 'https://traqqr.ai/app/login';
 /** KlickTipp, for the footer's "Powered by". KlickTipp has no English homepage yet, so both languages use it (Kev to confirm). */
 export const klicktippHref = 'https://www.klicktipp.com';

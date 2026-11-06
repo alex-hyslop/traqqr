@@ -11,6 +11,7 @@ import type { FeatureCardsProps } from '@/components/sections/FeatureCards';
 import type { HeroCopy, HeroFeature } from '@/components/sections/Hero';
 import type { IntegrationsGridProps } from '@/components/sections/IntegrationsGrid';
 import type { IntegrationsStripProps } from '@/components/sections/IntegrationsStrip';
+import type { ContactFormCopy } from '@/components/sections/ContactForm';
 import type { PricingCalculatorCopy } from '@/components/sections/PricingCalculator';
 import type { StatsProps } from '@/components/sections/Stats';
 import type { SceneCopy } from '@/components/sections/SunbeamScene';
@@ -166,6 +167,17 @@ export interface AnswersProps {
 /** Whose photo the testimonial shows: Dawid (homepage) or the pricing page's placeholder case study. */
 export type TestimonialPerson = 'dawid-przybylski' | 'alex-hyslop';
 
+/** The contact page's form and aside (src/data/pages/contact.ts). */
+export interface ContactProps {
+  form: ContactFormCopy;
+  aside: {
+    label: string;
+    help: { title: string; body: string };
+    login: { title: string; body: string };
+    language: { label: string; value: string };
+  };
+}
+
 export interface PricingProps {
   /** The free trial column; its length comes from src/data/pricing.ts. */
   trial: { badge: string; title: string; lead: string; stepsLabel: string; steps: { day: string; text: string }[] };
@@ -227,6 +239,7 @@ export type Section =
   | { kind: 'pricing'; props: PricingProps }
   | { kind: 'liveDemo'; props: LiveDemoProps }
   | { kind: 'helpHome'; props: HelpHomeProps }
+  | { kind: 'contact'; props: ContactProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
   /** `background`: Kev's CTA card animation (cta-bg.js), "lock" unless the page says otherwise. */
   | { kind: 'cta'; background?: CtaBackground; props: CtaProps }

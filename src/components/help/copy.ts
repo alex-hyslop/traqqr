@@ -1,5 +1,6 @@
 // The Help Center's own labels (Kev's 6 Nov handover). Starlight's built-in strings (search dialog, "On this
 // page", the mobile menu) come from its DE/EN translations; these are the ones our overrides add.
+import { contactHref } from '@/data/links';
 import type { Locale } from '@/i18n';
 
 export const helpCopy = {
@@ -47,7 +48,7 @@ export const helpCopy = {
   },
 } satisfies Record<Locale, Record<string, unknown>>;
 
-/** Until the contact form exists (Kev, 6 Nov: Support preselected), the support buttons go nowhere yet. */
-export const supportHref = '#';
+/** The contact page with Support preselected (Kev, 6 Nov). */
+export const supportHref = (locale: Locale) => contactHref(locale, 'support');
 
 export const helpLocale = (locale: string | undefined): Locale => (locale === 'de' ? 'de' : 'en');

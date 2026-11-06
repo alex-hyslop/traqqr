@@ -109,7 +109,7 @@ const label = 'font-mono text-xs leading-4 tracking-[0.08em] text-muted-foregrou
 <section class="mx-auto grid max-w-300 grid-cols-1 gap-4 px-6 pb-14 md:grid-cols-2 lg:pb-24">
   {
     [
-      { ...stuck.support, Icon: LifeBuoy, href: supportHref },
+      { ...stuck.support, Icon: LifeBuoy, href: supportHref(locale) },
       { ...stuck.start, Icon: Rocket, href: helpPath('getting-started', locale) },
     ].map(({ title, body, action, Icon, href }) => (
       <div class="flex flex-col items-start rounded-xl border border-white/10 bg-card p-7">

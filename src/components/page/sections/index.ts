@@ -26,6 +26,7 @@ import GlobeSection from './GlobeSection.astro';
 import PricingSection from './PricingSection.astro';
 import LiveDemoSection from './LiveDemoSection.astro';
 import HelpHomeSection from './HelpHomeSection.astro';
+import ContactSection from './ContactSection.astro';
 
 export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   hero: HeroSection,
@@ -54,4 +55,5 @@ export const sectionComponents: Record<SectionKind, AstroComponentFactory> = {
   pricing: PricingSection,
   liveDemo: LiveDemoSection,
   helpHome: HelpHomeSection,
+  contact: ContactSection,
 };

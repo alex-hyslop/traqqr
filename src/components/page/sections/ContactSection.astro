@@ -1,0 +1,55 @@
+---
+// Contact (Kev, 6 Nov: Figma 5393:3 DE, 5394:2 EN, mobile 5394:857): the form card and an aside on a
+// 1fr / 360px grid in the 1152 column, the aside sticky under the nav. The aside's two cards behave like
+// the Integration Cards (muted chevron; the card lightens and the chevron turns white on hover), then the
+// languages we answer in, with no response time (Kev, 6 Nov). Below lg the form comes first.
+import { BookOpen, ChevronRight, User } from 'lucide-react';
+import { ContactForm } from '@/components/sections/ContactForm';
+import { loginHref } from '@/data/links';
+import type { Section } from '@/data/sections';
+import { siteContent } from '@/data/site';
+import { pathFor, toLocale } from '@/i18n';
+
+interface Props {
+  section: Extract<Section, { kind: 'contact' }>;
+}
+const { form, aside } = Astro.props.section.props;
+const locale = toLocale(Astro.currentLocale);
+const helpHref = pathFor('help', locale);
+const privacyHref = siteContent[locale].footer.legal[0].href;
+const cards = [
+  { ...aside.help, Icon: BookOpen, href: helpHref },
+  { ...aside.login, Icon: User, href: loginHref },
+];
+const label = 'font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase';
+---
+
+<section class="mx-auto grid max-w-300 grid-cols-1 items-start gap-8 px-3 pt-6 pb-14 lg:grid-cols-[1fr_360px] lg:px-6 lg:pb-28">
+  <ContactForm client:load locale={locale} copy={form} privacyHref={privacyHref} helpHref={helpHref} endpoint="/api/contact" />
+
+  <aside class="flex flex-col gap-4 lg:sticky lg:top-28" aria-label={aside.label}>
+    <p class={label}>{aside.label}</p>
+    <ul class="flex flex-col gap-4">
+      {
+        cards.map(({ title, body, Icon, href }) => (
+          <li class="group relative flex items-center gap-3.5 rounded-xl border border-white/10 bg-card p-5 transition-colors duration-150 hover:border-white/20 hover:bg-accent">
+            <span class="flex size-[38px] shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04]">
+              <Icon className="size-[18px] text-foreground" strokeWidth={1.5} aria-hidden="true" />
+            </span>
+            <span class="flex min-w-0 flex-1 flex-col gap-0.5">
+              <a href={href} class="text-base leading-6 text-foreground after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:ring-3 focus-visible:after:ring-ring/50">
+                {title}
+              </a>
+              <span class="text-[13px] leading-[19px] text-muted-foreground">{body}</span>
+            </span>
+            <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-1 flex flex-col gap-1 border-t border-white/10 pt-5">
+      <p class={label}>{aside.language.label}</p>
+      <p class="text-[15px] leading-[22px] text-foreground">{aside.language.value}</p>
+    </div>
+  </aside>
+</section>

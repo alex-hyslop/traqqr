@@ -1,5 +1,5 @@
 import type { CtaAction } from '@klicktipp/traqqr-components';
-import { demoHref, integrationsHref, navLinks, pricingHref, signupHref } from '@/data/links';
+import { contactHref, demoHref, integrationsHref, navLinks, pricingHref, signupHref } from '@/data/links';
 import { pathFor, type Locale } from '@/i18n';
 
 // Content shared by every page, per language, next to the per-page content in data/pages/. Pages, the
@@ -70,7 +70,7 @@ export const siteContent: Record<Locale, SiteContent> = {
           links: [link('Integrationen', integrationsHref('de')), link('Preise', pricingHref('de')), link('Live Feed', pathFor('liveFeed', 'de'))],
         },
         { heading: 'Ressourcen', links: [link('Hilfe-Center', pathFor('help', 'de')), link('Blog')] },
-        { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
+        { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt', contactHref('de')), link('Anmelden', signupHref)] },
       ],
       legal: [link('Datenschutz'), link('AGB'), link('Impressum')],
       copyright: '© 2026 Traqqr.ai. Alle Rechte vorbehalten.',
@@ -103,7 +103,7 @@ export const siteContent: Record<Locale, SiteContent> = {
           links: [link('Integrations', integrationsHref('en')), link('Pricing', pricingHref('en')), link('Live Feed', pathFor('liveFeed', 'en'))],
         },
         { heading: 'Resources', links: [link('Help center', pathFor('help', 'en')), link('Blog')] },
-        { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },
+        { heading: 'Company', links: [link('About'), link('Contact', contactHref('en')), link('Log in', signupHref)] },
       ],
       legal: [link('Privacy'), link('Terms'), link('Imprint')],
       copyright: '© 2026 Traqqr.ai. All rights reserved.',

@@ -24,6 +24,7 @@ export const routes = {
   webinarFunnelTracking: { en: '/webinar-funnel-tracking/', de: '/de/webinar-funnel-tracking/' },
   pricing: { en: '/pricing/', de: '/de/preise/' },
   help: { en: '/help/', de: '/de/help/' },
+  contact: { en: '/contact/', de: '/de/kontakt/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;

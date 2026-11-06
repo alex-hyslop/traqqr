@@ -65,7 +65,7 @@ const chevron = (d: string) => `<svg viewBox="0 0 24 24" width="14" height="14" 
           <a href={item.href}>{item.label}</a>
         ))
       }
-      <a href={supportHref}>{contact}</a>
+      <a href={supportHref(locale)}>{contact}</a>
     </span>
   </div>
 </footer>
