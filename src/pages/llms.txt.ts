@@ -41,6 +41,9 @@ ${faqItems.map((i) => `### ${i.question}\n\n${i.answer}`).join('\n\n')}
 - [Homepage (German)](${new URL(pathFor('home', 'de'), site).href})
 - [Pricing (English)](${new URL(pathFor('pricing', 'en'), site).href})
 - [Pricing (German)](${new URL(pathFor('pricing', 'de'), site).href})
+- [Help Center (English)](${new URL(pathFor('help', 'en'), site).href})
+- [Contact (English)](${new URL(pathFor('contact', 'en'), site).href})
+- [Contact (German)](${new URL(pathFor('contact', 'de'), site).href})
 - [Start a free trial](${siteContent.en.cta.trial.href})
 `;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

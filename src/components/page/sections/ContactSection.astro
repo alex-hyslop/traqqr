@@ -25,7 +25,7 @@ const label = 'font-mono text-xs leading-4 tracking-[0.08em] text-muted-foregrou
 ---
 
 <section class="mx-auto grid max-w-300 grid-cols-1 items-start gap-8 px-3 pt-6 pb-14 lg:grid-cols-[1fr_360px] lg:px-6 lg:pb-28">
-  <ContactForm client:load locale={locale} copy={form} privacyHref={privacyHref} helpHref={helpHref} endpoint="/api/contact" />
+  <ContactForm client:load locale={locale} copy={form} privacyHref={privacyHref} helpHref={helpHref} />
 
   <aside class="flex flex-col gap-4 lg:sticky lg:top-28" aria-label={aside.label}>
     <p class={label}>{aside.label}</p>

@@ -22,6 +22,7 @@ import {
 } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import type { Locale } from '@/i18n';
+import { submitContact } from '@/lib/contact-submit';
 
 export interface ContactFormCopy {
   title: string;
@@ -54,9 +55,6 @@ interface ContactFormProps {
   copy: ContactFormCopy;
   privacyHref: string;
   helpHref: string;
-  /** Where the form posts (multipart). Until the backend is decided (Kev, 6 Nov) nothing answers there, so
-   * a send ends in the "send failed" state. */
-  endpoint: string;
 }
 
 const MAX_LENGTH = 5000;
@@ -79,7 +77,7 @@ async function csvHasFormula(file: File) {
 // default). Errors show on submit, and focus goes to the first invalid field. Attachments are checked as
 // they're added: up to 5, PNG/JPG/GIF up to 10 MB, CSV up to 2 MB without formula cells. Once sent, the
 // card shows a confirmation at the same height, and focus moves to it. Needs hydrating (client:load).
-export function ContactForm({ locale, copy, privacyHref, helpHref, endpoint }: ContactFormProps) {
+export function ContactForm({ locale, copy, privacyHref, helpHref }: ContactFormProps) {
   const id = useId();
   const fileRef = useRef<HTMLInputElement>(null);
   const sentRef = useRef<HTMLDivElement>(null);
@@ -150,14 +148,12 @@ export function ContactForm({ locale, copy, privacyHref, helpHref, endpoint }: C
     // The confirmation keeps the form's height, so the page doesn't jump.
     setHeight(form.offsetHeight);
     setStatus('sending');
-    try {
-      const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-      if (!response.ok) throw new Error(String(response.status));
+    // Sending isn't wired yet (src/lib/contact-submit.ts), so for now this always ends in "send failed".
+    const accepted = await submitContact(data).catch(() => false);
+    if (accepted) {
       setSentTo(email.value.trim());
       setStatus('sent');
-    } catch {
-      setStatus('failed');
-    }
+    } else setStatus('failed');
   };
 
   const card = 'rounded-xl border border-white/10 bg-card p-6 lg:p-8';
