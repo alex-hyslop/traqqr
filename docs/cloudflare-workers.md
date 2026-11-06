@@ -1,6 +1,14 @@
 # The site on Cloudflare Workers
 
-Step 1 of moving staging.traqqr.ai to Cloudflare Workers, 6 Nov 2026. This is the branch `research/cloudflare-workers`, rebuilt on `main`. Vercel stays the live host, and its output doesn't change: the Workers files are only used by `wrangler`.
+Since 6 Nov 2026 the site runs on two hosts from the same `main`:
+- **Vercel:** traqqr.vercel.app, deployed on every push.
+- **Cloudflare:** the Worker `traqqr-site` in the Digital Results International / KlickTipp account, serving **staging.traqqr.ai** (the app stays at `/app/`) and traqqr-site.digital-results-international-klicktipp.workers.dev.
+
+The Workers files (`wrangler.jsonc`, `worker/`, `scripts/cf-assets.mjs`) are only used by `wrangler`; Vercel's build ignores them.
+
+**Deploying to Cloudflare:**
+- **Until Workers Builds is connected:** `npx -y wrangler@4.154.0 deploy` from `main`, after each change. Wrangler reports a route error because our login can't manage routes; that's harmless, since the route was added in the dashboard.
+- **Workers Builds (to set up in the dashboard):** Workers & Pages → `traqqr-site` → Settings → Builds → connect `alex-hyslop/traqqr`, branch `main`, deploy command `npx wrangler deploy`, and the build secret `GITHUB_TOKEN` (read:packages). Every push to `main` then deploys both hosts.
 
 ## How it works
 
@@ -102,7 +110,13 @@ IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app $
 
 **Heads-up for the app team:** the bare staging.traqqr.ai now shows the site. Use `/app/` for the app.
 
-**Still later:** connect Workers Builds, and at launch move traqqr.ai the same way and set `site` in `astro.config.mjs`.
+**Live since 6 Nov:**
+- The DNS record is proxied, and the route is `staging.traqqr.ai/*` → `traqqr-site`.
+- The zone's Redirect Rule "Traqqr.ai root to app" excludes staging: `(http.request.uri.path eq "/" and http.host ne "staging.traqqr.ai")`. Without that exclusion, it would send staging's `/` to `traqqr.ai/app/` before the Worker runs.
+
+**Later:**
+- Connect Workers Builds (above).
+- At launch, move traqqr.ai the same way and set `site` in `astro.config.mjs`.
 
 ## Not carried over from the 28 Oct research
 
