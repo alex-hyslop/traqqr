@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # storybook build output
 storybook-static/
+
+# wrangler local state
+.wrangler/

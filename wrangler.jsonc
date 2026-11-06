@@ -1,0 +1,20 @@
+// The site on Cloudflare Workers (staging.traqqr.ai first). See docs/cloudflare-workers.md.
+// The name is fixed: deploys must never land on the other Workers in the account (traqqr-website, traqqr).
+{
+  "name": "traqqr-site",
+  "main": "./worker/index.js",
+  "compatibility_date": "2026-10-01",
+  // `wrangler deploy` and `wrangler dev` build first: the Astro site, then dist/_headers and dist/_redirects
+  // from vercel.json. The build needs GITHUB_TOKEN (read:packages) for @klicktipp/traqqr-components.
+  "build": { "command": "node_modules/.bin/astro build && node scripts/cf-assets.mjs" },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Unknown URLs get the nearest 404.html with status 404: dist/de/404.html under /de/, else dist/404.html.
+    "not_found_handling": "404-page",
+    // The Worker adds noindex and the staging sign-up link (worker/index.js); the videos skip it.
+    "run_worker_first": ["/*", "!/media/*"]
+  },
+  "workers_dev": true,
+  "preview_urls": false
+}
