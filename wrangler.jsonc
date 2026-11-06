@@ -20,6 +20,8 @@
   // staging.traqqr.ai: the site, with the app's paths passed on to Vercel (worker/index.js). The route only
   // takes effect while the DNS record is proxied through Cloudflare; switching it back to DNS only undoes it.
   "routes": [{ "pattern": "staging.traqqr.ai/*", "zone_name": "traqqr.ai" }],
+  // No Workers Logs: /api/whoami answers with the caller's IP and city, and none of it may be recorded.
+  "observability": { "enabled": false },
   "workers_dev": true,
   "preview_urls": false
 }
