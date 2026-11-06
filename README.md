@@ -48,6 +48,8 @@ The design source is the Figma file `AuTDmsP70q09vix9pojWv0` (homepage `5004:624
 | `pnpm check`           | Type-check with `astro check`            |
 | `pnpm storybook`       | Start Storybook at `localhost:6007`      |
 | `pnpm build-storybook` | Build static Storybook                   |
+| `pnpm cf:dev`          | Build and serve the Workers version at `localhost:8787` (see `docs/cloudflare-workers.md`) |
+| `pnpm cf:parity A B`   | Compare two deployments, e.g. Vercel and Workers |
 
 ## Help Center
 
