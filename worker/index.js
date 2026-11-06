@@ -16,9 +16,16 @@ export default {
   async fetch(request, env) {
     const response = await env.ASSETS.fetch(request);
     const { hostname } = new URL(request.url);
-    if (PRODUCTION.has(hostname)) return response;
-
     const type = response.headers.get('Content-Type') ?? '';
+    // Deployed static assets come without a charset (wrangler dev adds one); Vercel sends utf-8, and llms.txt has umlauts.
+    const contentType = TEXT.test(type) && !/charset/i.test(type) ? `${type}; charset=utf-8` : type;
+    if (PRODUCTION.has(hostname)) {
+      if (contentType === type) return response;
+      const out = new Response(response.body, response);
+      out.headers.set('Content-Type', contentType);
+      return out;
+    }
+
     const html = type.startsWith('text/html');
     const staging = hostname === STAGING;
     let out;
@@ -32,6 +39,7 @@ export default {
     } else {
       out = new Response(response.body, response);
     }
+    if (contentType) out.headers.set('Content-Type', contentType);
     out.headers.set('X-Robots-Tag', 'noindex');
     return out;
   },

@@ -55,15 +55,19 @@ All 20 pages and both 404s have the same status, headers and `<main>` HTML. The 
 | The 301s | no security headers; `Cache-Control: max-age=0` | the security headers; no `Cache-Control` | Workers applies `_headers` to its redirects too. Browsers may cache the 301s, which are permanent. |
 | `.js` content type | `application/javascript` | `text/javascript` | Both are valid; `text/javascript` is the current standard |
 
-## Deploy to workers.dev (Alex)
+## Deploy to workers.dev
+
+Live since 6 Nov at https://traqqr-site.digital-results-international-klicktipp.workers.dev (noindex). Parity against Vercel matches the local run: the same 9 header differences, all listed above.
+
+- **Charset:** deployed static assets come without `charset=utf-8`, unlike `wrangler dev`. The Worker adds it to text responses, so `llms.txt`'s umlauts render correctly.
 
 ```sh
 cd ~/Localdev/traqqr && git switch research/cloudflare-workers
 npx -y wrangler@4.154.0 login                    # if not logged in
 npx -y wrangler@4.154.0 deploy --dry-run         # builds; nothing is uploaded
 npx -y wrangler@4.154.0 deploy                   # creates or updates the Worker "traqqr-site" only
-IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app https://traqqr-site.<subdomain>.workers.dev
-curl -sI https://traqqr-site.<subdomain>.workers.dev/ | grep -i x-robots-tag   # noindex
+IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app https://traqqr-site.digital-results-international-klicktipp.workers.dev
+curl -sI https://traqqr-site.digital-results-international-klicktipp.workers.dev/ | grep -i x-robots-tag   # noindex
 ```
 
 - **Rollback:** `npx -y wrangler@4.154.0 rollback`, or delete the `traqqr-site` Worker. Vercel isn't touched.
