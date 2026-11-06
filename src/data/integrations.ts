@@ -29,8 +29,6 @@ export interface Integration {
   logo: string;
   /** 16px one-colour (white) logo for the nav dropdown. */
   mono: string;
-  /** false: not in the integrations page's hub graphic (and its mobile tiles) yet. Kev decides (6 Nov). */
-  hub?: false;
 }
 
 export const integrations: Integration[] = [
@@ -41,7 +39,7 @@ export const integrations: Integration[] = [
   { name: 'Digistore24', logo: assetUrl(digistore24), mono: assetUrl(digistore24Mono) },
   { name: 'Ablefy', logo: assetUrl(ablefy), mono: assetUrl(ablefyMono) },
   { name: 'EverWebinar', logo: assetUrl(everwebinar), mono: assetUrl(everwebinarMono) },
-  { name: 'WebinarJam', logo: assetUrl(webinarjam), mono: assetUrl(webinarjamMono), hub: false },
+  { name: 'WebinarJam', logo: assetUrl(webinarjam), mono: assetUrl(webinarjamMono) },
   { name: 'Webinaris', logo: assetUrl(webinaris), mono: assetUrl(webinarisMono) },
   { name: 'HubSpot', logo: assetUrl(hubspot), mono: assetUrl(hubspotMono) },
 ];

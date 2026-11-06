@@ -42,7 +42,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           secondaryAction: { label: 'Alle Integrationen', href: '#all-integrations' },
           motion: {
             id: 'integrations-hub',
-            label: 'Neun Tools laufen in Traqqr.ai zusammen: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot und Cloudflare.',
+            label: 'Zehn Tools laufen in Traqqr.ai zusammen: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, WebinarJam, Digistore24, Ablefy, HubSpot und Cloudflare.',
             width: 1200,
           },
           motionGap: 62,
@@ -122,7 +122,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           secondaryAction: { label: 'All integrations', href: '#all-integrations' },
           motion: {
             id: 'integrations-hub',
-            label: 'Nine tools come together in Traqqr.ai: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot and Cloudflare.',
+            label: 'Ten tools come together in Traqqr.ai: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, WebinarJam, Digistore24, Ablefy, HubSpot and Cloudflare.',
             width: 1200,
           },
           motionGap: 62,
