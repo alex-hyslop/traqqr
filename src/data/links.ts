@@ -64,6 +64,8 @@ export const integrationsHref = (locale: Locale) => pathFor('integrations', loca
 export const integrationsStackHref = (locale: Locale) => `${integrationsHref(locale)}#all-integrations`;
 export const pricingHref = (locale: Locale) => pathFor('pricing', locale);
 export const signupHref = 'https://traqqr.ai/app/login';
+/** KlickTipp, for the footer's "Powered by". KlickTipp has no English homepage yet, so both languages use it (Kev to confirm). */
+export const klicktippHref = 'https://www.klicktipp.com';
 export const loginHref = signupHref;
 /** The 2-minute demo video. Until it exists, the homepage's Sunbeam scene, which plays when a link
  * lands on it (Homepage v2 has no "How it works" any more). Absolute so other pages can link to it. */

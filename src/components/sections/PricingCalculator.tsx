@@ -1,7 +1,8 @@
 import { useId, useState } from 'react';
-import { Badge, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@klicktipp/traqqr-components';
+import { Slider } from 'radix-ui';
+import { Badge } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
-import { currency, priceTiers, siteCounts } from '@/data/pricing';
+import { currency, priceTiers } from '@/data/pricing';
 import type { Locale } from '@/i18n';
 
 export interface PricingCalculatorCopy {
@@ -9,7 +10,6 @@ export interface PricingCalculatorCopy {
   title: string;
   lead: string;
   eventsLabel: string;
-  sitesLabel: string;
   hint: string;
   priceLabel: string;
   perMonth: string;
@@ -19,32 +19,27 @@ export interface PricingCalculatorCopy {
 interface PricingCalculatorProps {
   locale: Locale;
   copy: PricingCalculatorCopy;
-  /** Signup; the picked tier is added as ?events=…&sites=…. */
+  /** Signup; the picked tier is added as ?events=…. */
   signupHref: string;
 }
 
 const intlLocale: Record<Locale, string> = { de: 'de-DE', en: 'en-GB' };
+const last = priceTiers.length - 1;
 
-// Pricing calculator (Figma: /preise/ 5307:231, states board 5307:1089). Two Radix Selects, events a month
-// and websites; the price is the tier's price × websites, read from src/data/pricing.ts, and is announced
-// as it changes. The copy says "Events"/"Websites" in each language. Needs hydrating (client:visible).
+// Pricing calculator (Figma: /preise/ 5307:231, states board 5307:1089; Kev, 6 Nov). One Radix Slider over
+// the 17 tiers in src/data/pricing.ts: it moves by tier index, since the tiers aren't evenly spaced, and the
+// price is that tier's (one website). Screen readers get the tier and the price as the slider's value text,
+// so nothing else is announced as it moves. Needs hydrating (client:visible).
 export function PricingCalculator({ locale, copy, signupHref }: PricingCalculatorProps) {
-  const [events, setEvents] = useState(priceTiers[0].events);
-  const [sites, setSites] = useState<number>(siteCounts[0]);
+  const [step, setStep] = useState(0);
   const id = useId();
 
   const count = new Intl.NumberFormat(intlLocale[locale]);
   const money = new Intl.NumberFormat(intlLocale[locale], { style: 'currency', currency, maximumFractionDigits: 0 });
-  const eventsText = (n: number) => (locale === 'de' ? `${count.format(n)} Events` : `${count.format(n)} events`);
-  const sitesText = (n: number) => {
-    const label = n === siteCounts.at(-1) ? `${n}+` : String(n);
-    return locale === 'de' ? `${label} Website${n === 1 ? '' : 's'}` : `${label} website${n === 1 ? '' : 's'}`;
-  };
-
-  const tier = priceTiers.find((t) => t.events === events)!;
-  const price = money.format((tier.priceCents * sites) / 100);
-  const breakdown = locale === 'de' ? `${sitesText(sites)} × ${eventsText(events)} im Monat` : `${sitesText(sites)} × ${eventsText(events)} a month`;
-  const href = `${signupHref}?${new URLSearchParams({ events: String(events), sites: String(sites) })}`;
+  const tier = priceTiers[step];
+  const events = `${count.format(tier.events)} ${locale === 'de' ? 'Events' : 'events'}`;
+  const price = money.format(tier.priceCents / 100);
+  const href = `${signupHref}?${new URLSearchParams({ events: String(tier.events) })}`;
 
   return (
     <div className="flex h-full flex-col gap-6">
@@ -54,54 +49,44 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
       <h2 className="text-3xl leading-10 font-light text-foreground lg:text-[32px]">{copy.title}</h2>
       <p className="text-base leading-6 text-muted-foreground">{copy.lead}</p>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <label id={`${id}-events`} className="text-sm leading-5 text-foreground">
-            {copy.eventsLabel}
-          </label>
-          <Select value={String(events)} onValueChange={(v) => setEvents(Number(v))}>
-            <SelectTrigger aria-labelledby={`${id}-events`} className="w-full">
-              {/* The trigger shows the tier only; the open list adds each tier's price (Figma states board). */}
-              <SelectValue>{eventsText(events)}</SelectValue>
-            </SelectTrigger>
-            <SelectContent position="popper" className="max-h-80">
-              {priceTiers.map((t) => (
-                <SelectItem key={t.events} value={String(t.events)}>
-                  {eventsText(t.events)} · {money.format(t.priceCents / 100)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <div className="flex flex-col">
+        <div className="flex items-baseline justify-between gap-4 text-sm leading-5 text-foreground">
+          <span id={`${id}-events`}>{copy.eventsLabel}</span>
+          <span className="tabular-nums">{events}</span>
         </div>
-        <div className="flex flex-col gap-2">
-          <label id={`${id}-sites`} className="text-sm leading-5 text-foreground">
-            {copy.sitesLabel}
-          </label>
-          <Select value={String(sites)} onValueChange={(v) => setSites(Number(v))}>
-            <SelectTrigger aria-labelledby={`${id}-sites`} className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper">
-              {siteCounts.map((n) => (
-                <SelectItem key={n} value={String(n)}>
-                  {sitesText(n)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* 44px tall on touch screens so the thumb is easy to hit; 16px from lg, as in Figma. */}
+        <Slider.Root
+          value={[step]}
+          onValueChange={([v]) => setStep(v)}
+          min={0}
+          max={last}
+          step={1}
+          className="relative mt-1 flex h-11 w-full touch-none items-center select-none lg:mt-3 lg:h-4"
+        >
+          <Slider.Track className="relative h-1 grow overflow-hidden rounded-full bg-muted">
+            <Slider.Range className="absolute h-full bg-primary" />
+          </Slider.Track>
+          <Slider.Thumb
+            aria-labelledby={`${id}-events`}
+            aria-valuetext={`${events}, ${price} ${copy.perMonth}`}
+            className="block size-3 rounded-full bg-foreground shadow-sm transition-shadow outline-none hover:ring-4 hover:ring-ring/30 focus-visible:ring-4 focus-visible:ring-ring/50"
+          />
+        </Slider.Root>
+        <div className="mt-1 flex justify-between font-mono text-xs leading-[18px] text-muted-foreground tabular-nums lg:mt-3" aria-hidden="true">
+          <span>{count.format(priceTiers[0].events)}</span>
+          <span>{count.format(priceTiers[last].events)}</span>
         </div>
       </div>
 
       <p className="text-[13px] leading-[18px] text-muted-foreground">{copy.hint}</p>
       <hr className="border-white/10" />
 
-      <div className="flex flex-col gap-1.5" aria-live="polite">
+      <div className="flex flex-col gap-1.5">
         <p className="font-mono text-xs leading-4 tracking-[0.06em] text-muted-foreground uppercase">{copy.priceLabel}</p>
         <p className="flex items-baseline gap-2.5 whitespace-nowrap">
           <span className="text-[64px] leading-[72px] font-extralight text-foreground">{price}</span>
           <span className="text-base leading-6 text-muted-foreground">{copy.perMonth}</span>
         </p>
-        <p className="font-mono text-sm leading-5 text-muted-foreground">{breakdown}</p>
       </div>
 
       <div className="mt-auto flex justify-end pt-6">

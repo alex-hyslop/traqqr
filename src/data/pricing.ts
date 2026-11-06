@@ -31,9 +31,6 @@ export const priceTiers: PriceTier[] = [
   { events: 1_000_000, priceCents: 299_900 },
 ];
 
-/** The websites select: 1–4, then "5+", priced as 5 for now (Kev, 5 Nov). */
-export const siteCounts = [1, 2, 3, 4, 5] as const;
-
 export const currency = 'EUR';
 
 /** The trial length, as the backend's TRIAL_DURATION_MS (14 days, confirmed 5 Nov). */
