@@ -1,0 +1,167 @@
+---
+// Fingerprint page §2b, "what Traqqr.ai sees about you" (Kev, 6 Nov: Figma 5350:10 DE, 5350:315 EN, states 5353:25).
+// The card renders idle: dimmed, with no values, and an amber button asking first. Nothing is read, computed
+// or requested before that click (TDDDG §25): the page only ships the click handler, and the fingerprint,
+// the /api/whoami request and the map load after it (src/scripts/live-demo). What can't be read honestly
+// shows "Nicht prüfbar", never a guess. No grid background.
+import { ChevronDown, ChevronUp, FingerprintPattern } from 'lucide-react';
+import { Badge } from '@klicktipp/traqqr-components';
+import { badgeVariants, buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import type { Section } from '@/data/sections';
+import { toLocale } from '@/i18n';
+
+interface Props {
+  section: Extract<Section, { kind: 'liveDemo' }>;
+}
+const { id, eyebrow, title, lead, copy } = Astro.props.section.props;
+const locale = toLocale(Astro.currentLocale);
+
+const label = 'font-mono text-[11px] leading-4 tracking-[0.08em] text-muted-foreground uppercase';
+const cell = 'flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 border-b border-white/10 px-6 py-4';
+const stats = [
+  ['visits', copy.stats.visits],
+  ['incognito', copy.stats.incognito],
+  ['ips', copy.stats.ips],
+  ['locations', copy.stats.locations],
+] as const;
+const rows = [
+  ['ip', copy.rows.ip],
+  ['browser', copy.rows.browser],
+  ['device', copy.rows.device],
+  ['timezone', copy.rows.timezone],
+  ['incognito', copy.rows.incognito],
+  ['vpn', copy.rows.vpn],
+] as const;
+---
+
+<section id={id} aria-labelledby={`${id}-heading`} class="mx-auto max-w-[1200px] px-6 py-14 lg:py-24">
+  <div class="flex flex-col gap-3">
+    <p class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{eyebrow}</p>
+    <h2 id={`${id}-heading`} class="text-3xl leading-9 font-extralight text-foreground lg:text-4xl lg:leading-[48px]">{title}</h2>
+    <p class="text-base leading-6 text-muted-foreground">{lead}</p>
+  </div>
+
+  <div
+    class="live-demo relative mt-10 lg:mt-12"
+    data-live-demo
+    data-state="idle"
+    data-locale={locale}
+    data-copy={JSON.stringify(copy)}
+    data-badge-unknown={badgeVariants({ variant: 'secondary' })}
+  >
+    <div data-card tabindex="-1" aria-label={title} class="overflow-hidden rounded-xl border bg-card outline-none" inert>
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-6 py-4">
+        <p class="flex min-w-0 items-center gap-2.5 text-base leading-6 text-foreground">
+          <FingerprintPattern className="size-5 shrink-0 text-muted-foreground" strokeWidth={1.5} aria-hidden="true" />
+          <span>{copy.hello}</span>
+          <span data-f="id" class="font-mono text-sm tracking-[0.04em] text-foreground">••••••••••••</span>
+        </p>
+        <Badge variant="outline">{copy.badge}</Badge>
+      </div>
+
+      <dl class="grid grid-cols-2 border-b border-white/10 lg:grid-cols-4">
+        {
+          stats.map(([key, name], i) => (
+            <div class:list={['flex flex-col gap-1.5 px-6 py-5', i % 2 === 0 && 'border-r border-white/10', i < 2 && 'border-b border-white/10 lg:border-b-0', i === 1 && 'lg:border-r']}>
+              <dt class={label}>{name}</dt>
+              <dd data-f={`stat-${key}`} class="text-base leading-6 text-foreground">–</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="flex items-center justify-between gap-3 border-b border-white/10 px-6 py-3.5">
+        <h3 class={label}>{copy.recent}</h3>
+        <button type="button" data-clear hidden class="font-mono text-[11px] leading-4 tracking-[0.04em] text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+          {copy.clear}
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-3 border-b border-white/10 px-6 py-4">
+            <div class="flex flex-col">
+              <button type="button" data-newer aria-label={copy.newer} disabled class="rounded p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-30">
+                <ChevronUp className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              </button>
+              <button type="button" data-older aria-label={copy.older} disabled class="rounded p-0.5 text-muted-foreground hover:text-foreground disabled:opacity-30">
+                <ChevronDown className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              </button>
+            </div>
+            <div class="flex min-w-0 flex-col gap-0.5" aria-live="polite">
+              <p data-f="when" class="text-base leading-6 text-foreground">{copy.now}</p>
+              <p data-f="place" class="text-sm leading-5 text-muted-foreground">–</p>
+            </div>
+          </div>
+          <dl class="grid grid-cols-1 sm:grid-cols-2">
+            {
+              rows.map(([key, name], i) => (
+                <div class:list={[cell, i % 2 === 0 && 'sm:border-r']}>
+                  <dt class="text-sm leading-5 text-muted-foreground">{name}</dt>
+                  <dd data-f={key} class:list={['text-sm leading-5 text-foreground', key === 'ip' && 'font-mono']}>–</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+        <div data-map class="relative min-h-[240px] border-white/10 bg-[#141210] max-lg:border-b lg:border-l" role="img" aria-label="">
+          <span data-map-dot class="live-demo-dot absolute top-1/2 left-1/2" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <p class="px-6 py-4 text-sm leading-5 text-muted-foreground">{copy.footer}</p>
+    </div>
+
+    <div data-overlay class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+      <button type="button" data-demo-reveal class={cn(buttonVariants({ size: 'lg' }))}>{copy.reveal}</button>
+      <p class="max-w-[420px] text-xs leading-4 text-muted-foreground">{copy.note}</p>
+    </div>
+    <p data-status class="sr-only" aria-live="polite"></p>
+  </div>
+</section>
+
+<style is:global>
+  .live-demo[data-state='idle'] [data-card] > * {
+    opacity: 0.28;
+  }
+  .live-demo:not([data-state='idle']) [data-overlay] {
+    display: none;
+  }
+  /* Loading: every value is a skeleton bar until it's filled. */
+  .live-demo[data-state='loading'] [data-f] {
+    color: transparent;
+    border-radius: 4px;
+    background: rgb(255 255 255 / 0.08);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .live-demo[data-state='loading'] [data-f] {
+      animation: live-demo-pulse 1.2s ease-in-out infinite;
+    }
+  }
+  @keyframes live-demo-pulse {
+    50% {
+      background: rgb(255 255 255 / 0.14);
+    }
+  }
+  /* The visitor's place: a white dot with a soft halo, never amber. */
+  .live-demo-dot {
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 0 8px rgb(255 255 255 / 0.14), 0 0 24px 10px rgb(255 255 255 / 0.1);
+  }
+  .live-demo [data-map] .maplibregl-ctrl-attrib {
+    background: rgb(12 10 9 / 0.7);
+    color: rgb(255 255 255 / 0.6);
+    font: 10px/16px var(--font-mono, ui-monospace, monospace);
+  }
+  .live-demo [data-map] .maplibregl-ctrl-attrib a {
+    color: inherit;
+  }
+</style>
+
+<script>
+  import '@/scripts/live-demo';
+</script>

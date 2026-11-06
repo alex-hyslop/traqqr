@@ -154,6 +154,35 @@ export interface PricingProps {
   calculator: PricingCalculatorCopy;
 }
 
+/** The fingerprint page's live demo: what the site can see about the visitor, after they ask (Kev, 6 Nov). */
+export interface LiveDemoProps {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  /** Labels and short texts inside the card, in the page's language. */
+  copy: {
+    hello: string;
+    badge: string;
+    reveal: string;
+    note: string;
+    stats: { visits: string; incognito: string; ips: string; locations: string };
+    /** Counts: "{n} Besuch" / "{n} Besuche", and the same for IPs and locations. */
+    units: { visit: [string, string]; ip: [string, string]; location: [string, string] };
+    recent: string;
+    clear: string;
+    now: string;
+    newer: string;
+    older: string;
+    rows: { ip: string; browser: string; device: string; timezone: string; incognito: string; vpn: string };
+    unknown: string;
+    loading: string;
+    loaded: string;
+    map: string;
+    footer: string;
+  };
+}
+
 // The sections a page is built from, in the order the page lists them. Each kind maps to a component
 // in src/components/page/sections; the props are the section's copy, from the page's content file.
 export type Section =
@@ -178,6 +207,7 @@ export type Section =
   | { kind: 'howItWorks'; props: HowItWorksProps }
   | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> & { person?: TestimonialPerson } }
   | { kind: 'pricing'; props: PricingProps }
+  | { kind: 'liveDemo'; props: LiveDemoProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
   /** `background`: Kev's CTA card animation (cta-bg.js), "lock" unless the page says otherwise. */
   | { kind: 'cta'; background?: CtaBackground; props: CtaProps }

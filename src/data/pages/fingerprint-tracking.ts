@@ -4,7 +4,8 @@ import type { Locale } from '@/i18n';
 
 // /fingerprint-tracking/ (Figma: 5228:2 DE, 5236:411 EN; Kev's 3 Nov handover §5). The copy is Kev's, except
 // the motion pieces' screen-reader sentences. The data-protection answer is a placeholder until the legal
-// review (handover §11.4, strategy §12.5), shown in amber as in Figma.
+// review (handover §11.4, strategy §12.5), shown in amber as in Figma. §2b is the live demo (Kev, 6 Nov: Figma
+// 5350:10 DE, 5350:315 EN, states 5353:25).
 
 export const fingerprintTracking: Record<Locale, ContentPage> = {
   de: {
@@ -49,6 +50,36 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
               { label: 'Tag 21 · Laptop', title: 'Kauf', body: 'Kauf am Laptop – zugeordnet zur Anzeige von Tag 1.' },
             ],
             note: 'BEISPIEL',
+          },
+        },
+      },
+      {
+        kind: 'liveDemo',
+        props: {
+          id: 'live-demo',
+          eyebrow: 'Live-Demo',
+          title: 'Das sieht Traqqr.ai gerade über Dich.',
+          // Kev's "Nichts davon wird gespeichert" narrowed: the visits stay in this browser's localStorage.
+          lead: 'Echte Daten aus Deinem Browser, nur für Dich sichtbar. Auf unseren Servern wird nichts davon gespeichert.',
+          copy: {
+            hello: 'Hallo, Besucher-ID',
+            badge: 'Echte Daten · nur für Dich',
+            reveal: 'Zeig mir, was Traqqr.ai sieht',
+            note: 'Läuft in Deinem Browser. Auf unseren Servern wird nichts gespeichert.',
+            stats: { visits: 'Besuche diese Woche', incognito: 'Inkognito', ips: 'IP-Adressen', locations: 'Standorte' },
+            units: { visit: ['Besuch', 'Besuche'], ip: ['IP', 'IPs'], location: ['Standort', 'Standorte'] },
+            recent: 'Deine letzten Besuche',
+            clear: 'Verlauf löschen',
+            now: 'Jetzt',
+            newer: 'Neuerer Besuch',
+            older: 'Älterer Besuch',
+            rows: { ip: 'IP-Adresse', browser: 'Browser', device: 'Gerät', timezone: 'Zeitzone', incognito: 'Inkognito-Modus', vpn: 'VPN' },
+            unknown: 'Nicht prüfbar',
+            loading: 'Wird geladen …',
+            loaded: 'Deine Daten werden angezeigt.',
+            map: 'Karte: {place}',
+            footer:
+              'Erkannt über Fingerprint Tracking, ohne Cookies. Lade die Seite neu oder öffne sie in einem anderen Fenster: Deine Besucher-ID bleibt gleich. Deine Besuche liegen nur in diesem Browser.',
           },
         },
       },
@@ -143,6 +174,35 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
               { label: 'Day 21 · Laptop', title: 'Purchase', body: 'Purchase on the laptop – attributed to the ad from day 1.' },
             ],
             note: 'EXAMPLE',
+          },
+        },
+      },
+      {
+        kind: 'liveDemo',
+        props: {
+          id: 'live-demo',
+          eyebrow: 'Live demo',
+          title: 'This is what Traqqr.ai sees about you right now.',
+          lead: 'Real data from your browser, visible only to you. None of it is stored on our servers.',
+          copy: {
+            hello: 'Hello, visitor ID',
+            badge: 'Real data · only for you',
+            reveal: 'Show me what Traqqr.ai sees',
+            note: 'Runs in your browser. Nothing is stored on our servers.',
+            stats: { visits: 'Visits this week', incognito: 'Incognito', ips: 'IP addresses', locations: 'Locations' },
+            units: { visit: ['visit', 'visits'], ip: ['IP', 'IPs'], location: ['location', 'locations'] },
+            recent: 'Your recent visits',
+            clear: 'Clear history',
+            now: 'Now',
+            newer: 'Newer visit',
+            older: 'Older visit',
+            rows: { ip: 'IP address', browser: 'Browser', device: 'Device', timezone: 'Time zone', incognito: 'Incognito mode', vpn: 'VPN' },
+            unknown: "Can't check",
+            loading: 'Loading …',
+            loaded: 'Your data is shown.',
+            map: 'Map: {place}',
+            footer:
+              'Recognised with fingerprint tracking, without cookies. Reload the page or open it in another window: your visitor ID stays the same. Your visits are kept only in this browser.',
           },
         },
       },
