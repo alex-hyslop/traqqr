@@ -42,6 +42,8 @@ ${faqItems.map((i) => `### ${i.question}\n\n${i.answer}`).join('\n\n')}
 - [Pricing (English)](${new URL(pathFor('pricing', 'en'), site).href})
 - [Pricing (German)](${new URL(pathFor('pricing', 'de'), site).href})
 - [Help Center (English)](${new URL(pathFor('help', 'en'), site).href})
+- [About us (English)](${new URL(pathFor('about', 'en'), site).href})
+- [About us (German)](${new URL(pathFor('about', 'de'), site).href})
 - [Contact (English)](${new URL(pathFor('contact', 'en'), site).href})
 - [Contact (German)](${new URL(pathFor('contact', 'de'), site).href})
 - [Start a free trial](${siteContent.en.cta.trial.href})

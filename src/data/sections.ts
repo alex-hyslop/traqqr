@@ -167,6 +167,22 @@ export interface AnswersProps {
 /** Whose photo the testimonial shows: Dawid (homepage) or the pricing page's placeholder case study. */
 export type TestimonialPerson = 'dawid-przybylski' | 'alex-hyslop';
 
+/** The founder's message: photo, signature and role, and the message card (the About page). */
+export interface FounderProps {
+  name: string;
+  role: string;
+  headline: string;
+  message: string;
+}
+
+/** The About page's journey; the steps themselves are in src/data/about.ts. */
+export interface JourneyProps {
+  eyebrow: string;
+  title: string;
+  /** The trial button on the last step. */
+  action: string;
+}
+
 /** The contact page's form and aside (src/data/pages/contact.ts). */
 export interface ContactProps {
   form: ContactFormCopy;
@@ -240,6 +256,8 @@ export type Section =
   | { kind: 'liveDemo'; props: LiveDemoProps }
   | { kind: 'helpHome'; props: HelpHomeProps }
   | { kind: 'contact'; props: ContactProps }
+  | { kind: 'founder'; props: FounderProps }
+  | { kind: 'journey'; props: JourneyProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
   /** `background`: Kev's CTA card animation (cta-bg.js), "lock" unless the page says otherwise. */
   | { kind: 'cta'; background?: CtaBackground; props: CtaProps }

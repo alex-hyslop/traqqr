@@ -1,0 +1,37 @@
+---
+// Founder message (Figma "Block / Founder message", DE 5396:31422, EN 4689:46864; on the About page 5400:314,
+// mobile 5401:1183): the outline-only HUD frame, the founder's photo with his signature and role, and the
+// message card. No background of its own, so the hero's glow and grid fade into it. Below md the card comes
+// first, then the photo (72px) beside the signature and role.
+import { Image } from 'astro:assets';
+import { Chamfered } from '@klicktipp/traqqr-components';
+import Signature from '@/assets/brand/signature-mario-wolosz.svg';
+import photo from '@/assets/people/mario-wolosz.jpg';
+import type { Section } from '@/data/sections';
+
+interface Props {
+  section: Extract<Section, { kind: 'founder' }>;
+}
+const { name, role, headline, message } = Astro.props.section.props;
+// The HUD frame is desktop only (mobile 5401:1183 has the card on the page).
+const hudDesktopOnly =
+  'lg:px-[120px] lg:py-14 max-lg:[&>.chamfer-accent]:hidden max-lg:[&>.chamfer-edge]:hidden max-lg:[&>.chamfer-surface]:hidden';
+---
+
+<section class="relative mx-auto max-w-360 px-4 pt-2 pb-6 lg:px-6 lg:py-6">
+  <Chamfered cut={32} radius={16} accent={220} fill="none" className={hudDesktopOnly}>
+    <figure class="flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-8">
+      <blockquote class="flex flex-col gap-3 rounded-[14px] border border-white/10 bg-card p-5 lg:order-2 lg:flex-1 lg:p-8">
+        <p class="text-xl leading-7 text-foreground lg:text-2xl lg:leading-8">{headline}</p>
+        <p class="text-base leading-6 text-muted-foreground">{message}</p>
+      </blockquote>
+      <figcaption class="flex items-center gap-3.5 lg:order-1 lg:w-56 lg:shrink-0 lg:flex-col lg:items-start lg:gap-4">
+        <Image src={photo} alt={name} widths={[72, 144, 224, 448]} sizes="(min-width: 1024px) 224px, 72px" class="size-[72px] rounded-xl object-cover lg:size-56" />
+        <span class="flex flex-col gap-1">
+          <Signature role="img" aria-label={name} class="h-[25.6px] w-auto text-foreground lg:h-8" />
+          <span class="font-mono text-sm leading-5 text-muted-foreground">{role}</span>
+        </span>
+      </figcaption>
+    </figure>
+  </Chamfered>
+</section>
