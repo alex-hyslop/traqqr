@@ -9,6 +9,7 @@ import { klicktippTracking } from './klicktipp-tracking';
 import { reverseProxy } from './reverse-proxy';
 import { serverSideTracking } from './server-side-tracking';
 import { webinarFunnelTracking } from './webinar-funnel-tracking';
+import { help } from './help';
 
 // The internal pages (Kev's 3 Nov handover §5), each in both languages. src/pages/[slug].astro and
 // src/pages/en/[slug].astro build one page per entry, at its path in src/i18n.
@@ -28,4 +29,5 @@ export const contentPages: Partial<Record<RouteKey, Record<Locale, ContentPage>>
   serverSideTracking,
   webinarFunnelTracking,
   pricing,
+  help,
 };

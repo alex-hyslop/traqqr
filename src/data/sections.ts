@@ -61,6 +61,24 @@ export interface PageHeroProps {
   cards?: HeroFeature[];
   /** Centred heroes: px between the copy and the piece (default 8, Event Inspector's stage has its own space). */
   motionGap?: number;
+  /** The Help Center home: a search field (Pagefind) and popular searches under the lead (Kev, 6 Nov). */
+  search?: HelpSearchProps;
+}
+
+export interface HelpSearchProps {
+  placeholder: string;
+  popularLabel: string;
+  popular: { label: string; href: string }[];
+}
+
+/** The Help Center home below its hero (Kev, 6 Nov: Figma 5362:11): topics, most read and the support cards. */
+export interface HelpHomeProps {
+  topics: { eyebrow: string; title: string; all: string };
+  popular: { eyebrow: string; title: string };
+  stuck: {
+    support: { title: string; body: string; action: string };
+    docs: { title: string; body: string; action: string };
+  };
 }
 
 /** What a section shows below md in place of a desktop-only motion piece (Kev's mobile rules, 3 Nov). */
@@ -208,6 +226,7 @@ export type Section =
   | { kind: 'testimonial'; props: Omit<TestimonialProps, 'photo' | 'avatar'> & { person?: TestimonialPerson } }
   | { kind: 'pricing'; props: PricingProps }
   | { kind: 'liveDemo'; props: LiveDemoProps }
+  | { kind: 'helpHome'; props: HelpHomeProps }
   | { kind: 'faq'; props: Omit<FaqProps, 'defaultOpen'> }
   /** `background`: Kev's CTA card animation (cta-bg.js), "lock" unless the page says otherwise. */
   | { kind: 'cta'; background?: CtaBackground; props: CtaProps }

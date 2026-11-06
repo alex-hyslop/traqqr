@@ -1,0 +1,30 @@
+---
+// The site's language switcher look (globe + chevron, no flags) for the Help Center's Starlight pages. Both
+// languages have every page at the same slug, so the other language is the same path with or without /de.
+import { localeInfo, locales } from '@/i18n';
+import { helpCopy, helpLocale } from './copy';
+
+const locale = helpLocale(Astro.locals.starlightRoute.locale);
+const path = Astro.url.pathname;
+const pathIn = (target: string) => (target === 'de' ? `/de${path.replace(/^\/de(?=\/)/, '')}` : path.replace(/^\/de(?=\/)/, ''));
+---
+
+<details class="tq-lang">
+  <summary aria-label={helpCopy[locale].language}>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"
+      ><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg
+    >
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+  </summary>
+  <ul>
+    {
+      locales.map((l) => (
+        <li>
+          <a href={pathIn(l)} hreflang={l} lang={l} aria-current={l === locale ? 'true' : undefined}>
+            {localeInfo[l].name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</details>

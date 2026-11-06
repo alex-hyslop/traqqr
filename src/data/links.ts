@@ -34,7 +34,7 @@ export const navLinks: Record<Locale, NavLinks> = {
     ],
     resources: [
       { title: 'Docs', description: 'Setup-Anleitungen und API-Referenz.', href: '#', icon: 'docs' },
-      { title: 'Hilfe-Center', description: 'Antworten auf häufige Fragen.', href: '#', icon: 'help' },
+      { title: 'Hilfe-Center', description: 'Antworten auf häufige Fragen.', href: pathFor('help', 'de'), icon: 'help' },
       { title: 'Blog', description: 'Produkt-News und Tracking-Tipps.', href: '#', icon: 'blog' },
     ],
   },
@@ -52,7 +52,7 @@ export const navLinks: Record<Locale, NavLinks> = {
     ],
     resources: [
       { title: 'Docs', description: 'Set-up guides and API reference.', href: '#', icon: 'docs' },
-      { title: 'Help center', description: 'Answers to common questions.', href: '#', icon: 'help' },
+      { title: 'Help center', description: 'Answers to common questions.', href: pathFor('help', 'en'), icon: 'help' },
       { title: 'Blog', description: 'Product news and tracking tips.', href: '#', icon: 'blog' },
     ],
   },

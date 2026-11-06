@@ -1,0 +1,76 @@
+---
+// Help Center page footer (Kev, 6 Nov): "War dieser Artikel hilfreich?" on articles, the previous / next cards
+// (bordered, with chevrons, no arrows) and a slim legal row. The feedback only says thanks: nothing is sent or
+// stored until there's somewhere to send it.
+import { siteContent } from '@/data/site';
+import { helpCopy, helpLocale, supportHref } from './copy';
+
+const route = Astro.locals.starlightRoute;
+const locale = helpLocale(route.locale);
+const copy = helpCopy[locale];
+const { prev, next } = route.pagination;
+// A topic's first sidebar link is "Overview"; on the cards, name the topic instead.
+const groupOf = (href: string) =>
+  route.sidebar.find((item) => item.type === 'group' && item.entries[0]?.type === 'link' && item.entries[0].href === href)?.label;
+const cardLabel = (link: { href: string; label: string }) => groupOf(link.href) ?? link.label;
+const { legal, copyright } = siteContent[locale].footer;
+const contact = locale === 'de' ? 'Kontakt' : 'Contact';
+const chevron = (d: string) => `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="${d}"/></svg>`;
+---
+
+<footer class="tq-footer">
+  {
+    !route.entry.data.topic && (
+      <div class="tq-feedback" data-feedback>
+        <p>{copy.helpful}</p>
+        <div class="tq-feedback-buttons">
+          <button type="button" class="tq-button" data-answer>{copy.yes}</button>
+          <button type="button" class="tq-button" data-answer>{copy.no}</button>
+        </div>
+        <p class="tq-feedback-thanks" hidden aria-live="polite">{copy.thanks}</p>
+      </div>
+    )
+  }
+  {
+    (prev || next) && (
+      <nav class="tq-pagination" aria-label={`${copy.previous} / ${copy.next}`}>
+        {prev ? (
+          <a href={prev.href} rel="prev" class="tq-card-link">
+            <span class="tq-pagination-label"><Fragment set:html={chevron('m15 18-6-6 6-6')} />{copy.previous}</span>
+            <span class="tq-pagination-title">{cardLabel(prev)}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {next && (
+          <a href={next.href} rel="next" class="tq-card-link tq-next">
+            <span class="tq-pagination-label">{copy.next}<Fragment set:html={chevron('m9 18 6-6-6-6')} /></span>
+            <span class="tq-pagination-title">{cardLabel(next)}</span>
+          </a>
+        )}
+      </nav>
+    )
+  }
+  <div class="tq-legal">
+    <span>{copyright.match(/^© \d{4} Traqqr\.ai/)?.[0] ?? copyright}</span>
+    <span class="tq-legal-links">
+      {
+        legal.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))
+      }
+      <a href={supportHref}>{contact}</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  for (const box of document.querySelectorAll<HTMLElement>('[data-feedback]')) {
+    for (const button of box.querySelectorAll<HTMLButtonElement>('[data-answer]')) {
+      button.addEventListener('click', () => {
+        box.querySelector<HTMLElement>('.tq-feedback-buttons')!.hidden = true;
+        box.querySelector<HTMLElement>('.tq-feedback-thanks')!.hidden = false;
+      });
+    }
+  }
+</script>

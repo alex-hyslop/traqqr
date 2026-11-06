@@ -1,0 +1,112 @@
+---
+// The Help Center home's search (Kev, 6 Nov: Figma 5362:139): our InputGroup look, 640 × 52, with ⌘K. It opens
+// a dialog with Pagefind's search over the Help Center articles (the index Starlight builds, one per
+// language; Pagefind picks it from <html lang>). The search code loads on the first open only. Then the
+// popular searches, as outline buttons linking to their articles.
+import { Kbd } from '@klicktipp/traqqr-components';
+import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import type { HelpSearchProps } from '@/data/sections';
+
+type Props = HelpSearchProps;
+const { placeholder, popularLabel, popular } = Astro.props;
+---
+
+<div class="flex w-full flex-col items-center gap-6">
+  <button
+    type="button"
+    data-help-search
+    class="flex h-12 w-full max-w-[640px] items-center gap-3 rounded-lg border border-input bg-white/[0.04] px-4 text-left text-base text-muted-foreground transition-colors hover:border-white/30 hover:text-foreground lg:h-13"
+  >
+    <svg class="size-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"
+      ><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg
+    >
+    <span class="min-w-0 flex-1 truncate">{placeholder}</span>
+    <Kbd className="hidden md:inline-flex">⌘ K</Kbd>
+  </button>
+  <div class="flex flex-wrap items-center justify-center gap-2">
+    <span class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{popularLabel}</span>
+    {
+      popular.map((item) => (
+        <a href={item.href} class={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}>
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+  <dialog data-help-search-dialog aria-label={placeholder} class="help-search-dialog">
+    <div class="flex items-center justify-end">
+      <button type="button" data-help-search-close class={cn(buttonVariants({ variant: 'ghost', size: 'sm' }))}>Esc</button>
+    </div>
+    <div data-help-search-results></div>
+  </dialog>
+</div>
+
+<style is:global>
+  .help-search-dialog {
+    width: min(720px, calc(100vw - 24px));
+    max-height: min(80vh, 720px);
+    margin: 10vh auto auto;
+    padding: 12px 16px 16px;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--foreground);
+  }
+  .help-search-dialog::backdrop {
+    background: rgb(0 0 0 / 0.6);
+  }
+  .help-search-dialog {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--foreground);
+    --pagefind-ui-text: var(--foreground);
+    --pagefind-ui-background: var(--card);
+    --pagefind-ui-border: rgb(255 255 255 / 0.15);
+    --pagefind-ui-tag: var(--accent);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: var(--font-sans);
+  }
+</style>
+
+<script>
+  // Pagefind's UI is a classic script in /pagefind/ (built with the site), loaded on the first open.
+  let loaded: Promise<void> | null = null;
+  const load = () =>
+    (loaded ??= new Promise<void>((resolve, reject) => {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/pagefind/pagefind-ui.css';
+      document.head.append(css);
+      const script = document.createElement('script');
+      script.src = '/pagefind/pagefind-ui.js';
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error('Pagefind UI failed to load'));
+      document.head.append(script);
+    }));
+
+  for (const trigger of document.querySelectorAll<HTMLButtonElement>('[data-help-search]')) {
+    const root = trigger.parentElement!;
+    const dialog = root.querySelector<HTMLDialogElement>('[data-help-search-dialog]')!;
+    const results = root.querySelector<HTMLElement>('[data-help-search-results]')!;
+    let mounted = false;
+    const open = async () => {
+      dialog.showModal();
+      if (!mounted) {
+        mounted = true;
+        await load();
+        const { PagefindUI } = window as unknown as { PagefindUI: new (options: object) => unknown };
+        new PagefindUI({ element: results, showSubResults: true, showImages: false, autofocus: true });
+      }
+      results.querySelector<HTMLInputElement>('input')?.focus();
+    };
+    trigger.addEventListener('click', open);
+    root.querySelector('[data-help-search-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => event.target === dialog && dialog.close());
+    document.addEventListener('keydown', (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        void open();
+      }
+    });
+  }
+</script>

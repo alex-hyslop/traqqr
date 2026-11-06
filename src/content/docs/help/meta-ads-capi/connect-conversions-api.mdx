@@ -1,0 +1,57 @@
+---
+title: Connect the Meta Conversions API
+description: Add your pixel ID and access token, in 3 steps.
+lastUpdated: 2026-11-04
+section: Setup
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+{/* Kev's example copy for the article layout (6 Nov). Meta's menu names still need checking before launch. */}
+
+With the Conversions API, Traqqr.ai sends your events straight from the server to Meta. So purchases still arrive when the browser blocks the pixel.
+
+## Before you start
+
+<Aside title="Before you start">
+  You need admin access to your Meta Business Manager and a connected domain in Traqqr.ai.
+</Aside>
+
+## Connect the Conversions API
+
+<Steps>
+
+1. **Copy your pixel ID**
+
+   In Meta Events Manager, open your data source and copy the pixel ID.
+
+2. **Create an access token**
+
+   Under "Settings" → "Conversions API", generate an access token.
+
+3. **Add it to Traqqr.ai**
+
+   Go to Integrations → Meta Ads, paste the pixel ID and token, and save.
+
+</Steps>
+
+```json title="Example event"
+{
+  "event_name": "Purchase",
+  "event_id": "tq_8f3k2QxL91Vb",
+  "value": 49.00,
+  "currency": "EUR"
+}
+```
+
+<Aside type="caution" title="Pixel and CAPI at the same time?">
+  Then send the same `event_id` with both, so Meta counts the purchase only once.
+</Aside>
+
+## Check that it works
+
+Open the Live Feed and make a test purchase. The Event Inspector shows whether Meta accepted the event.
+
+## Common errors
+
+"Invalid access token": the token belongs to a different data source. Generate a new one for the right pixel ID.

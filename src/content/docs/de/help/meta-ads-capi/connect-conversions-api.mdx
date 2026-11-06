@@ -1,0 +1,57 @@
+---
+title: Meta Conversions API verbinden
+description: Pixel-ID und Zugriffsschlüssel eintragen, in 3 Schritten.
+lastUpdated: 2026-11-04
+section: Einrichten
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+{/* Kev's example copy for the article layout (6 Nov). Meta's menu names still need checking before launch. */}
+
+Mit der Conversions API schickt Traqqr.ai Deine Events direkt vom Server an Meta. So kommen Käufe auch dann an, wenn der Browser den Pixel blockiert.
+
+## Voraussetzungen
+
+<Aside title="Bevor Du startest">
+  Du brauchst Admin-Zugriff auf Deinen Meta Business Manager und eine verbundene Domain in Traqqr.ai.
+</Aside>
+
+## So verbindest Du die Conversions API
+
+<Steps>
+
+1. **Pixel-ID kopieren**
+
+   Öffne im Meta Events Manager Deine Datenquelle und kopiere die Pixel-ID.
+
+2. **Zugriffsschlüssel erstellen**
+
+   Unter „Einstellungen“ → „Conversions API“ erzeugst Du einen Zugriffsschlüssel.
+
+3. **In Traqqr.ai eintragen**
+
+   Gehe zu Integrationen → Meta Ads, füge Pixel-ID und Schlüssel ein und speichere.
+
+</Steps>
+
+```json title="Beispiel-Event"
+{
+  "event_name": "Purchase",
+  "event_id": "tq_8f3k2QxL91Vb",
+  "value": 49.00,
+  "currency": "EUR"
+}
+```
+
+<Aside type="caution" title="Pixel und CAPI gleichzeitig?">
+  Dann sende bei beiden dieselbe `event_id`, damit Meta den Kauf nur einmal zählt.
+</Aside>
+
+## Prüfen, ob es funktioniert
+
+Öffne den Live Feed und löse einen Test-Kauf aus. Im Event Inspector siehst Du, ob Meta den Event angenommen hat.
+
+## Häufige Fehler
+
+„Ungültiger Zugriffsschlüssel“: Der Schlüssel gehört zu einer anderen Datenquelle. Erzeuge ihn neu für die richtige Pixel-ID.

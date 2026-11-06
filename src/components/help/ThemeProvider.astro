@@ -1,0 +1,8 @@
+---
+// Dark only, like the website (Kev, 6 Nov): no theme picker, and no light mode from the system setting.
+---
+
+<script is:inline>
+  document.documentElement.dataset.theme = 'dark';
+  window.StarlightThemeProvider = { updatePickers() {} };
+</script>

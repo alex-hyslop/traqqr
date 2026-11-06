@@ -1,0 +1,30 @@
+---
+// Help Center header (Kev, 6 Nov: Figma "Article › Header"): the Traqqr logo → the website, "HILFE-CENTER" →
+// the Help Center home, Starlight's Pagefind search, then the language switcher, "Zur Website" and the
+// Dashboard button. On mobile only the logo, label and search stay; the rest moves into the menu drawer.
+import Search from '@astrojs/starlight/components/Search.astro';
+import { TraqqrLogo } from '@/components/brand/TraqqrLogo';
+import { loginHref } from '@/data/links';
+import { helpPath } from '@/data/help';
+import { pathFor } from '@/i18n';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { helpCopy, helpLocale } from './copy';
+
+const locale = helpLocale(Astro.locals.starlightRoute.locale);
+const copy = helpCopy[locale];
+const helpHome = helpPath('', locale);
+---
+
+<div class="tq-header">
+  <div class="tq-brand">
+    <a href={pathFor('home', locale)} class="tq-logo"><TraqqrLogo height={32} /></a>
+    <span class="tq-divider" aria-hidden="true"></span>
+    <a href={helpHome} class="tq-label">{copy.helpCenter}</a>
+  </div>
+  <div class="tq-search"><Search /></div>
+  <div class="tq-actions">
+    <LanguageSwitch />
+    <a href={pathFor('home', locale)} class="tq-link">{copy.website}</a>
+    <a href={loginHref} class="tq-button">{copy.dashboard}</a>
+  </div>
+</div>

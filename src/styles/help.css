@@ -1,0 +1,600 @@
+/*
+ * Help Center (Starlight) in the Traqqr look (Kev, 6 Nov: Figma 5362:10). Starlight's own layout and features,
+ * with its --sl-* variables mapped to our tokens (the library's dark theme) and our overrides styled here.
+ * Dark only. Unlayered, so it wins over Starlight's layered styles. Amber only for links in the article text.
+ */
+:root,
+:root[data-theme='dark'] {
+  --tq-background: #0c0a09;
+  --tq-card: #1c1917;
+  --tq-accent: #292524;
+  --tq-foreground: #fafaf9;
+  --tq-muted: #a6a09b;
+  --tq-border: rgb(255 255 255 / 0.1);
+  --tq-border-strong: rgb(255 255 255 / 0.2);
+  --tq-brand: #ffb74d;
+
+  --sl-font: 'Manrope Variable', ui-sans-serif, sans-serif;
+  --sl-font-mono: 'Space Mono', ui-monospace, monospace;
+  --sl-color-white: var(--tq-foreground);
+  --sl-color-gray-1: #e7e5e4;
+  --sl-color-gray-2: #d6d3d1;
+  --sl-color-gray-3: var(--tq-muted);
+  --sl-color-gray-4: #79716b;
+  --sl-color-gray-5: #44403c;
+  --sl-color-gray-6: var(--tq-accent);
+  --sl-color-gray-7: var(--tq-card);
+  --sl-color-black: var(--tq-background);
+  --sl-color-bg: var(--tq-background);
+  --sl-color-bg-nav: rgb(12 10 9 / 0.8);
+  --sl-color-bg-sidebar: var(--tq-background);
+  --sl-color-bg-inline-code: var(--tq-accent);
+  --sl-color-hairline: var(--tq-border);
+  --sl-color-hairline-light: var(--tq-border);
+  --sl-color-hairline-shade: var(--tq-border);
+  --sl-color-text: var(--tq-muted);
+  --sl-color-text-accent: var(--tq-brand);
+  --sl-color-accent-low: rgb(255 183 77 / 0.12);
+  --sl-color-accent: var(--tq-brand);
+  --sl-color-accent-high: var(--tq-brand);
+  --sl-color-orange: #fbbf24;
+  --sl-color-orange-low: rgb(251 191 36 / 0.08);
+  --sl-color-orange-high: #fbbf24;
+  --sl-color-blue: var(--tq-foreground);
+  --sl-color-blue-low: var(--tq-card);
+  --sl-color-blue-high: var(--tq-foreground);
+  --sl-nav-height: 4rem;
+  --sl-sidebar-width: 17.5rem;
+  --sl-content-width: 45rem;
+  --sl-text-body: 1rem;
+  --sl-line-height: 1.625;
+  color-scheme: dark;
+}
+
+/* Header: logo, HILFE-CENTER, search, then language / website / dashboard. */
+.header {
+  border-bottom: 1px solid var(--tq-border);
+}
+.tq-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+}
+.tq-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.tq-logo,
+.tq-logo > span {
+  display: inline-flex;
+  align-items: center;
+  color: var(--tq-foreground);
+}
+.tq-divider {
+  width: 1px;
+  height: 1.25rem;
+  background: var(--tq-border-strong);
+}
+.tq-label,
+.tq-link {
+  font: 400 0.75rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-foreground);
+  text-decoration: none;
+}
+.tq-link {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 0.8125rem;
+}
+.tq-search {
+  flex: 0 1 25rem;
+  min-width: 0;
+}
+.tq-actions {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  margin-inline-start: auto;
+}
+@media (min-width: 50rem) {
+  .tq-actions {
+    display: flex;
+  }
+}
+@media (max-width: 49.99rem) {
+  .tq-search {
+    margin-inline-start: auto;
+    flex: 0 0 auto;
+  }
+  .tq-divider,
+  .tq-label {
+    display: inline-flex;
+  }
+}
+
+/* Mobile menu toggle: an outline icon button like the search one, not Starlight's filled circle. */
+button.sl-menu-button {
+  background: transparent;
+  border: 1px solid var(--tq-border-strong);
+  border-radius: 0.5rem;
+  color: var(--tq-foreground);
+  box-shadow: none;
+}
+
+/* Outline button (the site's Button outline): mono, 36px, the card's border. */
+.tq-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0 1rem;
+  border: 1px solid var(--tq-border-strong);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--tq-foreground);
+  font: 400 0.875rem/1 var(--sl-font-mono);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.tq-button:hover {
+  background: var(--tq-accent);
+}
+
+/* Search trigger: our InputGroup look (icon, placeholder, ⌘K). */
+site-search button[data-open-modal] {
+  width: 100%;
+  height: 2.25rem;
+  border: 1px solid var(--tq-border-strong);
+  border-radius: 0.5rem;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--tq-muted);
+  font: 400 0.875rem/1 var(--sl-font);
+}
+site-search button[data-open-modal]:hover {
+  border-color: rgb(255 255 255 / 0.3);
+  color: var(--tq-foreground);
+}
+site-search kbd {
+  background: var(--tq-accent);
+  border-radius: 0.25rem;
+  font-family: var(--sl-font-mono);
+}
+site-search dialog {
+  background: var(--tq-card);
+  border: 1px solid var(--tq-border);
+  border-radius: 0.75rem;
+}
+
+/* Language switcher (the site's: globe + chevron, no flags). */
+.tq-lang {
+  position: relative;
+}
+.tq-lang summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 2.25rem;
+  padding: 0 0.625rem;
+  border: 1px solid var(--tq-border);
+  border-radius: 0.5rem;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--tq-foreground);
+  cursor: pointer;
+  list-style: none;
+}
+.tq-lang summary::-webkit-details-marker {
+  display: none;
+}
+.tq-lang ul {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 0.25rem);
+  z-index: 50;
+  min-width: 9rem;
+  margin: 0;
+  padding: 0.25rem;
+  list-style: none;
+  border: 1px solid var(--tq-border);
+  border-radius: 0.5rem;
+  background: var(--tq-card);
+}
+.tq-menu-footer .tq-lang ul {
+  top: auto;
+  bottom: calc(100% + 0.25rem);
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+}
+.tq-lang a {
+  display: block;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  color: var(--tq-muted);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+.tq-lang a:hover,
+.tq-lang a[aria-current] {
+  background: var(--tq-accent);
+  color: var(--tq-foreground);
+}
+.tq-menu-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--tq-border);
+}
+.tq-menu-footer .tq-button {
+  flex: 1;
+}
+
+/* Sidebar: mono caps group labels; links muted, the current one white on bg-white/6 with a 2px white bar. */
+.sidebar-pane {
+  border-inline-end: 1px solid var(--tq-border);
+}
+.sidebar-content .group-label .large {
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+.sidebar-content .caret {
+  display: none;
+}
+.sidebar-content a {
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--tq-muted);
+}
+.sidebar-content a:hover {
+  color: var(--tq-foreground);
+}
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background: rgb(255 255 255 / 0.06);
+  box-shadow: inset 2px 0 0 var(--tq-foreground);
+  color: var(--tq-foreground);
+  font-weight: 400;
+}
+.sidebar-content ul ul li {
+  border-inline-start: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+}
+
+/* No divider between the title and the content (Figma): Starlight draws one between its content panels. */
+.content-panel + .content-panel {
+  border-top: 0;
+}
+.content-panel:first-of-type {
+  padding-bottom: 0;
+}
+
+/* Table of contents: "AUF DIESER SEITE", the current heading white with a 1px white bar. */
+starlight-toc h2,
+mobile-starlight-toc .toggle {
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+starlight-toc ul {
+  border-inline-start: 1px solid var(--tq-border);
+}
+starlight-toc a {
+  padding-inline-start: 0.75rem;
+  color: var(--tq-muted);
+  font-size: 0.8125rem;
+}
+starlight-toc a[aria-current='true'] {
+  color: var(--tq-foreground);
+  box-shadow: inset 1px 0 0 var(--tq-foreground);
+  margin-inline-start: -1px;
+}
+
+/* Title block: topic label, H1 (Manrope 200 48/56), mono meta line, lead. */
+.tq-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.tq-topic,
+.tq-meta,
+.sl-markdown-content .tq-section-label {
+  font: 400 0.75rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+  text-decoration: none;
+  margin: 0;
+}
+.tq-topic:hover {
+  color: var(--tq-foreground);
+}
+.tq-meta {
+  font-size: 0.6875rem;
+}
+.tq-title h1 {
+  margin: 0;
+  font-size: 2.125rem;
+  line-height: 2.625rem;
+  font-weight: 200;
+  color: var(--tq-foreground);
+}
+@media (min-width: 50rem) {
+  .tq-title h1 {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+}
+.tq-lead,
+.sl-markdown-content > p:first-of-type {
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+  color: var(--tq-foreground);
+}
+@media (min-width: 50rem) {
+  .tq-lead,
+  .sl-markdown-content > p:first-of-type {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* Article text: H2 Manrope 300 28/36, body 16/26 muted, links amber. */
+.sl-markdown-content h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 300;
+  color: var(--tq-foreground);
+}
+@media (min-width: 50rem) {
+  .sl-markdown-content h2 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+}
+.sl-markdown-content strong {
+  color: var(--tq-foreground);
+  font-weight: 500;
+}
+.sl-markdown-content a:not(.tq-card-link):not(.tq-button) {
+  color: var(--tq-brand);
+}
+.sl-markdown-content code:not(pre code) {
+  border-radius: 0.25rem;
+  font-family: var(--sl-font-mono);
+  font-size: 0.875em;
+}
+
+/* Asides: our Alert. Note/tip: the card with a white title; caution/danger: amber/red text. */
+.starlight-aside {
+  border: 1px solid var(--tq-border);
+  border-radius: 0.75rem;
+  background: var(--tq-card);
+  padding: 0.75rem 1rem;
+  color: var(--tq-foreground);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+}
+.starlight-aside__title {
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tq-foreground);
+}
+.starlight-aside--caution {
+  background: rgb(251 191 36 / 0.06);
+  border-color: rgb(251 191 36 / 0.25);
+}
+.starlight-aside--caution,
+.starlight-aside--caution .starlight-aside__title {
+  color: #fbbf24;
+}
+.starlight-aside--danger,
+.starlight-aside--danger .starlight-aside__title {
+  color: #f87171;
+}
+
+/* Steps: numbered 28px boxes on a vertical line. */
+.sl-steps > li::before {
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--tq-border-strong);
+  border-radius: 0.375rem;
+  background: var(--tq-card);
+  color: var(--tq-foreground);
+  font: 400 0.75rem/1.75rem var(--sl-font-mono);
+  box-shadow: none;
+}
+.sl-steps > li::after {
+  background: var(--tq-border);
+  width: 1px;
+}
+
+/* Code blocks: the title bar in mono caps. */
+.expressive-code .frame .header .title {
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+
+/* Clickable cards (the Integration Card rule): muted chevron; on hover one step lighter, white chevron. */
+.tq-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.25rem;
+  border: 1px solid var(--tq-border);
+  border-radius: 0.75rem;
+  background: var(--tq-card);
+  color: var(--tq-foreground);
+  text-decoration: none;
+  transition: background-color 150ms, border-color 150ms;
+}
+.tq-card-link:hover {
+  background: var(--tq-accent);
+  border-color: var(--tq-border-strong);
+}
+.tq-card-link svg,
+.tq-card-link .tq-chevron {
+  color: var(--tq-muted);
+  transition: color 150ms;
+  flex-shrink: 0;
+}
+.tq-card-link:hover svg {
+  color: var(--tq-foreground);
+}
+
+/* Topic page: sections of article cards (2 columns), then "Nicht dabei?". */
+.tq-topic-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.tq-topic-articles section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tq-card-grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 50rem) {
+  .tq-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.tq-article-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.tq-article-title svg:first-child {
+  margin-top: 0.25rem;
+}
+.tq-article-title .tq-chevron {
+  margin-inline-start: auto;
+  margin-top: 0.25rem;
+}
+.tq-article-description {
+  padding-inline-start: 1.625rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--tq-muted);
+}
+.tq-missing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--tq-border);
+  border-radius: 0.75rem;
+  background: var(--tq-card);
+  color: var(--tq-muted);
+}
+.tq-missing > div {
+  flex: 1;
+  min-width: 12rem;
+}
+.tq-missing p {
+  margin: 0;
+}
+.tq-missing-title {
+  color: var(--tq-foreground);
+  font-size: 1rem;
+}
+.tq-missing-lead {
+  font-size: 0.875rem;
+}
+
+/* Footer: feedback box, previous / next cards, slim legal row. */
+.tq-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.tq-feedback {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--tq-border);
+  border-radius: 0.75rem;
+  background: var(--tq-card);
+}
+.tq-feedback p {
+  margin: 0;
+  color: var(--tq-foreground);
+}
+.tq-feedback-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.tq-pagination {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 50rem) {
+  .tq-pagination {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.tq-pagination-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font: 400 0.6875rem/1rem var(--sl-font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tq-muted);
+}
+.tq-pagination-title {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.tq-next {
+  align-items: flex-end;
+  text-align: end;
+}
+.tq-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tq-border);
+  font: 400 0.75rem/1rem var(--sl-font-mono);
+  color: var(--tq-muted);
+}
+.tq-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.tq-legal a {
+  color: inherit;
+  text-decoration: none;
+}
+.tq-legal a:hover {
+  color: var(--tq-foreground);
+}

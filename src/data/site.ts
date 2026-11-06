@@ -69,7 +69,7 @@ export const siteContent: Record<Locale, SiteContent> = {
           heading: 'Produkt',
           links: [link('Funktionen'), link('Integrationen', integrationsHref('de')), link('Preise', pricingHref('de')), link('Live Feed', pathFor('liveFeed', 'de'))],
         },
-        { heading: 'Ressourcen', links: [link('Docs'), link('Hilfe-Center'), link('Blog')] },
+        { heading: 'Ressourcen', links: [link('Docs'), link('Hilfe-Center', pathFor('help', 'de')), link('Blog')] },
         { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
       ],
       legal: [link('Datenschutz'), link('AGB'), link('Impressum')],
@@ -102,7 +102,7 @@ export const siteContent: Record<Locale, SiteContent> = {
           heading: 'Product',
           links: [link('Features'), link('Integrations', integrationsHref('en')), link('Pricing', pricingHref('en')), link('Live Feed', pathFor('liveFeed', 'en'))],
         },
-        { heading: 'Resources', links: [link('Docs'), link('Help center'), link('Blog')] },
+        { heading: 'Resources', links: [link('Docs'), link('Help center', pathFor('help', 'en')), link('Blog')] },
         { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },
       ],
       legal: [link('Privacy'), link('Terms'), link('Imprint')],
@@ -111,11 +111,11 @@ export const siteContent: Record<Locale, SiteContent> = {
   },
 };
 
-/** The nav dropdown a page sits in ("Produkt", "Lösungen"), for its breadcrumb (Kev, 5 Nov: the middle crumb
- * is the menu you open to reach the page). Read from the nav's own links, so the two can't disagree; pages
- * with their own menu item (Integrationen, Preise) have none. */
+/** The nav dropdown a page sits in ("Produkt", "Lösungen", "Ressourcen"), for its breadcrumb (Kev, 5 Nov: the
+ * middle crumb is the menu you open to reach the page). Read from the nav's own links, so the two can't
+ * disagree; pages with their own menu item (Integrationen, Preise) have none. */
 export const navSectionFor = (path: string, locale: Locale): string | undefined => {
-  const menus = ['product', 'solutions'] as const;
+  const menus = ['product', 'solutions', 'resources'] as const;
   const menu = menus.find((key) => navLinks[locale][key].some((link) => link.href === path));
   return menu && siteContent[locale].nav[menu];
 };

@@ -1,0 +1,50 @@
+---
+// Help Center page title (Kev, 6 Nov). No visible breadcrumb on Starlight pages: an article shows its topic
+// above the H1 (a link to the topic page), then a mono meta line with the last update and the reading time.
+// A topic page shows its article count instead, then its lead. The breadcrumb is in the head for search
+// engines only (BreadcrumbList: Traqqr › Help Center › topic › article).
+// Starlight's own id for the page title (constants.js isn't exported); its skip link and ToC point at it.
+const PAGE_TITLE_ID = '_top';
+import { helpPath } from '@/data/help';
+import { pathFor } from '@/i18n';
+import { helpCopy, helpLocale } from './copy';
+
+const route = Astro.locals.starlightRoute;
+const { entry, lastUpdated } = route;
+const locale = helpLocale(route.locale);
+const copy = helpCopy[locale];
+const isTopic = entry.data.topic;
+
+// The sidebar group that holds this page: its label is the topic, its first link the topic page.
+const group = route.sidebar.find((item) => item.type === 'group' && item.entries.some((e) => e.type === 'link' && e.isCurrent));
+const groupLinks = group?.type === 'group' ? group.entries.filter((e) => e.type === 'link') : [];
+const topicLink = groupLinks[0];
+
+const date = lastUpdated ? new Intl.DateTimeFormat(locale === 'de' ? 'de-DE' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(lastUpdated) : null;
+const words = entry.body?.replace(/^import .*$/gm, '').replace(/<[^>]+>|\{\/\*[\s\S]*?\*\/\}|[#*`>_-]/g, ' ').split(/\s+/).filter(Boolean).length ?? 0;
+const minutes = Math.max(1, Math.round(words / 200));
+const meta = isTopic
+  ? [copy.articles(groupLinks.length - 1), date && `${copy.updated}: ${date}`]
+  : [date && `${copy.updated}: ${date}`, !entry.data.placeholder && copy.minutes(minutes)];
+
+const site = Astro.site ?? new URL(Astro.url.origin);
+const crumbs = [
+  { name: 'Traqqr', url: new URL(pathFor('home', locale), site).href },
+  { name: copy.helpCenter, url: new URL(helpPath('', locale), site).href },
+  ...(isTopic || !topicLink ? [] : [{ name: group?.label ?? '', url: new URL(topicLink.href, site).href }]),
+  { name: entry.data.title, url: new URL(Astro.url.pathname, site).href },
+];
+const breadcrumbJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((crumb, i) => ({ '@type': 'ListItem', position: i + 1, name: crumb.name, item: crumb.url })),
+}).replace(/</g, '\\u003c');
+---
+
+<div class="tq-title">
+  {!isTopic && topicLink && group && <a class="tq-topic" href={topicLink.href}>{group.label}</a>}
+  <h1 id={PAGE_TITLE_ID}>{entry.data.title}</h1>
+  <p class="tq-meta">{meta.filter(Boolean).join(' · ')}</p>
+  {isTopic && entry.data.description && <p class="tq-lead">{entry.data.description}</p>}
+</div>
+<script type="application/ld+json" set:html={breadcrumbJsonLd} />

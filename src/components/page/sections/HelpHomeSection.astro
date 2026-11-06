@@ -1,0 +1,127 @@
+---
+// The Help Center home below the hero (Kev, 6 Nov: Figma 5362:11 DE, 5369:230 EN, mobile 5370:10).
+// §2 Topics: six cards (icon, title, summary, three articles, "Alle Artikel"); the card is one link to its topic,
+// with the Integration Card behaviour (muted chevron; the card lightens and the chevron turns white on hover).
+// On mobile the cards are compact, without the article lists. §3 Most read: rows with the topic on the right.
+// §4 Still stuck: support and docs, where the button is the link. Titles come from the articles themselves.
+import { getEntry } from 'astro:content';
+import { Activity, BookOpen, ChevronRight, Code, CreditCard, FileText, LifeBuoy, Plug, Rocket, Target } from 'lucide-react';
+import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
+import { supportHref } from '@/components/help/copy';
+import { helpPath, helpTopics, popularArticles } from '@/data/help';
+import type { Section } from '@/data/sections';
+import { toLocale } from '@/i18n';
+
+interface Props {
+  section: Extract<Section, { kind: 'helpHome' }>;
+}
+const { topics: topicsCopy, popular: popularCopy, stuck } = Astro.props.section.props;
+const locale = toLocale(Astro.currentLocale);
+const prefix = locale === 'de' ? 'de/' : '';
+const icons = { rocket: Rocket, code: Code, plug: Plug, target: Target, activity: Activity, 'credit-card': CreditCard };
+
+const entry = async (slug: string) => {
+  const found = await getEntry('docs', `${prefix}help/${slug}`);
+  if (!found) throw new Error(`Help Center: no page for "${slug}" in ${locale}`);
+  return { href: helpPath(slug, locale), title: found.data.title, data: found.data };
+};
+const topics = await Promise.all(
+  helpTopics.map(async (topic) => ({
+    ...topic,
+    page: await entry(topic.slug),
+    featured: await Promise.all(topic.featured.map((slug) => entry(slug.includes('/') ? slug : `${topic.slug}/${slug}`))),
+  })),
+);
+const popular = await Promise.all(
+  popularArticles.map(async ({ article, category }) => ({
+    ...(await entry(article)),
+    category: category?.[locale] ?? helpTopics.find((t) => t.slug === article.split('/')[0])!.label[locale],
+  })),
+);
+const label = 'font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase';
+---
+
+<section aria-labelledby="help-topics-heading" class="mx-auto max-w-300 px-6 pt-14 pb-14 lg:pt-24 lg:pb-24">
+  <p class={label}>{topicsCopy.eyebrow}</p>
+  <h2 id="help-topics-heading" class="mt-3 text-3xl leading-10 font-extralight text-foreground lg:text-4xl lg:leading-[44px]">{topicsCopy.title}</h2>
+  <ul class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:mt-10 lg:grid-cols-3">
+    {
+      topics.map((topic) => {
+        const Icon = icons[topic.icon];
+        return (
+          <li class="group relative flex flex-col rounded-xl border border-white/10 bg-card p-6 transition-colors duration-150 hover:border-white/20 hover:bg-accent">
+            <div class="flex items-start justify-between">
+              <span class="flex size-[42px] items-center justify-center rounded-lg border border-white/10 bg-white/[0.04]">
+                <Icon className="size-5 text-foreground" strokeWidth={1.5} aria-hidden="true" />
+              </span>
+              <ChevronRight className="mt-2.5 size-4 text-muted-foreground transition-colors group-hover:text-foreground" strokeWidth={1.5} aria-hidden="true" />
+            </div>
+            <h3 class="mt-4 text-lg leading-[26px] font-normal text-foreground">
+              <a href={topic.page.href} class="after:absolute after:inset-0 after:rounded-xl focus-visible:outline-none focus-visible:after:ring-3 focus-visible:after:ring-ring/50">
+                {topic.page.title}
+              </a>
+            </h3>
+            <p class="mt-1.5 text-sm leading-5 text-muted-foreground">{topic.page.data.summary}</p>
+            <ul class="relative mt-4 hidden flex-col gap-2.5 border-t border-white/10 pt-4 md:flex">
+              {topic.featured.map((article) => (
+                <li>
+                  <a href={article.href} class="text-sm leading-5 text-foreground/90 hover:text-foreground hover:underline">
+                    {article.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p class={cn(label, 'mt-4 hidden md:block')} aria-hidden="true">{topicsCopy.all}</p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
+
+<section aria-labelledby="help-popular-heading" class="border-t border-white/10">
+  <div class="mx-auto flex max-w-300 flex-col gap-8 px-6 py-14 lg:flex-row lg:gap-20 lg:py-24">
+    <div class="flex flex-col gap-3 lg:w-[360px] lg:shrink-0">
+      <p class={label}>{popularCopy.eyebrow}</p>
+      <h2 id="help-popular-heading" class="text-3xl leading-10 font-extralight text-foreground lg:text-4xl lg:leading-[44px]">{popularCopy.title}</h2>
+    </div>
+    <ul class="flex flex-1 flex-col">
+      {
+        popular.map((article) => (
+          <li class="border-t border-white/10 last:border-b">
+            <a
+              href={article.href}
+              class="-mx-3 flex flex-col-reverse gap-1 rounded-md px-3 py-4 transition-colors hover:bg-accent/50 md:flex-row md:items-center md:justify-between md:gap-6"
+            >
+              <span class="flex items-center gap-3 text-base leading-6 text-foreground">
+                <FileText className="size-4 shrink-0 text-muted-foreground" strokeWidth={1.5} aria-hidden="true" />
+                {article.title}
+              </span>
+              <span class={cn(label, 'text-[11px] md:shrink-0')}>{article.category}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="mx-auto grid max-w-300 grid-cols-1 gap-4 px-6 pb-14 md:grid-cols-2 lg:pb-24">
+  {
+    [
+      { ...stuck.support, Icon: LifeBuoy, href: supportHref },
+      { ...stuck.docs, Icon: BookOpen, href: '#' },
+    ].map(({ title, body, action, Icon, href }) => (
+      <div class="flex flex-col items-start rounded-xl border border-white/10 bg-card p-7">
+        <span class="flex size-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04]">
+          <Icon className="size-[22px] text-foreground" strokeWidth={1.5} aria-hidden="true" />
+        </span>
+        <h2 class="mt-5 text-lg leading-[26px] font-normal text-foreground">{title}</h2>
+        <p class="mt-1.5 text-sm leading-5 text-muted-foreground">{body}</p>
+        <a href={href} class={cn(buttonVariants({ variant: 'outline', size: 'default' }), 'mt-5 max-md:w-full')}>
+          {action}
+        </a>
+      </div>
+    ))
+  }
+</section>

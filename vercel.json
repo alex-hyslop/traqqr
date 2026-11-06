@@ -23,9 +23,23 @@
       }
     },
     {
+      "src": "^/de/hilfe/?$",
+      "status": 301,
+      "headers": {
+        "Location": "/de/help/"
+      }
+    },
+    {
+      "src": "^/de/hilfe/(.*)$",
+      "status": 301,
+      "headers": {
+        "Location": "/de/help/$1"
+      }
+    },
+    {
       "src": "^/(.*)$",
       "headers": {
-        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; font-src 'self' data:; connect-src 'self' https://tiles.openfreemap.org; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; font-src 'self' data:; connect-src 'self' https://tiles.openfreemap.org; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
         "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",

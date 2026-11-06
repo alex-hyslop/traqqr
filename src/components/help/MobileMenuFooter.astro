@@ -1,0 +1,14 @@
+---
+// The mobile menu drawer's footer (Kev, 6 Nov: Figma 5374:347): the language switcher and the Dashboard button,
+// which the header has no room for below md.
+import { loginHref } from '@/data/links';
+import LanguageSwitch from './LanguageSwitch.astro';
+import { helpCopy, helpLocale } from './copy';
+
+const copy = helpCopy[helpLocale(Astro.locals.starlightRoute.locale)];
+---
+
+<div class="tq-menu-footer">
+  <LanguageSwitch />
+  <a href={loginHref} class="tq-button">{copy.dashboard}</a>
+</div>

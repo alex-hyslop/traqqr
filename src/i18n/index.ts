@@ -23,6 +23,7 @@ export const routes = {
   serverSideTracking: { en: '/server-side-conversion-tracking/', de: '/de/server-side-conversion-tracking/' },
   webinarFunnelTracking: { en: '/webinar-funnel-tracking/', de: '/de/webinar-funnel-tracking/' },
   pricing: { en: '/pricing/', de: '/de/preise/' },
+  help: { en: '/help/', de: '/de/help/' },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type RouteKey = keyof typeof routes;
