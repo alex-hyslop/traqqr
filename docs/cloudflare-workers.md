@@ -20,7 +20,7 @@ Step 1 of moving staging.traqqr.ai to Cloudflare Workers, 6 Nov 2026. This is th
   - **One addition not in `vercel.json`:** `/_astro/*` is cached for a year as immutable. Vercel's Astro preset already does this; Workers doesn't by itself.
   - **If it can't translate a route, the build fails.** To change a header or a redirect, edit `vercel.json` only.
 - **404s.** `not_found_handling: "404-page"` serves the nearest `404.html` with status 404: `dist/de/404.html` under `/de/`, otherwise `dist/404.html`. `cf-assets.mjs` checks that this matches the 404 routes in `vercel.json`.
-- **Worker name and account.** Both are fixed in `wrangler.jsonc`: `traqqr-site-staging` in the Digital Results International / KlickTipp account. A deploy can't land on the other Workers there (`traqqr-website`, `traqqr`, and a `traqqr-site` of unknown origin).
+- **Worker name and account.** Both are fixed in `wrangler.jsonc`: `traqqr-site` in the Digital Results International / KlickTipp account, next to `traqqr` and `traqqr-website`. A deploy can't land on those. `traqqr-site` already existed there, empty and with no deployments, and Alex chose it on 6 Nov. Alex's role can deploy to the existing Workers but not create new ones.
 
 ## The private library token
 
@@ -61,14 +61,14 @@ All 20 pages and both 404s have the same status, headers and `<main>` HTML. The 
 cd ~/Localdev/traqqr && git switch research/cloudflare-workers
 npx -y wrangler@4.154.0 login                    # if not logged in
 npx -y wrangler@4.154.0 deploy --dry-run         # builds; nothing is uploaded
-npx -y wrangler@4.154.0 deploy                   # creates or updates the Worker "traqqr-site-staging" only
-IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app https://traqqr-site-staging.<subdomain>.workers.dev
-curl -sI https://traqqr-site-staging.<subdomain>.workers.dev/ | grep -i x-robots-tag   # noindex
+npx -y wrangler@4.154.0 deploy                   # creates or updates the Worker "traqqr-site" only
+IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app https://traqqr-site.<subdomain>.workers.dev
+curl -sI https://traqqr-site.<subdomain>.workers.dev/ | grep -i x-robots-tag   # noindex
 ```
 
-- **Rollback:** `npx -y wrangler@4.154.0 rollback`, or delete the `traqqr-site-staging` Worker. Vercel isn't touched.
+- **Rollback:** `npx -y wrangler@4.154.0 rollback`, or delete the `traqqr-site` Worker. Vercel isn't touched.
 - **Later steps, not part of step 1:**
-  - add `staging.traqqr.ai` as a custom domain of `traqqr-site-staging`
+  - add `staging.traqqr.ai` as a custom domain of `traqqr-site`
   - connect Workers Builds
   - at launch, set `site` in `astro.config.mjs` to `https://traqqr.ai`. The build has the noindex meta for as long as `site` is on `*.vercel.app`, on any host.
 

@@ -1,8 +1,8 @@
 // The site on Cloudflare Workers (staging.traqqr.ai first). See docs/cloudflare-workers.md.
-// The name and account are fixed: deploys must never land on the other Workers in the KlickTipp account
-// (traqqr-website, traqqr, and an existing traqqr-site of unknown origin; Alex, 6 Nov).
+// The name and account are fixed, so deploys never land on the other Workers in the KlickTipp account
+// (traqqr-website, traqqr). traqqr-site existed there empty, with no deployments; Alex chose it on 6 Nov.
 {
-  "name": "traqqr-site-staging",
+  "name": "traqqr-site",
   "account_id": "775cebacef9a5e08e731d69df239ae38", // Digital Results International / KlickTipp
   "main": "./worker/index.js",
   "compatibility_date": "2026-10-01",
