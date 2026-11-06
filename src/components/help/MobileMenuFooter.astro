@@ -1,8 +1,7 @@
 ---
-// The mobile menu drawer's footer (Kev, 6 Nov: Figma 5374:347): the language switcher and the home button in
-// one row, then the Dashboard button, which the header has no room for below md.
+// The mobile menu drawer's footer (Kev, 6 Nov: Figma 5374:347): the language switcher, then the Dashboard
+// button, which the header has no room for below md. The home button sits in the header (Kev, 6 Nov round 2).
 import { loginHref } from '@/data/links';
-import HomeButton from './HomeButton.astro';
 import LanguageSwitch from './LanguageSwitch.astro';
 import { helpCopy, helpLocale } from './copy';
 
@@ -12,7 +11,6 @@ const copy = helpCopy[helpLocale(Astro.locals.starlightRoute.locale)];
 <div class="tq-menu-footer">
   <div class="tq-menu-footer-row">
     <LanguageSwitch />
-    <HomeButton />
   </div>
   <a href={loginHref} class="tq-button">{copy.dashboard}</a>
 </div>

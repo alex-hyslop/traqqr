@@ -2,7 +2,8 @@
 // The Help Center home's search (Kev, 6 Nov: Figma 5362:139): our InputGroup look, 640 × 52, with ⌘K. It opens
 // a dialog with Pagefind's search over the Help Center articles (the index Starlight builds, one per
 // language; Pagefind picks it from <html lang>). The search code loads on the first open only. Then the
-// popular searches, as outline buttons linking to their articles.
+// popular searches, as outline buttons linking to their articles; on mobile the
+// label sits on its own line above them (Kev, 6 Nov).
 import { Kbd } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
 import type { HelpSearchProps } from '@/data/sections';
@@ -23,15 +24,17 @@ const { placeholder, popularLabel, popular } = Astro.props;
     <span class="min-w-0 flex-1 truncate">{placeholder}</span>
     <Kbd className="hidden md:inline-flex">⌘ K</Kbd>
   </button>
-  <div class="flex flex-wrap items-center justify-center gap-2">
+  <div class="flex w-full flex-col items-start gap-2 md:flex-row md:items-center md:justify-center">
     <span class="font-mono text-xs leading-4 tracking-[0.08em] text-muted-foreground uppercase">{popularLabel}</span>
-    {
-      popular.map((item) => (
-        <a href={item.href} class={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}>
-          {item.label}
-        </a>
-      ))
-    }
+    <div class="flex flex-wrap gap-2 md:justify-center">
+      {
+        popular.map((item) => (
+          <a href={item.href} class={cn(buttonVariants({ variant: 'outline', size: 'sm' }))}>
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
   </div>
   <dialog data-help-search-dialog aria-label={placeholder} class="help-search-dialog">
     <div class="flex items-center justify-end">
@@ -51,6 +54,13 @@ const { placeholder, popularLabel, popular } = Astro.props;
     border-radius: 12px;
     background: var(--card);
     color: var(--foreground);
+  }
+  /* Matches look like selected text (Kev, 6 Nov), over Pagefind's reset (mark { all: revert }). */
+  .help-search-dialog .pagefind-ui mark {
+    background: var(--brand);
+    color: var(--brand-foreground);
+    border-radius: 2px;
+    padding: 0 2px;
   }
   .help-search-dialog::backdrop {
     background: rgb(0 0 0 / 0.6);

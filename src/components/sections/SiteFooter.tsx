@@ -50,10 +50,11 @@ export function SiteFooter({ locale = defaultLocale }: SiteFooterProps) {
 
         <Separator />
 
-        {/* Copyright, "Powered by KlickTipp" truly centred, legal links; stacked and centred on mobile. */}
+        {/* Copyright, "Powered by KlickTipp" truly centred, legal links; stacked and centred on mobile,
+            Powered by first (Kev, 6 Nov). */}
         <div className="flex flex-col items-center gap-3 font-mono text-xs leading-4 text-muted-foreground lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-6">
           <p className="text-center lg:text-left">{copyright}</p>
-          <p className="flex items-center gap-2 text-[11px] tracking-[0.08em] uppercase">
+          <p className="order-first flex items-center gap-2 text-[11px] tracking-[0.08em] uppercase lg:order-none">
             Powered by
             <a href={klicktippHref} target="_blank" rel="noopener" aria-label="KlickTipp" className="flex">
               <img src={assetUrl(klicktippLogo)} alt="KlickTipp" width={74} height={20} className="h-5 w-auto" />

@@ -67,7 +67,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       columns: [
         {
           heading: 'Produkt',
-          links: [link('Funktionen'), link('Integrationen', integrationsHref('de')), link('Preise', pricingHref('de')), link('Live Feed', pathFor('liveFeed', 'de'))],
+          links: [link('Integrationen', integrationsHref('de')), link('Preise', pricingHref('de')), link('Live Feed', pathFor('liveFeed', 'de'))],
         },
         { heading: 'Ressourcen', links: [link('Hilfe-Center', pathFor('help', 'de')), link('Blog')] },
         { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
@@ -100,7 +100,7 @@ export const siteContent: Record<Locale, SiteContent> = {
       columns: [
         {
           heading: 'Product',
-          links: [link('Features'), link('Integrations', integrationsHref('en')), link('Pricing', pricingHref('en')), link('Live Feed', pathFor('liveFeed', 'en'))],
+          links: [link('Integrations', integrationsHref('en')), link('Pricing', pricingHref('en')), link('Live Feed', pathFor('liveFeed', 'en'))],
         },
         { heading: 'Resources', links: [link('Help center', pathFor('help', 'en')), link('Blog')] },
         { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },
