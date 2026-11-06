@@ -71,10 +71,38 @@ curl -sI https://traqqr-site.digital-results-international-klicktipp.workers.dev
 ```
 
 - **Rollback:** `npx -y wrangler@4.154.0 rollback`, or delete the `traqqr-site` Worker. Vercel isn't touched.
-- **Later steps, not part of step 1:**
-  - add `staging.traqqr.ai` as a custom domain of `traqqr-site`
-  - connect Workers Builds
-  - at launch, set `site` in `astro.config.mjs` to `https://traqqr.ai`. The build has the noindex meta for as long as `site` is on `*.vercel.app`, on any host.
+## staging.traqqr.ai: the site and the app on one host
+
+staging.traqqr.ai is the app's staging (Vercel project `traqqr.ai`, behind Vercel's login). The site takes the host over by path. The app keeps everything under `/app`, which is its basePath (on traqqr.ai every other path is a 404).
+
+- **The Worker** passes `/app`, `/app/*`, `/_vercel/*` and `/.well-known/*` on to the origin (Vercel) unchanged, with the same host and cookies, so Vercel's login keeps working. Every other path is the site: noindex, with the sign-up link on `/app/login`.
+- **The route** `staging.traqqr.ai/*` → `traqqr-site` is in `wrangler.jsonc`. It only runs while the DNS record is proxied.
+- **Tested locally on 6 Nov** with `wrangler dev --local-upstream staging.traqqr.ai --upstream-protocol https`:
+  - The app paths returned Vercel's own login redirect, exactly as staging does today.
+  - `/`, `/de/` and `/pricing/` were the site.
+  - `/apple` and `/de/nope` were the site's 404s.
+
+### Switching it on
+
+1. **Deploy** the Worker with the route: `npx -y wrangler@4.154.0 deploy`. While the record is DNS only, nothing changes for visitors.
+2. **Proxy the record:** Cloudflare → traqqr.ai → DNS → `staging`: from DNS only to **Proxied**, with the same target.
+3. **Check:**
+
+```sh
+S=https://staging.traqqr.ai
+curl -sI $S/ | grep -iE '^HTTP|x-robots|^server'                  # 200, x-robots-tag: noindex, server: cloudflare
+curl -sI $S/app/login | grep -iE '^HTTP|^location|^server'         # 302 to vercel.com/sso-api, as before the switch
+curl -s $S/pricing/ | grep -o 'href="/app/login[^"]*"' | sort -u   # the sign-up links stay on staging
+IGNORE_HEADERS='x-robots-tag' bash scripts/parity.sh https://traqqr.vercel.app $S
+```
+
+   Then log in to the app at `$S/app/` in a browser to check that Vercel's login wall still lets you in.
+
+4. **Rollback:** switch the record back to **DNS only**. Staging is then exactly as before, within seconds. Removing the route also works.
+
+**Heads-up for the app team:** the bare staging.traqqr.ai now shows the site. Use `/app/` for the app.
+
+**Still later:** connect Workers Builds, and at launch move traqqr.ai the same way and set `site` in `astro.config.mjs`.
 
 ## Not carried over from the 28 Oct research
 

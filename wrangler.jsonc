@@ -17,6 +17,9 @@
     // The Worker adds noindex and the staging sign-up link (worker/index.js); the videos skip it.
     "run_worker_first": ["/*", "!/media/*"]
   },
+  // staging.traqqr.ai: the site, with the app's paths passed on to Vercel (worker/index.js). The route only
+  // takes effect while the DNS record is proxied through Cloudflare; switching it back to DNS only undoes it.
+  "routes": [{ "pattern": "staging.traqqr.ai/*", "zone_name": "traqqr.ai" }],
   "workers_dev": true,
   "preview_urls": false
 }
