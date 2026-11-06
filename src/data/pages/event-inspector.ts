@@ -7,7 +7,7 @@ import type { Locale } from '@/i18n';
 
 export const eventInspector: Record<Locale, ContentPage> = {
   de: {
-    title: 'Event Inspector · Traqqr',
+    title: 'Event Inspector · Traqqr.ai',
     description: 'Ein Parameter an der URL – und Du prüfst jedes Pixel-Event, ohne Entwickler-Tools.',
     sections: [
       {
@@ -70,7 +70,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
             {
               question: 'Was ist der Event Inspector?',
               answer:
-                'Ein Werkzeug in Traqqr, mit dem Du Meta-Pixel-Events auf Deiner Seite erfasst und ihre Payload im Detail prüfst – Event für Event, Parameter für Parameter.',
+                'Ein Werkzeug in Traqqr.ai, mit dem Du Meta-Pixel-Events auf Deiner Seite erfasst und ihre Payload im Detail prüfst – Event für Event, Parameter für Parameter.',
             },
             {
               question: 'Wie starte ich den Inspector?',
@@ -95,7 +95,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Event Inspector · Traqqr',
+    title: 'Event Inspector · Traqqr.ai',
     description: 'One parameter on the URL – and you check every pixel event, without developer tools.',
     sections: [
       {
@@ -158,7 +158,7 @@ export const eventInspector: Record<Locale, ContentPage> = {
             {
               question: 'What is the Event Inspector?',
               answer:
-                'A tool in Traqqr that captures the Meta Pixel events on your site and lets you check their payload in detail – event by event, parameter by parameter.',
+                'A tool in Traqqr.ai that captures the Meta Pixel events on your site and lets you check their payload in detail – event by event, parameter by parameter.',
             },
             {
               question: 'How do I start the Inspector?',

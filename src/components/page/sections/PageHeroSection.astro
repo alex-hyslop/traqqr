@@ -98,7 +98,7 @@ const hudOff = 'lg:p-0 lg:[&>.chamfer-accent]:hidden lg:[&>.chamfer-edge]:hidden
       {
         motion?.id === 'integrations-hub' && (
           <ul class="flex flex-wrap gap-3 md:hidden" aria-hidden="true">
-            {integrations.map((integration) => (
+            {integrations.filter((integration) => integration.hub !== false).map((integration) => (
               <li class="logo-tile flex size-[58px] items-center justify-center rounded-xl border border-(--card-media-border) p-1">
                 <img src={integration.logo} alt="" width={48} height={48} class="size-12" />
               </li>

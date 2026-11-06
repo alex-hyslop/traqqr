@@ -73,7 +73,7 @@ export const siteContent: Record<Locale, SiteContent> = {
         { heading: 'Unternehmen', links: [link('Über uns'), link('Kontakt'), link('Anmelden', signupHref)] },
       ],
       legal: [link('Datenschutz'), link('AGB'), link('Impressum')],
-      copyright: '© 2026 Traqqr. Alle Rechte vorbehalten.',
+      copyright: '© 2026 Traqqr.ai. Alle Rechte vorbehalten.',
     },
   },
   en: {
@@ -106,7 +106,7 @@ export const siteContent: Record<Locale, SiteContent> = {
         { heading: 'Company', links: [link('About'), link('Contact'), link('Log in', signupHref)] },
       ],
       legal: [link('Privacy'), link('Terms'), link('Imprint')],
-      copyright: '© 2026 Traqqr. All rights reserved.',
+      copyright: '© 2026 Traqqr.ai. All rights reserved.',
     },
   },
 };

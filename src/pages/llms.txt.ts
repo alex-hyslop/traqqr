@@ -9,9 +9,9 @@ import { pathFor } from '@/i18n';
 // same copy as the English homepage so it can't drift. Add a line per page as pages are added.
 export const GET: APIRoute = ({ site }) => {
   const faqItems = homePages.en.sections.flatMap((section) => (section.kind === 'faq' ? section.props.items : []));
-  const body = `# Traqqr
+  const body = `# Traqqr.ai
 
-> Real-time tracking, attribution and insights for Meta Ads. Traqqr sends every visit, lead and sale to Meta from your server as well as the browser, so ad blockers and cookie banners stop costing you conversions.
+> Real-time tracking, attribution and insights for Meta Ads. Traqqr.ai sends every visit, lead and sale to Meta from your server as well as the browser, so ad blockers and cookie banners stop costing you conversions.
 
 ## What it does
 

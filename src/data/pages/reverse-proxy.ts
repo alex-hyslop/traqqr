@@ -12,7 +12,7 @@ const rows = (labels: string[]) =>
 
 export const reverseProxy: Record<Locale, ContentPage> = {
   de: {
-    title: 'Reverse Proxy · Traqqr',
+    title: 'Reverse Proxy · Traqqr.ai',
     description:
       'Der Reverse Proxy leitet Tracking über Deine eigene Domain – für mehr Datenqualität und mehr Widerstand gegen Adblocker. Per Klick über Cloudflare bereitgestellt.',
     sections: [
@@ -26,7 +26,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
           secondaryAction: { label: "So funktioniert's", href: '#' },
           motion: {
             id: 'proxy-flow',
-            label: 'Ein Request geht vom Browser über track.deineseite.de zu Traqqr und weiter an Meta.',
+            label: 'Ein Request geht vom Browser über track.deineseite.de zu Traqqr.ai und weiter an Meta.',
             width: 520,
           },
         },
@@ -60,9 +60,9 @@ export const reverseProxy: Record<Locale, ContentPage> = {
           eyebrow: 'Cloudflare',
           title: 'Kein Server. Kein Entwickler. Ein Klick.',
           steps: [
-            { number: '01', title: 'Konto verbinden', body: 'Deinen Cloudflare-Account mit Traqqr verbinden.' },
+            { number: '01', title: 'Konto verbinden', body: 'Deinen Cloudflare-Account mit Traqqr.ai verbinden.' },
             { number: '02', title: 'Domain wählen', body: 'Die Domain Deiner Seite für den Proxy festlegen.' },
-            { number: '03', title: 'Per Klick live', body: 'Traqqr stellt den Proxy für Dich bereit.' },
+            { number: '03', title: 'Per Klick live', body: 'Traqqr.ai stellt den Proxy für Dich bereit.' },
           ],
         },
       },
@@ -80,7 +80,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
             },
             {
               question: 'Brauche ich Cloudflare?',
-              answer: 'Ja. Traqqr stellt den Proxy über Deinen Cloudflare-Account bereit, per Klick und ohne eigenen Server.',
+              answer: 'Ja. Traqqr.ai stellt den Proxy über Deinen Cloudflare-Account bereit, per Klick und ohne eigenen Server.',
             },
             { question: 'Kann ich den Proxy wieder deaktivieren?', answer: 'Ja, jederzeit pro Domain in den Einstellungen Deiner Seite.' },
           ],
@@ -99,7 +99,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Reverse proxy · Traqqr',
+    title: 'Reverse proxy · Traqqr.ai',
     description:
       'The reverse proxy routes tracking through your own domain – for better data quality and more resistance to ad blockers. Deployed in one click via Cloudflare.',
     sections: [
@@ -113,7 +113,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
           secondaryAction: { label: 'How it works', href: '#' },
           motion: {
             id: 'proxy-flow',
-            label: 'A request travels from the browser through track.yoursite.com to Traqqr and on to Meta.',
+            label: 'A request travels from the browser through track.yoursite.com to Traqqr.ai and on to Meta.',
             width: 520,
           },
         },
@@ -147,9 +147,9 @@ export const reverseProxy: Record<Locale, ContentPage> = {
           eyebrow: 'Cloudflare',
           title: 'No server. No developer. One click.',
           steps: [
-            { number: '01', title: 'Connect your account', body: 'Connect your Cloudflare account to Traqqr.' },
+            { number: '01', title: 'Connect your account', body: 'Connect your Cloudflare account to Traqqr.ai.' },
             { number: '02', title: 'Choose a domain', body: 'Set the domain of your site for the proxy.' },
-            { number: '03', title: 'Live in one click', body: 'Traqqr deploys the proxy for you.' },
+            { number: '03', title: 'Live in one click', body: 'Traqqr.ai deploys the proxy for you.' },
           ],
         },
       },
@@ -167,7 +167,7 @@ export const reverseProxy: Record<Locale, ContentPage> = {
             },
             {
               question: 'Do I need Cloudflare?',
-              answer: 'Yes. Traqqr deploys the proxy through your Cloudflare account, in one click and without a server of your own.',
+              answer: 'Yes. Traqqr.ai deploys the proxy through your Cloudflare account, in one click and without a server of your own.',
             },
             { question: 'Can I turn the proxy off again?', answer: "Yes, any time, per domain, in your site's settings." },
           ],

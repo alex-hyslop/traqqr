@@ -8,7 +8,7 @@ import type { Locale } from '@/i18n';
 
 export const fingerprintTracking: Record<Locale, ContentPage> = {
   de: {
-    title: 'Fingerprint Tracking · Traqqr',
+    title: 'Fingerprint Tracking · Traqqr.ai',
     description:
       'Fingerprint Tracking verbindet Geräte, Sessions und Touchpoints zu einer 360°-Sicht – damit der Kauf am Laptop zur Anzeige auf dem Handy passt.',
     sections: [
@@ -22,7 +22,7 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
           secondaryAction: { label: "So funktioniert's", href: '#' },
           motion: {
             id: 'fingerprint-360',
-            label: 'Handy, Tablet und Laptop laufen in Traqqr zu einer Identität zusammen: Ad-Klick an Tag 1, Webinar an Tag 6, Kauf an Tag 21.',
+            label: 'Handy, Tablet und Laptop laufen in Traqqr.ai zu einer Identität zusammen: Ad-Klick an Tag 1, Webinar an Tag 6, Kauf an Tag 21.',
             width: 600,
           },
         },
@@ -102,7 +102,7 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Fingerprint tracking · Traqqr',
+    title: 'Fingerprint tracking · Traqqr.ai',
     description:
       'Fingerprint tracking connects devices, sessions and touchpoints into a 360° view – so the purchase on the laptop matches the ad on the phone.',
     sections: [
@@ -116,7 +116,7 @@ export const fingerprintTracking: Record<Locale, ContentPage> = {
           secondaryAction: { label: 'How it works', href: '#' },
           motion: {
             id: 'fingerprint-360',
-            label: 'Phone, tablet and laptop come together in Traqqr as one identity: ad click on day 1, webinar on day 6, purchase on day 21.',
+            label: 'Phone, tablet and laptop come together in Traqqr.ai as one identity: ad click on day 1, webinar on day 6, purchase on day 21.',
             width: 600,
           },
         },

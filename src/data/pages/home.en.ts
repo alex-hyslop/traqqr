@@ -8,9 +8,9 @@ import { siteContent } from '@/data/site';
 const { trial, demo } = siteContent.en.cta;
 
 export const homeEn: HomePage = {
-  title: 'Traqqr · Ad, conversion and fingerprint tracking for long funnels',
+  title: 'Traqqr.ai · Ad, conversion and fingerprint tracking for long funnels',
   description:
-    'Traqqr shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers.',
+    'Traqqr.ai shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers.',
   features: [
     'Ad tracking: the campaign, ad and creative behind the first click',
     'Server-side conversion tracking',
@@ -23,7 +23,7 @@ export const homeEn: HomePage = {
       kind: 'hero',
       props: {
         title: ['Which ad really brought', 'you that customer?'],
-        lead: 'Traqqr shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers – natively connected to KlickTipp, Digistore24, HubSpot and Webinaris.',
+        lead: 'Traqqr.ai shows you, across weeks, devices and every touchpoint, which campaign, ad or creative really brings customers – natively connected to KlickTipp, Digistore24, HubSpot and Webinaris.',
         features: [
           { eyebrow: '01 / AD TRACKING', title: 'First click identified.', body: 'Which campaign, ad or creative brought the first click.' },
           { eyebrow: '02 / CONVERSION TRACKING', title: 'Events, server-side.', body: 'Key events and purchases, captured on the server.' },
@@ -77,7 +77,7 @@ export const homeEn: HomePage = {
           { number: '05', label: 'CALL', title: 'Cross-device', body: 'Fingerprint tracking joins devices, sessions\nand touchpoints.' },
           { number: '06', label: 'PURCHASE', title: 'Digistore24', body: 'The sale weeks later is credited to the ad that started it.' },
         ],
-        action: { label: 'How Traqqr works', href: demo.href },
+        action: { label: 'How Traqqr.ai works', href: demo.href },
       },
     },
     {
@@ -85,7 +85,7 @@ export const homeEn: HomePage = {
       props: {
         id: 'testimonial',
         badge: 'Customers',
-        title: 'Teams that track with Traqqr',
+        title: 'Teams that track with Traqqr.ai',
         quote: [
           '“Since we started using traqqr.ai, our processes run far',
           'more reliably. Errors are caught early and our team always',
@@ -100,7 +100,7 @@ export const homeEn: HomePage = {
       kind: 'howItWorks',
       props: {
         id: 'why-traqqr',
-        badge: 'Why Traqqr',
+        badge: 'Why Traqqr.ai',
         title: 'Live faster. Easier to use.',
         lead: 'Pro-grade tracking without an enterprise price or a sales call.',
         steps: [
@@ -121,27 +121,27 @@ export const homeEn: HomePage = {
         // Figma 5212:17946; the answers are Kev's (5 Nov testimonial-band/FAQ note).
         items: [
           {
-            question: 'What is Traqqr?',
+            question: 'What is Traqqr.ai?',
             answer:
-              'Traqqr is an ad, conversion and fingerprint tracking solution for German-speaking funnel marketers. It connects ad clicks, website events, opt-ins, webinars, calls and purchases across longer customer journeys.',
+              'Traqqr.ai is an ad, conversion and fingerprint tracking solution for German-speaking funnel marketers. It connects ad clicks, website events, opt-ins, webinars, calls and purchases across longer customer journeys.',
           },
           {
-            question: 'What is Traqqr used for?',
+            question: 'What is Traqqr.ai used for?',
             answer:
-              'To see which ad really brings in sales, even when the purchase comes weeks after the click. Traqqr sends conversions to Meta from the server, adds source, campaign and ad as tags to your KlickTipp contacts, and shows you every event live in the feed.',
+              'To see which ad really brings in sales, even when the purchase comes weeks after the click. Traqqr.ai sends conversions to Meta from the server, adds source, campaign and ad as tags to your KlickTipp contacts, and shows you every event live in the feed.',
           },
           {
-            question: 'How is Traqqr different from pixel or GA4 tracking?',
+            question: 'How is Traqqr.ai different from pixel or GA4 tracking?',
             answer:
-              'The pixel and GA4 run in the browser, where ad blockers, short cookie lifetimes and switching devices can cost you data. Traqqr captures events through your own subdomain, sends them from the server and connects visits across devices. That way a purchase stays attributed to the ad that drove it.',
+              'The pixel and GA4 run in the browser, where ad blockers, short cookie lifetimes and switching devices can cost you data. Traqqr.ai captures events through your own subdomain, sends them from the server and connects visits across devices. That way a purchase stays attributed to the ad that drove it.',
           },
           {
-            question: 'How does Traqqr work with KlickTipp?',
+            question: 'How does Traqqr.ai work with KlickTipp?',
             answer:
-              'Traqqr connects natively to KlickTipp. Every contact gets source, campaign and ad as tags, and later purchases are attributed to the original ad. So you can build segments and follow-ups by where people came from.',
+              'Traqqr.ai connects natively to KlickTipp. Every contact gets source, campaign and ad as tags, and later purchases are attributed to the original ad. So you can build segments and follow-ups by where people came from.',
           },
           {
-            question: 'Who is Traqqr for?',
+            question: 'Who is Traqqr.ai for?',
             answer:
               'Marketers, coaches and agencies with long funnels: webinars, calls and high-ticket offers, where days or weeks pass between the click and the purchase. Especially if you run Meta Ads and work with KlickTipp.',
           },

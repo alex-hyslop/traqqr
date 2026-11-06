@@ -28,9 +28,9 @@ const tabs = {
 
 export const integrationsPage: Record<Locale, ContentPage> = {
   de: {
-    title: 'Integrationen · Traqqr',
+    title: 'Integrationen · Traqqr.ai',
     description:
-      'Ads, E-Mail, Webinar, Verkauf und CRM – Traqqr verbindet die Tools, die Du schon nutzt, und ordnet jeden Schritt der richtigen Anzeige zu.',
+      'Ads, E-Mail, Webinar, Verkauf und CRM – Traqqr.ai verbindet die Tools, die Du schon nutzt, und ordnet jeden Schritt der richtigen Anzeige zu.',
     sections: [
       {
         kind: 'pageHero',
@@ -38,11 +38,11 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Integrationen' },
           title: ['Ein Hub für Deinen', 'ganzen Funnel.'],
-          lead: 'Ads, E-Mail, Webinar, Verkauf und CRM – Traqqr verbindet die Tools, die Du schon nutzt, und ordnet jeden Schritt der richtigen Anzeige zu.',
+          lead: 'Ads, E-Mail, Webinar, Verkauf und CRM – Traqqr.ai verbindet die Tools, die Du schon nutzt, und ordnet jeden Schritt der richtigen Anzeige zu.',
           secondaryAction: { label: 'Alle Integrationen', href: '#all-integrations' },
           motion: {
             id: 'integrations-hub',
-            label: 'Neun Tools laufen in Traqqr zusammen: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot und Cloudflare.',
+            label: 'Neun Tools laufen in Traqqr.ai zusammen: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot und Cloudflare.',
             width: 1200,
           },
           motionGap: 62,
@@ -52,7 +52,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
         kind: 'integrationsGrid',
         props: {
           id: 'all-integrations',
-          eyebrow: '9 Integrationen',
+          eyebrow: '10 Integrationen',
           title: 'Wähle Deinen Stack.',
           tabs: tabs.de,
           href: '#',
@@ -61,6 +61,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
             { name: 'Digistore24', badge: 'Verkauf', category: 'sales', description: 'Käufe mit Betrag zurück zur Anzeige, die sie ausgelöst hat.' },
             { name: 'Webinaris', badge: 'Webinar', category: 'webinar', description: 'Anmeldung und Teilnahme, der richtigen Anzeige zugeordnet.' },
             { name: 'EverWebinar', badge: 'Webinar', category: 'webinar', description: 'Registrierungen aus automatisierten Webinaren tracken.' },
+            { name: 'WebinarJam', badge: 'Webinar', category: 'webinar', description: 'Anmeldungen und Teilnahmen aus Live-Webinaren tracken.' },
             { name: 'HubSpot', badge: 'CRM', category: 'crm', description: 'Leads und Deals mit der Kampagne dahinter.' },
             { name: 'Ablefy', badge: 'Verkauf', category: 'sales', description: 'Verkäufe aus Ablefy serverseitig erfasst.' },
             { name: 'Meta Ads', badge: 'Ads', category: 'ads', description: 'Kampagnen, Anzeigen und Creatives hinter jedem Klick.' },
@@ -77,9 +78,9 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           title: 'Kurz erklärt.',
           items: [
             {
-              question: 'Welche Tools kann ich mit Traqqr verbinden?',
+              question: 'Welche Tools kann ich mit Traqqr.ai verbinden?',
               answer:
-                'Meta Ads und die Conversions API, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot und Cloudflare für den Reverse Proxy.',
+                'Meta Ads und die Conversions API, KlickTipp, Webinaris, EverWebinar, WebinarJam, Digistore24, Ablefy, HubSpot und Cloudflare für den Reverse Proxy.',
             },
             {
               question: 'Brauche ich für jede Integration einen Entwickler?',
@@ -89,7 +90,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
             {
               question: 'Was passiert mit den Daten aus den Tools?',
               answer:
-                'Traqqr ordnet Opt-ins, Webinar-Teilnahmen und Käufe der Anzeige zu, die sie ausgelöst hat – und schickt Conversions serverseitig an Meta.',
+                'Traqqr.ai ordnet Opt-ins, Webinar-Teilnahmen und Käufe der Anzeige zu, die sie ausgelöst hat – und schickt Conversions serverseitig an Meta.',
             },
           ],
         },
@@ -107,9 +108,9 @@ export const integrationsPage: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Integrations · Traqqr',
+    title: 'Integrations · Traqqr.ai',
     description:
-      'Ads, email, webinars, sales and CRM – Traqqr connects the tools you already use and attributes every step to the right ad.',
+      'Ads, email, webinars, sales and CRM – Traqqr.ai connects the tools you already use and attributes every step to the right ad.',
     sections: [
       {
         kind: 'pageHero',
@@ -117,11 +118,11 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Integrations' },
           title: ['One hub for your', 'whole funnel.'],
-          lead: 'Ads, email, webinars, sales and CRM – Traqqr connects the tools you already use and attributes every step to the right ad.',
+          lead: 'Ads, email, webinars, sales and CRM – Traqqr.ai connects the tools you already use and attributes every step to the right ad.',
           secondaryAction: { label: 'All integrations', href: '#all-integrations' },
           motion: {
             id: 'integrations-hub',
-            label: 'Nine tools come together in Traqqr: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot and Cloudflare.',
+            label: 'Nine tools come together in Traqqr.ai: Meta Ads, Facebook CAPI, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot and Cloudflare.',
             width: 1200,
           },
           motionGap: 62,
@@ -131,7 +132,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
         kind: 'integrationsGrid',
         props: {
           id: 'all-integrations',
-          eyebrow: '9 integrations',
+          eyebrow: '10 integrations',
           title: 'Choose your stack.',
           tabs: tabs.en,
           href: '#',
@@ -140,6 +141,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
             { name: 'Digistore24', badge: 'Sales', category: 'sales', description: 'Purchases with their value, back to the ad that triggered them.' },
             { name: 'Webinaris', badge: 'Webinar', category: 'webinar', description: 'Sign-ups and attendance, attributed to the right ad.' },
             { name: 'EverWebinar', badge: 'Webinar', category: 'webinar', description: 'Track registrations from automated webinars.' },
+            { name: 'WebinarJam', badge: 'Webinar', category: 'webinar', description: 'Track registrations and attendance from live webinars.' },
             { name: 'HubSpot', badge: 'CRM', category: 'crm', description: 'Leads and deals with the campaign behind them.' },
             { name: 'Ablefy', badge: 'Sales', category: 'sales', description: 'Sales from Ablefy, captured server-side.' },
             { name: 'Meta Ads', badge: 'Ads', category: 'ads', description: 'Campaigns, ads and creatives behind every click.' },
@@ -156,9 +158,9 @@ export const integrationsPage: Record<Locale, ContentPage> = {
           title: 'In short.',
           items: [
             {
-              question: 'Which tools can I connect to Traqqr?',
+              question: 'Which tools can I connect to Traqqr.ai?',
               answer:
-                'Meta Ads and the Conversions API, KlickTipp, Webinaris, EverWebinar, Digistore24, Ablefy, HubSpot, and Cloudflare for the reverse proxy.',
+                'Meta Ads and the Conversions API, KlickTipp, Webinaris, EverWebinar, WebinarJam, Digistore24, Ablefy, HubSpot, and Cloudflare for the reverse proxy.',
             },
             {
               question: 'Do I need a developer for each integration?',
@@ -168,7 +170,7 @@ export const integrationsPage: Record<Locale, ContentPage> = {
             {
               question: 'What happens to the data from the tools?',
               answer:
-                'Traqqr attributes opt-ins, webinar attendance and purchases to the ad that triggered them – and sends conversions to Meta server-side.',
+                'Traqqr.ai attributes opt-ins, webinar attendance and purchases to the ad that triggered them – and sends conversions to Meta server-side.',
             },
           ],
         },

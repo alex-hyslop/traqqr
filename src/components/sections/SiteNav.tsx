@@ -90,7 +90,7 @@ interface DesktopMenuProps {
   labels: NavLabels;
   /** The integrations page. */
   integrationsPage: string;
-  /** Its "Choose your stack" grid, where the nine tiles go until their detail pages exist. */
+  /** Its "Choose your stack" grid, where the integration tiles go until their detail pages exist. */
   integrationsStack: string;
   pricingPage: string;
   integrations: Integration[];

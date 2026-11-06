@@ -12,9 +12,9 @@ const touchingAbove = 'lg:pt-10 lg:pb-20';
 
 export const serverSideTracking: Record<Locale, ContentPage> = {
   de: {
-    title: 'Serverseitiges Conversion Tracking · Traqqr',
+    title: 'Serverseitiges Conversion Tracking · Traqqr.ai',
     description:
-      'Traqqr verbindet Ad-Tracking, serverseitiges Conversion Tracking und Fingerprint Tracking, damit Du erkennst, welche Ads wirklich Kunden bringen.',
+      'Traqqr.ai verbindet Ad-Tracking, serverseitiges Conversion Tracking und Fingerprint Tracking, damit Du erkennst, welche Ads wirklich Kunden bringen.',
     sections: [
       {
         kind: 'pageHero',
@@ -22,7 +22,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           layout: 'split',
           breadcrumb: { current: 'Serverseitiges Tracking' },
           title: 'Serverseitiges Conversion Tracking für Meta Ads und lange Funnel',
-          lead: 'Traqqr verbindet Ad-Tracking, serverseitiges Conversion Tracking und Fingerprint Tracking, damit Du erkennst, welche Ads wirklich Kunden bringen.',
+          lead: 'Traqqr.ai verbindet Ad-Tracking, serverseitiges Conversion Tracking und Fingerprint Tracking, damit Du erkennst, welche Ads wirklich Kunden bringen.',
           secondaryAction: { label: 'Demo ansehen · 2 Min.', href: siteContent.de.cta.demo.href },
           video: { label: 'Erklärvideo abspielen', href: siteContent.de.cta.demo.href },
         },
@@ -53,7 +53,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           id: 'meta-capi',
           badge: 'Meta CAPI',
           title: 'Pixel und Server. Ein sauberes Event.',
-          body: 'Traqqr sendet Deine Events zusätzlich direkt vom Server an Meta und führt sie mit den Pixel-Events zusammen.',
+          body: 'Traqqr.ai sendet Deine Events zusätzlich direkt vom Server an Meta und führt sie mit den Pixel-Events zusammen.',
           items: [
             'Events direkt vom Server an Meta senden',
             'Pixel- und Server-Events dedupliziert',
@@ -81,7 +81,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
             {
               question: 'Was ist Meta CAPI Tracking?',
               answer:
-                'Die Conversions API (CAPI) ist Metas Schnittstelle, über die Events direkt von einem Server an Meta gesendet werden. Traqqr nutzt sie zusätzlich zum Pixel – mit derselben Event-ID, damit Meta nichts doppelt zählt.',
+                'Die Conversions API (CAPI) ist Metas Schnittstelle, über die Events direkt von einem Server an Meta gesendet werden. Traqqr.ai nutzt sie zusätzlich zum Pixel – mit derselben Event-ID, damit Meta nichts doppelt zählt.',
             },
             {
               question: 'Warum reicht Pixel-Tracking allein nicht?',
@@ -91,12 +91,12 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
             {
               question: 'Wie hilft Server-Side Tracking bei langen Funnels?',
               answer:
-                'In langen Funnels kommt der Kauf oft Wochen nach dem Klick und auf einem anderen Gerät. Traqqr hält die Journey ab dem ersten Klick zusammen und sendet den späteren Kauf vom Server an Meta, zugeordnet zur ursprünglichen Anzeige.',
+                'In langen Funnels kommt der Kauf oft Wochen nach dem Klick und auf einem anderen Gerät. Traqqr.ai hält die Journey ab dem ersten Klick zusammen und sendet den späteren Kauf vom Server an Meta, zugeordnet zur ursprünglichen Anzeige.',
             },
             {
-              question: 'Wie verbindet Traqqr Ad-Klicks und spätere Käufe?',
+              question: 'Wie verbindet Traqqr.ai Ad-Klicks und spätere Käufe?',
               answer:
-                'Beim ersten Besuch vergibt Traqqr über Deine eigene Subdomain eine First-Party-ID und verknüpft sie mit Opt-in, KlickTipp-Kontakt und Kauf. Fingerprint Tracking verbindet zusätzlich Besuche auf verschiedenen Geräten.',
+                'Beim ersten Besuch vergibt Traqqr.ai über Deine eigene Subdomain eine First-Party-ID und verknüpft sie mit Opt-in, KlickTipp-Kontakt und Kauf. Fingerprint Tracking verbindet zusätzlich Besuche auf verschiedenen Geräten.',
             },
           ],
         },
@@ -114,9 +114,9 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Server-side conversion tracking · Traqqr',
+    title: 'Server-side conversion tracking · Traqqr.ai',
     description:
-      'Traqqr combines ad tracking, server-side conversion tracking and fingerprint tracking, so you can see which ads really bring you customers.',
+      'Traqqr.ai combines ad tracking, server-side conversion tracking and fingerprint tracking, so you can see which ads really bring you customers.',
     sections: [
       {
         kind: 'pageHero',
@@ -124,7 +124,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           layout: 'split',
           breadcrumb: { current: 'Server-side tracking' },
           title: 'Server-side conversion tracking for Meta Ads and long funnels',
-          lead: 'Traqqr combines ad tracking, server-side conversion tracking and fingerprint tracking, so you can see which ads really bring you customers.',
+          lead: 'Traqqr.ai combines ad tracking, server-side conversion tracking and fingerprint tracking, so you can see which ads really bring you customers.',
           secondaryAction: { label: 'Watch demo · 2 min', href: siteContent.en.cta.demo.href },
           video: { label: 'Play the explainer video', href: siteContent.en.cta.demo.href },
         },
@@ -155,7 +155,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           id: 'meta-capi',
           badge: 'Meta CAPI',
           title: 'Pixel and server. One clean event.',
-          body: 'Traqqr also sends your events to Meta straight from the server, and merges them with the pixel events.',
+          body: 'Traqqr.ai also sends your events to Meta straight from the server, and merges them with the pixel events.',
           items: [
             'Send events to Meta straight from the server',
             'Pixel and server events deduplicated',
@@ -183,7 +183,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
             {
               question: 'What is Meta CAPI tracking?',
               answer:
-                'The Conversions API (CAPI) is Meta\'s interface for sending events straight from a server to Meta. Traqqr uses it alongside the pixel, with the same event ID, so Meta doesn\'t count anything twice.',
+                'The Conversions API (CAPI) is Meta\'s interface for sending events straight from a server to Meta. Traqqr.ai uses it alongside the pixel, with the same event ID, so Meta doesn\'t count anything twice.',
             },
             {
               question: 'Why isn\'t pixel tracking enough on its own?',
@@ -193,12 +193,12 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
             {
               question: 'How does server-side tracking help with long funnels?',
               answer:
-                'In long funnels, the purchase often comes weeks after the click, on a different device. Traqqr keeps the journey together from the first click and sends the later purchase to Meta from the server, attributed to the original ad.',
+                'In long funnels, the purchase often comes weeks after the click, on a different device. Traqqr.ai keeps the journey together from the first click and sends the later purchase to Meta from the server, attributed to the original ad.',
             },
             {
-              question: 'How does Traqqr connect ad clicks to later purchases?',
+              question: 'How does Traqqr.ai connect ad clicks to later purchases?',
               answer:
-                'On the first visit, Traqqr sets a first-party ID through your own subdomain and links it to the opt-in, the KlickTipp contact and the purchase. Fingerprint tracking also connects visits across devices.',
+                'On the first visit, Traqqr.ai sets a first-party ID through your own subdomain and links it to the opt-in, the KlickTipp contact and the purchase. Fingerprint tracking also connects visits across devices.',
             },
           ],
         },

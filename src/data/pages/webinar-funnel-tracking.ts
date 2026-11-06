@@ -14,9 +14,9 @@ const touchingAbove = 'lg:pt-10 lg:pb-20';
 
 export const webinarFunnelTracking: Record<Locale, ContentPage> = {
   de: {
-    title: 'Webinar-Funnel-Tracking · Traqqr',
+    title: 'Webinar-Funnel-Tracking · Traqqr.ai',
     description:
-      'Vom ersten Ad-Klick bis zum Call drei Wochen später: Traqqr zeigt Dir, welche Anzeige den Kunden gebracht hat – nicht nur den Lead.',
+      'Vom ersten Ad-Klick bis zum Call drei Wochen später: Traqqr.ai zeigt Dir, welche Anzeige den Kunden gebracht hat – nicht nur den Lead.',
     sections: [
       {
         kind: 'pageHero',
@@ -24,7 +24,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Webinar-Funnel-Tracking' },
           title: ['Funnel-Tracking für Webinare,', 'Calls und High-Ticket-Sales'],
-          lead: 'Vom ersten Ad-Klick bis zum Call drei Wochen später: Traqqr zeigt Dir, welche Anzeige den Kunden gebracht hat – nicht nur den Lead.',
+          lead: 'Vom ersten Ad-Klick bis zum Call drei Wochen später: Traqqr.ai zeigt Dir, welche Anzeige den Kunden gebracht hat – nicht nur den Lead.',
           secondaryAction: { label: 'Demo ansehen · 2 Min.', href: siteContent.de.cta.demo.href },
           cards: [
             { eyebrow: '01 / WEBINARIS', title: 'Anmeldung und Teilnahme.', body: 'Jede Registrierung der richtigen Anzeige zugeordnet.' },
@@ -42,7 +42,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           id: 'webinars',
           badge: 'Webinare',
           title: 'Jede Anmeldung kennt ihre Anzeige.',
-          body: 'Traqqr verbindet Webinar-Anmeldung und Teilnahme mit dem Ad-Klick davor – in Webinaris und EverWebinar.',
+          body: 'Traqqr.ai verbindet Webinar-Anmeldung und Teilnahme mit dem Ad-Klick davor – in Webinaris und EverWebinar.',
           items: [
             'Registrierung der richtigen Anzeige zugeordnet',
             'Teilnahme im Funnel sichtbar',
@@ -60,7 +60,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           id: 'calls',
           badge: 'Calls & High-Ticket',
           title: 'Vom Call zum Kauf, Wochen später.',
-          body: 'Bei High-Ticket-Angeboten liegen zwischen Webinar, Call und Kauf oft Wochen. Traqqr hält die Journey zusammen.',
+          body: 'Bei High-Ticket-Angeboten liegen zwischen Webinar, Call und Kauf oft Wochen. Traqqr.ai hält die Journey zusammen.',
           items: [
             'Auch der gebuchte Call gehört zur Journey',
             'Fingerprint-Tracking verbindet Geräte und Sessions',
@@ -89,19 +89,19 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           title: 'Häufige Fragen',
           items: [
             {
-              question: 'Wie trackt Traqqr einen Webinar-Funnel?',
+              question: 'Wie trackt Traqqr.ai einen Webinar-Funnel?',
               answer:
-                'Traqqr verbindet den Ad-Klick mit Opt-in, Webinar-Anmeldung, Teilnahme, Call und Kauf zu einer Customer Journey – nativ mit KlickTipp, Webinaris und Digistore24.',
+                'Traqqr.ai verbindet den Ad-Klick mit Opt-in, Webinar-Anmeldung, Teilnahme, Call und Kauf zu einer Customer Journey – nativ mit KlickTipp, Webinaris und Digistore24.',
             },
             {
-              question: 'Funktioniert Traqqr mit KlickTipp und Digistore24?',
+              question: 'Funktioniert Traqqr.ai mit KlickTipp und Digistore24?',
               answer:
-                'Ja, beide sind nativ angebunden. Opt-ins und Tags kommen aus KlickTipp, Käufe aus Digistore24 – Traqqr ordnet beides derselben Journey und derselben Anzeige zu. Weitere Tools findest Du unter Integrationen.',
+                'Ja, beide sind nativ angebunden. Opt-ins und Tags kommen aus KlickTipp, Käufe aus Digistore24 – Traqqr.ai ordnet beides derselben Journey und derselben Anzeige zu. Weitere Tools findest Du unter Integrationen.',
             },
             {
               question: 'Was passiert, wenn der Kauf Wochen nach dem Klick kommt?',
               answer:
-                'Die Journey bleibt offen. Wenn der Kauf kommt, ordnet Traqqr ihn dem ersten Klick zu und sendet ihn an Meta – auch wenn dazwischen ein Webinar, ein Call und ein Gerätewechsel lagen.',
+                'Die Journey bleibt offen. Wenn der Kauf kommt, ordnet Traqqr.ai ihn dem ersten Klick zu und sendet ihn an Meta – auch wenn dazwischen ein Webinar, ein Call und ein Gerätewechsel lagen.',
             },
             {
               question: 'Für wen ist Webinar-Funnel-Tracking gedacht?',
@@ -130,9 +130,9 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Webinar funnel tracking · Traqqr',
+    title: 'Webinar funnel tracking · Traqqr.ai',
     description:
-      'From the first ad click to the call three weeks later: Traqqr shows you which ad brought the customer – not just the lead.',
+      'From the first ad click to the call three weeks later: Traqqr.ai shows you which ad brought the customer – not just the lead.',
     sections: [
       {
         kind: 'pageHero',
@@ -140,7 +140,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Webinar funnel tracking' },
           title: ['Funnel tracking for webinars,', 'calls and high-ticket sales'],
-          lead: 'From the first ad click to the call three weeks later: Traqqr shows you which ad brought the customer – not just the lead.',
+          lead: 'From the first ad click to the call three weeks later: Traqqr.ai shows you which ad brought the customer – not just the lead.',
           secondaryAction: { label: 'Watch demo · 2 min', href: siteContent.en.cta.demo.href },
           cards: [
             { eyebrow: '01 / WEBINARIS', title: 'Registration and attendance.', body: 'Every registration matched to the right ad.' },
@@ -158,7 +158,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           id: 'webinars',
           badge: 'Webinars',
           title: 'Every registration knows its ad.',
-          body: 'Traqqr connects webinar registration and attendance to the ad click before it – in Webinaris and EverWebinar.',
+          body: 'Traqqr.ai connects webinar registration and attendance to the ad click before it – in Webinaris and EverWebinar.',
           items: [
             'Registration matched to the right ad',
             'Attendance visible in the funnel',
@@ -176,7 +176,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           id: 'calls',
           badge: 'Calls & high-ticket',
           title: 'From the call to the sale, weeks later.',
-          body: 'With high-ticket offers there are often weeks between the webinar, the call and the sale. Traqqr keeps the journey together.',
+          body: 'With high-ticket offers there are often weeks between the webinar, the call and the sale. Traqqr.ai keeps the journey together.',
           items: [
             'The booked call is part of the journey too',
             'Fingerprint tracking joins devices and sessions',
@@ -205,19 +205,19 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           title: 'Frequently asked questions',
           items: [
             {
-              question: 'How does Traqqr track a webinar funnel?',
+              question: 'How does Traqqr.ai track a webinar funnel?',
               answer:
-                'Traqqr connects the ad click with the opt-in, webinar registration, attendance, call and purchase in one customer journey – natively with KlickTipp, Webinaris and Digistore24.',
+                'Traqqr.ai connects the ad click with the opt-in, webinar registration, attendance, call and purchase in one customer journey – natively with KlickTipp, Webinaris and Digistore24.',
             },
             {
-              question: 'Does Traqqr work with KlickTipp and Digistore24?',
+              question: 'Does Traqqr.ai work with KlickTipp and Digistore24?',
               answer:
-                'Yes, both connect natively. Opt-ins and tags come from KlickTipp and purchases from Digistore24, and Traqqr attributes both to the same journey and the same ad. You\'ll find more tools under Integrations.',
+                'Yes, both connect natively. Opt-ins and tags come from KlickTipp and purchases from Digistore24, and Traqqr.ai attributes both to the same journey and the same ad. You\'ll find more tools under Integrations.',
             },
             {
               question: 'What happens when the sale comes weeks after the click?',
               answer:
-                'The journey stays open. When the purchase comes in, Traqqr attributes it to the first click and sends it to Meta, even if there was a webinar, a call and a change of device in between.',
+                'The journey stays open. When the purchase comes in, Traqqr.ai attributes it to the first click and sends it to Meta, even if there was a webinar, a call and a change of device in between.',
             },
             {
               question: 'Who is webinar funnel tracking for?',

@@ -7,9 +7,9 @@ import type { Locale } from '@/i18n';
 
 export const klicktippTracking: Record<Locale, ContentPage> = {
   de: {
-    title: 'KlickTipp Tracking · Traqqr',
+    title: 'KlickTipp Tracking · Traqqr.ai',
     description:
-      'Traqqr ist nativ mit KlickTipp verbunden und schreibt Quelle, Kampagne und Anzeige als Tags an jeden Kontakt – für Segmente und Follow-ups nach Herkunft.',
+      'Traqqr.ai ist nativ mit KlickTipp verbunden und schreibt Quelle, Kampagne und Anzeige als Tags an jeden Kontakt – für Segmente und Follow-ups nach Herkunft.',
     sections: [
       {
         kind: 'pageHero',
@@ -17,11 +17,11 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
           layout: 'split',
           breadcrumb: { current: 'KlickTipp Tracking' },
           title: 'Jeder Kontakt weiß, woher er kommt.',
-          lead: 'Traqqr ist nativ mit KlickTipp verbunden und schreibt Quelle, Kampagne und Anzeige als Tags an jeden Kontakt – für Segmente und Follow-ups nach Herkunft.',
+          lead: 'Traqqr.ai ist nativ mit KlickTipp verbunden und schreibt Quelle, Kampagne und Anzeige als Tags an jeden Kontakt – für Segmente und Follow-ups nach Herkunft.',
           secondaryAction: { label: 'So funktioniert’s', href: '#' },
           motion: {
             id: 'klicktipp-card',
-            label: 'Ein KlickTipp-Kontakt bekommt von Traqqr Tags mit Quelle, Kampagne und Anzeige, und sein Kauf wird der Anzeige zugeordnet.',
+            label: 'Ein KlickTipp-Kontakt bekommt von Traqqr.ai Tags mit Quelle, Kampagne und Anzeige, und sein Kauf wird der Anzeige zugeordnet.',
             width: 600,
           },
         },
@@ -114,7 +114,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
           items: [
             {
               question: 'Wie funktioniert die KlickTipp-Integration?',
-              answer: 'Traqqr ist nativ mit KlickTipp verbunden. Trägt sich jemand ein, bekommt der Kontakt Tags mit Quelle, Kampagne und Anzeige.',
+              answer: 'Traqqr.ai ist nativ mit KlickTipp verbunden. Trägt sich jemand ein, bekommt der Kontakt Tags mit Quelle, Kampagne und Anzeige.',
             },
             {
               question: 'Welche Daten landen in KlickTipp?',
@@ -123,7 +123,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
             },
             {
               question: 'Kann ich Käufe der Anzeige zuordnen?',
-              answer: 'Ja. Traqqr verbindet den Kauf mit dem ersten Klick – auch wenn Tage, Wochen oder Geräte dazwischen liegen.',
+              answer: 'Ja. Traqqr.ai verbindet den Kauf mit dem ersten Klick – auch wenn Tage, Wochen oder Geräte dazwischen liegen.',
             },
           ],
         },
@@ -142,9 +142,9 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'KlickTipp tracking · Traqqr',
+    title: 'KlickTipp tracking · Traqqr.ai',
     description:
-      'Traqqr is natively connected to KlickTipp and adds the source, campaign and ad to every contact as tags – for segments and follow-ups by origin.',
+      'Traqqr.ai is natively connected to KlickTipp and adds the source, campaign and ad to every contact as tags – for segments and follow-ups by origin.',
     sections: [
       {
         kind: 'pageHero',
@@ -152,11 +152,11 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
           layout: 'split',
           breadcrumb: { current: 'KlickTipp Tracking' },
           title: 'Every contact knows where it came from.',
-          lead: 'Traqqr is natively connected to KlickTipp and adds the source, campaign and ad to every contact as tags – for segments and follow-ups by origin.',
+          lead: 'Traqqr.ai is natively connected to KlickTipp and adds the source, campaign and ad to every contact as tags – for segments and follow-ups by origin.',
           secondaryAction: { label: 'How it works', href: '#' },
           motion: {
             id: 'klicktipp-card',
-            label: 'A KlickTipp contact gets tags from Traqqr with the source, campaign and ad, and their purchase is attributed to the ad.',
+            label: 'A KlickTipp contact gets tags from Traqqr.ai with the source, campaign and ad, and their purchase is attributed to the ad.',
             width: 600,
           },
         },
@@ -249,7 +249,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
           items: [
             {
               question: 'How does the KlickTipp integration work?',
-              answer: 'Traqqr is natively connected to KlickTipp. When someone signs up, the contact gets tags with the source, campaign and ad.',
+              answer: 'Traqqr.ai is natively connected to KlickTipp. When someone signs up, the contact gets tags with the source, campaign and ad.',
             },
             {
               question: 'What data ends up in KlickTipp?',
@@ -257,7 +257,7 @@ export const klicktippTracking: Record<Locale, ContentPage> = {
             },
             {
               question: 'Can I attribute purchases to the ad?',
-              answer: 'Yes. Traqqr connects the purchase to the first click – even when days, weeks or devices lie in between.',
+              answer: 'Yes. Traqqr.ai connects the purchase to the first click – even when days, weeks or devices lie in between.',
             },
           ],
         },

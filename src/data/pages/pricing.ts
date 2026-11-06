@@ -9,8 +9,8 @@ import type { Locale } from '@/i18n';
 
 export const pricing: Record<Locale, ContentPage> = {
   de: {
-    title: 'Preise · Traqqr',
-    description: 'Zahl nur für das, was Du trackst: Traqqr wird pro Website nach Events im Monat abgerechnet. 14 Tage kostenlos testen.',
+    title: 'Preise · Traqqr.ai',
+    description: 'Zahl nur für das, was Du trackst: Traqqr.ai wird pro Website nach Events im Monat abgerechnet. 14 Tage kostenlos testen.',
     sections: [
       {
         kind: 'pageHero',
@@ -18,7 +18,7 @@ export const pricing: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Preise' },
           title: ['Zahl nur für das, was Du trackst.'],
-          lead: 'Wähle, wie viele Events Du im Monat trackst, und sieh sofort, was Traqqr für Dich kostet. Oder starte erst einmal kostenlos.',
+          lead: 'Wähle, wie viele Events Du im Monat trackst, und sieh sofort, was Traqqr.ai für Dich kostet. Oder starte erst einmal kostenlos.',
         },
       },
       {
@@ -27,7 +27,7 @@ export const pricing: Record<Locale, ContentPage> = {
           trial: {
             badge: 'Kostenlos',
             title: 'Tage kostenlos',
-            lead: 'Teste Traqqr mit Deiner echten Seite. Eine Karte brauchst Du erst vor dem Ende der Testphase.',
+            lead: 'Teste Traqqr.ai mit Deiner echten Seite. Eine Karte brauchst Du erst vor dem Ende der Testphase.',
             stepsLabel: 'Was Du in 14 Tagen schaffst',
             steps: [
               { day: 'Tag 1', text: 'Snippet einbauen, Meta verbinden' },
@@ -39,8 +39,8 @@ export const pricing: Record<Locale, ContentPage> = {
           },
           calculator: {
             badge: 'Rechner',
-            title: 'Was kostet Traqqr für Dich?',
-            lead: 'Traqqr wird pro Website nach Events im Monat abgerechnet. Ein Event ist zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf, den Traqqr erfasst.',
+            title: 'Was kostet Traqqr.ai für Dich?',
+            lead: 'Traqqr.ai wird pro Website nach Events im Monat abgerechnet. Ein Event ist zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf, den Traqqr.ai erfasst.',
             eventsLabel: 'Events pro Monat',
             hint: 'Nicht sicher, wie viele Events Du hast? Starte klein: Im Dashboard siehst Du Deine echten Zahlen und kannst den Plan jederzeit anpassen.',
             priceLabel: 'Dein Preis',
@@ -56,7 +56,7 @@ export const pricing: Record<Locale, ContentPage> = {
           badge: 'Platzhalter-Fallstudie',
           title: 'Was 14 Tage verändern können.',
           quote:
-            '„Nach 14 Tagen wussten wir zum ersten Mal, welche Anzeige unsere Leads bringt. Traqqr hat 214 Opt-ins und die ersten 9 Käufe zugeordnet – und bei Meta kommen jetzt 17 % mehr Conversions an. Eine Kampagne haben wir pausiert, die viele Leads, aber keine Käufer gebracht hat.“',
+            '„Nach 14 Tagen wussten wir zum ersten Mal, welche Anzeige unsere Leads bringt. Traqqr.ai hat 214 Opt-ins und die ersten 9 Käufe zugeordnet – und bei Meta kommen jetzt 17 % mehr Conversions an. Eine Kampagne haben wir pausiert, die viele Leads, aber keine Käufer gebracht hat.“',
           name: 'Alex Hyslop',
           role: '[Rolle, Firma] · Platzhalter, wird vor dem Launch ersetzt',
           person: 'alex-hyslop',
@@ -70,7 +70,7 @@ export const pricing: Record<Locale, ContentPage> = {
             {
               question: 'Was zählt als Event?',
               answer:
-                'Ein Event ist eine Aktion, die Traqqr auf Deiner Seite erfasst, zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf.',
+                'Ein Event ist eine Aktion, die Traqqr.ai auf Deiner Seite erfasst, zum Beispiel ein Seitenaufruf, ein Opt-in oder ein Kauf.',
             },
             {
               question: 'Was passiert nach den 14 Tagen?',
@@ -109,8 +109,8 @@ export const pricing: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Pricing · Traqqr',
-    description: 'Only pay for what you track: Traqqr is billed per website, by events per month. Try it free for 14 days.',
+    title: 'Pricing · Traqqr.ai',
+    description: 'Only pay for what you track: Traqqr.ai is billed per website, by events per month. Try it free for 14 days.',
     sections: [
       {
         kind: 'pageHero',
@@ -118,7 +118,7 @@ export const pricing: Record<Locale, ContentPage> = {
           layout: 'centred',
           breadcrumb: { current: 'Pricing' },
           title: ['Only pay for what you track.'],
-          lead: 'Pick how many events you track a month and see right away what Traqqr costs you. Or start for free first.',
+          lead: 'Pick how many events you track a month and see right away what Traqqr.ai costs you. Or start for free first.',
         },
       },
       {
@@ -127,7 +127,7 @@ export const pricing: Record<Locale, ContentPage> = {
           trial: {
             badge: 'Free',
             title: 'days free',
-            lead: 'Try Traqqr on your real site. You only need a card before the trial ends.',
+            lead: 'Try Traqqr.ai on your real site. You only need a card before the trial ends.',
             stepsLabel: 'What you can do in 14 days',
             steps: [
               { day: 'Day 1', text: 'Add the snippet, connect Meta' },
@@ -139,8 +139,8 @@ export const pricing: Record<Locale, ContentPage> = {
           },
           calculator: {
             badge: 'Calculator',
-            title: 'What does Traqqr cost you?',
-            lead: 'Traqqr is billed per website, by events per month. An event is, for example, a page view, an opt-in or a purchase that Traqqr captures.',
+            title: 'What does Traqqr.ai cost you?',
+            lead: 'Traqqr.ai is billed per website, by events per month. An event is, for example, a page view, an opt-in or a purchase that Traqqr.ai captures.',
             eventsLabel: 'Events per month',
             hint: 'Not sure how many events you have? Start small: the dashboard shows your real numbers, and you can change the plan at any time.',
             priceLabel: 'Your price',
@@ -156,7 +156,7 @@ export const pricing: Record<Locale, ContentPage> = {
           badge: 'Placeholder case study',
           title: 'What 14 days can change.',
           quote:
-            '“After 14 days, we knew for the first time which ad brings our leads. Traqqr attributed 214 opt-ins and our first 9 purchases, and Meta now receives 17% more conversions. We paused one campaign that brought plenty of leads but no buyers.”',
+            '“After 14 days, we knew for the first time which ad brings our leads. Traqqr.ai attributed 214 opt-ins and our first 9 purchases, and Meta now receives 17% more conversions. We paused one campaign that brought plenty of leads but no buyers.”',
           name: 'Alex Hyslop',
           role: 'placeholder, replaced before launch',
           person: 'alex-hyslop',
@@ -170,7 +170,7 @@ export const pricing: Record<Locale, ContentPage> = {
             {
               question: 'What counts as an event?',
               answer:
-                'An event is an action Traqqr captures on your site, for example a page view, an opt-in or a purchase.',
+                'An event is an action Traqqr.ai captures on your site, for example a page view, an opt-in or a purchase.',
             },
             {
               question: 'What happens after the 14 days?',

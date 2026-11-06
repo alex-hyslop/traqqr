@@ -8,9 +8,9 @@ import { siteContent } from '@/data/site';
 const { trial, demo } = siteContent.de.cta;
 
 export const homeDe: HomePage = {
-  title: 'Traqqr · Ad-, Conversion- und Fingerprint-Tracking für lange Funnel',
+  title: 'Traqqr.ai · Ad-, Conversion- und Fingerprint-Tracking für lange Funnel',
   description:
-    'Traqqr zeigt Dir über Wochen, Geräte und jeden Touchpoint hinweg, welche Kampagne, Anzeige oder Creative wirklich Kunden bringt.',
+    'Traqqr.ai zeigt Dir über Wochen, Geräte und jeden Touchpoint hinweg, welche Kampagne, Anzeige oder Creative wirklich Kunden bringt.',
   features: [
     'Ad-Tracking: Kampagne, Anzeige und Creative hinter dem ersten Klick',
     'Serverseitiges Conversion-Tracking',
@@ -23,7 +23,7 @@ export const homeDe: HomePage = {
       kind: 'hero',
       props: {
         title: ['Welche Anzeige hat Deinen Kunden', 'wirklich gebracht?'],
-        lead: 'Traqqr zeigt Dir über Wochen, Geräte und jeden Touchpoint hinweg, welche Kampagne, Anzeige oder Creative wirklich Kunden bringt – nativ verbunden mit KlickTipp, Digistore24, HubSpot und Webinaris.',
+        lead: 'Traqqr.ai zeigt Dir über Wochen, Geräte und jeden Touchpoint hinweg, welche Kampagne, Anzeige oder Creative wirklich Kunden bringt – nativ verbunden mit KlickTipp, Digistore24, HubSpot und Webinaris.',
         features: [
           { eyebrow: '01 / AD-TRACKING', title: 'Erster Klick erkannt.', body: 'Welche Kampagne, Anzeige oder welches Creative den ersten Klick gebracht hat.' },
           { eyebrow: '02 / CONVERSION-TRACKING', title: 'Events serverseitig.', body: 'Wichtige Events und Käufe, direkt am Server erfasst.' },
@@ -77,7 +77,7 @@ export const homeDe: HomePage = {
           { number: '05', label: 'CALL', title: 'Geräteübergreifend', body: 'Fingerprint-Tracking verbindet Geräte, Sessions\nund Touchpoints.' },
           { number: '06', label: 'KAUF', title: 'Digistore24', body: 'Der Kauf Wochen später landet bei der Anzeige, die ihn ausgelöst hat.' },
         ],
-        action: { label: 'So funktioniert Traqqr', href: demo.href },
+        action: { label: 'So funktioniert Traqqr.ai', href: demo.href },
       },
     },
     {
@@ -85,7 +85,7 @@ export const homeDe: HomePage = {
       props: {
         id: 'testimonial',
         badge: 'Kunden',
-        title: 'Teams, die mit Traqqr tracken',
+        title: 'Teams, die mit Traqqr.ai tracken',
         quote: [
           '„Seit wir traqqr.ai nutzen, laufen unsere Prozesse deutlich',
           'zuverlässiger. Fehler werden früh erkannt, und unser Team',
@@ -100,7 +100,7 @@ export const homeDe: HomePage = {
       kind: 'howItWorks',
       props: {
         id: 'why-traqqr',
-        badge: 'Warum Traqqr',
+        badge: 'Warum Traqqr.ai',
         title: 'Schneller live. Einfacher nutzbar.',
         lead: 'Profi-Tracking ohne Enterprise-Preis und ohne Verkaufsgespräch.',
         steps: [
@@ -121,27 +121,27 @@ export const homeDe: HomePage = {
         // Figma 5212:17311; the answers are Kev's (5 Nov testimonial-band/FAQ note).
         items: [
           {
-            question: 'Was ist Traqqr?',
+            question: 'Was ist Traqqr.ai?',
             answer:
-              'Traqqr ist eine Ad-, Conversion- und Fingerprint-Tracking-Lösung für deutschsprachige Funnel-Marketer. Sie verbindet Anzeigenklicks, Webseiten-Events, Opt-ins, Webinare, Calls und Käufe über längere Customer Journeys hinweg.',
+              'Traqqr.ai ist eine Ad-, Conversion- und Fingerprint-Tracking-Lösung für deutschsprachige Funnel-Marketer. Sie verbindet Anzeigenklicks, Webseiten-Events, Opt-ins, Webinare, Calls und Käufe über längere Customer Journeys hinweg.',
           },
           {
-            question: 'Wofür wird Traqqr eingesetzt?',
+            question: 'Wofür wird Traqqr.ai eingesetzt?',
             answer:
-              'Um zu sehen, welche Anzeige wirklich Käufe bringt – auch wenn der Kauf erst Wochen nach dem Klick kommt. Traqqr sendet Conversions serverseitig an Meta, schreibt Quelle, Kampagne und Anzeige als Tags an Deine KlickTipp-Kontakte und zeigt Dir jedes Event live im Feed.',
+              'Um zu sehen, welche Anzeige wirklich Käufe bringt – auch wenn der Kauf erst Wochen nach dem Klick kommt. Traqqr.ai sendet Conversions serverseitig an Meta, schreibt Quelle, Kampagne und Anzeige als Tags an Deine KlickTipp-Kontakte und zeigt Dir jedes Event live im Feed.',
           },
           {
-            question: 'Was unterscheidet Traqqr von Pixel- oder GA4-Tracking?',
+            question: 'Was unterscheidet Traqqr.ai von Pixel- oder GA4-Tracking?',
             answer:
-              'Pixel und GA4 laufen im Browser. Adblocker, kurze Cookie-Laufzeiten und Gerätewechsel können dort Daten kosten. Traqqr erfasst Events über Deine eigene Subdomain, sendet sie vom Server und verbindet Besuche auf verschiedenen Geräten. So bleibt ein Kauf der Anzeige zugeordnet, die ihn ausgelöst hat.',
+              'Pixel und GA4 laufen im Browser. Adblocker, kurze Cookie-Laufzeiten und Gerätewechsel können dort Daten kosten. Traqqr.ai erfasst Events über Deine eigene Subdomain, sendet sie vom Server und verbindet Besuche auf verschiedenen Geräten. So bleibt ein Kauf der Anzeige zugeordnet, die ihn ausgelöst hat.',
           },
           {
-            question: 'Wie hängt Traqqr mit KlickTipp zusammen?',
+            question: 'Wie hängt Traqqr.ai mit KlickTipp zusammen?',
             answer:
-              'Traqqr ist nativ mit KlickTipp verbunden. Jeder Kontakt bekommt Quelle, Kampagne und Anzeige als Tags, und spätere Käufe werden der ursprünglichen Anzeige zugeordnet. So baust Du Segmente und Follow-ups nach Herkunft.',
+              'Traqqr.ai ist nativ mit KlickTipp verbunden. Jeder Kontakt bekommt Quelle, Kampagne und Anzeige als Tags, und spätere Käufe werden der ursprünglichen Anzeige zugeordnet. So baust Du Segmente und Follow-ups nach Herkunft.',
           },
           {
-            question: 'Für wen ist Traqqr geeignet?',
+            question: 'Für wen ist Traqqr.ai geeignet?',
             answer:
               'Für Marketer, Coaches und Agenturen mit langen Funnels: Webinare, Calls und High-Ticket-Angebote, bei denen zwischen Klick und Kauf Tage oder Wochen liegen. Vor allem, wenn Du Meta Ads schaltest und mit KlickTipp arbeitest.',
           },

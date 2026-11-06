@@ -7,7 +7,7 @@ import type { Locale } from '@/i18n';
 
 export const liveFeed: Record<Locale, ContentPage> = {
   de: {
-    title: 'Live Feed · Traqqr',
+    title: 'Live Feed · Traqqr.ai',
     description: 'Sieh live, was auf Deiner Seite passiert und was bei Meta ankommt – aus dem Browser und vom Server.',
     sections: [
       {
@@ -51,7 +51,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
           id: 'steps',
           title: 'In drei Schritten live.',
           steps: [
-            { number: '01', title: 'Snippet einfügen', body: 'Den Traqqr-Snippet in den <head> Deiner Seite einbauen.' },
+            { number: '01', title: 'Snippet einfügen', body: 'Den Traqqr.ai-Snippet in den <head> Deiner Seite einbauen.' },
             { number: '02', title: 'Tools verbinden', body: 'Meta Pixel verbinden, dann KlickTipp, Digistore24 und Co.' },
             { number: '03', title: 'Zusehen', body: 'Der Live Feed zeigt jedes Event, sobald es eintrifft.' },
           ],
@@ -90,7 +90,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
     ],
   },
   en: {
-    title: 'Live Feed · Traqqr',
+    title: 'Live Feed · Traqqr.ai',
     description: 'See live what happens on your site and what reaches Meta – from the browser and from the server.',
     sections: [
       {
@@ -134,7 +134,7 @@ export const liveFeed: Record<Locale, ContentPage> = {
           id: 'steps',
           title: 'Live in three steps.',
           steps: [
-            { number: '01', title: 'Add the snippet', body: 'Add the Traqqr snippet to the <head> of your site.' },
+            { number: '01', title: 'Add the snippet', body: 'Add the Traqqr.ai snippet to the <head> of your site.' },
             { number: '02', title: 'Connect your tools', body: 'Connect the Meta Pixel, then KlickTipp, Digistore24 and more' },
             { number: '03', title: 'Watch', body: 'The Live Feed shows every event as soon as it arrives.' },
           ],

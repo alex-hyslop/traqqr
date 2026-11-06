@@ -27,7 +27,7 @@ const defaultImage: OgImage = {
   src: '/og.png',
   width: 1200,
   height: 630,
-  alt: 'Traqqr: server-side tracking for Meta Ads',
+  alt: 'Traqqr.ai: server-side tracking for Meta Ads',
 };
 
 const { route, title, description, image = defaultImage, notFound = false } = Astro.props;
@@ -61,7 +61,7 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     {(isPreviewHost || notFound) && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Traqqr" />
+    <meta property="og:site_name" content="Traqqr.ai" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -72,7 +72,7 @@ const isPreviewHost = Astro.site?.hostname.endsWith('.vercel.app') ?? false;
     <meta property="og:locale" content={localeInfo[locale].ogLocale} />
     {locales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={localeInfo[l].ogLocale} />)}
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="alternate" type="text/plain" href="/llms.txt" title="Traqqr for AI assistants" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Traqqr.ai for AI assistants" />
     {
       /* The homepage opens in the language the visitor chose before (src/scripts/language.ts), before
          anything paints. Only on arrival from elsewhere: a click on the logo or a nav pick stays put. */

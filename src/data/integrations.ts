@@ -1,4 +1,4 @@
-// The nine integrations, in one place: the integrations strip uses the colour tiles, the nav
+// The ten integrations, in one place: the integrations strip uses the colour tiles, the nav
 // dropdown the one-colour logos. Logos are exported from Figma (Brand Icon / … and … · Mono).
 import ablefyMono from '@/assets/integrations/mono/ablefy.svg';
 import cloudflareMono from '@/assets/integrations/mono/cloudflare.svg';
@@ -9,6 +9,7 @@ import hubspotMono from '@/assets/integrations/mono/hubspot.svg';
 import klicktippMono from '@/assets/integrations/mono/klicktipp.svg';
 import metaAdsMono from '@/assets/integrations/mono/meta-ads.svg';
 import webinarisMono from '@/assets/integrations/mono/webinaris.svg';
+import webinarjamMono from '@/assets/integrations/mono/webinarjam.svg';
 import ablefy from '@/assets/integrations/ablefy.svg';
 import cloudflare from '@/assets/integrations/cloudflare.svg';
 import digistore24 from '@/assets/integrations/digistore24.svg';
@@ -19,6 +20,7 @@ import klicktipp from '@/assets/integrations/klicktipp.svg';
 // Meta Ads is a 2x PNG: its symbol is a raster gradient, and the SVG export was 338 KB.
 import metaAds from '@/assets/integrations/meta-ads.webp';
 import webinaris from '@/assets/integrations/webinaris.svg';
+import webinarjam from '@/assets/integrations/webinarjam.svg';
 import { assetUrl } from '@/lib/asset-url';
 
 export interface Integration {
@@ -27,6 +29,8 @@ export interface Integration {
   logo: string;
   /** 16px one-colour (white) logo for the nav dropdown. */
   mono: string;
+  /** false: not in the integrations page's hub graphic (and its mobile tiles) yet. Kev decides (6 Nov). */
+  hub?: false;
 }
 
 export const integrations: Integration[] = [
@@ -37,6 +41,7 @@ export const integrations: Integration[] = [
   { name: 'Digistore24', logo: assetUrl(digistore24), mono: assetUrl(digistore24Mono) },
   { name: 'Ablefy', logo: assetUrl(ablefy), mono: assetUrl(ablefyMono) },
   { name: 'EverWebinar', logo: assetUrl(everwebinar), mono: assetUrl(everwebinarMono) },
+  { name: 'WebinarJam', logo: assetUrl(webinarjam), mono: assetUrl(webinarjamMono), hub: false },
   { name: 'Webinaris', logo: assetUrl(webinaris), mono: assetUrl(webinarisMono) },
   { name: 'HubSpot', logo: assetUrl(hubspot), mono: assetUrl(hubspotMono) },
 ];
