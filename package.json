@@ -12,7 +12,9 @@
     "check": "astro check",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
-    "astro": "astro"
+    "astro": "astro",
+    "cf:dev": "npx -y wrangler@4.154.0 dev --port 8787",
+    "cf:parity": "bash scripts/parity.sh"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",
