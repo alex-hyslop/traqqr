@@ -54,7 +54,7 @@ export const pricing: Record<Locale, ContentPage> = {
         kind: 'testimonial',
         props: {
           id: 'case-study',
-          badge: 'PLATZHALTER-FALLSTUDIE',
+          badge: 'Platzhalter-Fallstudie',
           title: 'Was 14 Tage verändern können.',
           quote:
             '„Nach 14 Tagen wussten wir zum ersten Mal, welche Anzeige unsere Leads bringt. Traqqr hat 214 Opt-ins und die ersten 9 Käufe zugeordnet – und bei Meta kommen jetzt 17 % mehr Conversions an. Eine Kampagne haben wir pausiert, die viele Leads, aber keine Käufer gebracht hat.“',
@@ -155,7 +155,7 @@ export const pricing: Record<Locale, ContentPage> = {
         kind: 'testimonial',
         props: {
           id: 'case-study',
-          badge: 'PLACEHOLDER CASE STUDY',
+          badge: 'Placeholder case study',
           title: 'What 14 days can change.',
           quote:
             '“After 14 days, we knew for the first time which ad brings our leads. Traqqr attributed 214 opt-ins and our first 9 purchases, and Meta now receives 17% more conversions. We paused one campaign that brought plenty of leads but no buyers.”',

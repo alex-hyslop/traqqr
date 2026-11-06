@@ -1,7 +1,6 @@
 import { useId, useState } from 'react';
 import { Badge, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
-import { ArrowRight } from 'lucide-react';
 import { currency, priceTiers, siteCounts } from '@/data/pricing';
 import type { Locale } from '@/i18n';
 
@@ -49,7 +48,7 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
 
   return (
     <div className="flex h-full flex-col gap-6">
-      <Badge variant="outline" className="self-start font-mono uppercase">
+      <Badge variant="outline" className="self-start">
         {copy.badge}
       </Badge>
       <h2 className="text-3xl leading-10 font-light text-foreground lg:text-[32px]">{copy.title}</h2>
@@ -108,7 +107,6 @@ export function PricingCalculator({ locale, copy, signupHref }: PricingCalculato
       <div className="mt-auto flex justify-end pt-6">
         <a href={href} className={cn(buttonVariants({ size: 'lg' }))}>
           {copy.action}
-          <ArrowRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
         </a>
       </div>
     </div>

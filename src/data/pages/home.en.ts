@@ -34,7 +34,7 @@ export const homeEn: HomePage = {
         videoLabel: 'Play the 2-minute demo',
       },
     },
-    { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'Servers in Germany'] } },
+    { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'German engineering'] } },
     {
       kind: 'stats',
       props: {

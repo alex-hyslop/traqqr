@@ -151,7 +151,7 @@ export const webinarFunnelTracking: Record<Locale, ContentPage> = {
           ],
         },
       },
-      { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'Servers in Germany'], paddingY: 40 } },
+      { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'German engineering'], paddingY: 40 } },
       { kind: 'funnel', props: homeSection('en', 'funnel') },
       {
         kind: 'textMedia',

@@ -130,7 +130,7 @@ export const serverSideTracking: Record<Locale, ContentPage> = {
           video: { label: 'Play the explainer video', href: siteContent.en.cta.demo.href },
         },
       },
-      { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'Servers in Germany'], paddingY: 24 } },
+      { kind: 'trust', props: { items: ['GDPR-compliant', 'EU-hosted', 'German engineering'], paddingY: 24 } },
       {
         kind: 'textMedia',
         props: {

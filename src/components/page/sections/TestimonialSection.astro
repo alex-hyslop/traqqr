@@ -17,11 +17,12 @@ const avatar = await getImage({ src: photo, width: 40, height: 40, format: 'webp
 ---
 
 <!-- No line at the top and the page's own background, so the band runs on from the section above; the grid
-     and the bottom line stay (Kev, 5 Nov: Figma 5282:341, and the pricing case study 5307:463). -->
+     and the bottom line stay (Kev, 5 Nov: Figma 5282:341, and the pricing case study 5307:463).
+     The library's Testimonial hides its badge's ring; every pill has one (Kev, 6 Nov), so it comes back here. -->
 <Reveal>
   <Testimonial
     {...props}
-    className="border-t-0 bg-background"
+    className="border-t-0 bg-background [&_[data-slot=badge]]:border-border"
     photo={{ src: portrait.src, srcSet: portrait.srcSet.attribute }}
     avatar={{ src: avatar.src, srcSet: avatar.srcSet.attribute }}
   />

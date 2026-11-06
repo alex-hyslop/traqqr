@@ -47,7 +47,7 @@ export function Hero({ locale = defaultLocale, title, lead, features, demoLabel,
                 <DesktopLines lines={title} />
               </h1>
               <p className="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">{lead}</p>
-              <CtaButtons primary={trial} secondary={{ ...demo, label: demoLabel, play: true }} />
+              <CtaButtons primary={trial} arrow={false} secondary={{ ...demo, label: demoLabel, play: true }} />
             </div>
 
             <div className="min-w-0 xl:flex-[1_1_45%]">

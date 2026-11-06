@@ -10,7 +10,6 @@
 // rules, 3 Nov).
 import { SectionHeading } from '@klicktipp/traqqr-components';
 import { buttonVariants, cn } from '@klicktipp/traqqr-components/utils';
-import { ArrowRight } from 'lucide-react';
 import CharcoalBand from '@/components/page/CharcoalBand.astro';
 import type { Section } from '@/data/sections';
 
@@ -62,7 +61,6 @@ const { id, badge, title, lead, steps, action } = Astro.props.section.props;
         style={`--row: ${steps.length}`}
       >
         {action.label}
-        <ArrowRight className="size-4" strokeWidth={1.5} aria-hidden="true" />
       </a>
     </div>
   </div>
